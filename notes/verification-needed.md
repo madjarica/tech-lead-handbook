@@ -202,3 +202,91 @@ add specific rows here.
   numbers mislead the comparison.
 - **Suggested source:** Bundlephobia or official package metadata
 - **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** Event loop phases (Theoretical Foundation)
+- **Claim:** Event loop phases are: timers → pending callbacks →
+  idle/prepare → poll → check → close callbacks. `process.nextTick`
+  runs before microtasks between every phase transition.
+- **Why it matters:** The exact phase ordering and nextTick/microtask
+  priority have been clarified across Node.js versions. Incorrect
+  ordering confuses interview answers.
+- **Suggested source:** `https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** ESM vs CommonJS (Theoretical Foundation)
+- **Claim:** ESM requires `"type": "module"` in `package.json` or
+  `.mjs` extension. CJS can `import()` ESM asynchronously but not
+  synchronously.
+- **Why it matters:** ESM interop rules change across Node versions.
+  Incorrect advice causes module resolution failures.
+- **Suggested source:** `https://nodejs.org/api/esm.html`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** Trick Questions (Express async handling)
+- **Claim:** Express 5 adds native async route handler support.
+  Express 4 does not propagate rejected Promises to error middleware.
+- **Why it matters:** Express 5 has been in beta for years. Its
+  release status and feature set should be verified.
+- **Suggested source:** Express.js GitHub repository and changelog
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** Process management
+- **Claim:** Node.js terminates on unhandled promise rejections since
+  v15 (default `--unhandled-rejections=throw`).
+- **Why it matters:** Teams on older Node versions may have different
+  default behavior. This is a version-sensitive claim.
+- **Suggested source:** Node.js v15 release notes
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** Database access: Prisma and TypeORM
+- **Claim:** Prisma query engine binary adds ~200ms cold-start latency
+  in Lambda, and the generated client is ~2MB.
+- **Why it matters:** These are specific performance numbers that may
+  vary across Prisma versions (especially with the Rust-based engine
+  and Prisma Accelerate improvements).
+- **Suggested source:** Prisma documentation (deployment/serverless),
+  Prisma GitHub benchmarks
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** REST, GraphQL, and WebSockets
+- **Claim:** `graphql-depth-limit` and
+  `graphql-validation-complexity` are current recommended libraries for
+  GraphQL query cost analysis.
+- **Why it matters:** GraphQL ecosystem libraries evolve quickly;
+  alternatives like `graphql-query-complexity` or built-in Apollo
+  features may have superseded these.
+- **Suggested source:** Apollo Server documentation (2025+), npm
+  package status
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/10-nodejs.md`
+- **Section:** Performance (Interview Q&A), Good Answer vs Weak Answer
+- **Claim:** Fastify handles ~3x the throughput of Express for JSON
+  response workloads; NestJS adds ~10–15% overhead on top of its
+  underlying adapter.
+- **Why it matters:** These are specific performance multipliers that
+  depend on benchmark methodology, payload size, and framework version.
+  Incorrect numbers undermine credibility in an interview.
+- **Suggested source:** Fastify benchmarks repository
+  (`fastify/benchmarks`), independent TechEmpower benchmarks
+- **Status:** unverified
