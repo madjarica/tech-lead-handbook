@@ -78,3 +78,23 @@ Format: one row per question.
   refresher tool.
 - **Owner:** author.
 - **Status:** open.
+
+### Tech Lead Decision-Making as a standard section
+
+- **Topic:** `CHAPTER_TEMPLATE.md` / all chapters.
+- **Question:** Should `## Tech Lead Decision-Making` be added to the
+  canonical template? Both `book/05-javascript.md` and
+  `book/06-typescript.md` include it between Production Considerations
+  and How to Explain This in an Interview. The template currently says
+  "Do not add new top-level sections without updating BOOK_SPEC.md."
+- **Options:**
+  1. Add it to `CHAPTER_TEMPLATE.md` as an official section.
+  2. Keep it as an optional section allowed per-chapter (document the
+     exception in BOOK_SPEC.md).
+  3. Fold the content into the existing "Production Considerations"
+     or "Tech Lead Checklist" sections and remove it.
+- **Decision criteria:** whether the narrative decision-making format
+  adds enough interview value to justify a section beyond what the
+  checklist provides.
+- **Owner:** author.
+- **Status:** open.

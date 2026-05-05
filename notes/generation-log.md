@@ -193,3 +193,120 @@ Format: one entry per change, newest at the bottom.
 - **Follow-ups:** One structural note: `## Tech Lead Decision-Making`
   is not in CHAPTER_TEMPLATE but adds significant value. Consider
   updating BOOK_SPEC if this pattern is adopted in other chapters.
+
+### 2026-05-05 — Chapter Generation: TypeScript (06)
+
+- **File:** `book/06-typescript.md`
+- **Change:** Generated full chapter content from skeleton. Covers:
+  structural typing, type inference, narrowing, type guards,
+  discriminated unions, generics, utility types, mapped types,
+  conditional types, infer, keyof, typeof, satisfies, unknown/any/never,
+  strict mode, tsconfig, declaration files, module resolution, type
+  erasure, typing API responses (Zod), typing React props, typing Node
+  services, runtime validation, branded types, type safety at scale.
+  Includes:
+  - 30 Basic/Senior questions
+  - 10 Tech Lead questions (detailed format)
+  - 10 Scenario-based questions (detailed format)
+  - 5 Trick questions
+  - 5 Red flags
+  Total chapter line count: ~1982. Code blocks: 36 pairs (ts, json,
+  mermaid).
+- **Toolchain:** N/A.
+- **Follow-ups:** 3 verification items added to
+  `notes/verification-needed.md` (strict family composition,
+  module resolution modes, TC39 decorators).
+
+### 2026-05-05 — Quality Pass: Expand Interview Q&A (TypeScript)
+
+- **File:** `book/06-typescript.md`
+- **Change:** Expanded Interview Q&A section. Added 3 new category
+  sections (Performance: 6 questions, Security: 5 questions,
+  Testing/quality: 6 questions). Added 5 more Senior questions
+  (distributive conditionals, Pick/Omit dangers, conditional return
+  types, readonly depth, Express middleware typing). Added 5 more
+  Tech Lead questions (API contract sync, breaking type changes,
+  build time reduction, decorator migration, DX bottlenecks). Added
+  1 more Scenario-based question (JS-to-TS migration plan). Final
+  counts:
+  - Basic: 30
+  - Senior: 15
+  - Tech Lead: 15
+  - Scenario-based: 10
+  - Performance: 6
+  - Security: 5
+  - Testing/quality: 6
+  - Trick Questions: 5
+  - Red Flags: 5
+  Total questions: ~97. Total chapter line count: ~2326.
+- **Toolchain:** N/A.
+- **Follow-ups:** None.
+
+### 2026-05-05 — Quality Pass: Improve Code Examples (TypeScript)
+
+- **File:** `book/06-typescript.md`
+- **Change:** Added 7 new production-grade code examples to the
+  `## Examples` section, each with four-part explanation (what /
+  why useful / common mistake / production change):
+  - Utility types in practice (CRUD service with Omit/Partial/Pick)
+  - `unknown` at the boundary (JSON parsing safely)
+  - `satisfies` vs type annotation (catching mistakes without widening)
+  - Generic service interface with Result type
+  - React custom hook with Zod schema (runtime + compile-time)
+  - Narrowing with discriminated API responses
+  - Conditional types for route parameter extraction
+  Total code blocks in chapter: 44 pairs. Total chapter line count:
+  ~2556.
+- **Toolchain:** N/A.
+- **Follow-ups:** None.
+
+## Quality Pass: Strengthen Tech Lead Perspective — TypeScript
+
+- **Date:** 2026-05-05
+- **Chapter:** `book/06-typescript.md`
+- **Scope:** Add Tech Lead decision-making narrative; expand Tech Lead
+  Checklist with operational and team-knowledge items; strengthen
+  Summary.
+- **Changes:**
+  - Added `## Tech Lead Decision-Making` section (~240 lines) with 9
+    subsections: deciding where strict typing creates value; balancing
+    type safety and delivery speed; team conventions for any/unknown/
+    assertions; TypeScript migration strategy; preventing type
+    gymnastics; when not to use TypeScript; cost implications;
+    debugging TypeScript issues in production; explaining TypeScript
+    decisions to stakeholders.
+  - Expanded `## Tech Lead Checklist` from 4 categories to 6 (added
+    "Team knowledge and complexity governance" and "Operational
+    resilience" with 10 additional items).
+  - Strengthened Summary bullet to include delivery-speed balance and
+    stakeholder framing.
+  Total chapter line count: ~2826.
+- **Toolchain:** N/A.
+- **Follow-ups:** None.
+
+## Quality Pass: Chapter Audit — TypeScript
+
+- **Date:** 2026-05-05
+- **Chapter:** `book/06-typescript.md`
+- **Scope:** Audit against BOOK_SPEC.md, STYLE_GUIDE.md,
+  CHAPTER_TEMPLATE.md, and SUMMARY.md.
+- **Findings and fixes:**
+  - **Production Considerations**: Added 3 missing bullets required by
+    the template (Reliability/on-call, Cost, Team/hiring implications).
+  - **Further Study**: Added 3 missing cross-links to related chapters
+    (Security, Testing and Quality, CI/CD and DevOps) per BOOK_SPEC.md
+    cross-linking requirement.
+  - **Verification needed**: Added 3 new items to
+    `notes/verification-needed.md` (TS 4.1 key remapping version,
+    TS 4.9 `satisfies` version, Zod/io-ts bundle size claims).
+  - **Open questions**: Added 1 new item about whether
+    `## Tech Lead Decision-Making` should be formalized in the
+    template (present in both JS and TS chapters but not in
+    CHAPTER_TEMPLATE.md).
+  - No broken formatting, no missing language tags, no code in
+    headings, no duplicate content, no shallow definitions, no hype
+    words detected.
+  Total chapter line count: ~2843.
+- **Toolchain:** N/A.
+- **Follow-ups:** Resolve the "Tech Lead Decision-Making as a standard
+  section" open question before generating remaining chapters.

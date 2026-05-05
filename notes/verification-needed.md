@@ -138,3 +138,67 @@ add specific rows here.
   and Node support should be confirmed.
 - **Suggested source:** MDN `structuredClone` compat table.
 - **Status:** unverified
+
+---
+
+- **Chapter:** `book/06-typescript.md`
+- **Section:** Strict mode and tsconfig
+- **Claim:** The exact flags included under `strict` and the behavior
+  of `verbatimModuleSyntax` (e.g. whether it replaces
+  `importsNotUsedAsValues`).
+- **Why it matters:** The strict family composition changes across TS
+  versions. Incorrect advice causes confusion when enabling strict.
+- **Suggested source:** `https://www.typescriptlang.org/tsconfig`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/06-typescript.md`
+- **Section:** Module resolution
+- **Claim:** `bundler` module resolution mode added in TypeScript 5.0;
+  behavior of `node16`/`nodenext` regarding `package.json` exports.
+- **Why it matters:** Module resolution is the #1 source of TS
+  configuration bugs. Incorrect guidance leads to broken imports.
+- **Suggested source:** `https://www.typescriptlang.org/docs/handbook/modules/reference.html`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/06-typescript.md`
+- **Section:** Scenario-based (decorators question)
+- **Claim:** TC39 stage 3 decorators available in TypeScript 5.0+ with
+  different API than legacy `experimentalDecorators`.
+- **Why it matters:** Teams choosing decorator-based DI must know which
+  version they target. The two APIs are incompatible.
+- **Suggested source:** TypeScript 5.0 release notes
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/06-typescript.md`
+- **Section:** Mapped types (Theoretical Foundation)
+- **Claim:** Key remapping added in TypeScript 4.1.
+- **Why it matters:** If the version is wrong, readers may try using
+  the feature in an earlier version and get confusing errors.
+- **Suggested source:** TypeScript 4.1 release notes
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/06-typescript.md`
+- **Section:** The satisfies operator (Theoretical Foundation)
+- **Claim:** `satisfies` added in TypeScript 4.9.
+- **Why it matters:** Version-pinned advice; teams on older TS cannot
+  use this feature.
+- **Suggested source:** TypeScript 4.9 release notes
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/06-typescript.md`
+- **Section:** Interview Q&A — Tech Lead (Zod vs io-ts question)
+- **Claim:** Zod bundle size ~13 KB; io-ts requires fp-ts ~30 KB.
+- **Why it matters:** Bundle size is a decision factor; incorrect
+  numbers mislead the comparison.
+- **Suggested source:** Bundlephobia or official package metadata
+- **Status:** unverified
