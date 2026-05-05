@@ -1011,3 +1011,295 @@ Format: one entry per change, newest at the bottom.
   compression ratio (60-70%).
 - **Total line count:** 3178 (-3 from removing duplicate). Code blocks:
   33 pairs (removed 1 duplicate).
+
+## Chapter: Security (`book/15-security.md`)
+
+### Initial Generation (2026-05-05)
+
+- **Scope:** Generated full chapter content from skeleton (159 lines).
+- **Topics covered:**
+  - Threat modeling (STRIDE framework, how to run a threat model)
+  - Authentication patterns (sessions, JWT, OAuth 2.0 + PKCE, OIDC)
+  - Authorization (RBAC, ABAC with code examples, comparison table)
+  - OWASP Top 10 (2021 edition, table with mitigations)
+  - XSS (types, prevention with code)
+  - CSRF (prevention strategies table, SameSite)
+  - SQL injection (bad vs good code, parameterized queries)
+  - SSRF (attack example, prevention with URL validation)
+  - CORS (configuration example, critical rules)
+  - CSP (nonce-based policy, deployment strategy)
+  - Password hashing (Argon2id example, algorithm comparison table)
+  - MFA (TOTP implementation, WebAuthn recommendation)
+  - Secrets management (hierarchy table, Vault dynamic secrets)
+  - Encryption at rest and in transit (envelope encryption with KMS)
+  - Secure headers (Helmet configuration, headers table)
+  - Rate limiting for security (login endpoint pattern)
+  - Dependency scanning (CI pipeline, supply chain protections)
+  - Container security (Dockerfile patterns, checklist)
+  - Cloud security (IAM, network isolation, encryption defaults)
+  - Logging and audit trails (what to log/not log, structured example)
+  - Incident response (lifecycle, leaked secret playbook)
+- **Sections:**
+  - Chapter Goal, Why This Matters for a Tech Lead, Mental Model
+    (Mermaid diagram of defense in depth), Core Terminology (18 terms,
+    4 distinctions), Theoretical Foundation (15 subsections), Practical
+    Usage (5 patterns), Examples (3 with 4-part explanations), Common
+    Mistakes (8), Trade-offs (comparison table, 6 decisions), Production
+    Considerations (all 8 template items), Tech Lead Decision-Making
+    (3 subsections), How to Explain (3 openings), Good Answer vs Weak
+    Answer, Tech Lead Checklist (5 categories, 21 items), Interview
+    Q&A, Summary (7 bullets), Further Study (10 items with cross-links).
+- **Interview Q&A counts:** Basic 16, Senior 14, Tech Lead 10,
+  Scenario 10, Trick 5, Red Flags 5. Total: 55 questions + 5 red-flag
+  entries = 60 items.
+- **Total line count:** 1976. Code blocks: 25 pairs.
+- **Follow-ups:** Verify OWASP Top 10 2021 edition is still current;
+  verify Argon2id recommended parameters; verify KMS pricing claim.
+
+### Multi-Pass: security-pass-01-auth-and-web-security
+
+- **Date:** 2026-05-05
+- **Scope:** Enhanced 7 topic sections (authentication/sessions, JWT,
+  OAuth 2.0/OIDC, RBAC/ABAC, XSS, CSRF, CORS, CSP) with the full
+  8-point structure: What it is, Why it matters, Attack/failure scenario,
+  Practical prevention, Common mistakes, Production checklist, Tech Lead
+  perspective, Interview framing.
+- **Changes:**
+  - **Sessions:** Added session fixation attack scenario, 7-item
+    production checklist, interview framing paragraph.
+  - **JWT:** Added algorithm confusion attack scenario, 8-item
+    production checklist, Tech Lead perspective paragraph, interview
+    framing paragraph.
+  - **OAuth 2.0 / OIDC:** Added authorization code interception attack
+    scenario (without PKCE), 5 common mistakes, 9-item production
+    checklist, Tech Lead perspective, interview framing.
+  - **RBAC / ABAC:** Added IDOR attack scenario with code example
+    (BAD vs GOOD ownership check), 7-item authorization production
+    checklist, interview framing.
+  - **XSS:** Added stored XSS attack scenario (collaboration tool),
+    6 common mistakes, 7-item production checklist, Tech Lead
+    perspective, interview framing.
+  - **CSRF:** Added banking app attack scenario, 5 common mistakes,
+    5-item production checklist, expanded Tech Lead perspective,
+    interview framing.
+  - **CORS:** Added origin-reflection attack scenario with BAD code
+    example, 4 common mistakes, 5-item production checklist, Tech Lead
+    perspective, interview framing.
+  - **CSP:** Added dangling markup bypass attack scenario, nonce-based
+    CSP middleware code example, 8-item production checklist, Tech Lead
+    perspective (phased deployment), interview framing.
+- **New code blocks added:** 3 (CORS BAD example, IDOR BAD/GOOD, CSP
+  nonce middleware).
+- **Total line count:** 2375 (+399 from 1976). Code blocks: 28 pairs
+  (+3 from 25).
+
+### Multi-Pass: security-pass-02-app-cloud-supply-chain
+
+- **Date:** 2026-05-05
+- **Scope:** Enhanced 15 topic sections (SQL injection, SSRF, rate
+  limiting, password hashing, MFA, secrets management, encryption at
+  rest, encryption in transit/TLS, secure headers, dependency scanning,
+  container security, cloud security, logging sensitive data, audit
+  logs) with the full 8-point structure.
+- **Changes per section:**
+  - **SQL injection:** Added "Why it matters", second-order injection
+    attack scenario, 5 common mistakes, 6-item production checklist,
+    Tech Lead perspective, interview framing.
+  - **SSRF:** Added "Why it matters" (Capital One reference), cloud
+    metadata theft attack scenario, 4 common mistakes (DNS rebinding,
+    IPv6 bypass, redirects, blocklist), 7-item production checklist,
+    Tech Lead perspective (architecture-level fix), interview framing.
+  - **Password hashing:** Added "Why it matters", credential stuffing
+    attack scenario, 5 common mistakes, 7-item production checklist,
+    Tech Lead perspective (work factor tuning, hash migration),
+    interview framing.
+  - **MFA:** Added "Why it matters" (Microsoft 99.9% stat), real-time
+    phishing relay attack scenario, 6 common mistakes, 8-item
+    production checklist, expanded Tech Lead perspective (adoption vs
+    security), interview framing.
+  - **Rate limiting:** Added "Why it matters", credential stuffing
+    attack scenario, 5 common mistakes, 8-item production checklist,
+    Tech Lead perspective (two-layer strategy), interview framing.
+  - **Secrets management:** Added "Why it matters" (GitHub 10M secrets
+    stat), Git history attack scenario, 6 common mistakes, 8-item
+    production checklist, Tech Lead perspective (make secure path easy),
+    interview framing.
+  - **Encryption (at rest + in transit/TLS):** Added "Why it matters",
+    two attack scenarios (missing TLS internal, missing encryption at
+    rest S3), 6 common mistakes, 9-item production checklist, Tech Lead
+    perspective (envelope encryption, mTLS), interview framing.
+  - **Secure headers:** Added "Why it matters", clickjacking attack
+    scenario, 5 common mistakes, 8-item production checklist, Tech Lead
+    perspective (infrastructure-level deployment), interview framing.
+  - **Dependency scanning:** Added "Why it matters" (Log4Shell
+    reference), dependency confusion attack scenario, 5 common mistakes,
+    8-item production checklist, Tech Lead perspective (policy and SLA),
+    interview framing.
+  - **Container security:** Added "Why it matters", container escape
+    via root attack scenario, 6 common mistakes, 10-item production
+    checklist, Tech Lead perspective (organizational baseline, debug
+    containers), interview framing.
+  - **Cloud security:** Added "Why it matters", overly permissive IAM
+    attack scenario, 6 common mistakes, 9-item production checklist,
+    Tech Lead perspective (IAM strategy, IaC mandate), interview framing.
+  - **Logging/audit:** Added "Why it matters", two attack scenarios
+    (logging sensitive data, missing audit trail), 6 common mistakes,
+    9-item production checklist, expanded Tech Lead perspective (logging
+    standard), interview framing.
+- **New code blocks added:** 0 (existing code examples were sufficient;
+  enhancements are narrative/checklist/framing).
+- **Total line count:** 3105 (+730 from 2375). Code blocks: 28 pairs
+  (unchanged).
+
+### Multi-Pass: security-pass-03-threat-modeling-incident-qa
+
+- **Date:** 2026-05-05
+- **Scope:** Enhanced OWASP Top 10, threat modeling, secure auth flow
+  examples, bad vs good JWT usage, incident response, web app security
+  checklist, Tech Lead security responsibilities, and interview Q&A.
+- **Changes per section:**
+  - **OWASP Top 10:** Added "Why it matters", 2017→2021 shift analysis,
+    A01 attack scenario (bypass gateway), 4 common mistakes, 10-item
+    production checklist (mapped to A01-A10), Tech Lead perspective
+    (OWASP as communication framework + ASVS), interview framing.
+  - **Threat modeling:** Added "Why it matters", missing threat model
+    attack scenario (share via link), 5 common mistakes, 6-item
+    production checklist, expanded Tech Lead perspective (risk-based
+    criteria, facilitation, output), interview framing.
+  - **Secure auth flow:** Added "Attack scenarios prevented" section
+    (3 attacks: code interception, CSRF on callback, token leakage),
+    8-item production checklist, Tech Lead perspective (use library,
+    not custom), interview framing.
+  - **Bad vs good JWT usage:** Added new section with side-by-side code
+    examples (5 dangerous patterns vs 5 secure patterns), 4-part
+    explanation.
+  - **Incident response:** Added "Why it matters" (MTTC metric),
+    delayed response attack scenario, 6 common mistakes, 8-item
+    production checklist (roles, pre-auth, game days, forensics),
+    Tech Lead perspective (pre-authorized actions, drills), interview
+    framing.
+  - **Web app security checklist:** Expanded from 2-line summary to
+    full structured checklist (6 categories, 25+ items), interview
+    framing.
+  - **Tech Lead security responsibilities:** Added new matrix table
+    (10 responsibilities with frequency), interview framing.
+  - **Interview Q&A:** Added 3 new scenario-based questions (file
+    upload threat model, former employee access revocation, payment
+    feature security architecture).
+- **New code blocks added:** 2 (bad JWT patterns, good JWT patterns).
+- **Total line count:** 3515 (+410 from 3105). Code blocks: 30 pairs
+  (+2 from 28).
+
+### Quality Pass: Expand Interview Q&A — Security
+
+- **Date:** 2026-05-05
+- **Scope:** Expanded Interview Q&A section to meet target counts.
+- **Changes:**
+  - Added 14 Basic questions: OWASP Top 10 overview, Same-Origin Policy,
+    defense in depth, vulnerability vs exploit, httpOnly cookies, CSRF
+    tokens, rate limiting algorithms, envelope encryption, OIDC vs
+    OAuth 2.0, MITM prevention, symmetric vs asymmetric encryption,
+    container image scanning, credential stuffing vs brute force, zero
+    trust principles.
+  - Added 1 Senior question: secure password reset flow design (8
+    security considerations).
+  - Added 5 Tech Lead questions (detailed format): multi-tenant SaaS
+    security architecture, stored XSS architectural remediation,
+    application security program without dedicated team, JWT symmetric
+    key migration plan, cloud provider auth outage handling.
+- **Final Q&A counts:** Basic 30, Senior 15, Tech Lead 15, Scenario 13,
+  Trick 5, Red Flags 5. Total: 78 Q&A items + 5 red-flag entries =
+  83 items.
+- **Total line count:** 3772 (+257 from 3515). Code blocks: 30 pairs
+  (unchanged).
+
+### Quality Pass: Improve Code Examples — Security
+
+- **Date:** 2026-05-05
+- **Scope:** Added missing code examples and 4-part explanations (What,
+  Why, Common Mistake, Production Change) where they were absent.
+- **Changes:**
+  - **CSRF protection:** Added new code example (38 lines) showing the
+    double-submit cookie + custom header pattern for SPAs, with 4-part
+    explanation.
+  - **Rate limiting:** Added 4-part explanation to the existing login
+    rate limiter code block (dual key, progressive penalties, sliding
+    window recommendation).
+  - **Dependency/container scanning:** Replaced minimal 12-line YAML
+    with a comprehensive 32-line GitHub Actions pipeline including:
+    npm audit, Trivy filesystem scan, Trivy container image scan,
+    TruffleHog secret scanning, SBOM generation. Added 4-part
+    explanation (pinned versions, exception files, central registry).
+  - **Container security (Dockerfile):** Added 4-part explanation to the
+    existing multi-stage Dockerfile (distroless benefits, npm ci vs
+    install, readOnlyRootFilesystem, SHA digest pinning).
+  - **Secrets management (Vault):** Added 4-part explanation to the
+    dynamic secret pattern (lease renewal, AppRole auth, connection
+    pooling integration, graceful degradation).
+  - **Audit logging:** Added 4-part explanation to the structured audit
+    log example (forensic fields, query patterns, correlationId,
+    append-only store).
+- **Examples already present (verified adequate):** Session cookies,
+  JWT bad/good patterns, OAuth2 PKCE flow, RBAC/ABAC code, XSS
+  prevention, SQL injection, CORS configuration, CSP nonce middleware,
+  password hashing (Argon2id), secure headers (Helmet), threat model
+  (share via link feature).
+- **New code blocks added:** 1 (CSRF double-submit pattern). Dependency
+  scanning YAML was replaced (not net-new).
+- **Total line count:** 3959 (+187 from 3772). Code blocks: 31 pairs
+  (+1 from 30).
+
+### Quality Pass: Strengthen Tech Lead Perspective — Security
+
+- **Date:** 2026-05-05
+- **Scope:** Added 4 new subsections to `## Tech Lead Decision-Making`
+  focused on decision-making, stakeholder communication, AI code safety,
+  and process integration.
+- **New subsections:**
+  - **Deciding acceptable risk:** Risk acceptance framework (5-tier
+    table with required documentation), practical CVE triage example,
+    "when to say no to a security investment" criteria, interview
+    framing.
+  - **Explaining security decisions to stakeholders:** Communication
+    framework table (PM, Director, CTO, CEO — what they care about,
+    how to frame security), 3 practical examples (dependency SLA
+    justification, secrets management justification, PCI scope
+    avoidance), interview framing.
+  - **Security guardrails for AI-generated code:** 8 common AI
+    anti-patterns, 5-layer guardrail table (IDE → pre-commit → CI →
+    review → runtime), 5-item production checklist, interview framing.
+  - **Building security into team processes without slowing delivery:**
+    3 anti-patterns (bottleneck approaches), 5 effective patterns table,
+    cost of NOT integrating, stakeholder explanation, interview framing.
+- **Total line count:** 4151 (+192 from 3959). Code blocks: 31 pairs
+  (unchanged).
+
+### Quality Pass: Chapter Audit — Security
+
+- **Date:** 2026-05-05
+- **Scope:** Audited `book/15-security.md` against BOOK_SPEC.md,
+  STYLE_GUIDE.md, CHAPTER_TEMPLATE.md, and SUMMARY.md.
+- **Issues found and fixed:**
+  1. Missing internal cross-links: added links to Docker/K8s (×2),
+     AWS, and Testing chapters in body content (service-to-service,
+     cloud infra, container security, SAST/DAST Q&A).
+  2. Further Study section incomplete: added Docker/K8s, AWS, and
+     Testing chapters with context descriptions.
+  3. Cross-link count increased from 7 to 14.
+- **Issues reviewed, no change needed:**
+  - All code blocks have correct language tags (ts, yaml, dockerfile,
+    mermaid, json, text). ✓
+  - No banned hype words found (seamless, powerful, etc.). ✓
+  - All template sections present and in order. ✓
+  - Trade-off table present (line 2760). ✓
+  - Mental model with Mermaid diagram present. ✓
+  - Good Answer vs Weak Answer section present. ✓
+  - Tech Lead Checklist concrete and verifiable (5 subsections). ✓
+  - Q&A section covers all 6 required categories. ✓
+  - Summary has 7 bullet points (within 5-8 range). ✓
+- **Non-standard section noted:** `## Tech Lead Decision-Making` is not
+  in CHAPTER_TEMPLATE.md but provides domain-specific value for this
+  security chapter (risk acceptance, stakeholder communication, AI
+  guardrails, process integration). Retained.
+- **Total line count:** 4162 (+11 from 4151). Code blocks: 31 pairs
+  (unchanged). Cross-links: 14 (up from 7).

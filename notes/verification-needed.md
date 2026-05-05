@@ -396,3 +396,122 @@ add specific rows here.
 - **Suggested source:** Google Brotli benchmarks, real-world API
   payload tests
 - **Status:** unverified (treated as rough order of magnitude)
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / OWASP Top 10
+- **Claim:** The OWASP Top 10 2021 edition is the current version with
+  the categories listed (A01-A10).
+- **Why it matters:** OWASP may release a new edition. The 2021 edition
+  reorganized categories significantly from 2017.
+- **Suggested source:** OWASP Top 10 official page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / Password hashing
+- **Claim:** Argon2id recommended parameters: 64MB memory, 3 iterations,
+  4 parallelism.
+- **Why it matters:** OWASP password storage cheat sheet and RFC 9106
+  provide recommendations that may differ. Parameters depend on
+  hardware and threat model.
+- **Suggested source:** OWASP Password Storage Cheat Sheet, RFC 9106
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Production Considerations / Cost
+- **Claim:** AWS KMS costs $0.03 per 10K API calls.
+- **Why it matters:** AWS pricing changes. This is the symmetric key
+  API call pricing in us-east-1.
+- **Suggested source:** AWS KMS pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / OAuth 2.0
+- **Claim:** OAuth 2.1 deprecates the Implicit flow and the Password
+  grant.
+- **Why it matters:** OAuth 2.1 was in draft as of 2024. Check if it
+  has reached RFC status.
+- **Suggested source:** IETF OAuth 2.1 draft or RFC
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / CSP
+- **Claim:** CSP deployment typically takes 2-4 sprints for a large
+  application.
+- **Why it matters:** This is an estimate based on industry experience.
+  It may vary significantly depending on application size and
+  third-party dependencies.
+- **Suggested source:** Industry reports, GitHub CSP case studies
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / MFA
+- **Claim:** Microsoft reports MFA blocks 99.9% of automated attacks.
+- **Why it matters:** This statistic is frequently cited but may be
+  from a specific 2019 blog post. Verify the source and whether more
+  recent data exists.
+- **Suggested source:** Microsoft Security Blog, Azure AD identity
+  protection reports
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / Dependency scanning
+- **Claim:** GitHub detected over 10 million secrets in public
+  repositories in 2023.
+- **Why it matters:** The exact number and year should be verified
+  against GitHub's official Octoverse or security reports.
+- **Suggested source:** GitHub Octoverse 2023, GitHub Secret Scanning
+  blog posts
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Theoretical Foundation / SSRF
+- **Claim:** The Capital One breach (2019) exploited SSRF to access
+  AWS instance metadata.
+- **Why it matters:** While widely reported as SSRF, the exact attack
+  vector involved a misconfigured WAF. Verify accuracy of the SSRF
+  characterization.
+- **Suggested source:** US DOJ indictment, Capital One breach
+  post-mortem, Krebs on Security analysis
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** OWASP Top 10
+- **Claim:** OWASP Top 10 2021 edition moved "Insecure Design" from
+  unranked to A04 and "Software Integrity" to A08. These represent
+  new categories in the 2021 edition.
+- **Why it matters:** The exact changes from 2017→2021 should be
+  verified against the official OWASP documentation to ensure accurate
+  characterization.
+- **Suggested source:** OWASP Top 10 2021 official release notes,
+  comparison page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/15-security.md`
+- **Section:** Incident Response
+- **Claim:** GDPR requires data breach notification within 72 hours.
+- **Why it matters:** GDPR Article 33 specifies 72 hours to notify
+  the supervisory authority. Verify this is still current and check if
+  other jurisdictions have different timelines.
+- **Suggested source:** GDPR Article 33, ICO guidance on breach
+  notification
+- **Status:** unverified
