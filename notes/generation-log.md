@@ -652,3 +652,184 @@ Format: one entry per change, newest at the bottom.
     in `notes/open-questions.md`.
 - **Total line count:** 4907. Code blocks: 72 pairs.
 - **Follow-ups:** Verify Fastify ~3x and NestJS ~10–15% claims.
+
+---
+
+## `book/02-sql-and-nosql.md`
+
+### Initial Generation (2026-05-05)
+
+- **Scope:** Full chapter covering SQL and NoSQL databases, generated
+  from skeleton.
+- **Topics covered:**
+  - Relational model (tables, rows, columns, keys, constraints).
+  - Normalization and denormalization (1NF–3NF, BCNF, when to each).
+  - Indexes (B-tree, hash, GIN, GiST, BRIN, partial, covering,
+    multi-column, leftmost prefix rule).
+  - Joins (nested loop, hash join, merge join, N+1 problem).
+  - Query planning and EXPLAIN/EXPLAIN ANALYZE (plan nodes, reading
+    output, pg_stat_statements).
+  - Transactions and ACID (isolation levels, MVCC, PostgreSQL
+    specifics, serialization anomalies).
+  - Locks and deadlocks (row/table/advisory, optimistic vs
+    pessimistic, SKIP LOCKED queue pattern).
+  - Migrations (safe patterns, expand-and-contract, CONCURRENTLY).
+  - Views and materialized views (REFRESH CONCURRENTLY).
+  - Stored procedures (when to use, when to avoid).
+  - Pagination (offset, cursor/keyset, seek).
+  - Full-text search (tsvector, GIN, when to move to Elasticsearch).
+  - Multi-tenant schemas (shared/schema-per/DB-per, RLS).
+  - NoSQL families (key-value, document, wide-column, graph).
+  - Redis, MongoDB, DynamoDB (single-table design), Neo4j.
+  - Replication (primary-replica, logical vs physical, lag).
+  - Sharding (hash, range, directory, partition key selection).
+  - Consistency models (strong, eventual, causal, CRDT).
+  - CAP theorem and PACELC.
+  - Caching (layers, cache-aside, invalidation, stampede).
+  - TTL and expiration (Redis, DynamoDB, PostgreSQL patterns).
+- **Sections generated:**
+  - Chapter Goal, Why This Matters, Mental Model (with Mermaid),
+    Core Terminology, Theoretical Foundation (17 subsections),
+    Practical Usage (7 workload types), Examples (5 with 4-part
+    explanations), Common Mistakes (8), Trade-offs (table with 8
+    database types), Production Considerations (8 areas), How to
+    Explain This in an Interview (3 openings), Good Answer vs Weak
+    Answer, Tech Lead Checklist (4 sections, 18 items), Interview
+    Q&A (Basic: 30, Senior: 14, Tech Lead: 10 detailed, Scenario:
+    10, Trick: 5, Red Flags: 5).
+- **Total line count:** 2152. Code blocks: 24 pairs.
+- **Toolchain:** N/A.
+- **Follow-ups:** Verify DynamoDB TTL deletion timing claim.
+
+### Quality Pass: Expand Interview Q&A (2026-05-05)
+
+- **Scope:** Expand Interview Questions and Answers section of
+  `book/02-sql-and-nosql.md`.
+- **Changes:**
+  - Added 1 Senior question (DynamoDB single-table design). Total: 15.
+  - Added 5 Tech Lead questions in detailed format (write throughput
+    ceiling, data retention policy, database cost management, OLTP/OLAP
+    strategy, polyglot persistence governance). Total: 15.
+  - Added new `### Performance` section (7 questions): slow query
+    identification, table bloat, OFFSET pagination, missing JOIN index,
+    p99 latency, covering indexes, connection pooling.
+  - Added new `### Security` section (7 questions): SQL injection,
+    least-privilege access, encryption at rest/transit, audit for
+    compliance, credential rotation, multi-tenant data leakage,
+    backup security.
+  - Added new `### Testing and Quality` section (7 questions): testing
+    queries without mocking, migration testing, data integrity
+    validation, database load testing, backward-compatible schema
+    changes, monitoring/alerting, test data management.
+- **Final Q&A counts:** Basic 30, Senior 15, Tech Lead 15,
+  Scenario 10, Performance 7, Security 7, Testing/Quality 7,
+  Trick 5, Red Flags 5. Total: 96 questions/items.
+- **Total line count:** 2442. Code blocks: 24 pairs.
+- **Follow-ups:** None.
+
+### Quality Pass: Improve Code Examples (2026-05-05)
+
+- **Scope:** Add and improve practical code/configuration examples in
+  `book/02-sql-and-nosql.md`.
+- **Changes:**
+  - Added normalization vs denormalization SQL example (normalized 3NF
+    schema and denormalized summary table) with 4-part explanation.
+  - Added JOIN examples (INNER JOIN, LEFT JOIN, FK index) with 4-part
+    explanation.
+  - Added indexing comparison (bad single-column, good composite,
+    partial, covering) with 4-part explanation.
+  - Added EXPLAIN ANALYZE sample plan output with annotated
+    interpretation and red flags checklist.
+  - Added transaction example with Serializable isolation (SQL + TypeScript
+    retry loop) with 4-part explanation.
+  - Added offset vs cursor pagination SQL examples with 4-part explanation.
+  - Added full-text search 4-part explanation (What/Why/Mistake/Production).
+  - Added multi-tenant RLS full-stack example (schema, policy,
+    TypeScript middleware) with 4-part explanation.
+  - Added MongoDB document modeling example (product catalog with
+    embedded variants) with 4-part explanation.
+  - Added eventual consistency problem + mitigation (read-after-write,
+    LSN routing) with 4-part explanation.
+  - Added expand-and-contract migration example (rename column safely,
+    up/down scripts for both phases) with 4-part explanation.
+- **Total line count:** 2908. Code blocks: 43 pairs.
+- **Follow-ups:** None.
+
+### Quality Pass: Strengthen Tech Lead Perspective (2026-05-05)
+
+- **Scope:** Add `## Tech Lead Decision-Making` section and strengthen
+  inline Tech Lead perspectives in `book/02-sql-and-nosql.md`.
+- **Changes:**
+  - Expanded `## Why This Matters for a Tech Lead` with stronger
+    motivation (one-way door analogy, data growth planning, cost of
+    inaction framing).
+  - Added `## Tech Lead Decision-Making` section with 9 subsections:
+    1. *Choosing a database under real constraints* — team capability,
+       operational burden, access pattern certainty, data gravity,
+       compliance.
+    2. *Data ownership and schema evolution governance* — approval flow,
+       migration review checklist (4 questions), schema versioning,
+       event-driven coupling.
+    3. *Performance vs correctness trade-offs* — 5-scenario decision
+       table, decision framework, stakeholder explanation.
+    4. *Migration risk management* — 4-tier risk matrix, timing,
+       capacity planning, database-to-database migration phases.
+    5. *Operational cost and infrastructure budget* — instance sizing,
+       reserved vs on-demand, storage projection, cost table.
+    6. *Debugging and incident response* — 5-step triage flowchart,
+       runbook ownership, post-incident actions.
+    7. *When NOT to use a relational database* — 6-row signal table
+       with better-fit alternatives.
+    8. *Explaining database decisions to non-technical stakeholders* —
+       3 scenario scripts (cost justification, migration delay,
+       technology selection).
+    9. *Production readiness checklist for a new database* — 10
+       actionable items.
+  - Added Tech Lead perspective to Replication section (SLA definition,
+    lag alerting thresholds, degraded-mode decision).
+  - Added Tech Lead perspective to Caching section (what to cache
+    policy, anti-pattern of caching everything).
+  - Strengthened Polyglot persistence section with operational cost
+    decision framework (4 questions before adding a new database).
+- **Total line count:** 3251. Code blocks: 43 pairs.
+- **Follow-ups:** None.
+
+### Quality Pass: Chapter Audit (2026-05-05)
+
+- **Scope:** Audit `book/02-sql-and-nosql.md` against BOOK_SPEC.md,
+  STYLE_GUIDE.md, CHAPTER_TEMPLATE.md, and SUMMARY.md.
+- **Issues found and fixed:**
+  - Fixed 1 untagged code fence (EXPLAIN ANALYZE output, line 461):
+    added `text` language tag.
+  - Fixed 2 broken cross-links: `./16-ci-cd.md` → `./17-ci-cd-and-devops.md`.
+  - Added 2 missing cross-links in Further Study: Testing and Quality
+    (`./16-testing-and-quality.md`), Software Architecture
+    (`./14-software-architecture.md`).
+- **Verification notes added:**
+  - AWS RDS pricing (~$450/month for db.r6g.xlarge) — version-sensitive.
+  - B-tree write amplification 2-10x / LSM-tree 10-30x — commonly
+    cited but workload-dependent.
+- **Confirmed compliant:**
+  - All H2 headings match template order.
+  - H2 uses Title Case; H3 uses sentence case.
+  - No code in headings.
+  - No banned words.
+  - All code fences have allowed language tags (sql, ts, json, bash,
+    mermaid, text).
+  - Code fences balanced (86 total, 43 pairs).
+  - Core Terminology: 20 terms, 4 explicit distinctions.
+  - Production Considerations: all 8 required items present.
+  - Summary: 8 bullet points.
+  - Trade-offs: comparison table with "Flips when" column.
+  - Tech Lead Checklist: 4 categories, 18 items with owners.
+  - Interview Q&A: all 6 categories present (Basic, Senior, Tech Lead,
+    Scenario-based, Trick, Red Flags) plus Performance, Security,
+    Testing/Quality.
+  - Good Answer vs Weak Answer: present with "Why the Strong Answer
+    Wins" analysis.
+  - Mental model: present (query optimizer + storage engine +
+    transaction manager) with Mermaid diagram.
+  - Cross-links: 7 related chapters linked.
+  - DynamoDB TTL verification blockquote present.
+- **Total line count:** 3255. Code blocks: 43 pairs.
+- **Follow-ups:** None — chapter passes audit.

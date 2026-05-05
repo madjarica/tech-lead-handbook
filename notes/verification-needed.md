@@ -290,3 +290,64 @@ add specific rows here.
 - **Suggested source:** Fastify benchmarks repository
   (`fastify/benchmarks`), independent TechEmpower benchmarks
 - **Status:** unverified
+
+---
+
+- **Chapter:** `book/02-sql-and-nosql.md`
+- **Section:** Caching / TTL and expiration
+- **Claim:** DynamoDB deletes expired items (TTL) within 48 hours of
+  expiration, not immediately.
+- **Why it matters:** If the deletion window has changed in recent
+  DynamoDB updates, advice about not relying on TTL for time-critical
+  expiration may be outdated.
+- **Suggested source:** AWS DynamoDB documentation (TTL section)
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/02-sql-and-nosql.md`
+- **Section:** Transactions and ACID
+- **Claim:** PostgreSQL Repeatable Read does not allow phantom reads
+  (unlike the SQL standard which permits them at this level).
+- **Why it matters:** This is a PostgreSQL-specific implementation
+  detail (SSI). If incorrectly stated, it could confuse answers about
+  standard SQL isolation levels vs PostgreSQL behavior.
+- **Suggested source:** PostgreSQL documentation on Transaction
+  Isolation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/02-sql-and-nosql.md`
+- **Section:** The relational model / Migrations
+- **Claim:** PostgreSQL 11+ allows ADD COLUMN with DEFAULT as an
+  instant operation (no table rewrite).
+- **Why it matters:** This is a version-specific optimization. Teams
+  on older PostgreSQL versions would experience a full table rewrite.
+- **Suggested source:** PostgreSQL 11 release notes
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/02-sql-and-nosql.md`
+- **Section:** Tech Lead Decision-Making / Operational cost
+- **Claim:** RDS PostgreSQL db.r6g.xlarge costs ~$450/month. gp3
+  storage at 500GB costs ~$50/month. Multi-AZ doubles instance cost.
+- **Why it matters:** AWS pricing changes. These numbers are
+  approximate order-of-magnitude estimates for illustration but could
+  mislead if significantly outdated.
+- **Suggested source:** AWS RDS pricing page (us-east-1, on-demand)
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/02-sql-and-nosql.md`
+- **Section:** Interview Q&A / Performance
+- **Claim:** B-tree write amplification is ~2-10x; LSM-tree write
+  amplification is ~10-30x.
+- **Why it matters:** These ranges are commonly cited in database
+  literature but vary by workload, compaction strategy, and page size.
+  Incorrect ranges could weaken an interview answer.
+- **Suggested source:** RocksDB wiki on write amplification; PostgreSQL
+  documentation on WAL
+- **Status:** unverified
