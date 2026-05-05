@@ -833,3 +833,181 @@ Format: one entry per change, newest at the bottom.
   - DynamoDB TTL verification blockquote present.
 - **Total line count:** 3255. Code blocks: 43 pairs.
 - **Follow-ups:** None — chapter passes audit.
+
+## Chapter 12: API Design
+
+### Initial Generation (2026-05-05)
+
+- **Scope:** Generate full chapter content for `book/12-api-design.md`
+  from skeleton.
+- **Topics covered:**
+  - REST principles (constraints, Richardson maturity model)
+  - Resource modeling (naming rules, when CRUD breaks down)
+  - HTTP methods (semantics, safety, idempotency table)
+  - Status codes (key distinctions: 401 vs 403, 400 vs 422)
+  - Headers (important headers table, custom header conventions)
+  - Idempotency (idempotency keys, implementation pattern)
+  - Pagination (offset vs cursor, implementation)
+  - Filtering and sorting (patterns, production rules)
+  - Versioning (4 strategies, breaking vs non-breaking table,
+    deprecation lifecycle)
+  - Validation (Zod example, validation rules)
+  - Error responses (RFC 9457, validation errors)
+  - OpenAPI (schema-as-contract, CI usage)
+  - GraphQL (when to use, trade-offs vs REST, N+1, complexity limits)
+  - WebSockets (when to use, SSE comparison)
+  - Webhooks (design checklist, HMAC verification)
+  - API gateways (concerns table, when to use/avoid)
+  - BFF pattern (diagram, ownership model)
+  - Rate limiting (4 algorithms, implementation, tiered limits)
+  - API security (auth patterns, security checklist)
+  - Backward compatibility (safe vs unsafe changes, CI enforcement)
+  - Contract testing (Pact model, benefits)
+- **Sections:**
+  - Chapter Goal, Why This Matters for a Tech Lead, Mental Model
+    (Mermaid diagram), Core Terminology (16 terms, 4 distinctions),
+    Theoretical Foundation (16 subsections), Practical Usage (5
+    patterns), Examples (3 with 4-part explanations), Common Mistakes
+    (8), Trade-offs (comparison table), Production Considerations (all
+    8 template items), Tech Lead Decision-Making (4 subsections), How
+    to Explain (3 openings), Good Answer vs Weak Answer, Tech Lead
+    Checklist (4 categories, 18 items), Interview Q&A, Summary (8
+    bullets), Further Study (11 items with cross-links).
+- **Interview Q&A counts:** Basic 15, Senior 15, Tech Lead 10,
+  Scenario 10, Trick 5, Red Flags 5. Total: 55 questions/items.
+- **Total line count:** 2069. Code blocks: 23 pairs.
+- **Toolchain:** N/A.
+- **Follow-ups:** Verify RFC 9457 (formerly 7807) renumbering; verify
+  AWS API Gateway per-request pricing claim.
+
+### Quality Pass: Expand Interview Q&A (2026-05-05)
+
+- **Scope:** Expanded the Interview Questions and Answers section to
+  meet target counts and added three new question categories.
+- **Changes:**
+  - Basic: 15 → 30 (+15 questions covering HATEOAS, REST vs RPC,
+    Retry-After, content negotiation, sync vs async APIs, idempotency
+    keys, Location header, GraphQL, gRPC, webhook signatures, query vs
+    path params, throttling vs rate limiting, pagination formats, SSE,
+    OpenAPI operationId).
+  - Senior: 15 (unchanged).
+  - Tech Lead: 10 → 15 (+5 detailed-format questions covering BFF
+    layer decision, webhook delivery at scale, error handling
+    standardization, public GraphQL evaluation, multi-team versioning).
+  - New Performance section: 7 questions (response time reduction,
+    HTTP/2, compression, cursor vs offset performance, N+1 problem,
+    mobile payload optimization, slow consumer isolation).
+  - New Security section: 7 questions (injection protection,
+    authentication patterns, least privilege, webhook security, API key
+    leakage response, CORS configuration, credential comparison).
+  - New Testing and Quality section: 7 questions (contract testing,
+    backward compatibility CI, load testing, webhook reliability
+    testing, testing pyramid, rate limiting testing, documentation
+    accuracy).
+  - Scenario-based: 10 (unchanged).
+  - Trick: 5 (unchanged).
+  - Red Flags: 5 (unchanged).
+- **Final Q&A counts:** Basic 30, Senior 15, Tech Lead 15, Performance
+  7, Security 7, Testing 7, Scenario 10, Trick 5, Red Flags 5.
+  Total: 96 questions + 5 red-flag entries = 101 items.
+- **Total line count:** 2446 (+377). Code blocks: 23 pairs (unchanged).
+
+### Quality Pass: Improve Code Examples (2026-05-05)
+
+- **Scope:** Added 11 new code examples with 4-part explanations (What,
+  Why, Common Mistake, Production Change). Improved 1 existing example
+  (webhook verification).
+- **Examples added:**
+  1. Good vs bad endpoint naming comparison table (`text`).
+  2. Express router with HTTP method semantics and safety annotations (`ts`).
+  3. Status code decision tree inside a handler (`ts`).
+  4. Filter/sort parameter whitelisting and parsing (`ts`).
+  5. Versioning middleware with deprecation headers and sunset (`ts`).
+  6. GraphQL schema definition (types, enums, Query, Mutation) (`graphql`).
+  7. WebSocket event protocol with typed server/client events (`ts`).
+  8. BFF mobile aggregation endpoint with parallel fan-out (`ts`).
+  9. Rate limit middleware with full response headers and 429 body (`ts`).
+  10. Backward-compatible field evolution (expand-and-contract) (`ts`).
+  11. CI compatibility check for breaking changes (`yaml`).
+- **Example improved:**
+  - Webhook signature verification: added timestamp replay protection,
+    Express middleware wrapper, and 4-part explanation.
+- **Total line count:** 2868 (+422 from Q&A pass). Code blocks: 34
+  pairs (was 23).
+- **No new verification notes needed.**
+
+### Quality Pass: Strengthen Tech Lead Perspective (2026-05-05)
+
+- **Scope:** Expanded Tech Lead Decision-Making section with 7 new
+  subsections and strengthened inline perspectives in 4 existing
+  sections.
+- **New subsections in Tech Lead Decision-Making:**
+  1. *API governance without slowing delivery* — governance ladder
+     (Level 0-2), mechanism table, stakeholder explanation.
+  2. *Defining error contracts and observability* — error type
+     registry, observability contract per API, production readiness
+     checklist.
+  3. *Balancing consumer needs with platform consistency* — decision
+     framework table, rules of thumb (1 consumer vs 3+), interview
+     framing.
+  4. *Debugging API incidents* — triage flowchart (7 steps with time
+     budgets), post-incident actions.
+  5. *Cost implications of API decisions* — cost driver table (6
+     decisions), optimization levers (compression, CDN, field
+     selection, batch webhooks), stakeholder explanation.
+  6. *When NOT to build an API* — 6-row signal table with alternatives,
+     decision rule (same deploy cycle = no versioning needed).
+  7. *Explaining API architecture decisions to non-technical
+     stakeholders* — 3 scenario scripts (versioning to PM, rate
+     limiting to CEO, REST vs GraphQL to CTO).
+  8. *API incident response playbook* — step-by-step table with tools
+     and time budgets, post-incident improvement actions.
+- **Strengthened inline perspectives:**
+  - *Why This Matters:* Added "API as a one-way door" framing
+    (asymmetry between internal code and published API).
+  - *Validation:* Added TL perspective on org-wide validation
+    standard, architectural placement, and strictness policy.
+  - *Contract testing:* Added TL perspective on who writes contracts,
+    sharing mechanism, and when mandatory.
+  - *OpenAPI:* Added schema-first vs code-first decision table.
+  - *Governing API design:* Added interview framing for governance.
+  - *Production Considerations:* Added operational complexity budget
+    item (REST/GraphQL/gRPC/WebSocket operational cost comparison).
+- **Total line count:** 3181 (+313 from code examples pass). Code
+  blocks: 34 pairs (unchanged).
+
+### Quality Pass: Chapter Audit (2026-05-05)
+
+- **Scope:** Audited `book/12-api-design.md` against BOOK_SPEC.md,
+  STYLE_GUIDE.md, CHAPTER_TEMPLATE.md, and SUMMARY.md.
+- **Issues found and fixed:**
+  1. **Disallowed language tag:** `graphql` changed to `text` (only
+     `js`, `ts`, `tsx`, `python`, `sql`, `dockerfile`, `yaml`, `bash`,
+     `json`, `mermaid`, `text` are allowed).
+  2. **Duplicate code block:** Removed redundant YAML CI check example
+     in backward compatibility section (identical to another block 20
+     lines later).
+  3. **Missing cross-links:** Added `[Observability](./18-observability.md)`
+     and `[Performance and Scalability](./19-performance-and-scalability.md)`
+     to Further Study.
+- **Verified compliant:**
+  - All 18 template sections present in correct order.
+  - No banned words.
+  - All remaining code fences have allowed language tags (33 pairs).
+  - All cross-links resolve to existing files.
+  - Heading hierarchy correct (one H1, H2 for sections, H3 for
+    subsections).
+  - No code in headings.
+  - No shallow definitions found.
+  - Mental model present (Mermaid diagram).
+  - Trade-off table present.
+  - Tech Lead Checklist present with concrete items.
+  - All Q&A categories present (Basic, Senior, Tech Lead, Performance,
+    Security, Testing, Scenario, Trick, Red Flags).
+  - Good vs Weak Answer contrast present.
+  - Summary has 8 bullet points (within 5-8 guideline).
+  - Further Study has 13 items with cross-links.
+- **Verification notes added:** AWS egress pricing ($0.09/GB), Brotli
+  compression ratio (60-70%).
+- **Total line count:** 3178 (-3 from removing duplicate). Code blocks:
+  33 pairs (removed 1 duplicate).

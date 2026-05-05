@@ -351,3 +351,48 @@ add specific rows here.
 - **Suggested source:** RocksDB wiki on write amplification; PostgreSQL
   documentation on WAL
 - **Status:** unverified
+
+---
+
+- **Chapter:** `book/12-api-design.md`
+- **Section:** Core Terminology / Error responses
+- **Claim:** RFC 9457 is the current number for "Problem Details for
+  HTTP APIs" (formerly RFC 7807).
+- **Why it matters:** The RFC was renumbered in 2023. References to
+  7807 are still common. Confirm 9457 is the current published number.
+- **Suggested source:** IETF RFC index
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/12-api-design.md`
+- **Section:** Tech Lead Decision-Making / API cost management
+- **Claim:** AWS API Gateway costs $3.50 per million requests.
+- **Why it matters:** AWS pricing changes. This number is for REST API
+  type in us-east-1 and may have changed.
+- **Suggested source:** AWS API Gateway pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/12-api-design.md`
+- **Section:** Tech Lead Decision-Making / Cost implications
+- **Claim:** AWS data transfer (egress) costs $0.09/GB.
+- **Why it matters:** AWS egress pricing varies by region and volume
+  tier (first 10TB/month is one rate, subsequent tiers are cheaper).
+  The $0.09 figure is approximate.
+- **Suggested source:** AWS EC2 data transfer pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/12-api-design.md`
+- **Section:** Tech Lead Decision-Making / Cost implications
+- **Claim:** Brotli compression reduces payload size 60-70% compared
+  to uncompressed.
+- **Why it matters:** Compression ratios depend heavily on content
+  type. JSON compresses well but the exact ratio is workload-specific.
+  The claim is a rough order of magnitude.
+- **Suggested source:** Google Brotli benchmarks, real-world API
+  payload tests
+- **Status:** unverified (treated as rough order of magnitude)
