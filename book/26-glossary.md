@@ -35,6 +35,9 @@ in design reviews. The glossary is the cheat sheet for that signal.
 
 > TODO:
 >
+> - **AbortController** — a standard mechanism for cooperative
+>   cancellation of async operations. See
+>   [JavaScript](./05-javascript.md).
 > - **ACID** — see [SQL and NoSQL](./02-sql-and-nosql.md).
 > - **ADR (Architecture Decision Record)** — see [Software
 >   Architecture](./14-software-architecture.md).
@@ -44,6 +47,9 @@ in design reviews. The glossary is the cheat sheet for that signal.
 > - **Anti-corruption layer** — DDD term; see [Software
 >   Architecture](./14-software-architecture.md).
 > - **API gateway** — see [API Design](./12-api-design.md).
+> - **async/await** — syntactic sugar over Promises; `async` returns
+>   a Promise, `await` pauses until it settles. See
+>   [JavaScript](./05-javascript.md).
 > - **AuthN vs AuthZ** — authentication is "who you are", authorization
 >   is "what you can do". See [Security](./15-security.md).
 
@@ -63,6 +69,8 @@ in design reviews. The glossary is the cheat sheet for that signal.
 
 > TODO:
 >
+> - **Call stack** — LIFO stack of execution contexts; JavaScript has
+>   one per thread. See [JavaScript](./05-javascript.md).
 > - **CAP theorem** — pick two of consistency, availability, partition
 >   tolerance under partition. See [SQL and
 >   NoSQL](./02-sql-and-nosql.md) and [System
@@ -70,6 +78,8 @@ in design reviews. The glossary is the cheat sheet for that signal.
 > - **Canary deployment** — see [CI/CD](./17-ci-cd-and-devops.md).
 > - **Cache stampede** — see [Performance](./19-performance-and-scalability.md).
 > - **Circuit breaker** — see [System Design](./13-system-design.md).
+> - **Closure** — a function plus the lexical environment where it was
+>   created. See [JavaScript](./05-javascript.md).
 > - **Concurrency vs Parallelism** — concurrency is structure,
 >   parallelism is execution. See [JavaScript](./05-javascript.md) and
 >   [Python](./11-python.md).
@@ -80,20 +90,34 @@ in design reviews. The glossary is the cheat sheet for that signal.
 
 > TODO:
 >
+> - **Debounce** — delay invocation until events stop for a specified
+>   interval. See [JavaScript](./05-javascript.md).
 > - **Disjoint set / Union-find** — see
 >   [Algorithms](./01-algorithms-and-data-structures.md).
 > - **DORA metrics** — see [CI/CD](./17-ci-cd-and-devops.md).
 > - **Domain-Driven Design (DDD)** — see [Software
 >   Architecture](./14-software-architecture.md).
+> - **Dual-package hazard** — when CJS and ESM copies of the same
+>   package coexist in one process, breaking singletons and
+>   `instanceof`. See [JavaScript](./05-javascript.md).
 
 ## E
 
 > TODO:
 >
 > - **Error budget** — see [Observability](./18-observability.md).
+> - **ESM (ECMAScript Modules)** — the language-standard module system
+>   (`import`/`export`); static, async, tree-shakeable. See
+>   [JavaScript](./05-javascript.md).
+> - **Event delegation** — attaching one listener at an ancestor and
+>   dispatching via `event.target`. See [JavaScript](./05-javascript.md).
+> - **Event loop** — the mechanism that dequeues microtasks and
+>   macrotasks onto the single call stack. See
+>   [JavaScript](./05-javascript.md) and [Node.js](./10-nodejs.md).
 > - **Event sourcing** — see [System Design](./13-system-design.md).
-> - **Event loop** — see [JavaScript](./05-javascript.md) and
->   [Node.js](./10-nodejs.md).
+> - **Execution context** — the environment binding variables, `this`,
+>   and the scope chain for a piece of running code. See
+>   [JavaScript](./05-javascript.md).
 
 ## F
 
@@ -114,6 +138,10 @@ in design reviews. The glossary is the cheat sheet for that signal.
 
 > TODO:
 >
+> - **Hoisting** — declaration processing phase before execution;
+>   `var` is initialized to `undefined`, `let`/`const` enter the TDZ,
+>   function declarations are fully hoisted. See
+>   [JavaScript](./05-javascript.md).
 > - **Hot key** — see [System Design](./13-system-design.md).
 > - **HPA (Horizontal Pod Autoscaler)** — see [Docker and
 >   Kubernetes](./03-docker-and-kubernetes.md).
@@ -153,6 +181,12 @@ in design reviews. The glossary is the cheat sheet for that signal.
 
 > TODO:
 >
+> - **Macrotask (task)** — a callback scheduled by timers, I/O
+>   completion, or UI events; picked one at a time after microtasks
+>   drain. See [JavaScript](./05-javascript.md).
+> - **Microtask** — a high-priority callback (Promise `.then`,
+>   `queueMicrotask`) drained fully before the next macrotask. See
+>   [JavaScript](./05-javascript.md).
 > - **Microservices** — see [Software
 >   Architecture](./14-software-architecture.md).
 > - **MVCC (Multi-Version Concurrency Control)** — see [SQL and
@@ -180,6 +214,11 @@ in design reviews. The glossary is the cheat sheet for that signal.
 > - **PDB (PodDisruptionBudget)** — see [Docker and
 >   Kubernetes](./03-docker-and-kubernetes.md).
 > - **Percentile (p50, p95, p99)** — see [Performance](./19-performance-and-scalability.md).
+> - **Promise** — an object representing the eventual result of an
+>   async operation (pending, fulfilled, rejected). See
+>   [JavaScript](./05-javascript.md).
+> - **Prototype chain** — linked list of objects walked on property
+>   lookup. See [JavaScript](./05-javascript.md).
 
 ## Q
 
@@ -217,6 +256,11 @@ in design reviews. The glossary is the cheat sheet for that signal.
 > TODO:
 >
 > - **Tail latency** — see [Performance](./19-performance-and-scalability.md).
+> - **Temporal dead zone (TDZ)** — the interval between entering a
+>   scope and the `let`/`const` declaration; access throws
+>   `ReferenceError`. See [JavaScript](./05-javascript.md).
+> - **Throttle** — invoke a function at most once per interval. See
+>   [JavaScript](./05-javascript.md).
 > - **Throughput vs Latency** — see Latency vs Throughput.
 > - **Trie** — see [Algorithms](./01-algorithms-and-data-structures.md).
 > - **Trunk-based development** — see [Git

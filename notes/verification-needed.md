@@ -107,5 +107,34 @@ add specific rows here.
 
 ## Active Items
 
-> No active items yet. As specific claims are written into chapters,
-> append rows here in the `Format` shape.
+- **Chapter:** `book/05-javascript.md`
+- **Section:** The event loop, microtasks, and macrotasks
+- **Claim:** The specific Node.js event-loop phases (timers, pending
+  callbacks, idle/prepare, poll, check, close callbacks) and the
+  priority of `process.nextTick` relative to microtasks.
+- **Why it matters:** The chapter mentions the phases exist but does
+  not pin them. If a future edit adds phase-specific claims, they
+  must be checked.
+- **Suggested source:** `https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/05-javascript.md`
+- **Section:** Modules: ESM vs CommonJS
+- **Claim:** The `"exports"` field behavior, `"type": "module"`, and
+  the resolution algorithm specifics.
+- **Why it matters:** ESM resolution rules have evolved across Node
+  versions; incorrect advice could cause module-loading failures.
+- **Suggested source:** `https://nodejs.org/api/packages.html`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/05-javascript.md`
+- **Section:** Memory model and garbage collection
+- **Claim:** `structuredClone` support and its type coverage.
+- **Why it matters:** `structuredClone` is relatively recent; browser
+  and Node support should be confirmed.
+- **Suggested source:** MDN `structuredClone` compat table.
+- **Status:** unverified
