@@ -1507,3 +1507,129 @@ add specific rows here.
   versions. The percentile threshold format should be confirmed.
 - **Suggested source:** k6 documentation (grafana.com/docs/k6)
 - **Status:** unverified
+
+---
+
+### #66. React Server Components model and "use client" directive (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Theoretical Foundation — Server Components
+- **Claim:** Server Components run on the server with zero client JS,
+  cannot use hooks or event handlers. Client Components are declared
+  with `"use client"` at the top of the file. Server Components can
+  interleave with Client Components.
+- **Why it matters:** The RSC model is evolving. The `"use client"`
+  directive, interleaving rules, and framework-specific behavior (Next.js
+  App Router) may change between React and Next.js versions.
+- **Suggested source:** react.dev Server Components documentation,
+  Next.js App Router documentation
+- **Status:** unverified
+
+---
+
+### #67. Suspense data fetching and `use` hook (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Theoretical Foundation — Suspense
+- **Claim:** Suspense integrates with data fetching via libraries
+  that support it (TanStack Query, Relay). The `use` hook is
+  mentioned as an evolving API.
+- **Why it matters:** Suspense for data fetching is still evolving.
+  The `use` hook API surface, constraints, and integration patterns
+  may change between React versions.
+- **Suggested source:** react.dev Suspense documentation, React
+  release notes
+- **Status:** unverified
+
+---
+
+### #68. TanStack Query v5 API (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Theoretical Foundation — State management (TanStack Query)
+- **Claim:** `useQuery({ queryKey, queryFn, staleTime })` API shape.
+  TanStack Query provides caching, deduplication, background
+  revalidation, and retry with exponential backoff.
+- **Why it matters:** TanStack Query v5 changed the API shape
+  (object-only argument). Future versions may change defaults
+  or add new options.
+- **Suggested source:** TanStack Query documentation
+  (tanstack.com/query)
+- **Status:** unverified
+
+---
+
+### #69. Redux Toolkit and Zustand bundle sizes (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Theoretical Foundation — State management comparison
+- **Claim:** Redux Toolkit is ~11 KB gzipped, Zustand is ~1 KB
+  gzipped.
+- **Why it matters:** Bundle sizes change with major versions and
+  dependency tree changes. These numbers should be verified against
+  current npm package data.
+- **Suggested source:** bundlephobia.com for @reduxjs/toolkit and
+  zustand
+- **Status:** unverified
+
+---
+
+### #70. React 18 automatic batching behavior (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Interview Q&A — Basic — "What happens when you call
+  setState?"
+- **Claim:** React 18+ batches `setState` calls automatically in
+  all contexts (event handlers, promises, timeouts), unlike React 17
+  which only batched in event handlers.
+- **Why it matters:** Batching behavior is version-specific. React 17
+  and 18 differ. Future versions may refine this further.
+- **Suggested source:** react.dev React 18 changelog, "Automatic
+  Batching" blog post
+- **Status:** unverified
+
+---
+
+### #71. MSW v2 API changes (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Interview Q&A — Testing and Quality — MSW question
+- **Claim:** `msw` v2 changed from `rest.get` / `res(ctx.json())`
+  to `http.get` / `HttpResponse.json()` API.
+- **Why it matters:** The `msw` API changed significantly between
+  v1 and v2. Code examples and setup patterns differ. Teams
+  migrating from v1 to v2 need to update all handlers.
+- **Suggested source:** mswjs.io migration guide (v1 → v2)
+- **Status:** unverified
+
+---
+
+### #72. React Hook Form v7 + @hookform/resolvers Zod integration (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Theoretical Foundation — Form with validation
+- **Claim:** `useForm<FormValues>({ resolver: zodResolver(schema) })`
+  API shape. `register()` returns props to spread on inputs.
+  `handleSubmit` wraps the onSubmit handler. `formState.errors`
+  contains field-level error messages.
+- **Why it matters:** React Hook Form's API changed between v6 and
+  v7 (register API, resolver configuration). The `@hookform/resolvers`
+  package must match the React Hook Form major version.
+- **Suggested source:** react-hook-form.com documentation, 
+  @hookform/resolvers README
+- **Status:** unverified
+
+---
+
+### #73. TanStack Query defaultOptions shape (React chapter)
+
+- **Chapter:** 08-react
+- **Section:** Examples — App providers
+- **Claim:** `QueryClient` constructor accepts `defaultOptions` with
+  `queries.staleTime`, `queries.gcTime`, `queries.retry`, and
+  `queries.refetchOnWindowFocus`.
+- **Why it matters:** TanStack Query v5 renamed `cacheTime` to
+  `gcTime`. The `defaultOptions` shape may evolve between versions.
+- **Suggested source:** TanStack Query documentation
+  (tanstack.com/query)
+- **Status:** unverified

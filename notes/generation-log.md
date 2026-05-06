@@ -2954,3 +2954,203 @@ All passes completed:
 3. `performance-examples-pass` — 13 new code/config examples.
 4. `performance-tech-lead-pass` — 7 new decision-making subsections.
 5. `performance-chapter-audit` — final audit and fixes.
+
+---
+
+## react-initial-generation (2026-05-06)
+
+- **Chapter:** `book/08-react.md`
+- **Pass:** Initial full generation from skeleton.
+- **What changed:**
+  - Replaced skeleton (157 lines) with full chapter (2,847 lines).
+  - All template sections populated: Chapter Goal, Why This Matters,
+    Mental Model (with Mermaid diagram), Core Terminology, Theoretical
+    Foundation, Practical Usage, Examples, Common Mistakes, Trade-offs,
+    Production Considerations, Tech Lead Decision-Making, How to
+    Explain This in an Interview, Good Answer vs Weak Answer, Tech Lead
+    Checklist, Interview Q&A, Summary, Further Study.
+  - Theoretical Foundation covers: component model, JSX, props, state,
+    hooks (useState, useEffect, useMemo, useCallback, useRef,
+    useReducer), custom hooks, Context, controlled/uncontrolled
+    components, reconciliation and keys, memoization, error boundaries,
+    Suspense, Server Components, state management (local, Context,
+    Redux, Zustand, TanStack Query), testing.
+  - Examples: useDebouncedValue custom hook, useEffect with
+    AbortController cleanup, memoized todo list, reducer-based form
+    state machine.
+  - 8 common mistakes documented with explanations and fixes.
+  - Trade-offs table comparing 8 decisions.
+  - Q&A counts: 30 Basic, 10 Senior, 10 Tech Lead, 10 Scenario-based,
+    5 Trick Questions, 5 Red Flags.
+  - Cross-references: 09-nextjs, 19-performance-and-scalability,
+    05-javascript, 06-typescript, 14-software-architecture,
+    15-security, 20-git-and-engineering-workflow.
+  - Verification blockquotes for: Suspense data fetching, Server
+    Components model, TanStack Query v5 API, Redux Toolkit / Zustand
+    bundle sizes.
+- **No banned words found.**
+- **Code fences balanced (24 pairs).**
+- **Chapter size:** 2,847 lines.
+
+---
+
+## react-qa-expansion (2026-05-06)
+
+- **Chapter:** `book/08-react.md`
+- **Pass:** Q&A expansion to meet expanded targets.
+- **What changed:**
+  - Added 5 new Senior questions: `useReducer` vs `useState`,
+    TanStack Query vs `useEffect` + `fetch`, component composition
+    for prop drilling, render-as-you-fetch pattern, derived state
+    without `useEffect`.
+  - Added 5 new Tech Lead questions: design system component library,
+    monolith splitting into packages/micro-frontends, shared state
+    between React and non-React, i18n architecture, feature flags.
+  - Added new **Performance** section (5 questions): unnecessary
+    re-renders, code splitting, virtualization vs pagination, LCP
+    improvement, Context performance cost.
+  - Added new **Security** section (5 questions): XSS prevention,
+    authentication tokens, Server Component security risks,
+    environment variables, CSRF protection.
+  - Added new **Testing and Quality** section (5 questions): shallow
+    vs full rendering, testing with providers, flaky tests, error
+    boundary testing, MSW usage.
+  - Added 1 code example (error boundary test with `vi.spyOn`).
+- **Q&A counts after expansion:**
+  - Basic: 30, Senior: 15, Tech Lead: 15, Scenario: 10,
+    Performance: 5, Security: 5, Testing/Quality: 5,
+    Trick: 5, Red Flags: 5.
+  - **Total: 95 questions.**
+- **No banned words found.**
+- **Code fences balanced (25 pairs).**
+- **Chapter size:** 3,508 lines (up from 2,847).
+
+---
+
+## react-examples-pass (2026-05-06)
+
+- **Chapter:** `book/08-react.md`
+- **Pass:** Improve code and configuration examples.
+- **What changed:**
+  - Added 9 new code examples (total 34 code blocks), each with
+    5-part explanation (what, why, common mistake, production change,
+    Tech Lead check):
+    1. **Component composition** — `Card` with `children` and slot
+       props, embedded in Theoretical Foundation after JSX/props.
+    2. **Good vs bad `useEffect`** — two side-by-side comparisons:
+       derived state (bad: `useEffect` + `setState`, good: inline
+       computation) and event logic (bad: state → effect, good:
+       event handler). Embedded after "When NOT to use `useEffect`."
+    3. **Context + `useReducer`** — auth provider with split
+       state/dispatch contexts, custom hooks with null checks,
+       embedded after Context section.
+    4. **Form with Zod validation** — React Hook Form + Zod schema
+       with accessible error display, embedded after controlled/
+       uncontrolled section.
+    5. **Performance: isolating re-renders** — Dashboard with clock
+       + expensive children, `React.memo` approach and "push state
+       down" alternative.
+    6. **Alternative re-render isolation** — extracted `Clock`
+       component that owns the high-frequency state.
+    7. **Testing with providers** — `renderWithProviders` utility
+       with `QueryClient`, loading/success/error assertions.
+    8. **App providers** — centralized provider tree with default
+       TanStack Query options and dev-only DevTools.
+  - Fixed import in performance example (`useEffect` was missing
+    from import).
+- **No banned words found.**
+- **Code fences balanced (34 pairs).**
+- **Chapter size:** 3,955 lines (up from 3,508).
+
+---
+
+## react-tech-lead-pass (2026-05-06)
+
+- **Chapter:** `book/08-react.md`
+- **Pass:** Strengthen Tech Lead perspective.
+- **What changed:**
+  - Added 7 new `## Tech Lead Decision-Making` subsections:
+    1. **State management standardization** — standard document with
+       5 questions every team should answer, enforcement via ESLint.
+    2. **Team conventions for hooks and effects** — table of 5
+       conventions (cleanup, exhaustive-deps, no raw fetch, hook
+       naming, memoization justification) with enforcement.
+    3. **Server/client boundary decision framework** — decision
+       tree for Server vs Client Components, practical page example,
+       trade-off table, framework lock-in risk assessment.
+    4. **Migration and modernization strategy** — three debt axes
+       (component model, state management, data fetching), four
+       migration principles, stakeholder explanation.
+    5. **Debugging React in production** — four scenarios (blank
+       screen, performance degradation, memory leak, hydration
+       mismatch) with diagnostic steps and common causes.
+    6. **Cost implications** — table of 5 architecture decisions
+       with cost impact, stakeholder framing example.
+    7. **Server/client boundary page example** — `OrdersPage` with
+       Server Component wrapper and Client Component children.
+  - Added **Tech Lead perspective on testing** after the Testing
+    section (testing strategy ownership, ratio, coverage guideline).
+  - Enhanced **Production Considerations** with:
+    - Observability cross-reference (Sentry/Datadog, client error
+      alerting).
+    - Accessibility as a requirement (WCAG 2.1 AA, axe-core CI).
+    - **Production readiness checklist** (12 items).
+  - Added 2 new interview openings:
+    - "How would you architect a large React application?"
+    - "How do you handle a React performance problem?"
+- **No banned words found.**
+- **Code fences balanced (36 pairs).**
+- **Chapter size:** 4,226 lines (up from 3,955).
+
+---
+
+## react-chapter-audit (2026-05-06)
+
+- **Chapter:** `book/08-react.md`
+- **Pass:** Final audit against BOOK_SPEC, STYLE_GUIDE,
+  CHAPTER_TEMPLATE.
+- **What was fixed:**
+  - Softened 3 overconfident claims with qualifiers:
+    1. "server state + local state covers 90% of needs" →
+       "covers the majority of needs — in my experience, roughly 90%."
+    2. "migration stalls at 60%" → "migration often stalls partway
+       through."
+    3. "A 100 KB increase in JS can degrade LCP measurably" →
+       "Even a moderate increase in JS (e.g., 100 KB) may degrade
+       LCP noticeably on slower connections."
+  - Added table caption to Trade-offs section ("Key React
+    architecture decisions and when each trade-off flips").
+- **What was verified correct:**
+  - All 17 H2 headings present and in CHAPTER_TEMPLATE order.
+  - `## Tech Lead Decision-Making` is the known structural
+    deviation (6 chapters now use it, tracked in
+    `notes/open-questions.md`).
+  - H2 headings use Title Case. H3 headings use sentence case.
+  - All 36 code block pairs balanced, all have language tags
+    (`tsx`, `mermaid`, `text`).
+  - No banned words found.
+  - 8 cross-references, all resolve to existing files.
+  - 6 inline verification blockquotes at version-sensitive points.
+  - Q&A section has all required categories:
+    - Basic: 30, Senior: 15, Tech Lead: 15, Scenario: 10,
+      Performance: 5, Security: 5, Testing/Quality: 5,
+      Trick: 5, Red Flags: 5. Total: 95.
+  - Summary: 8 bullets (target 5-8).
+  - Further Study: 9 items with cross-references.
+  - Trade-offs table present with "optimizes for / sacrifices /
+    flips when" format.
+  - Tech Lead Checklist has concrete, verifiable items across
+    4 categories.
+  - No overconfident percentage claims remain without qualifiers.
+- **No new verification notes added** (existing #66-#73 cover all
+  version-sensitive claims).
+- **Chapter size:** 4,229 lines (up from 4,226).
+
+### React chapter generation complete
+
+All passes completed:
+1. `react-initial-generation` — full chapter from skeleton.
+2. `react-qa-expansion` — expanded Q&A to target counts.
+3. `react-examples-pass` — 9 new code/config examples.
+4. `react-tech-lead-pass` — 7 new decision-making subsections.
+5. `react-chapter-audit` — final audit and fixes.

@@ -157,3 +157,8 @@ Format: one row per question.
 - **Update (2026-05-06):** `book/19-performance-and-scalability.md`
   also uses this pattern. Five chapters now include `## Tech Lead
   Decision-Making`. Recommend formalizing in `CHAPTER_TEMPLATE.md`.
+- **Update (2026-05-06):** `book/08-react.md` also uses this pattern.
+  Six chapters now include `## Tech Lead Decision-Making`
+  (`04-aws.md`, `08-react.md`, `15-security.md`, `17-ci-cd-and-devops.md`,
+  `18-observability.md`, `19-performance-and-scalability.md`).
+  This is now a de facto standard section.
