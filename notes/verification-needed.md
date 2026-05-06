@@ -1422,3 +1422,88 @@ add specific rows here.
   comparison.
 - **Suggested source:** Datadog pricing page, New Relic pricing page
 - **Status:** unverified
+
+### 59. Core Web Vitals thresholds and INP metric (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Theoretical Foundation — Frontend performance
+- **Claim:** LCP ≤ 2.5s, INP ≤ 200ms, CLS ≤ 0.1. INP replaced FID
+  as of March 2024.
+- **Why it matters:** Google updates Core Web Vitals thresholds and
+  metric definitions. INP replaced FID in March 2024, but thresholds
+  and scoring may evolve.
+- **Suggested source:** web.dev Core Web Vitals documentation
+- **Status:** unverified
+
+### 60. PostgreSQL default max_connections (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Theoretical Foundation — Connection pooling
+- **Claim:** PostgreSQL defaults to 100 max connections.
+- **Why it matters:** Default may vary by distribution, hosting
+  provider, or major version. AWS RDS PostgreSQL uses a formula
+  based on instance memory, not the upstream default.
+- **Suggested source:** PostgreSQL documentation (current stable),
+  AWS RDS PostgreSQL parameter group defaults
+- **Status:** unverified
+
+### 61. BullMQ API and options (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Examples — Back-pressure with a bounded queue
+- **Claim:** BullMQ Queue constructor accepts `connection` and
+  `defaultJobOptions` with `attempts`, `backoff`, `removeOnComplete`,
+  `removeOnFail`. Queue `.count()` returns pending job count.
+- **Why it matters:** BullMQ API may change between major versions.
+  Constructor options and method signatures should be confirmed.
+- **Suggested source:** BullMQ npm package documentation (current
+  stable version)
+- **Status:** unverified
+
+### 62. @tanstack/react-virtual API (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Theoretical Foundation — Virtualization example
+- **Claim:** `useVirtualizer` accepts `count`, `getScrollElement`,
+  `estimateSize`, `overscan`. Returns `getVirtualItems()` and
+  `getTotalSize()`.
+- **Why it matters:** TanStack Virtual has undergone major API
+  changes between versions. Hook names and options may differ.
+- **Suggested source:** @tanstack/react-virtual npm package
+  documentation (current stable version)
+- **Status:** unverified
+
+### 63. ioredis constructor and set with EX (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Theoretical Foundation — Redis cache-aside example
+- **Claim:** `new Redis({ host, port })` constructor and
+  `redis.set(key, value, "EX", ttl)` for TTL-based caching.
+- **Why it matters:** ioredis API is stable but constructor options
+  and command syntax should be confirmed against current docs.
+- **Suggested source:** ioredis npm package documentation
+- **Status:** unverified
+
+### 64. pg Pool constructor options (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Theoretical Foundation — Connection pooling example
+- **Claim:** `pg.Pool` accepts `max`, `min`, `idleTimeoutMillis`,
+  `connectionTimeoutMillis`, `statement_timeout`, `ssl`.
+- **Why it matters:** Pool configuration options may change between
+  `pg` major versions. `statement_timeout` as a Pool option
+  (vs per-query) should be confirmed.
+- **Suggested source:** node-postgres (pg) documentation
+- **Status:** unverified
+
+### 65. k6 load testing API (Performance chapter)
+
+- **Chapter:** 19-performance-and-scalability
+- **Section:** Theoretical Foundation — Load testing example
+- **Claim:** k6 `options.stages` with `duration`/`target`, 
+  `thresholds` with `http_req_duration` percentile syntax (e.g.,
+  `"p(95)<300"`), `check()` API.
+- **Why it matters:** k6 API and threshold syntax may evolve between
+  versions. The percentile threshold format should be confirmed.
+- **Suggested source:** k6 documentation (grafana.com/docs/k6)
+- **Status:** unverified

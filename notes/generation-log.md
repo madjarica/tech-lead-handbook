@@ -2688,3 +2688,269 @@ All passes completed:
 3. `observability-examples-pass` — 9 new code/config examples.
 4. `observability-tech-lead-pass` — 8 new decision-making subsections.
 5. `observability-chapter-audit` — final audit and fixes.
+
+---
+
+## Chapter 19: Performance and Scalability
+
+### performance-initial-generation (2026-05-06)
+
+- **Pass type:** full chapter generation from skeleton.
+- **File:** `book/19-performance-and-scalability.md`
+- **Previous state:** skeleton (152 lines, all TODO placeholders).
+- **Content generated:**
+    - **Chapter Goal** — diagnosis, scaling decisions, performance
+      budgets, cost-performance trade-offs, interview readiness.
+    - **Why This Matters for a Tech Lead** — prevention, diagnosis,
+      architecture decisions.
+    - **Mental Model** — "find the narrowest pipe and widen it,
+      repeat." Latency vs throughput distinction. Percentile trap.
+      Mermaid diagram of request path with cache layers.
+    - **Core Terminology** — 20 terms with key distinctions (latency
+      vs throughput, horizontal vs vertical, caching vs
+      precomputation, back-pressure vs load shedding).
+    - **Theoretical Foundation:**
+        - Frontend performance: Core Web Vitals (LCP, INP, CLS),
+          bundle size, code splitting, image optimization, rendering
+          performance, memoization (React.memo, useMemo, useCallback),
+          virtualization/windowing.
+        - Backend performance: I/O wait, serialization, GC pressure,
+          lock contention, CPU-bound. Database indexes (B-tree, hash,
+          GIN, partial, composite). Backend caching (hierarchy,
+          invalidation strategies, stampede prevention). Connection
+          pooling. Async processing and queues. Back-pressure.
+        - Scaling strategies: vertical vs horizontal, autoscaling
+          (metrics, pitfalls). Rate limiting (fixed window, sliding
+          window, token bucket, leaky bucket). Load shedding.
+        - CDN and regional deployment (single, active-passive,
+          active-active).
+        - Load testing and profiling (smoke, load, stress, soak).
+          Memory leaks. CPU/memory/I/O profiling.
+        - Cost and performance trade-offs.
+    - **Practical Usage** — reducing p99, designing for burst traffic,
+      adding caching without consistency bugs.
+    - **Examples** — 7 examples with 5-part explanations: cache
+      stampede (single-flight), back-pressure (bounded queue), N+1
+      query fix, performance budget CI, percentile load test report.
+    - **Common Mistakes** — 8 mistakes with symptoms and fixes.
+    - **Trade-offs** — 7 trade-off rows.
+    - **Production Considerations** — security, performance,
+      reliability, maintainability, cost, team, vendor, migration.
+    - **Tech Lead Decision-Making** — Senior vs Tech Lead comparison,
+      observability for performance, overengineering traps, cost-aware
+      decisions.
+    - **How to Explain This in an Interview** — 3 openings (debug
+      slow endpoint, caching vs scaling, prevent regressions).
+    - **Good Answer vs Weak Answer** — p99 latency question.
+    - **Tech Lead Checklist** — 5 sections, 17 items.
+    - **Interview Q&A:**
+        - Basic: 30 questions (compact format).
+        - Senior: 10 questions (detailed format with Strong Answer,
+          Explanation/What Interviewer Is Testing, Weak Answer, Red
+          Flags).
+        - Tech Lead: 10 questions (detailed format).
+        - Scenario-based: 10 questions (detailed format).
+        - Trick: 5 questions (compact format).
+        - Red Flags: 5 entries.
+    - **Summary** — 8 bullets.
+    - **Further Study** — 4 book/paper references, 8 cross-references
+      to other chapters.
+- **Quality checks:**
+    - Banned words: 1 found ("just" in Red Flags section), fixed.
+    - Code fences: 14 total (7 opening, 7 closing) — balanced.
+    - All code blocks have language tags (mermaid, ts, yaml, text).
+    - Cross-reference check: fixed `02-databases.md` →
+      `02-sql-and-nosql.md` (correct filename).
+    - Q&A counts verified against targets. Added 1 Basic, 1 Tech
+      Lead, 1 Scenario-based to meet minimums.
+- **Verification notes added:** 3 entries (#59, #60, #61).
+- **Chapter size:** 2,951 lines.
+
+### performance-qa-expansion (2026-05-06)
+
+- **Pass type:** Q&A expansion.
+- **File:** `book/19-performance-and-scalability.md`
+- **Changes:**
+    - **Senior:** Added 5 new questions (10→15): connection pool
+      bottleneck detection, safe production query optimization,
+      memory leak prevention/detection, performance regression vs
+      capacity problem, multi-tenant rate limiting strategy.
+    - **Tech Lead:** Added 5 new questions (10→15): performance
+      ownership across teams, performance-related tech debt, monolith-
+      to-microservices performance degradation, dedicated performance
+      engineering function, queue vs synchronous call evaluation.
+    - **Performance:** Added new section with 5 questions: CPU-bound
+      vs I/O-bound diagnosis, real-world frontend impact measurement,
+      GC pressure, high-fan-out optimization, precomputation vs
+      on-demand caching.
+    - **Security:** Added new section with 5 questions: caching
+      security vulnerabilities, connection pooling security
+      implications, rate limiting as security, CDN security risks,
+      performance-security trade-offs.
+    - **Testing/Quality:** Added new section with 5 questions: load
+      testing strategy design, caching behavior testing, production
+      validation of optimizations, autoscaling behavior testing,
+      performance regression prevention gates.
+- **Final Q&A counts:**
+    - Basic: 30 (target: 30) ✓
+    - Senior: 15 (target: 15) ✓
+    - Tech Lead: 15 (target: 15) ✓
+    - Performance: 5 (new section) ✓
+    - Security: 5 (new section) ✓
+    - Testing/Quality: 5 (new section) ✓
+    - Scenario-based: 10 (target: 10) ✓
+    - Trick: 5 (target: 5) ✓
+    - Red Flags: 5 (target: 5) ✓
+    - **Total: 95 questions**
+- **Quality checks:**
+    - No banned words found.
+    - Code fences: 14 total (7 opening, 7 closing) — balanced.
+    - All new questions use the correct format (detailed for Senior/
+      Tech Lead, compact for Performance/Security/Testing/Quality).
+- **Chapter size:** 3,630 lines (up from 2,951).
+
+### performance-examples-pass (2026-05-06)
+
+- **Pass type:** code and configuration examples improvement.
+- **File:** `book/19-performance-and-scalability.md`
+- **New examples added (13 total):**
+    1. **Frontend bundle analysis checklist** (text) — repeatable
+       audit checklist for bundle size regressions.
+    2. **Responsive image component** (TypeScript/React) — `<picture>`
+       with AVIF/WebP fallback, `srcSet`, `loading="lazy"`.
+    3. **React rendering optimization** (TypeScript) — `React.memo`,
+       `useMemo`, `useCallback` with OrderTable example.
+    4. **Virtualized list** (TypeScript) — TanStack Virtual
+       `useVirtualizer` for 50,000-item lists.
+    5. **Database indexing** (SQL) — composite index with EXPLAIN
+       ANALYZE before/after, leftmost prefix rule.
+    6. **Redis cache-aside with TTL jitter** (TypeScript) — `ioredis`
+       cache-aside pattern with randomized TTL.
+    7. **Connection pool configuration** (TypeScript) — `pg` Pool
+       with production-safe defaults and fleet-wide math.
+    8. **Autoscaling HPA** (YAML) — Kubernetes HPA with dual metrics
+       (CPU + RPS), asymmetric scale-up/scale-down behavior.
+    9. **Rate limiting middleware** (TypeScript) — Redis-backed
+       fixed-window rate limiter with response headers.
+    10. **CDN caching strategy** (text) — content-type-specific
+        Cache-Control headers and purge strategies.
+    11. **k6 load test** (JavaScript) — staged load test with
+        percentile thresholds and pass/fail criteria.
+    12. **Profiling workflow** (text) — step-by-step CPU and I/O
+        profiling for a slow Node.js endpoint.
+    13. **Cost/performance decision matrix** (text) — maps common
+        performance problems to fixes with cost and time estimates.
+- **Each example includes:** 5-part explanation (What, Why, Common
+  Mistake, Production Change, Tech Lead Check).
+- **New verification notes added:** 4 entries (#62, #63, #64, #65).
+- **Quality checks:**
+    - No banned words found.
+    - Code fences: 40 total (20 opening, 20 closing) — balanced.
+    - All code blocks have valid language tags (ts, js, sql, yaml,
+      mermaid, text).
+    - All new examples integrate with surrounding prose, not
+      appended as a dump.
+- **Chapter size:** 4,321 lines (up from 3,630).
+
+### performance-tech-lead-pass (2026-05-06)
+
+- **Pass type:** Tech Lead perspective strengthening.
+- **File:** `book/19-performance-and-scalability.md`
+- **Enhancements to `## Tech Lead Decision-Making`:**
+    - Added **Scalability bottleneck taxonomy** — 5-tier table
+      (Network/CDN → Application → Database → External deps →
+      Infrastructure) with symptoms, diagnosis, and fix categories.
+      Establishes the "outside-in" investigation sequence.
+    - Added **Capacity planning framework** — 5-step quarterly
+      discipline: measure headroom, project growth, identify ceiling,
+      budget capacity, document and track.
+    - Added **Performance incident response** — structured triage
+      (first 5 minutes), diagnosis (next 15 minutes), and resolution
+      flow with deployment correlation check.
+    - Added **Ownership boundaries** — table mapping responsibilities
+      (app code perf, DB, cache infra, CDN, load testing, autoscaling,
+      budgets, cost) to owners (feature team, platform/SRE, Tech Lead)
+      with escalation paths.
+    - Added **When not to optimize** — 5 scenarios where performance
+      work is not justified (low traffic, speculative, user-invisible,
+      complexity exceeds value, budget better spent elsewhere).
+    - Added **Migration strategy** — 5-phase rollout for performance
+      improvements (Measure → Dual-write → Shadow read → Cutover →
+      Cleanup) with rollback at each phase.
+    - Added **Documentation and team standards** — 5 documents
+      (performance runbook, caching registry, index registry, load
+      test catalog, decision log) plus 4 PR standards for queries,
+      caching, dependencies, and high-traffic endpoints.
+- **Enhancements to `## How to Explain This in an Interview`:**
+    - Added interview opening: "How do you justify performance
+      investment to leadership?" — frames performance in revenue
+      impact and cost-benefit terms.
+    - Added interview opening: "How do you handle a team that resists
+      performance budgets?" — addresses team dynamics with data-driven
+      approach.
+- **Enhancements to `## Production Considerations`:**
+    - Expanded migration/rollback bullet with index rollback safety,
+      autoscaling policy rollback, and testing rollback in staging.
+    - Added **Failure planning for performance infrastructure** — 4
+      failure modes (cache, autoscaler, CDN, load balancer) with
+      testing requirements.
+- **Quality checks:**
+    - No banned words found.
+    - Code fences: 40 total (20 opening, 20 closing) — balanced.
+- **Chapter size:** 4,555 lines (up from 4,321).
+
+### performance-chapter-audit (2026-05-06)
+
+- **Pass type:** chapter audit against BOOK_SPEC.md, STYLE_GUIDE.md,
+  CHAPTER_TEMPLATE.md, SUMMARY.md.
+- **File:** `book/19-performance-and-scalability.md`
+- **Fixes applied:**
+    1. **Overconfident claims qualified** — 6 claims softened with
+       qualifiers ("roughly", "can", "varies by"):
+       - "loses 20-30% of users" → added "can lose roughly" and
+         "exact figures vary by industry and device."
+       - "50-70% of page weight" → added "on media-heavy sites."
+       - "25-35% smaller" → added "roughly" and "varies by content
+         type."
+       - "60-70% cheaper" → added "can be" and "pricing varies by
+         instance type and region."
+       - "30-60% vs on-demand" → added "can save roughly" and
+         "verify current rates."
+       - "conversion rate by 2-5%" → reframed as "industry studies
+         suggest" with "results vary."
+- **Issues checked and confirmed clean:**
+    - No banned words found.
+    - All 40 code fences balanced (20 opening, 20 closing).
+    - All code blocks have correct language tags (`ts`, `js`, `sql`,
+      `yaml`, `mermaid`, `text`).
+    - All H2 headings are Title Case.
+    - All H3 headings are sentence case (acronyms like CDN, CI
+      are acceptable).
+    - Mermaid diagram has a paragraph caption below it.
+    - Tables have bold first columns.
+    - All 7 cross-referenced chapter files exist.
+    - Section order matches CHAPTER_TEMPLATE.md exactly (with known
+      `## Tech Lead Decision-Making` deviation).
+    - Summary section: 8 bullet points (within 5-8 range).
+    - Further Study: 5 book/paper references + 7 chapter cross-
+      references.
+    - Verification blockquote at end of chapter.
+    - Q&A section has all required categories (Basic, Senior, Tech
+      Lead, Performance, Security, Testing/Quality, Scenario-based,
+      Trick Questions, Red Flags).
+    - Q&A separator (`---`) count correct: N-1 separators for N
+      questions in each section.
+    - 6 inline verification blockquotes at version-sensitive examples.
+    - No version-sensitive claims presented as fact without qualifier.
+- **No new verification notes added** (existing #59-#65 cover all
+  version-sensitive claims).
+- **Chapter size:** 4,561 lines (up from 4,555).
+
+### Performance and Scalability chapter generation complete
+
+All passes completed:
+1. `performance-initial-generation` — full chapter from skeleton.
+2. `performance-qa-expansion` — expanded Q&A to target counts.
+3. `performance-examples-pass` — 13 new code/config examples.
+4. `performance-tech-lead-pass` — 7 new decision-making subsections.
+5. `performance-chapter-audit` — final audit and fixes.

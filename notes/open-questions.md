@@ -154,3 +154,6 @@ Format: one row per question.
   this pattern, joining `book/04-aws.md`, `book/17-ci-cd-and-devops.md`,
   and `book/15-security.md`. Four chapters now use `## Tech Lead
   Decision-Making` — strong signal to formalize in the template.
+- **Update (2026-05-06):** `book/19-performance-and-scalability.md`
+  also uses this pattern. Five chapters now include `## Tech Lead
+  Decision-Making`. Recommend formalizing in `CHAPTER_TEMPLATE.md`.
