@@ -1303,3 +1303,268 @@ Format: one entry per change, newest at the bottom.
   guardrails, process integration). Retained.
 - **Total line count:** 4162 (+11 from 4151). Code blocks: 31 pairs
   (unchanged). Cross-links: 14 (up from 7).
+
+---
+
+## book/03-docker-and-kubernetes.md
+
+### Initial generation
+
+- **Date:** 2026-05-06
+- **Scope:** Full chapter generated from skeleton. Covers: containers
+  vs VMs, images/layers/registries, Dockerfile patterns (multi-stage,
+  non-root, layer caching, .dockerignore), Docker Compose, volumes,
+  networking, image tagging, Docker security, Kubernetes architecture
+  (control plane, data plane), Pods, Deployments/ReplicaSets, Services,
+  Ingress, ConfigMaps/Secrets, Namespaces, probes (liveness/readiness/
+  startup), resource requests/limits (QoS classes), HPA, rolling
+  updates/rollbacks, RBAC/ServiceAccounts, persistent volumes, Helm,
+  Kustomize, kubectl troubleshooting, when Kubernetes is overkill,
+  GitOps.
+- **Sections completed:** Chapter Goal, Why This Matters for a Tech
+  Lead, Mental Model (Mermaid diagram), Core Terminology (table +
+  distinctions), Theoretical Foundation (17 subsections), Practical
+  Usage (when justified, when overkill, decision framework table,
+  GitOps), Examples (Dockerfile, Deployment, NetworkPolicy), Common
+  Mistakes (8 items), Trade-offs (table, 8 rows), Production
+  Considerations (8 categories), How to Explain (3 openings), Good
+  Answer vs Weak Answer, Tech Lead Checklist (4 subsections, 19
+  items), Interview Q&A (15 Basic, 15 Senior, 10 Tech Lead detailed,
+  10 Scenario-based, 5 Trick, 5 Red Flags), Summary (7 bullets),
+  Further Study (9 items with cross-links).
+- **Total line count:** 2006. Code blocks: 21 pairs (balanced).
+  Cross-links: 7 (AWS, CI/CD, Security, Observability, System Design).
+- **Q&A counts:** Basic 15, Senior 15, Tech Lead 10, Scenario 10,
+  Trick 5, Red Flags 5. Total: 55+ questions.
+
+### Multi-Pass: docker-kubernetes-pass-01-docker
+
+- **Date:** 2026-05-06
+- **Scope:** Enhanced all Docker-related sections with 8-point
+  structure (Explanation, Practical usage, Common mistake, Security
+  consideration, Operational consideration, Production checklist,
+  Tech Lead decision, Interview framing).
+- **Topics enhanced:**
+  - Containers vs VMs: added practical usage, common mistake (treating
+    as VMs), security (shared kernel mitigations), operational
+    (density implications), Tech Lead decision (when VMs are better).
+  - Images, layers, registries: added common mistake (layers are
+    additive), security (content trust, supply chain), operational
+    (size tracking), production checklist (5 items), Tech Lead
+    decision (registry choice).
+  - Dockerfile patterns / multi-stage builds: added common mistake
+    (npm install vs ci, combined layers), security (BuildKit secret
+    mounts), operational (BuildKit caching), production checklist (7
+    items), Tech Lead decision (Dockerfile vs Buildpacks).
+  - Build context / .dockerignore: expanded with common mistake,
+    security (secret leakage), operational (monorepo), interview
+    framing.
+  - Volumes: added common mistake (bind mounts in prod), security
+    (host exposure), operational (backup), Tech Lead decision.
+  - Networking: added practical usage (DNS), common mistake (port
+    exposure), security (custom networks), operational (DNS failures).
+  - Docker Compose: added common mistake (depends_on without healthy),
+    security (hardcoded secrets), operational (Compose V2), production
+    checklist (6 items), Tech Lead decision (not for production).
+  - Image tagging: added common mistake (mutable tags), security
+    (tag overwrite, signing), operational (retention), Tech Lead
+    decision (semver vs SHA).
+  - Docker security: expanded from bullet list to full section with
+    code examples (non-root user, BuildKit secrets, image scanning
+    CI step), base image comparison table, production checklist (8
+    items), Tech Lead decision (security vs DX).
+- **New sections added:**
+  - Environment variables and configuration (full 8-point).
+  - Docker secrets and sensitive data (full 8-point).
+  - Container healthchecks (full 8-point with production checklist).
+  - Container logs (full 8-point with daemon.json example).
+- **New code blocks added:** 5 (non-root Dockerfile, Trivy CI action,
+  daemon.json log config, docker-compose secrets, structured logging).
+- **Total line count:** 2648 (+642 from 2006). Code blocks: 30 pairs
+  (balanced).
+
+### Multi-Pass: docker-kubernetes-pass-02-kubernetes-basics
+
+- **Date:** 2026-05-06
+- **Scope:** Enhanced all Kubernetes basics sections with 8-point
+  structure (Explanation, Practical usage, Common mistake, Security
+  consideration, Operational consideration, Production checklist,
+  Tech Lead decision, Interview framing).
+- **Topics enhanced:**
+  - Kubernetes architecture (cluster + nodes): added practical usage
+    (managed vs self-managed), common mistake (control plane overload),
+    security (API server hardening), operational (node health), prod
+    checklist (6 items), Tech Lead decision (node pool strategy).
+  - Pods: added practical usage (sidecar patterns), common mistake
+    (bare pods, co-locating services), security (pod security context),
+    operational (termination sequence), Tech Lead decision (sidecar
+    vs separate services).
+  - Deployments and ReplicaSets: added practical usage (revisionHistory),
+    common mistake (editing pods directly), security (ServiceAccount
+    per deployment), operational (progressDeadlineSeconds), prod
+    checklist (5 items), Tech Lead decision (Deployment vs StatefulSet
+    vs DaemonSet).
+  - Services: added practical usage (DNS, headless), common mistake
+    (LoadBalancer per service cost), security (NetworkPolicy), operational
+    (readiness flapping), Tech Lead decision (service mesh evaluation).
+  - Ingress: added practical usage (TLS, annotations), common mistake
+    (no controller installed), security (attack surface hardening),
+    operational (shared resource risk), Tech Lead decision (controller
+    choice, Gateway API).
+  - ConfigMaps and Secrets: added practical usage (consumption modes),
+    common mistake (Secrets in Git), security (etcd encryption, RBAC),
+    operational (config reload strategies), prod checklist (5 items),
+    Tech Lead decision (External Secrets vs Sealed Secrets vs Vault).
+  - Namespaces: added practical usage (namespace strategies), common
+    mistake (soft vs hard isolation), security (default-deny policies,
+    quotas), operational (ResourceQuota YAML), prod checklist (5 items),
+    Tech Lead decision (trust-level-based strategy).
+  - Probes: added practical usage (separate endpoints), common mistake
+    (same endpoint for all probes, initialDelay vs startup), security
+    (health endpoint exposure), operational (timing parameter table),
+    prod checklist (6 items), Tech Lead decision (probe type selection).
+  - Resource requests and limits: added practical usage (VPA, P95
+    sizing), common mistake (Guaranteed for everything, BestEffort),
+    security (resource limits as security control), operational (CFS
+    throttling, monitoring), prod checklist (7 items), Tech Lead
+    decision (CPU limit controversy).
+  - Rolling updates and rollbacks: added practical usage (zero-downtime
+    pattern), common mistake (default maxUnavailable for small services),
+    security (rollback image availability), operational (termination
+    sequence diagram), prod checklist (8 items), Tech Lead decision
+    (rolling vs canary vs blue/green).
+- **New code blocks added:** 2 (ResourceQuota YAML, pod termination
+  sequence).
+- **Total line count:** 3191 (+543 from 2648). Code blocks: 32 pairs
+  (balanced).
+
+## Multi-Pass: docker-kubernetes-pass-03-kubernetes-production
+
+- **Date:** 2026-05-06
+- **Scope:** Enhance all Kubernetes production sections with full
+  8-point structure (Explanation, Practical usage, Common mistake,
+  Security consideration, Operational consideration, Production
+  checklist, Tech Lead decision, Interview framing).
+- **Topics enhanced:**
+  - Horizontal Pod Autoscaler (HPA): added practical usage (metrics-
+    server, Prometheus Adapter, Cluster Autoscaler combo), common
+    mistake (minReplicas: 1, memory-based scaling for caches),
+    security (amplification vector, maxReplicas as cost cap),
+    operational (evaluation interval, monitoring hpa_status), prod
+    checklist (7 items), Tech Lead decision (metric selection
+    framework), interview framing.
+  - RBAC and service accounts: added practical usage (human vs pod
+    access paths, IRSA/Workload Identity), common mistake (cluster-
+    admin for apps, default SA, wildcard Secrets), security (audit
+    effective permissions), operational (groups over users, break-
+    glass), prod checklist (6 items), Tech Lead decision (RBAC
+    strategy by team type), interview framing.
+  - Persistent volumes: added StorageClass YAML with encryption,
+    practical usage (WaitForFirstConsumer, VolumeSnapshots), common
+    mistake (Delete reclaimPolicy, unnecessary RWX), security
+    (encryption with KMS), operational (AZ binding, capacity
+    alerting), prod checklist (7 items), Tech Lead decision (managed
+    DB vs PVC), interview framing.
+  - Helm: added practical usage (third-party + platform charts, helm
+    diff), common mistake (not inspecting charts, unpinned versions),
+    security (chart provenance, permissive RBAC in charts),
+    operational (release state in Secrets, pending-upgrade fix), prod
+    checklist (6 items), Tech Lead decision (distribution and
+    standardization), interview framing.
+  - Kustomize: added practical usage (built-in kubectl, generators,
+    hash suffixes), common mistake (over-patching, commonLabels
+    selector break), security (transparency advantage, secretGenerator
+    limitation), operational (kubectl diff, GitOps with Argo CD),
+    Tech Lead decision (team-owned YAML vs distribution), interview
+    framing.
+  - kubectl troubleshooting: added ephemeral debug containers command,
+    ContainerCreating state, practical usage (5-step funnel),
+    CrashLoopBackOff deep-dive (5 causes, exponential backoff), common
+    mistake (increasing initialDelay, deleting pods), security (exec
+    RBAC restrictions, ephemeral containers), operational (plugins,
+    runbooks), prod checklist (6 items), Tech Lead decision
+    (observability investment), interview framing.
+  - Production readiness: new section with full YAML checklist
+    (availability, reliability, scalability, security, observability,
+    operations), common mistake (one-time vs continuous), security
+    (Pod Security Standards), operational (admission webhooks as
+    gates), Tech Lead decision (golden path encoding readiness).
+  - When Kubernetes is overkill: added practical usage (managed K8s
+    as middle ground), common mistake (adopting without TCO, refusing
+    at scale), security (smaller attack surface of simpler platforms),
+    operational (platform tax metric), Tech Lead decision (economic
+    framing), interview framing.
+- **Interview Q&A:** Added 2 new Tech Lead questions (CrashLoopBackOff
+  observability/ownership, Helm adoption resistance). Total Tech Lead
+  questions now: 10.
+- **New code blocks added:** 1 (production readiness YAML checklist).
+- **Total line count:** 3713 (+522 from 3191). Code blocks: 33 pairs
+  (balanced).
+
+## Quality Pass: Expand Interview Q&A
+
+- **Date:** 2026-05-06
+- **Scope:** Expand Interview Questions and Answers section to meet
+  minimum targets.
+- **Changes:** Added 15 Basic questions (volumes, RBAC, PVC, COPY vs
+  ADD, controllers, docker build, CMD vs ENTRYPOINT, labels vs
+  annotations, imagePullPolicy, PDB, Docker networks, stop vs kill,
+  Jobs, image tagging, HPA). Added 5 Tech Lead questions (single vs
+  multi-cluster, Docker image optimization, CI/CD pipeline
+  architecture, privileged security requests, platform debt).
+- **Final counts:** Basic: 30, Senior: 15, Tech Lead: 17, Scenario:
+  10, Trick: 5, Red Flags: 5. Total: 77 questions.
+- **Total line count:** 4049 (+336).
+
+## Quality Pass: Improve Code and Configuration Examples
+
+- **Date:** 2026-05-06
+- **Scope:** Add/improve practical code examples for interview
+  preparation.
+- **Changes:** Enhanced Docker Compose with Redis + explicit networks.
+  Added Docker network segmentation example. Added Service + Ingress
+  YAML. Added ConfigMap + Secret standalone example. Added Helm
+  values (base + production override). Added kubectl troubleshooting
+  sequences for ImagePullBackOff, failing probes, and networking.
+  Each example includes 5-point explanation (what, why, mistake,
+  production, Tech Lead check).
+- **Total line count:** 4417 (+368). Code blocks: 39 pairs.
+
+## Quality Pass: Strengthen Tech Lead Perspective
+
+- **Date:** 2026-05-06
+- **Scope:** Add consolidated Tech Lead Decision-Making section.
+- **Changes:** Added 7 subsections: Kubernetes adoption strategy
+  (migration sequence, rollback plan), operational ownership model
+  (RACI table), cost governance (5-layer framework, stakeholder
+  explanation), communicating to non-technical stakeholders (4-step
+  framework), common overengineering traps (6-entry table with
+  right-sized alternatives), local development vs production
+  divergence (6-layer analysis, mitigation strategy), incident
+  response (Tech Lead role during and after).
+- **Total line count:** 4663 (+246).
+
+## Quality Pass: Chapter Audit
+
+- **Date:** 2026-05-06
+- **Scope:** Audit chapter against BOOK_SPEC, STYLE_GUIDE,
+  CHAPTER_TEMPLATE, and SUMMARY.
+- **Audit findings and fixes:**
+  1. Banned word "powerful" used twice → replaced with "feature-rich"
+     and "broad-access operation."
+  2. Missing Pod-to-Service-to-Ingress Mermaid diagram (required by
+     SUMMARY.md) → added in Mental Model section.
+  3. Missing scheduling subsection (taints, tolerations, affinity,
+     nodeSelector — required by SUMMARY.md) → added between rolling
+     updates and RBAC sections.
+  4. Non-standard `## Tech Lead Decision-Making` section noted but
+     retained (adds value, same pattern as security chapter).
+- **Verified (no issues):**
+  - All code blocks have correct language tags (allowed list).
+  - H2 structure matches CHAPTER_TEMPLATE (plus one extra section).
+  - 12 internal cross-links to related chapters (Security, AWS,
+    CI/CD, Observability, System Design).
+  - No other banned words found.
+  - Trade-offs table present. Mental model present. Tech Lead
+    Checklist present. All Q&A categories present.
+- **Total line count:** 4745 (+82). Code blocks: 42 pairs (balanced).

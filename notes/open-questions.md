@@ -98,3 +98,55 @@ Format: one row per question.
   checklist provides.
 - **Owner:** author.
 - **Status:** open.
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Question:** Should the chapter include a deeper section on service
+  meshes (Istio, Linkerd) or keep them as brief references?
+- **Context:** Service meshes are relevant to Kubernetes networking,
+  security (mTLS), and observability but are large enough for their
+  own chapter. Currently mentioned in canary deployments, mTLS, and
+  load balancing but not covered in depth.
+- **Options:**
+  1. Add a subsection (1-2 pages) on service mesh fundamentals and
+     trade-offs within this chapter.
+  2. Keep as brief references and consider a future dedicated section
+     in the System Design or Architecture chapter.
+- **Owner:** author.
+- **Status:** open.
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Question:** Should Kubernetes operators (custom controllers, CRDs)
+  be covered in this chapter or deferred?
+- **Context:** Operators are increasingly common (CloudNativePG,
+  Prometheus Operator, cert-manager) and a Tech Lead is expected to
+  understand the pattern. Currently mentioned briefly but not explained
+  in depth.
+- **Options:**
+  1. Add a subsection covering the operator pattern, CRDs, and when
+     to use vs avoid operators.
+  2. Defer to a future pass or System Design chapter.
+- **Owner:** author.
+- **Status:** open.
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Question:** Non-standard `## Tech Lead Decision-Making` section.
+- **Context:** The chapter includes a `## Tech Lead Decision-Making`
+  section that is not part of `CHAPTER_TEMPLATE.md`. This section adds
+  significant value (adoption strategy, ownership model, cost
+  governance, stakeholder communication, overengineering traps, dev vs
+  prod divergence, incident response). The same pattern was used in
+  `book/15-security.md` and retained during audit.
+- **Options:**
+  1. Keep as-is (valuable, consistent with security chapter pattern).
+  2. Merge content into existing template sections (Production
+     Considerations, Tech Lead Checklist).
+  3. Update CHAPTER_TEMPLATE.md to include this section officially.
+- **Owner:** author.
+- **Status:** open (retained during audit — recommend option 3 if more
+  chapters adopt this pattern).

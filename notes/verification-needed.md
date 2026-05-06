@@ -515,3 +515,163 @@ add specific rows here.
 - **Suggested source:** GDPR Article 33, ICO guidance on breach
   notification
 - **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Theoretical Foundation — Kubernetes architecture
+- **Claim:** Docker is no longer the default runtime since Kubernetes
+  1.24 (dockershim removal).
+- **Why it matters:** The exact version of dockershim removal should
+  be confirmed. Kubernetes 1.24 removed dockershim (May 2022).
+- **Suggested source:** Kubernetes changelog 1.24, KEP-2221
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Theoretical Foundation — Resource requests and limits
+- **Claim:** CPU throttling uses CFS with 100ms quota periods.
+- **Why it matters:** CFS bandwidth control documentation should
+  confirm the default 100ms period. Some distributions may differ.
+- **Suggested source:** Linux kernel CFS bandwidth control docs,
+  Kubernetes CPU management policies documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Production Considerations — Reliability
+- **Claim:** Kubelet must be within 2 minor versions of API server
+  (version skew policy).
+- **Why it matters:** The version skew policy is n-2 for kubelet as
+  of recent versions. Confirm this has not changed.
+- **Suggested source:** kubernetes.io/docs/setup/release/
+  version-skew-policy
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Interview Q&A — Tech Lead (cluster migration)
+- **Claim:** Kubernetes does not support skipping minor versions
+  during upgrade (must upgrade sequentially 1.26→1.27→1.28→...).
+- **Why it matters:** This has been the stated policy but should be
+  confirmed for current versions. Some managed services may allow
+  larger jumps.
+- **Suggested source:** kubernetes.io upgrade documentation, EKS/GKE
+  upgrade documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Trade-offs, Production Considerations
+- **Claim:** Over-provisioning in Kubernetes clusters is typically
+  40-60% (wasted capacity).
+- **Why it matters:** Industry survey data (Datadog, CNCF) suggests
+  this range but the exact figure varies by source and year.
+- **Suggested source:** Datadog Container Report, CNCF surveys
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Docker security — Minimal base images
+- **Claim:** Default Docker seccomp profile blocks ~44 dangerous
+  syscalls.
+- **Why it matters:** The exact number of blocked syscalls depends on
+  the Docker version and may have changed in recent releases.
+- **Suggested source:** Docker documentation on seccomp, moby/moby
+  default seccomp profile in source code
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Docker security — Minimal base images
+- **Claim:** Distroless images have ~5-15 CVEs vs ~100-300 for full
+  node:20 images.
+- **Why it matters:** These are rough magnitudes based on typical scan
+  results. Actual counts vary by scan date and vulnerability database.
+- **Suggested source:** Run Trivy against current images for actual
+  counts; Google distroless documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Resource requests and limits — Operational consideration
+- **Claim:** CFS enforces CPU quotas in 100ms periods and
+  `container_cpu_cfs_throttled_periods_total` is the metric to monitor.
+- **Why it matters:** The CFS period is configurable in some
+  environments (--cpu-cfs-quota-period flag) and the metric name
+  should be verified against current Prometheus/cAdvisor documentation.
+- **Suggested source:** Kubernetes CPU management docs, cAdvisor
+  metrics documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Services — Common mistake
+- **Claim:** Each LoadBalancer Service costs $15-25/month (cloud LB
+  provisioning).
+- **Why it matters:** Cloud LB pricing varies by provider and region.
+  AWS NLB and ALB have different pricing models. The range is
+  approximate and should be noted as such.
+- **Suggested source:** AWS ELB pricing page, GCP Load Balancing
+  pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** HPA — Operational consideration
+- **Claim:** HPA evaluates metrics every 15 seconds (default
+  `--horizontal-pod-autoscaler-sync-period`).
+- **Why it matters:** The default sync period may have changed in
+  recent Kubernetes versions.
+- **Suggested source:** Kubernetes HPA documentation, kube-controller-
+  manager flags reference
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** kubectl troubleshooting — CrashLoopBackOff
+- **Claim:** Kubernetes applies exponential backoff (10s, 20s, 40s...
+  up to 5 minutes) between restart attempts for CrashLoopBackOff.
+- **Why it matters:** The exact backoff sequence and maximum backoff
+  duration should be verified against current Kubernetes source code.
+- **Suggested source:** Kubernetes source code (kubelet restart
+  backoff), Kubernetes documentation on container restart policy
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Persistent volumes — Operational consideration
+- **Claim:** ConfigMap updates propagate to pods within the kubelet
+  sync period (~60s).
+- **Why it matters:** The kubelet sync period for ConfigMap/Secret
+  volume updates depends on `configMapAndSecretChangeDetectionStrategy`
+  and `syncFrequency` configuration.
+- **Suggested source:** Kubernetes documentation on ConfigMap and
+  Secret propagation delays
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/03-docker-and-kubernetes.md`
+- **Section:** Examples — Service and Ingress
+- **Claim:** nginx ingress controller rate-limiting annotations use
+  `nginx.ingress.kubernetes.io/rate-limit` and
+  `nginx.ingress.kubernetes.io/rate-limit-window`.
+- **Why it matters:** Annotation names are controller-specific and
+  may differ between nginx-ingress versions (community vs F5). The
+  rate limiting implementation and annotation syntax should be
+  verified against the version in use.
+- **Suggested source:** kubernetes/ingress-nginx annotations
+  documentation (current version)
+- **Status:** unverified
