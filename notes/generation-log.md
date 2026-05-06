@@ -3531,3 +3531,217 @@ All passes completed:
 3. `nextjs-examples-pass` — 6 new production-style examples.
 4. `nextjs-tech-lead-pass` — 6 new decision-making subsections.
 5. `nextjs-chapter-audit` — final audit and fixes.
+
+---
+
+## `algorithms-initial-generation` — 2026-05-06
+
+- **File:** `book/01-algorithms-and-data-structures.md`
+- **Pass:** Full chapter generation from skeleton.
+- **What was done:**
+  - Replaced skeleton (TODO markers) with complete chapter content
+    (1,913 lines).
+  - Sections generated: Chapter Goal, Why This Matters for a Tech Lead,
+    Mental Model (Mermaid decision tree), Core Terminology (15 terms
+    with key distinctions), Theoretical Foundation (18 subsections:
+    asymptotic notation, arrays, linked lists, stacks/queues, hash
+    maps/sets, trees/BST/balanced BST/B-tree, heaps, graphs, tries,
+    sorting algorithms, searching algorithms, recursion, dynamic
+    programming, greedy algorithms, sliding window/two pointers,
+    BFS/DFS, Dijkstra, topological sort, caching as algorithmic
+    concept), Practical Usage, Examples (4 code examples with 5-part
+    explanations: LRU cache, top-K with min-heap, BFS vs DFS, coin
+    change DP), Common Mistakes (7), Trade-offs (8-row table),
+    Production Considerations, Tech Lead Decision-Making (5
+    subsections), How to Explain This in an Interview (3 openings),
+    Good Answer vs Weak Answer, Tech Lead Checklist (3 categories),
+    Interview Q&A, Summary (8 bullets), Further Study (8 items).
+  - Q&A section: Basic: 30 (short format), Senior: 14 (detailed
+    format), Tech Lead: 10 (detailed format), Scenario: 10 (detailed
+    format), Trick: 5 (compact), Red Flags: 5. Total: 74.
+  - 5 code blocks (ts), 1 Mermaid diagram.
+  - 14 tables, all with captions.
+  - 8 cross-references to other chapters.
+  - 1 verification blockquote (Tim sort defaults).
+  - No banned words in chapter content.
+  - Added #93 to `notes/verification-needed.md`.
+- **Chapter size:** 1,913 lines.
+
+---
+
+## `algorithms-qa-expansion` — 2026-05-06
+
+- **File:** `book/01-algorithms-and-data-structures.md`
+- **Pass:** Expand Interview Q&A to target counts.
+- **What was done:**
+  - Added 1 new Senior question (stream deduplication with rolling
+    window — bloom filter, time-bucketed sets, Redis TTL).
+  - Added 5 new Tech Lead questions:
+    1. When is an algorithmic improvement worth the engineering
+       investment?
+    2. Handling duplicate utility implementations across teams in a
+       monorepo.
+    3. Evaluating a graph database proposal vs recursive CTEs.
+    4. Handling the "Big-O is irrelevant because hardware is fast"
+       argument.
+    5. Designing a relevant algorithms interview for senior backend
+       roles.
+  - Added new **Performance** section (5 questions):
+    1. Diagnosing algorithmic vs I/O performance problems.
+    2. Hash map chaining vs open addressing performance.
+    3. Reducing JSON parsing latency with streaming/binary formats.
+    4. GC interaction with data structure choices.
+    5. Precomputation vs on-demand computation trade-offs.
+  - Added new **Security** section (5 questions):
+    1. HashDoS attacks and data structure mitigations.
+    2. Algorithmic complexity as a denial-of-service vector (ReDoS,
+       parsing bombs, adversarial sort).
+    3. Cache security (poisoning, timing, eviction attacks).
+    4. Timing-safe comparison in auth systems.
+    5. User-controlled data structure size/shape risks.
+  - Added new **Testing and Quality** section (5 questions):
+    1. Testing algorithm time complexity (operation counting,
+       scaling benchmarks).
+    2. Testing probabilistic data structures (bloom filters).
+    3. Ensuring refactored algorithms produce same results (golden
+       files, property-based, shadow mode).
+    4. Property-based testing for algorithm correctness.
+    5. Designing non-flaky performance regression tests.
+  - Fixed 1 banned word ("not just" → "not only") in a question
+    heading.
+  - Q&A totals: Basic: 30, Senior: 15, Tech Lead: 15, Performance: 5,
+    Security: 5, Testing/Quality: 5, Scenario: 10, Trick: 5,
+    Red Flags: 5. Total: 95.
+  - No new code examples added (all content is Q&A).
+  - No new verification notes needed (no version-sensitive claims in
+    added questions).
+- **Chapter size:** 2,608 lines (up from 1,913).
+
+---
+
+## `algorithms-examples-pass` — 2026-05-06
+
+- **File:** `book/01-algorithms-and-data-structures.md`
+- **Pass:** Improve code and diagram examples.
+- **What was done:**
+  - Added 8 new examples to the `## Examples` section, each with
+    5-part explanation (What / Why / Common Mistake / Production
+    Change / Tech Lead Check):
+    1. **Hash map frequency counter** — `Map`-based counting and
+       `Set`-based deduplication. Shows the most impactful code
+       review pattern (Array.includes → Set).
+    2. **Stack-based bracket validation** — nested matching with a
+       stack. Maps to parsers, config validators, template engines.
+    3. **Sliding window** — longest substring without repeating
+       characters. O(n) vs O(n²) for contiguous sequence problems.
+    4. **Two pointers** — pair sum in a sorted array. Exploits
+       sorted data to eliminate nested loops.
+    5. **Binary search with boundary handling** — lowerBound /
+       upperBound with half-open interval pattern. Prevents
+       off-by-one errors.
+    6. **Trie autocomplete** — insert, search, startsWith, and
+       autocomplete with limit. Prefix queries that hash maps
+       cannot support.
+    7. **Dijkstra shortest path** — greedy expansion with priority
+       queue. Discusses negative weights, library alternatives.
+    8. **Real-world algorithm choices diagram** — Mermaid flowchart
+       of decisions in a backend request handler (dedup → fetch →
+       sort → cache → respond).
+  - Added 8 new code blocks (`ts`) and 1 Mermaid diagram.
+  - Total code blocks: 13 (11 `ts`, 2 `mermaid`), all balanced.
+  - No banned words introduced.
+  - No new verification notes needed (examples use stable,
+    language-level APIs).
+- **Chapter size:** 2,912 lines (up from 2,608).
+
+---
+
+## `algorithms-tech-lead-pass` — 2026-05-06
+
+- **File:** `book/01-algorithms-and-data-structures.md`
+- **Pass:** Strengthen Tech Lead perspective.
+- **What was done:**
+  - Added 6 new subsections to `## Tech Lead Decision-Making`
+    (total now 11):
+    1. **Profiling before optimizing: a decision framework** —
+       4-step measure → locate → quantify → verify framework with
+       profiling tool table by language.
+    2. **Readability vs micro-optimization** — decision matrix
+       (cold/warm/hot path), concrete examples of when readability
+       wins and when optimization wins, interview framing.
+    3. **Cost model: when algorithmic choices affect infrastructure
+       spend** — cost calculation template with concrete numbers,
+       stakeholder explanation, break-even analysis, when cost does
+       not justify optimization.
+    4. **Calibrating algorithm interviews for role level** — table
+       mapping Junior/Mid/Senior/TL to problem type and evaluation
+       focus, what to avoid and what to look for.
+    5. **Avoiding LeetCode-only thinking in production** — 6-row
+       table mapping contest habits to production corrections,
+       coaching approach.
+    6. **Risk checklist: algorithmic decisions in production** —
+       9-item checklist covering bounded inputs, worst case, memory,
+       timeouts, monitoring, rollback, adversarial input, testing,
+       and documentation.
+  - Added 2 new interview openings:
+    1. "How do you balance code readability with performance?"
+    2. "How do you justify performance work to stakeholders?"
+  - Added 4 new tables (profiling tools, readability matrix,
+    interview calibration, LeetCode-to-production patterns).
+  - Added 1 new code block (`text` — cost calculation template).
+  - No banned words introduced.
+  - No new verification notes needed (profiling tools listed are
+    stable, well-established projects).
+- **Chapter size:** 3,063 lines (up from 2,912).
+
+---
+
+## `algorithms-chapter-audit` — 2026-05-06
+
+- **File:** `book/01-algorithms-and-data-structures.md`
+- **Pass:** Final audit against `BOOK_SPEC.md`, `STYLE_GUIDE.md`,
+  `CHAPTER_TEMPLATE.md`.
+- **What was done:**
+  - Fixed 1 arithmetic error: bloom filter for 100M entries at 0.1%
+    false positive rate is ~180 MB (14.4 bits × 100M / 8), not
+    144 MB as originally stated.
+  - Verified structural compliance:
+    - H1: 1 (`# Algorithms and Data Structures`).
+    - H2 sections: all 17 required sections in template order,
+      plus `## Tech Lead Decision-Making` (de facto standard,
+      9 chapters now).
+    - H2: Title Case. H3+: sentence case.
+    - Code blocks: 14 pairs, balanced, tags: `ts` (11),
+      `mermaid` (2), `text` (1) — all allowed.
+    - No banned words in chapter content (1 "just" in Weak
+      Answer — intentional).
+    - 8 cross-references, all resolve to existing files.
+    - 1 inline verification blockquote (Tim sort defaults).
+    - 18 tables, all with captions.
+    - 2 Mermaid diagrams, both with caption paragraphs.
+    - Q&A: Basic: 30, Senior: 15, Tech Lead: 15, Performance: 5,
+      Security: 5, Testing/Quality: 5, Scenario: 10, Trick: 5,
+      Red Flags: 5. Total: 95.
+    - Summary: 8 bullets (target 5-8).
+    - Further Study: 8 items with cross-references.
+    - Trade-offs table with "optimizes for / sacrifices / flips
+      when" format.
+    - Tech Lead Checklist: 3 categories with concrete items.
+    - Good Answer vs Weak Answer with "Why the Strong Answer
+      Wins" section.
+    - No overconfident numeric claims without qualification.
+    - No shallow definitions.
+    - No repetitive sections.
+    - All code examples have 5-part explanations.
+  - **No new verification notes needed** (existing #93 covers Tim
+    sort claims, the only version-sensitive content).
+- **Chapter size:** 3,063 lines (unchanged — 1 word fix only).
+
+### Algorithms chapter generation complete
+
+All passes completed:
+1. `algorithms-initial-generation` — full chapter from skeleton.
+2. `algorithms-qa-expansion` — expanded Q&A to target counts.
+3. `algorithms-examples-pass` — 8 new production-style examples.
+4. `algorithms-tech-lead-pass` — 6 new decision-making subsections.
+5. `algorithms-chapter-audit` — final audit and fix.

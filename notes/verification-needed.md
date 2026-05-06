@@ -1924,3 +1924,20 @@ add specific rows here.
 - **Suggested source:** react.dev useActionState; nextjs.org
   server-actions-and-mutations
 - **Status:** unverified
+
+---
+
+### #93. Tim sort as default sort implementation (Algorithms chapter)
+
+- **Chapter:** `book/01-algorithms-and-data-structures.md`
+- **Section:** Theoretical Foundation → Sorting algorithms
+- **Claim:** Tim sort is the default sort in Python (`list.sort()`),
+  Java (`Arrays.sort()` for objects), and JavaScript (V8 uses Tim sort
+  since 2019). Java's `Arrays.sort(int[])` uses dual-pivot quicksort.
+  JavaScript `Array.sort()` is stable. Python `list.sort()` is stable.
+- **Why it matters:** Sort stability and algorithm choice affect
+  correctness and performance advice in the chapter.
+- **Suggested source:** Python docs (Sorting HOW TO), Java SE
+  `Arrays.sort` Javadoc, V8 blog post on Timsort, MDN
+  `Array.prototype.sort()` stability note.
+- **Status:** unverified

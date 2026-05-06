@@ -174,3 +174,7 @@ Format: one row per question.
   `15-security.md`, `17-ci-cd-and-devops.md`, `18-observability.md`,
   `19-performance-and-scalability.md`).
   This is a universal section — should be formalized in the template.
+- **Update (2026-05-06):** `book/01-algorithms-and-data-structures.md`
+  also uses this pattern. Nine chapters now include
+  `## Tech Lead Decision-Making`. This is clearly a universal section
+  and should be added to `CHAPTER_TEMPLATE.md`.
