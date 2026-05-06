@@ -1335,3 +1335,90 @@ add specific rows here.
 - **Suggested source:** GitHub Actions billing documentation
   (docs.github.com/en/billing/managing-billing-for-github-actions)
 - **Status:** unverified
+
+---
+
+### 53. OpenTelemetry SDK stability status
+
+- **Chapter:** 18-observability
+- **Section:** Theoretical Foundation > OpenTelemetry; Examples >
+  OpenTelemetry instrumentation in Node.js
+- **Claim:** OTel tracing API is GA for most languages; metrics and
+  logs GA status varies. The `@opentelemetry/sdk-node` and
+  `@opentelemetry/auto-instrumentations-node` APIs are used as shown.
+- **Why it matters:** OTel SDK surface area has changed across
+  versions. Package names, imports, and configuration APIs may differ
+  from the examples shown.
+- **Suggested source:** OpenTelemetry documentation
+  (opentelemetry.io/docs/) and npm package changelogs.
+- **Status:** unverified
+
+---
+
+### 54. CloudWatch pricing tiers
+
+- **Chapter:** 18-observability
+- **Section:** Theoretical Foundation > Observability tooling
+- **Claim:** CloudWatch has pay-per-use pricing and can become
+  expensive at high metric/log volume.
+- **Why it matters:** AWS pricing changes periodically. Specific
+  costs for custom metrics, log ingestion per GB, and dashboard
+  charges affect cost comparison accuracy.
+- **Suggested source:** AWS CloudWatch pricing page
+  (aws.amazon.com/cloudwatch/pricing/)
+- **Status:** unverified
+
+---
+
+### 55. DORA metric thresholds (Observability chapter reference)
+
+- **Chapter:** 18-observability
+- **Section:** Interview Questions and Answers > Basic (DORA metrics
+  question)
+- **Claim:** References DORA metrics as a standard framework for
+  measuring delivery performance.
+- **Why it matters:** DORA metric thresholds are updated in the
+  annual State of DevOps Report. Elite/High/Medium/Low thresholds
+  may shift.
+- **Suggested source:** Latest State of DevOps Report
+  (dora.dev)
+- **Status:** unverified
+
+### 56. prom-client API (Observability chapter examples)
+
+- **Chapter:** 18-observability
+- **Section:** Examples > Custom application metrics in Prometheus
+- **Claim:** Uses `Registry`, `Histogram`, `Counter`, `Gauge`
+  constructors with `labelNames`, `buckets`, and `registers` options.
+- **Why it matters:** The `prom-client` npm package API has changed
+  across major versions (v14 → v15). Constructor options, label
+  handling, and registry behavior may differ.
+- **Suggested source:** prom-client npm package README and CHANGELOG
+  (https://github.com/siimon/prom-client)
+- **Status:** unverified
+
+### 57. CloudWatch alarm CloudFormation syntax (Observability chapter)
+
+- **Chapter:** 18-observability
+- **Section:** Examples > CloudWatch metric alarm
+- **Claim:** Uses `TreatMissingData: breaching` and other
+  `AWS::CloudWatch::Alarm` properties in CloudFormation.
+- **Why it matters:** CloudFormation resource properties and allowed
+  values may change. `TreatMissingData` valid values and default
+  behavior should be confirmed.
+- **Suggested source:** AWS CloudFormation User Guide —
+  AWS::CloudWatch::Alarm resource reference
+- **Status:** unverified
+
+### 58. Datadog / New Relic per-host pricing (Observability chapter)
+
+- **Chapter:** 18-observability
+- **Section:** Trade-offs table (vendor-managed row)
+- **Claim:** Vendor-managed observability platforms cost roughly
+  $15-30/host/month plus per-metric and per-GB log ingestion costs.
+- **Why it matters:** Vendor pricing changes. Datadog and New Relic
+  have different pricing models (per-host, per-container, per-GiB).
+  Incorrect pricing undermines the self-hosted vs vendor cost
+  comparison.
+- **Suggested source:** Datadog pricing page, New Relic pricing page
+- **Status:** unverified

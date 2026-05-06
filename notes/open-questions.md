@@ -150,3 +150,7 @@ Format: one row per question.
 - **Owner:** author.
 - **Status:** open (retained during audit — recommend option 3 if more
   chapters adopt this pattern).
+- **Update (2026-05-06):** `book/18-observability.md` now also uses
+  this pattern, joining `book/04-aws.md`, `book/17-ci-cd-and-devops.md`,
+  and `book/15-security.md`. Four chapters now use `## Tech Lead
+  Decision-Making` — strong signal to formalize in the template.

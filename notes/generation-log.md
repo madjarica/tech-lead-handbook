@@ -2422,3 +2422,269 @@ No remaining automated generation passes. Manual tasks:
 - **Chapter size:** 4,239 lines (up from 4,190).
 - **Status:** Chapter audit complete. Meets Definition of Done
   (pending human verification of version-sensitive claims).
+
+---
+
+### observability-initial-generation (2026-05-06)
+
+- **Scope:** Full chapter generation for `book/18-observability.md`.
+  Replaced skeleton with complete content.
+- **Sections generated:**
+    - Chapter Goal, Why This Matters for a Tech Lead, Mental Model
+      (with Mermaid diagram), Core Terminology (17-row table with key
+      distinctions).
+    - Theoretical Foundation with 10 subsections:
+        1. Monitoring vs observability (maturity progression model).
+        2. Logs: structured logging and log levels (4-row level table,
+           what to include/exclude, Tech Lead standard).
+        3. Metrics: types, cardinality, and label discipline (4-type
+           table, cardinality rules, exemplars).
+        4. Distributed tracing: spans, context propagation, sampling
+           (W3C traceparent, 3 sampling strategies table).
+        5. OpenTelemetry (SDK, Collector architecture, migration path).
+        6. SLIs, SLOs, and SLAs (good SLI vs bad SLI table, error
+           budget formula).
+        7. Error budgets in practice (budget tracking example, burn
+           rate alerting, multi-window table).
+        8. Alerting: symptoms vs causes (discipline rules, common
+           mistakes).
+        9. Dashboards as products (4-type table, discipline rules).
+        10. Incident response and postmortems (6-step process, 5
+            postmortem questions, blameless culture).
+        11. Observability tooling: Prometheus/Grafana, ELK/OpenSearch,
+            CloudWatch, vendor platforms.
+    - Practical Usage: standard stack, SLO-based alerting (before/
+      after comparison), tracing across async boundaries, how a Tech
+      Lead introduces observability (5-phase plan).
+    - Examples (5 production-grade examples with 5-part explanations):
+        1. Structured JSON log line.
+        2. Prometheus SLO burn-rate query.
+        3. OTel Node.js instrumentation.
+        4. Trace fan-out diagram (4 services + 2 external deps).
+        5. Runbook entry for a paged alert.
+    - Common Mistakes (8 items, each with 3-part format).
+    - Trade-offs (7-row comparison table).
+    - Production Considerations (8 areas: security, performance,
+      reliability, maintainability, cost, team, vendor lock-in,
+      migration).
+    - Tech Lead Decision-Making:
+        1. Senior vs Tech Lead table (8 areas).
+        2. Observability as a product (users, SLOs, cost model,
+           maintenance cadence).
+        3. Common overengineering traps (5-row table).
+        4. Cost-aware observability decisions (3 cost components,
+           5-row optimization table).
+    - How to Explain This in an Interview (3 opening answers).
+    - Good Answer vs Weak Answer (alerting philosophy).
+    - Tech Lead Checklist (20 items across 5 categories).
+    - Interview Questions and Answers:
+        - Basic: 30 questions (short format).
+        - Senior: 11 questions (1 detailed + 10 short).
+        - Tech Lead: 10 questions (all detailed format).
+        - Performance: 5 questions.
+        - Security: 3 questions.
+        - Testing/Quality: 3 questions.
+        - Scenario-based: 10 questions (all detailed format).
+        - Trick Questions: 5 questions.
+        - Red Flags: 5 items.
+    - Summary (8 bullet points).
+    - Further Study (12 cross-references and resources).
+- **New code blocks:** 9 (mermaid, text, json, ts).
+- **New tables:** 15+.
+- **Cross-references:** 10 (CI/CD, Docker/K8s, Performance, Security,
+  AWS, Software Architecture, and more).
+- **Verification items added:** 3 (OTel SDK stability, CloudWatch
+  pricing, DORA metric thresholds).
+- **Banned words fixed:** 2 instances of "powerful" replaced during
+  generation.
+- **Chapter size:** 2,963 lines.
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list below.
+
+### observability-qa-expansion (2026-05-06)
+
+- **Scope:** Expanded Interview Questions and Answers section of
+  `book/18-observability.md` to meet all Q&A targets.
+- **Senior questions added (4 new, total 15):**
+    1. Designing effective Prometheus recording rules.
+    2. Observability for multi-tenant SaaS platforms.
+    3. Building service dependency maps from traces.
+    4. Choosing histogram bucket boundaries for latency metrics.
+- **Tech Lead questions added (5 new, total 15):**
+    1. Observability stack outage during a production incident
+       (Tier-0 dependency, fallback plan).
+    2. Governing observability standards across 10 teams (layered
+       governance, shared library, automated compliance).
+    3. Per-service SLOs vs platform-level SLOs (user journey mapping,
+       SLO proliferation avoidance).
+    4. Observability depth vs data privacy regulations (tiered
+       approach: metrics, traces, logs; GDPR pseudonymization).
+    5. Convincing a team that structured logging is necessary
+       (aggregation, correlation, cross-service consistency).
+- **Security questions added (2 new, total 5):**
+    1. Handling observability data during a security incident
+       (forensic preservation, chain of custody).
+    2. Preventing observability infrastructure from being an attack
+       vector (network isolation, auth, input validation).
+- **Testing/Quality questions added (2 new, total 5):**
+    1. Testing context propagation across service boundaries.
+    2. Verifying dashboard accuracy after metrics backend migration.
+- **Final Q&A counts:**
+    - Basic: 30 ✓
+    - Senior: 15 ✓
+    - Tech Lead: 15 ✓
+    - Performance: 5 ✓
+    - Security: 5 ✓
+    - Testing/Quality: 5 ✓
+    - Scenario-based: 10 ✓
+    - Trick Questions: 5 ✓
+    - Red Flags: 5 ✓
+- **Chapter size:** 3,322 lines (up from 2,963).
+
+---
+
+## observability-examples-pass (2026-05-06)
+
+- **Pass type:** Code and configuration examples improvement.
+- **Chapter:** `book/18-observability.md`
+- **What changed:**
+    - Added 9 new examples to the `## Examples` section, bringing the
+      total from 5 to 14 examples.
+    - New examples added:
+        1. **Request logging middleware with correlation ID** (TypeScript,
+           Express + pino + OTel). Shows child logger pattern, trace ID
+           injection, and request lifecycle logging.
+        2. **Custom application metrics in Prometheus** (TypeScript,
+           prom-client). Defines Histogram, Counter, Gauge for RED
+           metrics, queue depth, and cache hit ratio.
+        3. **CloudWatch metric alarm** (YAML, CloudFormation). Defines
+           an error rate alarm with `TreatMissingData: breaching`,
+           SNS integration, and runbook link.
+        4. **SLI and SLO definition for an API service** (text). Full
+           SLO contract with SLIs, error budget, burn-rate alert
+           thresholds, and error budget policy.
+        5. **Grafana dashboard layout for a service** (text). 4-row
+           investigation-flow layout with drill-down links and design
+           rationale.
+        6. **Alert design: bad vs good** (text). Side-by-side comparison
+           of cause-based, over-sensitive, fast-burn, and slow-burn
+           alerts with explanations.
+        7. **Log redaction for sensitive data** (TypeScript, pino redact
+           configuration). Denylist redaction with security rationale.
+        8. **Incident timeline example** (text). Full lifecycle from
+           detection to resolution with action items.
+        9. **Postmortem template** (text). Reusable blameless postmortem
+           format with impact, timeline, root cause, and action items
+           table.
+    - Every new example includes the 5-part explanation: What it does,
+      Why it is useful, Common mistake, Production change, Tech Lead
+      check.
+    - 2 new cross-references added: AWS chapter (CloudWatch alarm),
+      Security chapter (log redaction).
+    - 2 new verification items added to `notes/verification-needed.md`:
+        - `prom-client` API surface (Registry, Histogram, Counter, Gauge).
+        - CloudWatch alarm CloudFormation syntax (`TreatMissingData`).
+- **New code blocks:** 4 TypeScript, 1 YAML, 4 text.
+- **Chapter size:** 3,899 lines (up from 3,322).
+
+---
+
+## observability-tech-lead-pass (2026-05-06)
+
+- **Pass type:** Strengthen Tech Lead perspective.
+- **Chapter:** `book/18-observability.md`
+- **What changed:**
+    - **"How a Tech Lead introduces observability" section enhanced:**
+      Added sequencing decision guidance, definition of done per phase,
+      game day recommendation, and "when to delay adoption" advice.
+    - **Production Considerations strengthened:**
+      Expanded vendor lock-in with migration cost compounding. Added
+      observability stack failure as a production concern (Tier-0
+      treatment, fallback procedures). Strengthened migration/rollback
+      guidance with "survive one real incident" criteria.
+    - **8 new Tech Lead Decision-Making subsections added:**
+        1. **Observability maturity model:** 5-level model (Reactive →
+           Proactive) with signals, stalling points, and quarterly
+           planning guidance.
+        2. **Ownership boundaries:** 7-row table defining who owns what
+           (dev, platform, security, Tech Lead, PM). Anti-pattern:
+           platform team owns everything.
+        3. **Incident response ownership model:** IC, Investigator,
+           Communicator, Scribe roles with tabletop exercise advice.
+        4. **What to measure first:** Prioritized instrumentation order
+           (RED → dependencies → business events → resources). What
+           NOT to measure first (BI metrics).
+        5. **When NOT to invest in observability:** 4 scenarios where
+           observability is the wrong investment (pre-PMF startup,
+           batch jobs, pre-launch services, no on-call rotation).
+        6. **Migration strategy: switching vendors:** 5-phase migration
+           plan (instrumentation → dual-ship → validation → cutover →
+           decommission). Rollback plan. Stakeholder explanation.
+        7. **Documentation and team standards:** 6-row table of what
+           to standardize (logging, metrics, SLOs, runbooks,
+           postmortems, dashboards). Enforcement via code review.
+        8. **Production readiness checklist:** 12-item checklist for
+           service launch. Scorecard approach (not a blocking gate).
+    - **Interview explanations enhanced:**
+      Added 2 new interview openings: "How do you justify observability
+      investment to leadership?" (MTTD/MTTR framing, maturity model)
+      and "How do you choose between self-hosted and vendor-managed?"
+      (team size break-even, OTel lock-in mitigation).
+- **New tables:** 6 (maturity model, ownership, incident roles,
+  standards, and inline tables in subsections).
+- **Chapter size:** 4,185 lines (up from 3,899).
+- **Quality checks:** No banned words. Code fences balanced (36).
+
+---
+
+## observability-chapter-audit (2026-05-06)
+
+- **Pass type:** Final audit against BOOK_SPEC, STYLE_GUIDE,
+  CHAPTER_TEMPLATE, SUMMARY.
+- **Chapter:** `book/18-observability.md`
+- **Issues found and fixed:**
+    1. **Heading case violation:** `### When NOT to invest in
+       observability` → `### When not to invest in observability`
+       (STYLE_GUIDE: sentence case for H3).
+    2. **Overconfident vendor pricing claim:** Added "roughly" qualifier
+       and "verify current pricing" note to the Trade-offs table row
+       for Datadog/New Relic ($15-30/host/month).
+    3. **Overconfident OTel overhead claim:** Softened "< 1-2% CPU
+       overhead" to "typically adds roughly 1-2% CPU overhead (actual
+       impact varies by language, SDK version, and span volume)."
+    4. **Overconfident cost percentage claim:** Added "As a rough
+       guideline" framing to the "3-5% of infrastructure budget"
+       observability cost model.
+    5. **Cross-reference gap:** Added link from production readiness
+       checklist to Tech Lead Checklist section to connect the two
+       related checklists and reduce redundancy perception.
+    6. **New verification note:** Added #58 (Datadog/New Relic per-host
+       pricing) to `notes/verification-needed.md`.
+- **Issues checked and confirmed clean:**
+    - No banned words found.
+    - All 36 code fences balanced (18 opening, 18 closing).
+    - All code blocks have correct language tags (`ts`, `yaml`, `json`,
+      `text`, `mermaid`).
+    - All H2 headings are Title Case.
+    - All H3 headings are sentence case (after fix).
+    - No filler phrases detected.
+    - No `##` headings outside code blocks that violate template.
+    - All 6 cross-referenced chapter files exist.
+    - Summary section: 8 bullet points (within 5-8 range).
+    - Further Study: 12 entries with cross-references.
+    - Verification blockquote at end of chapter.
+    - Q&A section has all required categories (Basic, Senior, Tech
+      Lead, Performance, Security, Testing/Quality, Scenario-based,
+      Trick Questions, Red Flags).
+    - `## Tech Lead Decision-Making` is a known structural deviation
+      documented in `notes/open-questions.md`.
+- **Chapter size:** 4,189 lines (up from 4,185).
+
+### Observability chapter generation complete
+
+All passes completed:
+1. `observability-initial-generation` — full chapter from skeleton.
+2. `observability-qa-expansion` — expanded Q&A to target counts.
+3. `observability-examples-pass` — 9 new code/config examples.
+4. `observability-tech-lead-pass` — 8 new decision-making subsections.
+5. `observability-chapter-audit` — final audit and fixes.
