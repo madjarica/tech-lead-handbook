@@ -2202,3 +2202,223 @@ No remaining automated generation passes. Manual tasks:
    book/26-glossary.md is populated with AWS terms.
 3. Consider formalizing `## Tech Lead Decision-Making` in
    CHAPTER_TEMPLATE.md if other chapters adopt the pattern.
+
+---
+
+## Chapter 17: CI/CD and DevOps
+
+### ci-cd-initial-generation (2026-05-06)
+
+- **Status:** Full chapter generated from skeleton.
+- **Sections completed (all 16 template sections):**
+  1. Chapter Goal
+  2. Why This Matters for a Tech Lead
+  3. Mental Model (with Mermaid pipeline flowchart)
+  4. Core Terminology (16-term table + 3 key distinctions)
+  5. Theoretical Foundation (15 subsections):
+     - CI: what it means and why it exists
+     - CD: delivery vs deployment
+     - Pipeline design
+     - Build reproducibility and hermetic builds
+     - Artifacts and versioning (SemVer)
+     - Environments: dev, staging, production
+     - Branching strategies (trunk-based, GitFlow, feature branches)
+     - Release strategy
+     - Deployment strategies (blue/green, canary, rolling, feature
+       flags)
+     - Rollback
+     - Infrastructure as Code (Terraform, CFN, Pulumi, CDK, GitOps)
+     - Secrets in CI/CD
+     - Docker image scanning
+     - Dependency scanning
+     - Deployment approvals
+     - DORA metrics
+  6. Practical Usage (standard pipeline, monorepo vs polyrepo,
+     regulated environment pipeline)
+  7. Examples (4 production-grade examples with explanations):
+     - GitHub Actions CI pipeline (YAML, OIDC + matrix strategy)
+     - GitLab CI pipeline (YAML, stages + manual approval)
+     - Terraform module with state management (bash/HCL)
+     - Argo Rollouts canary with Prometheus metrics (YAML)
+  8. Common Mistakes (8 items in STYLE_GUIDE format)
+  9. Trade-offs (7-row comparison table)
+  10. Production Considerations (8 areas per template)
+  11. How to Explain This in an Interview (3 opening answers)
+  12. Good Answer vs Weak Answer (canary vs blue/green)
+  13. Tech Lead Checklist (5 categories, 18 items)
+  14. Interview Questions and Answers:
+      - Basic: 20 questions (short format)
+      - Senior: 10 questions (mix of detailed and short)
+      - Tech Lead: 10 questions (detailed format with strong/weak)
+      - Scenario-based: 10 questions (detailed format)
+      - Trick Questions: 5 questions
+      - Red Flags: 5 items
+  15. Summary (8 bullet points)
+  16. Further Study (9 cross-chapter links + book reference)
+- **Code blocks:** 10 (1 mermaid, 3 text, 2 yaml, 1 bash, 1 yaml
+  for Argo Rollouts, plus 2 inline text diagrams).
+- **Tables:** 15 comparison and trade-off tables.
+- **Cross-references:** 7 chapters (Docker/K8s, Testing, Observability,
+  Security, AWS, Software Architecture, API Design, Git Workflow).
+- **Verification items added:** 2 (DORA metric thresholds, Argo
+  Rollouts CRD syntax).
+- **Chapter size:** ~2,700 lines.
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list below.
+
+### ci-cd-qa-expansion (2026-05-06)
+
+- **Sections enhanced:**
+  - **Basic:** Added 10 new questions (total 30): build vs deploy,
+    deployment manifest, lock file purpose, stage vs job, smoke
+    tests, shift left, pipeline triggers, container registry vs
+    artifact repo, environment promotion, rollback window.
+  - **Senior:** Added 5 new questions (total 15): secrets rotation,
+    monorepo split decision, Terraform multi-env, breaking
+    dependency updates, multi-region CD.
+  - **Tech Lead:** Added 5 new questions (total 15): cross-timezone
+    CI/CD, buy vs build CI platforms, CI/CD governance at scale,
+    CI/CD cost reduction, CD readiness evaluation.
+  - **Performance:** New section with 6 questions: pipeline time
+    budgets, slow CI impact, Docker build optimization, parallel
+    test execution, artifact build/push time, flaky pipelines.
+  - **Security:** New section with 6 questions: secret leakage
+    prevention, OIDC federation, pipeline config security, supply
+    chain security, least privilege in CI, vulnerability triage.
+  - **Testing and Quality:** New section with 5 questions: CI gates
+    vs post-merge validation, test pipeline splitting, IaC testing,
+    test environment contamination, gate effectiveness measurement.
+- **Final Q&A counts:** Basic: 30, Senior: 15, Tech Lead: 15,
+  Performance: 6, Security: 6, Testing/Quality: 5, Scenario: 10,
+  Trick: 5, Red Flags: 5.
+- **Chapter size:** 3,362 lines (up from 2,682).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list below.
+
+### ci-cd-examples-pass (2026-05-06)
+
+- **Sections enhanced:**
+  - **Examples section:** Added 7 new production-grade examples,
+    each with 5-part explanation (what it does, why it is useful,
+    common mistake, production change, Tech Lead review checklist):
+    1. Dependency and container image scanning in CI (GitLab CI
+       YAML: npm audit + Trivy with severity thresholds and triage
+       policy).
+    2. OIDC-based cloud credentials in GitHub Actions (YAML:
+       id-token permission, role assumption, session naming, ECS
+       deploy).
+    3. Blue/green deployment flow (text diagram: ALB target group
+       switch + bash script with CloudWatch rollback check).
+    4. Rollback runbook (structured text: trigger criteria, step-by-
+       step commands for ECS/K8s/feature flag, verification,
+       communication, DO NOT list).
+    5. Trunk-based development with feature flags (text workflow
+       diagram + TypeScript feature flag code with gradual rollout
+       timeline).
+    6. IaC validation in CI (GitHub Actions YAML: terraform init,
+       validate, plan, PR comment, separate plan-only IAM role).
+    7. Semantic versioning with automated release (GitHub Actions
+       YAML: tag-triggered workflow, Git-based changelog generation,
+       GitHub Release creation).
+  - **Existing example fixed:** Changed Terraform code block
+    language tag from `bash` to `text` (HCL syntax is not in the
+    allowed language tag list).
+- **New code blocks:** 10 (4 YAML, 2 bash, 2 text, 1 TypeScript,
+  1 text runbook).
+- **Verification items added:** 1 (GitHub Actions OIDC
+  configuration and aws-actions/configure-aws-credentials syntax).
+- **Chapter size:** 3,893 lines (up from 3,362).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list below.
+
+### ci-cd-tech-lead-pass (2026-05-06)
+
+- **Sections enhanced:**
+  - **Tech Lead Decision-Making section (new):** Added 9 subsections
+    to elevate the chapter from a Senior Engineer reference to a
+    Tech Lead decision guide:
+    1. What a Senior Engineer knows vs what a Tech Lead decides
+       (8-area comparison table: pipeline config, deployment strategy,
+       IaC, secrets, testing, cost, incidents, compliance).
+    2. CI/CD as risk reduction (risk equation: P(defect) ×
+       blast_radius × time_to_rollback, stakeholder framing for
+       pipeline strictness and deployment speed).
+    3. Deployment strategy decision matrix (4-strategy comparison
+       across 6 factors + 4-step decision process).
+    4. Common overengineering traps (5 traps: GitOps for 3 services,
+       custom CI platform, manual canary, 100% coverage everywhere,
+       microservice-per-pipeline).
+    5. Ownership boundaries in CI/CD (8-row table mapping concerns
+       to platform/product/security teams, common gap example).
+    6. Migration and adoption strategy (5-step deployment strategy
+       migration, 4-phase CI provider migration table with rollback
+       mechanism per phase).
+    7. Rollback design principles (3 rollback questions per service,
+       database rollback discussion, rollback design checklist).
+    8. Explaining CI/CD decisions to stakeholders (7-row table
+       mapping technical decisions to non-technical framing).
+    9. Documentation and team standards (5 items to document, 3
+       items NOT to document, decisions-not-tutorials principle).
+    10. Cost-aware pipeline decisions (3-component cost estimation,
+        cost breakdown example table with optimization levers).
+- **New tables:** 8 (Senior vs Tech Lead, deployment matrix,
+  overengineering traps, ownership, migration phases, rollback
+  checklist, stakeholder explanations, cost breakdown).
+- **Verification items added:** 1 (GitHub Actions per-minute
+  pricing).
+- **Chapter size:** 4,190 lines (up from 3,893).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list below.
+
+### ci-cd-chapter-audit (2026-05-06)
+
+- **Scope:** Full chapter audit of `book/17-ci-cd-and-devops.md`
+  against `BOOK_SPEC.md`, `STYLE_GUIDE.md`, `CHAPTER_TEMPLATE.md`,
+  and `SUMMARY.md`.
+- **Issues found and fixed:**
+    1. Banned word "just" (line 3442) replaced with "a vague."
+    2. First Senior Q&A mixed short-format question (`**Question:**`)
+       with detailed-format answer headings (`### Strong Answer`).
+       Changed to `### Question` heading for consistency.
+    3. Missing `---` separator between two Basic questions (self-
+       hosted runner → build vs deploy step).
+    4. Missing `---` separator between two Tech Lead questions
+       (drift prevention → cross-timezone CI/CD).
+    5. Tech Lead Q&A count was 14 (target: 15). Added one new
+       question: "How do you handle pipeline ownership when
+       multiple teams share a monorepo?"
+- **Structural deviations (kept intentionally):**
+    - `## Tech Lead Decision-Making` section (not in
+      `CHAPTER_TEMPLATE.md`). Same pattern as AWS chapter.
+      Documented in `notes/open-questions.md`.
+- **Template conformance verified:**
+    - All 17 required H2 sections present in correct order (plus
+      1 extra: Tech Lead Decision-Making).
+    - No H5+ headings.
+    - All H2 in Title Case, all H3+ in sentence case.
+- **Code blocks verified:**
+    - 20 code blocks, all with language tags.
+    - Allowed tags only: `mermaid`, `text`, `yaml`, `bash`, `ts`.
+    - No bare ` ``` ` blocks.
+- **Q&A counts verified:**
+    - Basic: 30 ✓
+    - Senior: 16 (target: 15) ✓
+    - Tech Lead: 15 ✓
+    - Performance: 6 ✓
+    - Security: 6 ✓
+    - Testing/Quality: 5 ✓
+    - Scenario-based: 10 ✓
+    - Trick Questions: 5 ✓
+    - Red Flags: 5 ✓
+- **Cross-references verified:** 9 cross-chapter links (Docker/K8s,
+  Testing, Observability, Security, AWS, Software Architecture, API
+  Design, Git Workflow, in both body and Further Study).
+- **Verification blockquotes:** 5 inline `> Verify` markers present.
+- **Banned words:** 0 remaining (checked: seamless, powerful,
+  blazing fast, lightning fast, next-generation, revolutionary,
+  game changer, best-in-class, world-class, easy to use, simply,
+  just).
+- **No new verification items added.**
+- **Chapter size:** 4,239 lines (up from 4,190).
+- **Status:** Chapter audit complete. Meets Definition of Done
+  (pending human verification of version-sensitive claims).

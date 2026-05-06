@@ -1276,3 +1276,62 @@ add specific rows here.
 - **Suggested source:** AWS data transfer pricing page, NAT
   Gateway pricing, CloudFront pricing
 - **Status:** unverified
+
+---
+
+- **Chapter:** `book/17-ci-cd-and-devops.md`
+- **Section:** Theoretical Foundation — DORA metrics
+- **Claim:** DORA metric thresholds for elite/high/medium/low
+  performance (deployment frequency, lead time, change failure
+  rate, MTTR). Specific thresholds: elite < 1 hour lead time,
+  0-15% change failure rate, < 1 hour MTTR.
+- **Why it matters:** DORA thresholds are updated periodically
+  in the State of DevOps Report. Citing outdated thresholds
+  could mislead interview preparation.
+- **Suggested source:** Latest DORA State of DevOps Report
+  (dora.dev)
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/17-ci-cd-and-devops.md`
+- **Section:** Examples — Canary deployment with automated rollback
+- **Claim:** Argo Rollouts CRD syntax for canary deployment with
+  Prometheus-based analysis (apiVersion, spec.strategy.canary,
+  canaryMetrics with Prometheus provider).
+- **Why it matters:** Argo Rollouts CRD API may change across
+  versions. Incorrect CRD syntax would be misleading.
+- **Suggested source:** Argo Rollouts documentation
+  (argoproj.github.io/argo-rollouts)
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/17-ci-cd-and-devops.md`
+- **Section:** Examples — OIDC-based cloud credentials in GitHub
+  Actions
+- **Claim:** GitHub Actions OIDC configuration uses `id-token: write`
+  permission and `aws-actions/configure-aws-credentials@v4` with
+  `role-to-assume` parameter for OIDC-based AWS credential
+  acquisition.
+- **Why it matters:** GitHub Actions OIDC setup and the
+  `aws-actions/configure-aws-credentials` action version and
+  parameter names may change. Incorrect syntax would prevent the
+  pipeline from authenticating.
+- **Suggested source:** GitHub Actions OIDC documentation, AWS
+  `configure-aws-credentials` action repository
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/17-ci-cd-and-devops.md`
+- **Section:** Tech Lead Decision-Making — Cost-aware pipeline
+  decisions
+- **Claim:** GitHub-hosted runners cost ~$0.008/minute for Linux.
+  Cost estimation example: 22,000 minutes/month = ~$176/month.
+- **Why it matters:** GitHub Actions pricing changes periodically.
+  Incorrect per-minute pricing would undermine cost estimation
+  credibility.
+- **Suggested source:** GitHub Actions billing documentation
+  (docs.github.com/en/billing/managing-billing-for-github-actions)
+- **Status:** unverified
