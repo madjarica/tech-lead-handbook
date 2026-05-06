@@ -1633,3 +1633,150 @@ add specific rows here.
 - **Suggested source:** TanStack Query documentation
   (tanstack.com/query)
 - **Status:** unverified
+
+---
+
+### #74. Angular standalone component migration schematic (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Theoretical Foundation — Modules and standalone components
+- **Claim:** The Angular CLI provides a migration schematic
+  `ng generate @angular/core:standalone` that converts NgModules to
+  standalone components.
+- **Why it matters:** The schematic name, options, and behavior may
+  change between Angular versions.
+- **Suggested source:** angular.dev standalone migration guide
+- **Status:** unverified
+
+---
+
+### #75. Angular Signal APIs (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Theoretical Foundation — Signals; Examples
+- **Claim:** `signal()`, `computed()`, `effect()`, `input()`,
+  `input.required()`, `model()` are the signal APIs. Signal-based
+  inputs replace `@Input()`.
+- **Why it matters:** Signal APIs have evolved rapidly across Angular
+  16-19. Some were developer preview in earlier versions and may
+  have changed.
+- **Suggested source:** angular.dev signals guide
+- **Status:** unverified
+
+---
+
+### #76. Angular built-in control flow syntax (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Theoretical Foundation — Components, templates
+- **Claim:** `@if`, `@for` (with required `track`), `@switch`,
+  `@defer`, `@empty`, `@else` are built-in control flow blocks
+  introduced in Angular 17.
+- **Why it matters:** This syntax was new in Angular 17. Confirm
+  exact block names, behavior, and whether they are stable.
+- **Suggested source:** angular.dev built-in control flow documentation
+- **Status:** unverified
+
+---
+
+### #77. takeUntilDestroyed API (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Theoretical Foundation — RxJS subscription management
+- **Claim:** `takeUntilDestroyed()` automatically completes an
+  Observable when the component is destroyed. Requires `DestroyRef`.
+  Must be called in an injection context.
+- **Why it matters:** This API was introduced in Angular 16 and the
+  import path / constraints may have changed.
+- **Suggested source:** angular.dev API reference for
+  `takeUntilDestroyed`
+- **Status:** unverified
+
+---
+
+### #78. Functional interceptors and guards API (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Theoretical Foundation — Routing, Interceptors
+- **Claim:** `HttpInterceptorFn`, `withInterceptors()`,
+  `CanActivateFn`, `CanDeactivateFn`, `CanMatchFn` are the
+  functional alternatives to class-based guards and interceptors.
+- **Why it matters:** These functional APIs are the modern
+  recommended pattern. Verify exact type names and registration
+  methods.
+- **Suggested source:** angular.dev HTTP guide and routing guide
+- **Status:** unverified
+
+---
+
+### #79. Zoneless change detection (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Theoretical Foundation — Change detection
+- **Claim:** Zoneless change detection (experimental) removes
+  Zone.js entirely, triggering change detection only via signals
+  and explicit calls.
+- **Why it matters:** Zoneless was experimental in Angular 17-18.
+  It may have become stable or changed behavior in later versions.
+- **Suggested source:** angular.dev zoneless guide / changelog
+- **Status:** unverified
+
+---
+
+### #80. withXsrfConfiguration API (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Interview Q&A — Security
+- **Claim:** `provideHttpClient(withXsrfConfiguration({ cookieName,
+  headerName }))` configures XSRF/CSRF token handling. Default
+  cookie name is `XSRF-TOKEN`, default header is `X-XSRF-TOKEN`.
+- **Why it matters:** The functional HTTP client configuration API
+  replaced the class-based `HttpClientXsrfModule`. Verify the
+  function name and default values.
+- **Suggested source:** angular.dev HttpClient XSRF documentation
+- **Status:** unverified
+
+---
+
+### #81. ngCspNonce attribute (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Interview Q&A — Security
+- **Claim:** Angular supports `ngCspNonce` attribute for
+  nonce-based Content Security Policy, avoiding `unsafe-inline`
+  for component styles.
+- **Why it matters:** CSP nonce support was added in Angular 16+.
+  Verify attribute name and usage pattern.
+- **Suggested source:** angular.dev security guide, CSP section
+- **Status:** unverified
+
+---
+
+### #82. provideHttpClientTesting API (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Interview Q&A — Testing and Quality
+- **Claim:** `provideHttpClientTesting()` is the modern replacement
+  for `HttpClientTestingModule` for testing HTTP interceptors and
+  services.
+- **Why it matters:** The functional testing API is the modern
+  approach for standalone-based testing. Verify the function name
+  and import path.
+- **Suggested source:** angular.dev testing HTTP guide
+- **Status:** unverified
+
+---
+
+### #83. Angular output() function API (Angular chapter)
+
+- **Chapter:** 07-angular
+- **Section:** Examples — Component with input, output, and computed
+  signals
+- **Claim:** `output<T>()` is the signal-based replacement for
+  `@Output() EventEmitter`. Used as `cancel = output<string>()` and
+  emitted with `cancel.emit(value)`.
+- **Why it matters:** The `output()` function was introduced
+  alongside signal-based inputs. Verify the exact API, import path,
+  and whether it is stable or developer preview.
+- **Suggested source:** angular.dev component interaction guide
+- **Status:** unverified
