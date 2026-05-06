@@ -168,3 +168,9 @@ Format: one row per question.
   `17-ci-cd-and-devops.md`, `18-observability.md`,
   `19-performance-and-scalability.md`).
   Strongly recommend formalizing in `CHAPTER_TEMPLATE.md`.
+- **Update (2026-05-06):** `book/09-nextjs.md` also uses this pattern.
+  Eight chapters now include `## Tech Lead Decision-Making`
+  (`04-aws.md`, `07-angular.md`, `08-react.md`, `09-nextjs.md`,
+  `15-security.md`, `17-ci-cd-and-devops.md`, `18-observability.md`,
+  `19-performance-and-scalability.md`).
+  This is a universal section — should be formalized in the template.

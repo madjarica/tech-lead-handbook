@@ -3333,3 +3333,201 @@ All passes completed:
 3. `angular-examples-pass` — 6 new production-style examples.
 4. `angular-tech-lead-pass` — 7 new decision-making subsections.
 5. `angular-chapter-audit` — final audit and fixes.
+
+---
+
+## `nextjs-initial-generation` — 2026-05-06
+
+- **File:** `book/09-nextjs.md`
+- **Pass:** Initial full chapter generation from skeleton.
+- **What was done:**
+  - Replaced skeleton with full chapter content (2,776 lines).
+  - Wrote all sections: Chapter Goal, Why This Matters, Mental Model
+    (with Mermaid diagram of request pipeline), Core Terminology (16
+    terms with key distinctions), Theoretical Foundation (file-based
+    routing, layouts, Server/Client Components, Server Actions, Route
+    Handlers, Middleware, rendering strategies, caching layers,
+    metadata/SEO, authentication patterns, image optimization,
+    deployment, Edge vs Node.js runtime), Practical Usage (rendering
+    strategy selection, large app structure), Examples (3 production
+    examples with 5-part explanations), Common Mistakes (8 entries),
+    Trade-offs (9-row decision table), Production Considerations
+    (security, performance, reliability, maintainability, cost, team,
+    vendor lock-in, migration), Production Readiness Checklist (10
+    items), Tech Lead Decision-Making (knowledge vs decisions table,
+    when not to use, overengineering traps, Vercel vs self-hosting
+    framework, upgrade strategy, debugging), Interview openings (4
+    topics), Good Answer vs Weak Answer, Tech Lead Checklist (5
+    categories), Interview Q&A, Summary (8 bullets), Further Study
+    (8 cross-references).
+  - Q&A counts: Basic: 30, Senior: 10, Tech Lead: 10, Scenario: 10,
+    Trick: 5, Red Flags: 5 (Total: 70).
+  - Code blocks: 20 pairs, all balanced, all with allowed language
+    tags (`tsx`, `ts`, `text`, `mermaid`).
+  - No banned words found.
+  - 8 cross-references to existing chapters.
+  - 6 inline verification blockquotes at version-sensitive points.
+  - 7 tables, all with captions.
+  - Added #84-#89 to `notes/verification-needed.md`.
+- **Chapter size:** 2,776 lines.
+
+---
+
+## `nextjs-qa-expansion` — 2026-05-06
+
+- **File:** `book/09-nextjs.md`
+- **Pass:** Expand Interview Q&A to target counts.
+- **What was done:**
+  - Added 5 new Senior questions: streaming mechanics and when to
+    use it, Server Component import into Client Component (boundary
+    rule), data mutations and cache revalidation flow, router cache
+    staleness problem, parallel and intercepting routes in practice.
+  - Added 5 new Tech Lead questions: standardizing error handling
+    across the app, multi-tenant architecture, balancing DX and
+    performance, shared state between Server and Client Components,
+    deciding between middleware / Server Components / Route Handlers.
+  - Added new **Performance** section (5 questions): TTFB reduction,
+    client bundle optimization, RSC payload size, image optimization,
+    preventing performance regressions.
+  - Added new **Security** section (5 questions): Server Action
+    security risks, XSS prevention, CSP headers with nonce, CSRF
+    protection, environment variable and secrets management.
+  - Added new **Testing and Quality** section (5 questions): testing
+    Server Components, testing Server Actions, testing caching
+    behavior, E2E testing setup with Playwright, enforcing
+    Server/Client boundary quality standards.
+  - Fixed 0 banned words (none found).
+  - Added 2 new code examples in Senior Q&A (Server Component as
+    children pattern).
+  - Added 1 verification blockquote (router cache expiry times).
+  - Added 1 verification blockquote (CSP nonce implementation).
+  - Added #90-#91 to `notes/verification-needed.md`.
+- **Q&A counts after expansion:** Basic: 30, Senior: 15, Tech Lead:
+  15, Performance: 5, Security: 5, Testing/Quality: 5, Scenario: 10,
+  Trick: 5, Red Flags: 5 (Total: 95).
+- **Chapter size:** 3,844 lines (up from 2,776).
+
+---
+
+## `nextjs-examples-pass` — 2026-05-06
+
+- **File:** `book/09-nextjs.md`
+- **Pass:** Improve code and configuration examples.
+- **What was done:**
+  - Added 6 new production-style examples to `## Examples`, each with
+    5-part explanation (what/why/mistake/production/tech-lead):
+    1. **loading.tsx and error.tsx file conventions** — skeleton UI
+       and error boundary per route segment.
+    2. **Authenticated dashboard layout** — layout-level auth check
+       with role-based sidebar, auth boundary pattern.
+    3. **Server Action with useActionState** — contact form with Zod
+       validation, typed result (`{ success, errors }`), inline
+       validation errors, progressive enhancement.
+    4. **Route Handler with structured error handling (webhook)** —
+       Stripe webhook with signature verification, idempotency note,
+       error-first structure.
+    5. **Tag-based on-demand revalidation workflow** — ISR product
+       page with cache tags, CMS webhook Route Handler triggering
+       `revalidateTag()`.
+    6. **Environment variable validation** — `lib/env.ts` with Zod
+       schema, fail-fast on missing vars, `NEXT_PUBLIC_` safety.
+  - Added 10 new code blocks (total code blocks: 32 pairs, all
+    balanced, all with allowed tags: `tsx`, `ts`, `text`, `mermaid`).
+  - Added 1 verification blockquote (`useActionState` API, renamed
+    from `useFormState` in React 19).
+  - Added #92 to `notes/verification-needed.md`.
+  - No banned words found.
+- **Chapter size:** 4,258 lines (up from 3,844).
+
+---
+
+## `nextjs-tech-lead-pass` — 2026-05-06
+
+- **File:** `book/09-nextjs.md`
+- **Pass:** Strengthen Tech Lead perspective.
+- **What was done:**
+  - Added 6 new subsections to `## Tech Lead Decision-Making`:
+    1. **Rendering strategy decision tree** — 5-step decision
+       framework with concrete thresholds (personalized → SSR, static
+       → SSG, changing → ISR, multi-source → streaming, interactive →
+       client island). Includes route table template with columns for
+       strategy, revalidation, data source, and reason.
+    2. **Incident response: Next.js-specific runbook** — 3 incident
+       types (stale data, elevated error rate, TTFB regression) with
+       step-by-step diagnosis tables including tools.
+    3. **Cost model: understanding Next.js spend** — cost driver
+       matrix by rendering strategy, cost optimization checklist,
+       stakeholder explanation with concrete numbers (SSR → ISR
+       reducing invocations from 500k/day to 5k/day), self-hosted
+       cost comparison.
+    4. **Team conventions and architecture decision records** — 4
+       ADRs (rendering strategy, Server/Client boundary, caching/
+       revalidation, Server Action standards) in decision/context/
+       consequence format.
+    5. **Ownership boundaries** — 9-row table mapping concerns to
+       owners (Tech Lead, backend, frontend, platform, security,
+       feature team, design system).
+    6. **Migration and coexistence planning** — 5-phase migration
+       plan (Pages Router → App Router) with weekly milestones,
+       rollback plan, and stakeholder explanation with estimated
+       bundle reduction.
+  - Added 2 new interview openings (cost management, security
+    posture).
+  - Added 7 new tables (route strategy template, 3 incident
+    runbooks, cost driver matrix, 4 ADR tables, ownership table).
+  - No new code blocks added (all content is decision-oriented).
+  - No banned words found.
+  - No new verification notes needed (all claims use existing
+    version-sensitive caveats).
+- **Chapter size:** 4,511 lines (up from 4,258).
+
+---
+
+## `nextjs-chapter-audit` — 2026-05-06
+
+- **File:** `book/09-nextjs.md`
+- **Pass:** Final audit against `BOOK_SPEC.md`, `STYLE_GUIDE.md`,
+  `CHAPTER_TEMPLATE.md`.
+- **What was done:**
+  - Added missing table captions to 2 tables: "Edge runtime vs
+    Node.js runtime" and "Vercel vs self-hosting decision framework".
+  - Qualified cold start claim (~5ms edge, ~250ms Node.js) with
+    "varies by provider" / "varies by provider and bundle size".
+  - Verified structural compliance:
+    - H1: 1 (`# Next.js`).
+    - H2 sections: Chapter Goal, Why This Matters, Mental Model,
+      Core Terminology, Theoretical Foundation, Practical Usage,
+      Examples, Common Mistakes, Trade-offs, Production
+      Considerations, Tech Lead Decision-Making (de facto standard),
+      How to Explain This in an Interview, Good Answer vs Weak
+      Answer, Tech Lead Checklist, Interview Questions and Answers,
+      Summary, Further Study. All in template order.
+    - H2: Title Case. H3+: sentence case.
+    - Code blocks: 32 pairs, all balanced, all with allowed tags
+      (`tsx`, `ts`, `text`, `mermaid`).
+    - No banned words found.
+    - 10 cross-references, all resolve to existing files.
+    - 11 inline verification blockquotes at version-sensitive points.
+    - 20 tables, all now have captions.
+    - Q&A section: Basic: 30, Senior: 15, Tech Lead: 15,
+      Performance: 5, Security: 5, Testing/Quality: 5, Scenario: 10,
+      Trick: 5, Red Flags: 5. Total: 95.
+    - Summary: 8 bullets (target 5-8).
+    - Further Study: 8 items with cross-references.
+    - Trade-offs table with "optimizes for / sacrifices / flips when"
+      format.
+    - Tech Lead Checklist: 5 categories with concrete items.
+    - Production readiness checklist: 10 items.
+    - No overconfident percentage claims remain without qualifiers.
+  - **No new verification notes needed** (existing #84-#92 cover all
+    version-sensitive claims).
+- **Chapter size:** 4,515 lines (up from 4,511).
+
+### Next.js chapter generation complete
+
+All passes completed:
+1. `nextjs-initial-generation` — full chapter from skeleton.
+2. `nextjs-qa-expansion` — expanded Q&A to target counts.
+3. `nextjs-examples-pass` — 6 new production-style examples.
+4. `nextjs-tech-lead-pass` — 6 new decision-making subsections.
+5. `nextjs-chapter-audit` — final audit and fixes.

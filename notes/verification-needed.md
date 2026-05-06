@@ -1780,3 +1780,147 @@ add specific rows here.
   and whether it is stable or developer preview.
 - **Suggested source:** angular.dev component interaction guide
 - **Status:** unverified
+
+---
+
+### #84. App Router file conventions (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Theoretical Foundation — File-based routing
+- **Claim:** `loading.tsx`, `error.tsx`, `not-found.tsx`,
+  `template.tsx` are file conventions in the App Router that
+  automatically create Suspense and error boundaries.
+- **Why it matters:** These conventions are core to the App Router
+  and their exact behavior may evolve.
+- **Suggested source:** nextjs.org routing file conventions
+- **Status:** unverified
+
+---
+
+### #85. Server Component / Client Component interleaving and serialization (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Theoretical Foundation — Server Components and Client Components
+- **Claim:** Client Components cannot import Server Components
+  directly (must receive as `children` or props). Props across the
+  boundary must be JSON-serializable.
+- **Why it matters:** These rules are part of the RSC specification
+  and may evolve. The exact serialization constraints affect what
+  types can cross the boundary.
+- **Suggested source:** nextjs.org rendering server-components;
+  react.dev RSC specification
+- **Status:** unverified
+
+---
+
+### #86. Server Actions API (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Theoretical Foundation — Server Actions
+- **Claim:** `"use server"` directive marks functions as Server
+  Actions. Called via form `action` prop. `revalidatePath()` and
+  `revalidateTag()` invalidate cached data. `useFormStatus` and
+  `useActionState` provide client-side UX feedback.
+- **Why it matters:** Server Actions are relatively new. The API
+  surface (`useFormStatus`, `useActionState` — renamed from
+  `useFormState`) may change.
+- **Suggested source:** nextjs.org server-actions-and-mutations;
+  react.dev useActionState
+- **Status:** unverified
+
+---
+
+### #87. Next.js 14 vs 15 fetch caching default change (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Senior Q&A — fetch caching differences
+- **Claim:** In Next.js 14, `fetch()` in Server Components cached
+  by default (`force-cache`). In Next.js 15, the default changed
+  to `no-store`.
+- **Why it matters:** This is a significant breaking change that
+  affects application behavior on upgrade. Verify the exact version
+  and default behavior.
+- **Suggested source:** Next.js 15 release notes; nextjs.org
+  caching documentation
+- **Status:** unverified
+
+---
+
+### #88. OpenNext for self-hosted Next.js on AWS (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Tech Lead Decision-Making — Vercel vs self-hosting
+- **Claim:** OpenNext packages Next.js for AWS (Lambda, ECS) with
+  custom cache handlers and image optimization.
+- **Why it matters:** OpenNext is a community-maintained project.
+  Its compatibility with the latest Next.js versions should be
+  verified.
+- **Suggested source:** open-next.js.org; GitHub open-next/open-next
+- **Status:** unverified
+
+---
+
+### #89. next/image API and next/font API (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Theoretical Foundation — Image optimization;
+  Basic Q&A — next/font
+- **Claim:** `<Image>` component supports `priority`, `sizes`,
+  `fill`, `placeholder` props. `next/font` self-hosts fonts with
+  `size-adjust` for zero CLS.
+- **Why it matters:** These APIs evolve between Next.js versions.
+  Verify the exact props and behavior.
+- **Suggested source:** nextjs.org image-optimization; nextjs.org
+  font-optimization
+- **Status:** unverified
+
+---
+
+### #90. Router cache expiry times (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Senior Q&A — router cache
+- **Claim:** The router cache expires after 30 seconds for dynamic
+  routes and 5 minutes for static routes.
+- **Why it matters:** These default values have changed between
+  Next.js versions. Incorrect values would mislead readers
+  debugging stale data issues.
+- **Suggested source:** nextjs.org caching router-cache; Next.js
+  release notes
+- **Status:** unverified
+
+---
+
+### #91. CSP nonce implementation for Next.js (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Security Q&A — CSP headers
+- **Claim:** Next.js supports nonce-based CSP via middleware nonce
+  generation and the `<Script nonce={nonce}>` prop. Inline scripts
+  injected by Next.js for hydration require nonce or
+  `'strict-dynamic'`.
+- **Why it matters:** CSP nonce support may differ between Next.js
+  versions. Incorrect implementation breaks the application or
+  leaves XSS vectors open.
+- **Suggested source:** nextjs.org configuring-csp; Next.js
+  security documentation
+- **Status:** unverified
+
+---
+
+### #92. useActionState API (Next.js chapter)
+
+- **Chapter:** 09-nextjs
+- **Section:** Examples — Server Action with useActionState
+- **Claim:** `useActionState` (previously `useFormState` in earlier
+  React canary releases) accepts a Server Action and initial state,
+  returns `[state, formAction, isPending]`. The Server Action
+  receives `prevState` as its first argument and `formData` as its
+  second.
+- **Why it matters:** This API was renamed from `useFormState` to
+  `useActionState` in React 19. The exact function signature,
+  return type, and hook name should be verified against the current
+  React and Next.js documentation.
+- **Suggested source:** react.dev useActionState; nextjs.org
+  server-actions-and-mutations
+- **Status:** unverified
