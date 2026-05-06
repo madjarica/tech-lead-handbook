@@ -1568,3 +1568,637 @@ Format: one entry per change, newest at the bottom.
   - Trade-offs table present. Mental model present. Tech Lead
     Checklist present. All Q&A categories present.
 - **Total line count:** 4745 (+82). Code blocks: 42 pairs (balanced).
+
+## Chapter: AWS (`book/04-aws.md`)
+
+### Initial Generation (2026-05-06)
+
+- **Scope:** Generated full chapter content from skeleton.
+- **Topics covered:**
+  - Global infrastructure (regions, AZs, edge locations)
+  - IAM (policy types, evaluation logic, least privilege, permission
+    boundaries, SCPs, Access Analyzer)
+  - Organizations (multi-account strategy, OU structure, SCPs)
+  - VPC (subnets, route tables, NAT Gateway, Internet Gateway)
+  - Security groups and NACLs (comparison, defense in depth)
+  - EC2 (instance families, pricing models, Auto Scaling)
+  - Load Balancers (ALB, NLB, GWLB comparison)
+  - ECS (task definitions, Fargate, launch types)
+  - EKS (comparison with ECS, decision framework)
+  - Lambda (limits, cold starts, provisioned concurrency, SnapStart)
+  - API Gateway (REST vs HTTP vs WebSocket)
+  - S3 (consistency model, storage classes, lifecycle rules)
+  - CloudFront (cache behavior, Origin Shield, caching strategy)
+  - Route 53 (routing policies, health checks)
+  - RDS (Multi-AZ, read replicas, backup/restore)
+  - Aurora (compute/storage separation, Serverless v2)
+  - DynamoDB (single-table design, capacity modes, GSI/LSI)
+  - ElastiCache (Redis vs Memcached)
+  - SQS (Standard vs FIFO, DLQs)
+  - SNS (fan-out pattern, SNS+SQS)
+  - EventBridge (content-based routing, schema registry, archive/replay)
+  - Step Functions (Standard vs Express, saga pattern)
+  - CloudWatch (metrics, logs, alarms, dashboards)
+  - CloudTrail (audit logging, multi-region)
+  - X-Ray (distributed tracing)
+  - Secrets Manager vs Parameter Store
+  - KMS (key types, envelope encryption, rotation)
+  - WAF (rule types, managed rules)
+  - Cognito (User Pools, Identity Pools)
+  - Bedrock (foundation models, RAG, guardrails)
+  - Shared responsibility model
+  - Least privilege implementation
+  - High availability and multi-AZ patterns
+  - Backup and restore strategy
+  - Disaster recovery (4 strategies: backup/restore, pilot light,
+    warm standby, multi-site active-active)
+  - Cost optimization (8 cost levers)
+  - Serverless vs containers comparison
+  - ECS vs EKS comparison
+  - Lambda cold starts mitigation
+  - RDS vs Aurora vs DynamoDB comparison
+  - SQS vs SNS vs EventBridge comparison
+  - CloudFront caching strategy
+  - Infrastructure as Code overview
+  - CDK vs Terraform comparison
+  - AWS Well-Architected Framework (6 pillars)
+- **Sections completed:**
+  - Chapter Goal, Why This Matters for a Tech Lead, Mental Model
+    (Mermaid diagram), Core Terminology (32 terms, 4 distinctions),
+    Theoretical Foundation (30+ subsections), Practical Usage (3
+    patterns with diagrams), Examples (4 with 4-part explanations),
+    Common Mistakes (8), Trade-offs (table, 8 rows), Production
+    Considerations (8 template areas), Tech Lead Decision-Making
+    (4 subsections), How to Explain (3 openings), Good Answer vs
+    Weak Answer (secrets question), Tech Lead Checklist (4 categories,
+    20 items), Interview Q&A, Summary (8 bullets), Further Study
+    (11 items with cross-links).
+- **Interview Q&A counts:**
+  - Basic: 30
+  - Senior: 15 (including 2 detailed format)
+  - Tech Lead: 10 (all detailed format)
+  - Scenario-based: 10
+  - Trick Questions: 5
+  - Red Flags: 5
+  - Total: 70+ questions/items
+- **Code blocks:** 14 pairs (json, ts, yaml, bash, mermaid, text).
+  All with allowed language tags.
+- **Cross-links:** 10 related chapters linked.
+- **Total line count:** ~1700.
+- **Toolchain:** N/A.
+- **Follow-ups:** Multiple verification items added to
+  `notes/verification-needed.md` for AWS-specific pricing, limits,
+  and feature claims.
+
+### Multi-Pass: aws-pass-01-foundations-networking-iam (2026-05-06)
+
+- **Scope:** Enhanced foundations, networking, and IAM sections of
+  `book/04-aws.md` with full 8-point structure (What it is, Why it
+  exists, How it is used, Common mistakes, Security implications,
+  Cost implications, Operational implications, Tech Lead perspective
+  / Interview framing).
+- **Sections enhanced:**
+  - **Chapter Goal:** Added 6 specific capability outcomes the reader
+    will achieve. Expanded from 4 lines to 14 lines.
+  - **Why This Matters:** Added 2 new bullets (networking mistakes,
+    hiring signal). Expanded existing bullets with concrete examples
+    and consequences. Expanded from 20 lines to 32 lines.
+  - **Mental Model:** Added IAM chain-of-gates evaluation diagram
+    (Mermaid), networking-as-layers mental model, and interview tip.
+    Expanded from 6 lines to 40 lines.
+  - **Global infrastructure:** Added "Why this structure exists"
+    with three-tier model explanation, 3 common mistakes (AZ/region
+    confusion, cross-AZ costs, regional service availability),
+    security/cost/operational implications, interview framing.
+    Expanded from 14 lines to 50 lines.
+  - **IAM:** Added practical usage (4 patterns: app roles, CI/CD,
+    developer access, cross-account), security implications (5
+    items including condition keys), cost implications, operational
+    implications (4 items including Access Analyzer policy gen),
+    production checklist (6 items), expanded Tech Lead perspective.
+    Expanded from 12 lines to 55 lines.
+  - **Organizations:** Added practical usage (3 patterns: account
+    vending, SCP layering, consolidated billing), 4 common mistakes,
+    security implications (3 items), cost implications (3 items),
+    operational implications (3 items), production checklist (6
+    items), interview framing. Expanded from 8 lines to 65 lines.
+  - **VPC:** Added "Why VPC exists", "How VPC is used" (3 patterns:
+    single VPC, shared VPC, multiple VPCs). Expanded from 6 lines
+    to 20 lines.
+  - **Subnets:** Added "Why subnets exist", 4 common mistakes
+    (overlapping CIDRs, undersized, default VPC, no future space),
+    security/cost/operational implications with concrete numbers,
+    Tech Lead perspective, interview framing. Expanded from 12
+    lines to 55 lines.
+  - **Route tables:** Added "Why route tables exist", 7 route types
+    (including VPC endpoint and most-specific-wins), 3 common
+    mistakes, security/cost/operational implications, Tech Lead
+    perspective, interview framing. Expanded from 14 lines to 50
+    lines.
+  - **Internet Gateway:** Added "Why IGW exists", "How it is used",
+    2 common mistakes, security/cost/operational implications,
+    interview framing. Expanded from 6 lines to 30 lines.
+  - **NAT Gateway:** Added "Why NAT exists", "How it is used", 4
+    common mistakes, security implications (3 items), cost table
+    with monthly estimates, 3 cost optimization strategies,
+    operational implications, interview framing. Expanded from 10
+    lines to 60 lines.
+  - **Security groups:** Added "Why SGs exist", key properties
+    expansion, chain pattern diagram (text), 5 common mistakes
+    (SSH, CIDRs, outbound, unused SGs, default SG), security
+    implications (4 items), cost/operational implications,
+    production checklist (6 items), Tech Lead perspective, interview
+    framing. Expanded from 14 lines to 75 lines.
+  - **NACLs:** Added "Why NACLs exist", 4 "when to use" scenarios,
+    rule evaluation example (text), 4 common mistakes, security
+    implications (3 items), cost/operational implications, Tech
+    Lead perspective, interview framing. Expanded from 14 lines
+    to 65 lines.
+  - **Shared responsibility model:** Added "Why it exists", 4
+    practical implications by service type (EC2, RDS, Lambda, S3),
+    4 common mistakes, security implications, Tech Lead perspective,
+    interview framing. Expanded from 14 lines to 55 lines.
+- **New Mermaid diagrams added:** 1 (IAM policy evaluation chain).
+- **New text diagrams added:** 2 (SG chain pattern, NACL rule
+  evaluation).
+- **Verification items added:** 5 (cross-AZ data transfer, subnet
+  IP reservation, VPC endpoint pricing, SG rule limits, NACL rule
+  limits).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### Multi-Pass: aws-pass-02-compute-and-edge (2026-05-06)
+
+- **Scope:** Enhanced compute, container, serverless, storage,
+  CDN, and DNS sections of `book/04-aws.md` with full 8-point
+  structure (What it is, Why it exists, How it is used, Common
+  mistakes, Security implications, Cost implications, Operational
+  implications, Tech Lead perspective / Interview framing).
+- **Sections enhanced:**
+  - **EC2:** Added "Why EC2 exists", "How EC2 is used" (4 use
+    cases), T-class burstable detail, expanded Savings Plans vs
+    Reserved Instances vs Spot explanation, 5 common mistakes
+    (managed services, T-class in prod, launch templates, standalone
+    instances, right-sizing), security implications (IMDSv2, Session
+    Manager, EBS encryption), cost implications (right-sizing,
+    Savings Plans, data transfer, EIPs), operational implications
+    (AMI lifecycle, patch management, instance recovery, CloudWatch
+    metrics), expanded Tech Lead perspective, interview framing.
+  - **Auto Scaling:** Added "Why Auto Scaling exists", scaling
+    policy types table (4 types: target tracking, step, scheduled,
+    predictive), custom metrics scaling, warm pools, instance
+    refresh, 5 common mistakes (minimum 1, no maximum, CPU-only,
+    short cooldown, no ELB health checks), security/cost/operational
+    implications, interview framing.
+  - **Load Balancers:** Added "Why LBs exist", expanded ALB
+    features (authentication, gRPC), expanded NLB features (static
+    IPs, TLS passthrough, PrivateLink), target group diagram,
+    health check guidance, connection draining detail, 5 common
+    mistakes (static IPs, sticky sessions, aggressive health checks,
+    no draining, desync mitigation), security implications (TLS
+    policy, WAF, access logs), cost implications (hourly + LCU,
+    consolidation advice), operational implications (monitoring
+    metrics, access log analysis), interview framing.
+  - **ECS:** Added "Why ECS exists", expanded core concepts with
+    secrets reference, deployment strategies table (rolling,
+    blue/green, external), 5 common mistakes (host networking,
+    no ECS Exec, CPU/memory too high, no auto scaling, hardcoded
+    secrets), security implications (image scanning, task role
+    isolation, runtime monitoring), cost implications (Fargate
+    pricing, Fargate Spot, Savings Plans, EC2 break-even),
+    operational implications (Container Insights, circuit breaker,
+    Copilot/CDK), interview framing.
+  - **ECS vs EKS:** Added "Why the comparison matters", expanded
+    comparison table (10 dimensions), decision framework with
+    concrete thresholds, common mistake (resume-driven K8s
+    adoption), platform engineer ratio guidance, interview framing.
+  - **Lambda:** Added "Why Lambda exists", expanded "How Lambda
+    is used" (5 use cases), expanded constraints table (8 limits),
+    cold start mitigation strategies (4 approaches with detail),
+    Python SQS handler code example, concurrency model diagram,
+    5 common mistakes (free scaling, monolithic Lambda, partial
+    batch failures, VPC Lambda, synchronous long-running), security
+    implications (execution role, code signing, function URLs),
+    cost implications (pricing breakdown, break-even calculation,
+    provisioned concurrency cost), operational implications
+    (observability, error handling, versioning/aliases, monitoring
+    metrics, alarms), interview framing.
+  - **API Gateway:** Added "Why API Gateway exists", expanded API
+    types table (with latency column), integration patterns (4
+    types: Lambda proxy, service proxy, HTTP proxy, mock),
+    authentication/authorization table (5 methods), throttling
+    and quotas detail, architecture diagram, 5 common mistakes
+    (REST when HTTP sufficient, no throttling, internal calls,
+    oversized Lambda, no request validation), security implications
+    (WAF, mTLS, CloudTrail, private APIs), cost implications
+    (REST vs HTTP per-million pricing, caching ROI, service proxy
+    savings), operational implications (access logging, monitoring,
+    stages, X-Ray), interview framing.
+  - **S3:** Added "Why S3 exists", expanded "How S3 is used" (6
+    patterns), expanded storage classes table (added One Zone-IA,
+    min storage column), Intelligent-Tiering detail, S3 performance
+    (request rates, Transfer Acceleration, multipart upload), S3
+    event notifications, 5 common mistakes (no Block Public Access,
+    no versioning, low-latency misuse, min storage duration,
+    incomplete multipart uploads), security implications (encryption,
+    bucket policies, access logging, Object Lock, presigned URLs),
+    cost implications (storage, request costs, data transfer, S3
+    Storage Lens), operational implications (S3 Inventory, Batch
+    Operations, CRR), interview framing.
+  - **CloudFront:** Added "Why CloudFront exists", expanded "How
+    CloudFront is used" (5 use cases), cache architecture diagram,
+    cache key and cache policy detail, CloudFront Functions vs
+    Lambda@Edge comparison table, 5 common mistakes (auth in cache
+    key, no content hashing, invalidation as primary strategy,
+    no custom error pages, no Origin Shield), security implications
+    (OAC, TLS, WAF, signed URLs/cookies, field-level encryption,
+    geo-restriction), cost implications (data transfer by region,
+    Origin Shield, price class), operational implications (monitoring
+    metrics, real-time logs, access logs), interview framing.
+  - **Route 53:** Added "Why Route 53 exists", expanded "How Route
+    53 is used" (6 patterns), record types table (8 types), alias
+    record explanation, expanded routing policies table (added
+    geoproximity), combined routing policies diagram, health checks
+    detail (3 types: endpoint, calculated, CloudWatch), 5 common
+    mistakes (CNAME at apex, no health checks, high TTL, DNS
+    caching in DR, simple routing for critical services), security
+    implications (DNSSEC, private hosted zones, IAM, Resolver),
+    cost implications (hosted zone, query pricing, health checks,
+    alias query advantage), operational implications (monitoring,
+    query logging, TTL management, failover testing), interview
+    framing.
+- **New code blocks added:** 1 (Lambda Python SQS handler).
+- **New text diagrams added:** 3 (ALB target group routing,
+  CloudFront cache architecture, Route 53 combined routing).
+- **New comparison tables added:** 3 (Auto Scaling policy types,
+  CloudFront Functions vs Lambda@Edge, Route 53 record types).
+- **Verification items added:** 8 (ALB/NLB pricing, Fargate
+  pricing, Lambda pricing, API Gateway per-million pricing, S3
+  pricing, CloudFront pricing, Route 53 pricing, ELB TLS policy
+  name).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### Multi-Pass: aws-pass-03-data-integration-observability-security (2026-05-06)
+
+- **Scope:** Enhanced databases, messaging, observability, security
+  services, and AI sections of `book/04-aws.md` with full 8-point
+  structure (What it is, Why it exists, How it is used, Common
+  mistakes, Security implications, Cost implications, Operational
+  implications, Tech Lead perspective / Interview framing).
+- **Sections enhanced (17 total):**
+  - **RDS:** Added "Why RDS exists", "How RDS is used" (4 use
+    cases), Multi-AZ deployment comparison table, read replica
+    detail (lag, promotion, cross-region), backup/restore detail,
+    RDS Proxy section, 5 common mistakes, security implications
+    (private subnets, encryption at rest, TLS, IAM auth),
+    cost implications (components, reserved instances, gp3 vs io1),
+    operational implications (maintenance windows, Performance
+    Insights, enhanced monitoring, event subscriptions, metrics),
+    interview framing.
+  - **Aurora:** Added "Why Aurora exists", Aurora architecture
+    detail (quorum, protection groups), expanded Serverless v2
+    detail, Aurora Global Database section, expanded comparison
+    table (6 dimensions), 5 common mistakes, security implications
+    (activity streams), cost implications (instance premium, I/O,
+    I/O-Optimized, Serverless v2, Global), operational implications
+    (cluster management, blue/green, cloning, monitoring), interview
+    framing.
+  - **DynamoDB:** Added "Why DynamoDB exists", capacity modes
+    table, RCU/WCU sizing rules, DynamoDB Streams section, TTL
+    section, Transactions section, 5 common mistakes (relational
+    design, hot partitions, over-GSI, no auto-scaling, Scan),
+    security implications (fine-grained IAM, VPC endpoints), cost
+    implications (on-demand vs provisioned, storage, GSI, IA table
+    class, transactions), operational implications (Contributor
+    Insights, PITR, global tables, alarms), interview framing.
+  - **ElastiCache:** Added "Why ElastiCache exists", "How it is
+    used" (7 patterns), Lua scripting, cluster mode detail, 5
+    common mistakes (no invalidation, stampede, caching everything,
+    no maxmemory-policy, single-node), security implications (TLS,
+    AUTH, IAM), cost implications (node pricing, reserved, AZ
+    transfer), operational implications (metrics, alarms,
+    maintenance, backup, scaling), interview framing.
+  - **SQS:** Added "Why SQS exists", "How it is used" (4 patterns),
+    DLQ redrive, 5 common mistakes (visibility timeout, no DLQ,
+    partial batch, FIFO when unnecessary, non-idempotent consumers),
+    security implications (access policies, SSE, VPC endpoints),
+    cost implications (per-request, batching, long polling),
+    operational implications (monitoring, alarms, scaling,
+    retention), interview framing.
+  - **SNS:** Added "Why SNS exists", "How it is used" (4 patterns),
+    message filtering with JSON example, FIFO topics, 4 common
+    mistakes, security implications (access policies, SSE), cost
+    implications (per-publish, delivery type), operational
+    implications (delivery status logging), interview framing.
+  - **EventBridge:** Added "Why EventBridge exists", "How it is
+    used" (5 patterns), content-based filtering with JSON example,
+    EventBridge Pipes, archive/replay detail, 5 common mistakes,
+    security implications (resource policies, KMS), cost
+    implications (per-event, scheduler, pipes, archive), operational
+    implications (monitoring, CloudTrail, sandbox), interview
+    framing.
+  - **Step Functions:** Added "Why Step Functions exists", "How it
+    is used" (5 patterns), workflow types comparison table, SDK
+    integrations detail, error handling detail (retry, catch,
+    timeout), 5 common mistakes, security implications (execution
+    role, data in state), cost implications (per-transition, Express,
+    SDK vs Lambda), operational implications (visual monitoring,
+    metrics, alarms, X-Ray, history), interview framing.
+  - **CloudWatch:** Added "Why CloudWatch exists", "How it is used"
+    (5 patterns), components table (7 components), EMF section,
+    composite alarms, 5 common mistakes, security implications
+    (IAM, encryption, cross-account), cost implications (6 cost
+    components, log cost dominance), operational implications
+    (golden signals, metric math, anomaly detection, cross-account),
+    interview framing.
+  - **CloudTrail:** Added "Why CloudTrail exists", "How it is used"
+    (5 use cases), event types table, 4 common mistakes, security
+    implications (integrity validation, Object Lock, Insights),
+    cost implications (management vs data vs Insights, Lake),
+    operational implications (organization trails, metric filters),
+    interview framing.
+  - **X-Ray:** Added "Why X-Ray exists", "How it is used" (4
+    patterns), integration table (5 services), X-Ray vs OTel
+    comparison table, 4 common mistakes, security implications
+    (trace data sensitivity), cost implications (per-trace,
+    sampling), operational implications (groups, ServiceLens),
+    interview framing.
+  - **Secrets Manager:** Added "Why it exists", "How it is used"
+    (4 patterns), automatic rotation detail, expanded SM vs PS
+    comparison table (9 dimensions), 5 common mistakes, security
+    implications (KMS, CloudTrail, VPC endpoints), cost
+    implications (per-secret, API calls, caching), operational
+    implications (rotation monitoring), interview framing.
+  - **Parameter Store:** Added "Why it exists", "How it is used"
+    (4 patterns), parameter types table, expanded tiers, 3 common
+    mistakes, operational implications (EventBridge, throughput
+    limits), interview framing.
+  - **KMS:** Added "Why KMS exists", "How it is used" (4 patterns),
+    key types table (4 types), envelope encryption sequence diagram,
+    key policies/grants detail, 5 common mistakes (cross-account,
+    rotation, broad permissions, deletion, API cost), security
+    implications (HSM, audit, separation of duties, multi-Region),
+    cost implications (per-key, per-API, caching), operational
+    implications (monitoring, governance), interview framing.
+  - **WAF:** Added "Why WAF exists", "How it is used" (6 patterns),
+    rule types table (5 types), rule evaluation order, 5 common
+    mistakes, security implications (Shield Advanced, CloudFront,
+    logging), cost implications (per-ACL, per-rule, per-request,
+    Bot Control), operational implications (monitoring, log review,
+    Firewall Manager), interview framing.
+  - **Cognito:** Added "Why Cognito exists", "How it is used" (4
+    patterns), token types table, 5 common mistakes, security
+    implications (MFA, adaptive auth, password policy, token
+    expiration), cost implications (MAU pricing, federation,
+    advanced security), operational implications (CloudWatch,
+    Lambda triggers, data export, migration), interview framing.
+  - **Bedrock:** Added "Why Bedrock exists", "How it is used" (5
+    patterns), features table (7 features), 5 common mistakes
+    (no guardrails, data privacy, no streaming, token cost,
+    not evaluating models), security implications (encryption,
+    VPC endpoints, logging, guardrails), cost implications
+    (per-token, provisioned, Knowledge Bases), operational
+    implications (monitoring, alarms, logging), interview framing.
+- **New code blocks added:** 2 (SNS filter policy JSON,
+  EventBridge rule pattern JSON).
+- **New comparison tables added:** 4 (RDS Multi-AZ deployments,
+  DynamoDB capacity modes, CloudWatch components, CloudTrail
+  event types).
+- **New text diagrams added:** 1 (KMS envelope encryption
+  sequence).
+- **Verification items added:** 16 (RDS pricing, Aurora pricing,
+  DynamoDB pricing, ElastiCache pricing, SQS pricing, EventBridge
+  pricing, Step Functions pricing, CloudWatch pricing, CloudTrail
+  pricing, X-Ray pricing, KMS pricing, WAF pricing, Cognito
+  pricing, Bedrock pricing, Parameter Store throughput limits,
+  SNS pricing).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### aws-pass-04-architecture-cost-interview (2026-05-06)
+
+- **Sections enhanced:**
+  - **Practical Usage — architecture patterns:** Replaced generic
+    "Standard three-tier web application" and "Serverless event-
+    driven pipeline" with 4 comprehensive architecture patterns:
+    - Modern Web Application Architecture (edge/compute/data/
+      observability layers, text diagram, 6 build steps, common
+      mistakes, cost implications, interview framing).
+    - Serverless API Architecture (API Gateway + Lambda + DynamoDB +
+      EventBridge, text diagram, 5 build steps, 4 common mistakes,
+      cost implications, interview framing).
+    - Container-Based Platform Architecture (ECS Fargate platform
+      with service template, text diagram, 5 build steps, 3 common
+      mistakes, cost implications, interview framing).
+    - Event-Driven Backend Architecture (EventBridge + SQS + Step
+      Functions saga, text diagram, 5 build steps, 4 common
+      mistakes, security/cost implications, interview framing).
+  - **Serverless vs Containers:** Expanded from comparison table to
+    full 8-point treatment — 5-step decision framework, 4 common
+    mistakes, security implications, operational implications,
+    interview framing.
+  - **High Availability:** New section with full 8-point treatment —
+    HA mechanism table (8 layers), 4 common mistakes, cost
+    implications, operational implications, interview framing.
+  - **Multi-AZ Deployment:** New section with per-service HA
+    behavior (RDS, Aurora, ECS, ElastiCache, NAT Gateway), 3
+    common mistakes, interview framing.
+  - **Backup and Restore:** New section with backup mechanism table
+    (6 services), AWS Backup overview, 4 common mistakes, cost
+    implications, interview framing.
+  - **Disaster Recovery:** New section with full 8-point treatment —
+    DR strategy spectrum text diagram (4 strategies), per-strategy
+    explanation (backup-restore, pilot light, warm standby,
+    active-active), 5 common mistakes, cost implications,
+    interview framing.
+  - **Cost Optimization:** New section with full 8-point treatment —
+    4 pillars (visibility, governance, optimization, commitment),
+    5 biggest hidden costs table, 4 common mistakes, interview
+    framing.
+  - **AWS Well-Architected Framework:** Expanded from 6-pillar list
+    to full 8-point treatment — per-pillar detail with relevant AWS
+    services, practical usage guidance (reviews, when to run,
+    output), 4 common mistakes, interview framing.
+  - **Interview Q&A — Tech Lead:** Added 4 new detailed Tech Lead
+    questions (Well-Architected Framework in practice, event-driven
+    architecture design, architecture migration approach, placeholder
+    for total 13 Tech Lead Qs).
+  - **Interview Q&A — Scenario-based:** Added 2 new scenario
+    questions (multi-region low-latency architecture, new
+    microservice infrastructure decisions — total 12 scenario Qs).
+- **New text diagrams added:** 4 (modern web architecture layers,
+  serverless API flow, container platform layout, event-driven
+  architecture with EventBridge, DR strategy spectrum).
+- **Verification items added:** 7 (API Gateway HTTP vs REST
+  pricing, Fargate Spot discount, NAT Gateway per-GB cost,
+  CloudWatch Logs ingestion pricing, Savings Plans discount ranges,
+  DynamoDB PITR pricing, EventBridge/SQS per-event pricing).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### aws-qa-expansion (2026-05-06)
+
+- **Sections enhanced:**
+  - **Interview Q&A — Tech Lead:** Added 3 new detailed questions
+    (incident response during AWS outage, IaC governance across
+    teams, communicating AWS decisions to non-technical stakeholders).
+    Total Tech Lead questions: 15.
+  - **Interview Q&A — Performance (new section):** Added 6 questions
+    covering Lambda cold start diagnosis, Fargate right-sizing,
+    DynamoDB read optimization, CloudFront cache key design,
+    ElastiCache vs read replicas trade-off, and cross-AZ data
+    transfer cost reduction.
+  - **Interview Q&A — Security (new section):** Added 6 questions
+    covering unauthorized access prevention/detection, security
+    breach response, cross-account access security, S3 data
+    exfiltration prevention, encryption at rest strategy, and
+    VPC network segmentation.
+  - **Interview Q&A — Testing and Quality (new section):** Added 5
+    questions covering IaC testing layers, database migration
+    validation, DR testing procedures, load testing methodology,
+    and deployment safety practices.
+- **Final Q&A counts:** Basic: 30, Senior: 15, Tech Lead: 15,
+  Performance: 6, Security: 6, Testing/Quality: 5, Scenario: 12,
+  Trick: 5, Red Flags: 5. Total: 99 questions.
+- **Verification items added:** 1 (cross-AZ data transfer pricing).
+- **Chapter size:** 9,203 lines.
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### aws-examples-pass (2026-05-06)
+
+- **Sections enhanced:**
+  - **Examples section:** Added 9 new production-grade examples,
+    each with 5-part explanation (what it does, why it is useful,
+    common mistake, production change, Tech Lead review checklist):
+    1. IAM least-privilege policy for ECS task role (JSON, 4
+       scoped statements with Sid labels).
+    2. S3 bucket policy with CloudFront OAC (JSON, SourceArn
+       condition + deny non-SSL).
+    3. CloudFront + S3 static hosting with CDK (TypeScript, full
+       stack: bucket, distribution, OAC, SPA routing, Route 53).
+    4. ECS Fargate service behind ALB with CDK (TypeScript, task
+       definition, secrets injection, auto-scaling, circuit
+       breaker).
+    5. Secrets Manager retrieval with in-memory caching (TypeScript,
+       TTL-based cache, typed config parsing).
+    6. CloudWatch structured logging and alarms (TypeScript logging
+       function, Logs Insights query, alarm JSON with
+       DatapointsToAlarm pattern).
+    7. Aurora PostgreSQL Multi-AZ with Terraform (HCL, cluster +
+       writer/reader instances, encryption, backup, Performance
+       Insights).
+    8. EventBridge rule with input transformation (JSON, content-
+       based filter + InputTransformer pattern).
+    9. Cost investigation checklist (structured text, 8 sections:
+       visibility, NAT Gateway, Aurora/RDS, CloudWatch, Lambda,
+       ECS/EKS, data transfer, governance).
+    10. AWS Well-Architected review checklist (structured text, 6
+        pillars with actionable checkboxes).
+- **New code blocks:** 10 (3 JSON, 3 TypeScript, 1 HCL, 1 Logs
+  Insights query, 2 structured text checklists).
+- **Verification items added:** 3 (CDK OAC API method name,
+  Secrets Manager API throttle limit, data transfer per-GB pricing
+  for NAT/egress/CloudFront/cross-AZ/cross-region).
+- **Chapter size:** 10,049 lines (up from 9,203).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### aws-tech-lead-pass (2026-05-06)
+
+- **Sections enhanced:**
+  - **Tech Lead Decision-Making section:** Added 9 new subsections
+    to elevate the chapter from a Senior Engineer reference to a
+    Tech Lead decision guide:
+    1. What a Senior Engineer knows vs what a Tech Lead decides
+       (comparison table with 8 areas: IAM, VPC, Compute, Database,
+       Cost, Security, Incidents, IaC).
+    2. Common overengineering traps on AWS (6 traps: EKS for small
+       teams, multi-region for internal tools, premature microservices,
+       EventBridge when SQS suffices, excessive VPC endpoints, Aurora
+       for tiny databases).
+    3. Debugging and incident response on AWS (structured first-10-
+       minutes procedure, 6 common failure modes table with detect/
+       mitigate/fix columns, post-incident checklist).
+    4. Ownership boundaries on AWS (10-row RACI-style table mapping
+       concerns to platform/product/security/FinOps teams, common
+       ownership gap example).
+    5. Migration and adoption strategy (5-step service adoption
+       process, Lambda→ECS migration example with 4-phase rollback
+       table).
+    6. Rollback and failure planning (7-row rollback strategy table
+       by change type with rollback times, deployment timing rule,
+       pre-deployment checklist).
+    7. Documentation and team standards (5 items a Tech Lead
+       documents: ADRs, service templates, runbooks, on-call scope,
+       approved service list; plus what NOT to document).
+    8. Managed services vs operational control (6-dimension
+       comparison table, 3-step decision framework, stakeholder
+       explanation).
+    9. Cost-aware architecture decisions (4-step cost estimation
+       process, detailed cost breakdown example table with
+       optimization levers for presenting to leadership).
+- **New tables:** 12 (decision tables, comparison matrices, RACI
+  ownership, cost breakdown, migration phases, rollback strategies).
+- **New checklists:** 3 (post-incident, pre-deployment, team
+  standards).
+- **Chapter size:** ~10,500 lines (up from 10,049).
+- **Toolchain:** N/A.
+- **Follow-ups:** See TODO list for next pass below.
+
+### aws-chapter-audit (2026-05-06)
+
+- **Audit performed against:** BOOK_SPEC.md, STYLE_GUIDE.md,
+  CHAPTER_TEMPLATE.md, SUMMARY.md.
+- **Issues fixed:**
+  1. Removed 2 instances of banned word "simply" (lines 4104,
+     5841).
+  2. Fixed wrong language tag `bash` → `hcl` for Terraform code
+     block (line 6585).
+- **Structural deviations noted (kept intentionally):**
+  1. Extra `## Tech Lead Decision-Making` section not in
+     CHAPTER_TEMPLATE. Contains 9 subsections of high-value Tech
+     Lead decision content. Tracked in notes/open-questions.md for
+     potential template formalization.
+  2. `hcl` language tag (2 code blocks) not in STYLE_GUIDE allowed
+     list but is the correct tag for Terraform syntax.
+  3. Some Examples code blocks exceed 25-line guideline
+     (production-grade CDK examples). Justified by section purpose.
+- **Template conformance verified:**
+  - All 17 required H2 sections present in correct order (plus
+    the noted extra section).
+  - All H2 headings in Title Case.
+  - All H3 headings in sentence case (acronyms/proper nouns
+    correctly capitalized).
+  - No H4+ headings used.
+  - All code blocks have language tags.
+  - Summary section has 8 bullet points.
+  - Further Study cross-references 9 related chapters.
+  - 49 verification blockquotes for pricing and feature claims.
+  - Trade-offs table uses "optimizes for / sacrifices / flips when"
+    format.
+  - Common Mistakes uses the required 3-item format.
+  - Interview Q&A includes all required categories (Basic, Senior,
+    Tech Lead, Scenario-based, Trick Questions, Red Flags) plus
+    Performance, Security, and Testing/Quality.
+  - Strong vs Weak answer contrast present.
+  - Tech Lead Checklist has concrete, verifiable items.
+  - Mental Model with Mermaid diagram present.
+  - No shallow definitions, no repetitive sections.
+  - No broken cross-references.
+- **Chapter size:** 10,380 lines.
+- **Toolchain:** N/A.
+- **Status:** Chapter audit complete. Chapter meets Definition of
+  Done per BOOK_SPEC.md (pending human verification of pricing
+  claims tracked in notes/verification-needed.md).
+
+### TODO for next AWS generation passes
+
+No remaining automated generation passes. Manual tasks:
+1. Verify pricing and feature claims listed in
+   notes/verification-needed.md against official AWS documentation.
+2. Cross-link Core Terminology to glossary entries once
+   book/26-glossary.md is populated with AWS terms.
+3. Consider formalizing `## Tech Lead Decision-Making` in
+   CHAPTER_TEMPLATE.md if other chapters adopt the pattern.

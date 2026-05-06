@@ -675,3 +675,604 @@ add specific rows here.
 - **Suggested source:** kubernetes/ingress-nginx annotations
   documentation (current version)
 - **Status:** unverified
+
+---
+
+### `book/04-aws.md` — Active Items
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** NAT Gateway
+- **Claim:** NAT Gateway pricing is ~$0.045/hour and ~$0.045/GB
+  processed.
+- **Why it matters:** NAT Gateway cost is a significant hidden cost
+  item. Incorrect pricing guidance undermines cost optimization
+  advice.
+- **Suggested source:** AWS VPC pricing page (per region)
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** ECS vs EKS
+- **Claim:** EKS control plane costs ~$0.10/hour (~$73/month).
+- **Why it matters:** EKS pricing is a key decision factor when
+  comparing ECS vs EKS. Incorrect pricing changes the TCO analysis.
+- **Suggested source:** AWS EKS pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Lambda
+- **Claim:** Lambda concurrency account-level default is 1,000 per
+  region. Maximum execution timeout is 15 minutes. Memory range is
+  128 MB to 10,240 MB. Package size limits are 50 MB zipped, 250 MB
+  unzipped, 10 GB for container images.
+- **Why it matters:** Lambda limits change periodically. Incorrect
+  limits could lead to wrong architectural decisions.
+- **Suggested source:** AWS Lambda quotas documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Lambda cold starts
+- **Claim:** Cold start ranges: Node.js/Python 100-300 ms, Java/.NET
+  500 ms - 3 s, container images 1-5 s.
+- **Why it matters:** Cold start latency varies by runtime, package
+  size, VPC configuration, and AWS improvements over time. These
+  ranges are rough order of magnitude.
+- **Suggested source:** AWS Lambda performance documentation, AWS
+  re:Invent talks on Lambda optimization
+- **Status:** unverified (treated as rough order of magnitude)
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** API Gateway
+- **Claim:** HTTP API is up to 71% cheaper than REST API. API Gateway
+  adds 10-30 ms latency.
+- **Why it matters:** Cost comparison and latency claims drive service
+  selection decisions.
+- **Suggested source:** AWS API Gateway pricing page, AWS blog posts
+  on HTTP API
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** SQS
+- **Claim:** FIFO queue throughput is 300 msg/s (3,000 with batching).
+- **Why it matters:** AWS has introduced high-throughput mode for FIFO
+  queues that may increase these limits significantly.
+- **Suggested source:** AWS SQS FIFO documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Aurora
+- **Claim:** Aurora storage replicates 6 copies across 3 AZs, grows
+  to 128 TB. Failover to replica in under 30 seconds. Up to 15 read
+  replicas. Aurora Serverless v2 scales in half-ACU increments (1
+  ACU = 2 GB RAM).
+- **Why it matters:** Aurora storage and compute limits are key
+  differentiators vs RDS. Incorrect claims undermine the comparison.
+- **Suggested source:** AWS Aurora documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** RDS
+- **Claim:** Multi-AZ cluster failover is ~35 seconds. Standard
+  Multi-AZ failover is 60-120 seconds.
+- **Why it matters:** Failover time is a key HA metric. AWS may have
+  improved these times.
+- **Suggested source:** AWS RDS Multi-AZ documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Secrets Manager vs Parameter Store
+- **Claim:** Secrets Manager costs ~$0.40/secret/month. Parameter
+  Store advanced tier costs $0.05/parameter/month.
+- **Why it matters:** Pricing drives the choice between the two
+  services for different use cases.
+- **Suggested source:** AWS Secrets Manager and SSM Parameter Store
+  pricing pages
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** CloudWatch
+- **Claim:** Custom CloudWatch metrics cost ~$0.30/metric/month.
+- **Why it matters:** Custom metric cost affects observability budget
+  decisions.
+- **Suggested source:** AWS CloudWatch pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** CloudFront
+- **Claim:** First 1,000 invalidation paths/month are free; additional
+  cost ~$0.005 per path.
+- **Why it matters:** Invalidation pricing affects deployment strategy
+  decisions.
+- **Suggested source:** AWS CloudFront pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** S3
+- **Claim:** S3 Block Public Access is enabled by default for new
+  buckets since April 2023.
+- **Why it matters:** Version-specific security default. If the date
+  is wrong, security advice about legacy buckets may be incorrect.
+- **Suggested source:** AWS S3 documentation, AWS blog announcement
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Trick Questions (Lambda vs EC2 cost)
+- **Claim:** A Lambda function running constantly at 1 vCPU costs
+  roughly $40-50/month. An EC2 t3.small with Savings Plan costs
+  ~$10/month.
+- **Why it matters:** These cost comparisons drive serverless vs
+  container decisions. Pricing changes frequently.
+- **Suggested source:** AWS Lambda pricing calculator, AWS EC2
+  pricing page
+- **Status:** unverified (treated as rough order of magnitude)
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Global infrastructure — regions, AZs, edge locations
+- **Claim:** Cross-AZ data transfer costs $0.01/GB in each direction.
+  Asia-Pacific regions can be 20-30% more expensive for some services.
+- **Why it matters:** Cross-AZ transfer pricing affects architecture
+  decisions (AZ-aware routing, service placement). Regional pricing
+  differences affect region selection.
+- **Suggested source:** AWS EC2 data transfer pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Subnets
+- **Claim:** AWS reserves 5 IP addresses per subnet (network, VPC
+  router, DNS, future use, broadcast). A /24 subnet provides 251
+  usable IPs.
+- **Why it matters:** Subnet sizing depends on accurate IP count.
+  If the number of reserved IPs changed, subnet size recommendations
+  would be wrong.
+- **Suggested source:** AWS VPC documentation on subnet sizing
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Subnets — Cost implications
+- **Claim:** VPC Interface endpoints cost ~$0.01/hour per AZ plus
+  data processing charges. NAT Gateway costs ~$32/month per AZ for
+  the hourly charge alone.
+- **Why it matters:** These cost comparisons drive VPC endpoint
+  adoption decisions.
+- **Suggested source:** AWS PrivateLink pricing page, AWS NAT
+  Gateway pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Security groups
+- **Claim:** Default quota is 60 inbound and 60 outbound rules per
+  security group. Maximum 5 security groups per network interface.
+- **Why it matters:** Rule limits affect security group design
+  decisions. These limits may have changed.
+- **Suggested source:** AWS VPC quotas documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** NACLs
+- **Claim:** Default NACL rule limit is 20 inbound and 20 outbound
+  rules.
+- **Why it matters:** Rule limits affect whether NACLs can handle
+  complex filtering scenarios.
+- **Suggested source:** AWS VPC quotas documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Load Balancers
+- **Claim:** ALB hourly pricing is ~$0.0225/hr. NLB hourly pricing
+  is ~$0.0225/hr. LCU pricing depends on new connections, active
+  connections, processed bytes, and rule evaluations. TLS policy
+  name `ELBSecurityPolicy-TLS13-1-2-2021-06`.
+- **Why it matters:** Load balancer pricing and TLS policy names
+  drive cost estimation and security configuration decisions.
+- **Suggested source:** AWS ELB pricing page, AWS ELB security
+  policy documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** ECS — Cost implications
+- **Claim:** Fargate 0.25 vCPU / 0.5 GB task costs approximately
+  $9/month. 1 vCPU / 2 GB task costs approximately $36/month.
+  Fargate Spot offers up to 70% discount.
+- **Why it matters:** Fargate pricing drives the Fargate vs EC2
+  launch type decision and Lambda vs Fargate cost comparison.
+- **Suggested source:** AWS Fargate pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Lambda — Cost implications
+- **Claim:** Lambda pricing: $0.20 per 1M requests,
+  ~$0.0000166667 per GB-second. Provisioned concurrency costs
+  ~$0.0000041667 per GB-second.
+- **Why it matters:** Lambda pricing drives serverless vs container
+  cost comparisons and provisioned concurrency adoption decisions.
+- **Suggested source:** AWS Lambda pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** API Gateway — Cost implications
+- **Claim:** REST API costs ~$3.50 per million requests. HTTP API
+  costs ~$1.00 per million requests. REST API latency ~29 ms,
+  HTTP API latency ~10 ms.
+- **Why it matters:** These cost and latency comparisons drive API
+  Gateway type selection. Some of these were already noted but the
+  specific per-million pricing should be verified.
+- **Suggested source:** AWS API Gateway pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** S3 — Cost implications
+- **Claim:** S3 Standard storage costs ~$0.023/GB/month. GET
+  requests cost $0.0004 per 1,000. Data transfer out is $0.09/GB.
+  Intelligent-Tiering monitoring fee is ~$0.0025 per 1,000
+  objects/month.
+- **Why it matters:** S3 pricing details drive storage class
+  selection and cost optimization strategies.
+- **Suggested source:** AWS S3 pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** CloudFront — Cost implications
+- **Claim:** CloudFront data transfer $0.085/GB in North America.
+  Origin Shield $0.0075-$0.009 per 10,000 requests. CloudFront
+  Functions ~$0.10/million. Lambda@Edge ~$0.60/million + GB-second.
+- **Why it matters:** CloudFront pricing drives CDN adoption and
+  edge compute decisions.
+- **Suggested source:** AWS CloudFront pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Route 53 — Cost implications
+- **Claim:** Hosted zone costs $0.50/month. Standard queries cost
+  $0.40 per million. Latency/geolocation/failover queries cost
+  $0.60 per million. Health checks cost $0.50-$0.75/month. Alias
+  queries to AWS resources are free.
+- **Why it matters:** Route 53 pricing affects DNS management
+  decisions and multi-region architecture cost estimation.
+- **Suggested source:** AWS Route 53 pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** RDS — Cost implications
+- **Claim:** gp3 storage costs $0.08/GB/month. RDS Proxy costs
+  approximately $0.015/vCPU/hour. Reserved instances provide
+  30-60% savings.
+- **Why it matters:** RDS pricing components drive instance sizing
+  and storage decisions.
+- **Suggested source:** AWS RDS pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Aurora — Cost implications
+- **Claim:** Aurora storage costs $0.10/GB/month, I/O charges
+  $0.20 per million requests. Aurora I/O-Optimized storage costs
+  ~$0.225/GB. Aurora instances cost 20-30% more than equivalent
+  RDS instances.
+- **Why it matters:** Aurora pricing details drive the RDS vs
+  Aurora decision and I/O-Optimized adoption threshold.
+- **Suggested source:** AWS Aurora pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** DynamoDB — Cost implications
+- **Claim:** On-demand pricing: ~$1.25/million WCU, ~$0.25/million
+  RCU. Provisioned pricing: ~$0.00065/WCU/hour, ~$0.00013/RCU/hour.
+  Storage: $0.25/GB/month (Standard), $0.10/GB/month (IA).
+- **Why it matters:** DynamoDB pricing drives capacity mode
+  selection and table class decisions.
+- **Suggested source:** AWS DynamoDB pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** ElastiCache — Cost implications
+- **Claim:** cache.r6g.large (13 GB Redis) costs approximately
+  $0.18/hour (~$130/month). Reserved nodes provide 30-55% savings.
+- **Why it matters:** ElastiCache node pricing drives sizing and
+  reservation decisions.
+- **Suggested source:** AWS ElastiCache pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** SQS — Cost implications
+- **Claim:** Standard queue pricing: ~$0.40/million requests.
+  FIFO queue pricing: ~$0.50/million requests.
+- **Why it matters:** SQS pricing per queue type drives Standard
+  vs FIFO selection and batching optimization decisions.
+- **Suggested source:** AWS SQS pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** EventBridge — Cost implications
+- **Claim:** Custom events cost $1.00/million. Scheduler costs
+  $1.00/million invocations (first 14M free). Pipes cost
+  $0.40/million request units.
+- **Why it matters:** EventBridge pricing drives adoption vs
+  simpler alternatives (SNS, SQS).
+- **Suggested source:** AWS EventBridge pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Step Functions — Cost implications
+- **Claim:** Standard workflows cost ~$0.025 per 1,000 state
+  transitions. Express workflows cost ~$1.00 per million
+  requests + duration.
+- **Why it matters:** Step Functions pricing drives Standard vs
+  Express selection and cost estimation.
+- **Suggested source:** AWS Step Functions pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** CloudWatch — Cost implications
+- **Claim:** Custom metrics ~$0.30/month. Log ingestion ~$0.50/GB.
+  Log storage ~$0.03/GB/month. Dashboards $3.00/month (first 3
+  free). Alarms ~$0.10-$0.30/month. Logs Insights ~$0.005/GB.
+- **Why it matters:** CloudWatch cost components drive
+  observability budget planning.
+- **Suggested source:** AWS CloudWatch pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** CloudTrail — Cost implications
+- **Claim:** Data events cost ~$0.10 per 100K events. Insights
+  events cost ~$0.35 per 100K events analyzed. CloudTrail Lake
+  costs $2.50/GB scanned.
+- **Why it matters:** CloudTrail data event pricing drives
+  selective enablement decisions.
+- **Suggested source:** AWS CloudTrail pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** X-Ray — Cost implications
+- **Claim:** X-Ray costs ~$5.00 per million traces recorded,
+  ~$0.50 per million traces retrieved. First 100K traces/month
+  free.
+- **Why it matters:** X-Ray pricing drives sampling rate decisions.
+- **Suggested source:** AWS X-Ray pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** KMS — Cost implications
+- **Claim:** CMKs cost $1.00/month per key. Symmetric API calls
+  cost $0.03/10K requests. Asymmetric API calls cost $0.15/10K
+  requests.
+- **Why it matters:** KMS API call cost drives data key caching
+  decisions for high-volume workloads.
+- **Suggested source:** AWS KMS pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** WAF — Cost implications
+- **Claim:** Web ACL costs $5.00/month. Rules cost $1.00/month
+  each. Request inspection costs $0.60/million requests. Bot
+  Control costs $10.00/month + $1.00/million requests.
+- **Why it matters:** WAF pricing drives rule consolidation and
+  deployment scope decisions.
+- **Suggested source:** AWS WAF pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Cognito — Cost implications
+- **Claim:** First 50K MAU free. Pricing: $0.0055/MAU (50K-100K).
+  SAML/OIDC federation: $0.015/MAU. Advanced security: $0.050/MAU.
+- **Why it matters:** Cognito pricing at scale can be significant
+  for high-MAU consumer applications.
+- **Suggested source:** AWS Cognito pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Bedrock — Cost implications
+- **Claim:** Claude models cost approximately $0.003-$0.015 per
+  1K input tokens and $0.015-$0.075 per 1K output tokens.
+- **Why it matters:** Bedrock model pricing evolves rapidly as
+  new models are added. Incorrect pricing invalidates cost
+  projections.
+- **Suggested source:** AWS Bedrock pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Parameter Store
+- **Claim:** Parameter Store API throughput limit is 40 TPS
+  (standard), 1,000 TPS (advanced).
+- **Why it matters:** API throughput limits affect caching strategy
+  and application startup behavior.
+- **Suggested source:** AWS SSM Parameter Store quotas
+  documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Serverless API architecture
+- **Claim:** API Gateway HTTP API is up to 71% cheaper than REST
+  API.
+- **Why it matters:** Cost differential between API types drives
+  the HTTP API recommendation for most use cases.
+- **Suggested source:** AWS API Gateway pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Container-based platform architecture
+- **Claim:** Fargate Spot provides up to 70% discount for
+  fault-tolerant workloads.
+- **Why it matters:** Spot discount percentage affects cost
+  optimization recommendations for batch and worker workloads.
+- **Suggested source:** AWS Fargate Spot pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Cost optimization — hidden costs
+- **Claim:** NAT Gateway charges $0.045/GB processed. CloudWatch
+  Logs ingestion costs $0.50/GB.
+- **Why it matters:** These are the most commonly cited hidden
+  cost figures and are used to justify VPC endpoints and log
+  management strategies.
+- **Suggested source:** AWS NAT Gateway pricing page, CloudWatch
+  pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Cost optimization — commitment discounts
+- **Claim:** Compute Savings Plans provide 20-30% savings (1-year
+  no-upfront) and 50-60% savings (3-year all-upfront).
+- **Why it matters:** Savings Plan discount ranges are used to
+  justify commitment recommendations. Actual percentages vary by
+  instance family and region.
+- **Suggested source:** AWS Savings Plans pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Backup and restore
+- **Claim:** DynamoDB PITR costs approximately $0.20 per GB-month.
+- **Why it matters:** PITR pricing affects the recommendation for
+  enabling it on all DynamoDB tables.
+- **Suggested source:** AWS DynamoDB pricing page (backup section)
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Event-driven backend architecture
+- **Claim:** EventBridge charges ~$1.00 per million custom events.
+  SQS charges ~$0.40 per million standard requests.
+- **Why it matters:** Event volume pricing drives the cost
+  comparison between EventBridge and SQS for high-throughput
+  event architectures.
+- **Suggested source:** AWS EventBridge and SQS pricing pages
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Interview Q&A — Performance (cross-AZ transfer)
+- **Claim:** Cross-AZ data transfer costs $0.01/GB each way
+  (source and destination).
+- **Why it matters:** Cross-AZ pricing is a commonly cited hidden
+  cost and the basis for optimization recommendations in
+  performance Q&A.
+- **Suggested source:** AWS EC2 data transfer pricing page
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Examples — CloudFront and S3 static hosting with CDK
+- **Claim:** CDK API `S3BucketOrigin.withOriginAccessControl` is
+  the current method for creating OAC-based S3 origins.
+- **Why it matters:** CDK construct APIs evolve across versions.
+  The specific method name and import path may change in newer CDK
+  releases.
+- **Suggested source:** AWS CDK API reference for
+  `aws-cdk-lib/aws-cloudfront-origins`
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Examples — Secrets Manager retrieval with caching
+- **Claim:** Secrets Manager API throttle limit is 10,000 requests
+  per second.
+- **Why it matters:** Throttle limits affect caching strategy
+  decisions. If the limit is lower or higher, caching
+  recommendations change.
+- **Suggested source:** AWS Secrets Manager service quotas
+  documentation
+- **Status:** unverified
+
+---
+
+- **Chapter:** `book/04-aws.md`
+- **Section:** Examples — Cost investigation checklist
+- **Claim:** NAT Gateway data processing costs $0.045/GB.
+  Internet egress costs $0.09/GB. CloudFront costs $0.085/GB.
+  Cross-AZ transfer costs $0.01/GB each way. Cross-region transfer
+  costs $0.02/GB.
+- **Why it matters:** Specific per-GB pricing drives cost
+  optimization recommendations. These figures are used in the
+  cost investigation checklist as decision thresholds.
+- **Suggested source:** AWS data transfer pricing page, NAT
+  Gateway pricing, CloudFront pricing
+- **Status:** unverified
