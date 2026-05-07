@@ -4252,3 +4252,201 @@ All passes completed:
     Red Flags context quoting a weak answer.
 - **No new verification notes needed.**
 - **Chapter size:** 4,657 lines (up from 4,654).
+
+### software-architecture-initial-generation (2026-05-07)
+
+- **File:** `book/14-software-architecture.md`
+- **Pass:** Initial full chapter generation
+- **What changed:**
+  - Replaced skeleton with full chapter content (1,994 lines).
+  - Covered all required topics:
+    - Architecture vs design vs implementation
+    - Architectural styles: layered, hexagonal, clean, onion, monolith,
+      modular monolith, microservices, event-driven, serverless
+    - Domain-Driven Design: bounded contexts, aggregates, repositories,
+      domain services, anti-corruption layers, ubiquitous language
+    - Communication: sync vs async, choreography vs orchestration
+    - CQRS and event sourcing
+    - Data ownership and database-per-service rule
+    - Migration: strangler fig, branch by abstraction
+    - Architecture Decision Records (ADRs)
+    - Technical debt management
+    - Refactoring strategy
+    - Monorepo vs multi-repo
+    - API gateway and BFF pattern
+    - Architectural fitness functions
+    - Conway's Law
+  - Examples: modular monolith package layout, hexagonal architecture
+    in TypeScript, bounded context map (Mermaid), ADR example,
+    strangler fig migration plan, event sourcing with snapshots.
+  - Code blocks: 11 (ts, text, mermaid).
+  - Tables: 3 (core terminology, monorepo comparison, trade-offs).
+  - Cross-links: 9 (System Design, Security, CI/CD, Observability,
+    Performance, API Design, Testing).
+  - Interview Q&A: 55 questions (Basic: 23, Senior: 7, Tech Lead: 10,
+    Scenario: 10, Trick: 5, Red Flags: 5).
+  - Mermaid diagrams: 2 (architecture comparison, bounded context map).
+  - No banned words.
+- **Chapter size:** 1,994 lines.
+
+### software-architecture-qa-expansion (2026-05-07)
+
+- **File:** `book/14-software-architecture.md`
+- **Pass:** Quality Pass — Expand Interview Q&A
+- **What changed:**
+  - Expanded Interview Questions and Answers section from 55 to 90
+    questions.
+  - Added 7 new Basic questions: shared kernel vs ACL, value objects
+    vs entities, onion architecture, ubiquitous language, orchestration
+    vs choreography in sagas, distributed monolith, data sovereignty.
+  - Added 8 new Senior questions: ACL for unstable APIs, sync vs async
+    communication, event notification vs ECST, schema evolution in
+    events, modular monolith vs microservices comparison, CQRS risks,
+    ADR deprecation triggers, two-pizza team rule.
+  - Added 5 new Tech Lead questions: architectural governance without
+    bottleneck, handling technology divergence between teams, cloud
+    migration evaluation, architecture debt in a startup, onboarding
+    new teams.
+  - Added 3 new categories:
+    - Performance (5 questions): architecture impact on performance,
+      microservices latency control, data storage and query
+      performance, eventual consistency performance, monorepo CI
+      performance.
+    - Security (5 questions): architecture and attack surface, bounded
+      contexts as security boundaries, dependency direction and
+      security, secrets management, ACL security benefits.
+    - Testing and Quality (5 questions): architecture and testing
+      strategy, module boundary testing, strangler fig migration
+      testing, CQRS testing complexity, contract testing and
+      distributed monolith prevention.
+  - Final Q&A count: 90 questions (Basic: 30, Senior: 15, Tech Lead:
+    15, Performance: 5, Security: 5, Testing: 5, Scenario: 10,
+    Trick: 5, Red Flags: 5).
+  - No banned words introduced.
+  - No new verification notes needed.
+- **Chapter size:** 2,698 lines (up from 1,994).
+
+### software-architecture-examples-improvement (2026-05-07)
+
+- **File:** `book/14-software-architecture.md`
+- **Pass:** Quality Pass — Improve Code Examples
+- **What changed:**
+  - Added 8 new practical examples to the chapter:
+    1. **Layered architecture folder layout** — `text` block showing
+       the standard 4-layer structure with import direction explanation
+       and fitness function guidance.
+    2. **Clean architecture dependency direction** — `ts` code example
+       showing the dependency rule across three layers (domain,
+       application, infrastructure) with correct import direction.
+    3. **Aggregate and domain service** — `ts` code example showing
+       Order aggregate root with OrderLine child entity and a
+       TransferService domain service spanning two aggregates.
+    4. **CQRS command and query separation** — `ts` code example
+       showing command handler, event publishing, read model projection,
+       and query service as separate paths.
+    5. **Microservices communication comparison** — `mermaid` sequence
+       diagram showing synchronous (gRPC) and asynchronous (Kafka)
+       paths in an order flow.
+    6. **BFF (Backend for Frontend)** — `ts` code example showing
+       mobile BFF (compact payload, 2 service calls) vs web BFF
+       (rich payload, 4 service calls).
+    7. **Repository interface and implementation** — `ts` code example
+       showing domain interface, PostgreSQL implementation with mapper,
+       and in-memory test implementation.
+    8. **Technical debt decision matrix** — table with 5 debt items
+       scored by impact, interest, fix cost, payback period, and
+       priority.
+  - Added **architecture review checklist** — structured `text` block
+    with 22 verifiable items across 6 categories (boundaries,
+    dependencies, communication, data, operations, migration).
+  - Each example includes: what it shows, why it is useful, common
+    mistake, production considerations, and Tech Lead evaluation
+    guidance.
+  - Total code/diagram examples in chapter: 17 (up from 8).
+  - Mermaid diagrams: 3 (up from 2).
+  - No banned words introduced.
+  - No version-sensitive claims requiring verification.
+- **Chapter size:** 3,200 lines (up from 2,698).
+
+### software-architecture-tech-lead-perspective (2026-05-07)
+
+- **File:** `book/14-software-architecture.md`
+- **Pass:** Quality Pass — Strengthen Tech Lead Perspective
+- **What changed:**
+  - Added `## Tech Lead Decision-Making` section (H2) with 5 subsections:
+    1. **Making architecture decisions under uncertainty** — decision
+       framework (classify reversibility, latest responsible moment,
+       make reversible, document falsification criteria), overengineering
+       trap callout, interview framing.
+    2. **Communicating architecture trade-offs to engineers and
+       stakeholders** — three audience-specific examples (engineers,
+       stakeholders, executives), 5-item decision checklist.
+    3. **Architecture principles that do not block delivery** — effective
+       vs ineffective principles, how to introduce a principle, risk
+       checklist.
+    4. **Operational maturity assessment** — 7×3 capability matrix
+       (modular monolith vs microservices vs event-driven), stakeholder
+       explanation, Tech Lead decision guidance.
+    5. **Debugging and incident response across architectures** —
+       concrete debugging narratives for monolith, microservices, and
+       event-driven; "3 AM test" for architecture readiness.
+  - Added to **Microservices section**: overengineering trap callout
+    ("plans are not constraints"), cost reality check ($500-2K/month
+    per service, 2-4 hours/week operational overhead).
+  - Added to **Event-driven architecture section**: incident response
+    reality callout (dead-letter queues, idempotency, compensation
+    procedures).
+  - Added to **CQRS section**: Tech Lead cost-benefit analysis (three
+    ongoing costs, adopt only on proven bottleneck).
+  - Added to **Event sourcing section**: overengineering trap ("if the
+    only requirement is an audit trail, use an audit log table"),
+    operational cost reality (schema registry, snapshotting, upcasting,
+    3-6 month team readiness timeline).
+  - Added to **Strangler fig section**: stakeholder explanation, 7-item
+    risk checklist.
+  - Added to **ADR section**: Tech Lead approach to ADRs vs RFCs,
+    interview framing.
+  - Added to **Technical debt section**: intentional debt management
+    (Senior vs Tech Lead perspective, 4 principles for managing debt
+    deliberately).
+  - No banned words introduced.
+  - No version-sensitive claims requiring verification.
+- **Chapter size:** 3,345 lines (up from 3,200).
+
+### software-architecture-chapter-audit (2026-05-07)
+
+- **File:** `book/14-software-architecture.md`
+- **Pass:** Quality Pass — Chapter Audit
+- **Audited against:** `BOOK_SPEC.md`, `STYLE_GUIDE.md`,
+  `CHAPTER_TEMPLATE.md`, `SUMMARY.md`
+- **Findings and fixes:**
+  - **Duplicate H3 heading:** Two `### Architectural styles` headings
+    existed under `## Theoretical Foundation` (lines 68 and 309).
+    Renamed the second to `### System-level architecture styles` to
+    distinguish code-level styles (layered, hexagonal, clean, onion)
+    from system-level styles (monolith, modular monolith, microservices,
+    event-driven, serverless).
+  - **Missing cross-links in body text:** Added 3 inline cross-links:
+    - Observability link in the debugging/incident response section.
+    - API Design link in the API gateway/BFF section.
+    - Testing and Quality link in the fitness functions section.
+    (Previously, only 2 body cross-links existed in Production
+    Considerations; Further Study had 7.)
+  - **Template compliance verified:** All 16 required H2 sections
+    present and in correct order. `## Tech Lead Decision-Making` is
+    an additional section between `How to Explain` and `Good Answer
+    vs Weak Answer`, consistent with 10 other chapters.
+  - **Q&A category ordering verified:** Basic → Senior → Tech Lead →
+    Performance → Security → Testing and Quality → Scenario-based →
+    Trick Questions → Red Flags. Matches system design chapter pattern.
+  - **Code block language tags verified:** 19 opening fences with
+    language tags, 19 closing fences. No bare opening fences.
+  - **H2 Title Case verified.** H3+ sentence case verified.
+  - **No banned words.**
+  - **No version-sensitive claims requiring verification.**
+  - **No shallow definitions found.**
+  - **No code examples without explanations.**
+  - **No broken Markdown formatting.**
+- **No changes to:** `notes/verification-needed.md`,
+  `notes/open-questions.md`
+- **Chapter size:** 3,348 lines (up from 3,345).

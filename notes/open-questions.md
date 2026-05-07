@@ -180,3 +180,12 @@ Format: one row per question.
   and should be added to `CHAPTER_TEMPLATE.md`.
 - **Update (2026-05-06):** `book/13-system-design.md` also uses this
   pattern. Ten chapters now include `## Tech Lead Decision-Making`.
+- **Update (2026-05-07):** `book/14-software-architecture.md` initially
+  did not include a separate `## Tech Lead Decision-Making` section,
+  weaving the perspective throughout other sections instead.
+- **Update (2026-05-07):** `book/14-software-architecture.md` now
+  includes a dedicated `## Tech Lead Decision-Making` section with 5
+  subsections: decision-making under uncertainty, communicating trade-offs,
+  architecture principles, operational maturity assessment, and debugging
+  across architectures. This aligns with the pattern used in other
+  chapters. Eleven chapters now include this section.
