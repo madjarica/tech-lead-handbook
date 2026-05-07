@@ -5190,3 +5190,174 @@ All passes completed:
 - **Fix applied:** Added cross-link to [Git and Engineering Workflow](./20-git-and-engineering-workflow.md) in the code review conversation section.
 - **Topic coverage verified:** All 9 required areas covered (communication under pressure, active listening, feedback, conflict resolution, stakeholder management, written communication, meeting facilitation, prioritization/ownership, behavioral interviews/STAR).
 - **No new entries for `notes/verification-needed.md`** or `notes/open-questions.md`.
+
+## `tech-lead-skills-initial-generation` — 2026-05-07
+
+- **File:** `book/23-tech-lead-skills.md`
+- **Pass:** Initial generation from chapter prompt.
+- **Previous state:** 162-line skeleton with TODO placeholders.
+- **New state:** 1,977 lines of complete chapter content.
+- **Structure:** Follows `CHAPTER_TEMPLATE.md` exactly — all 16 H2 sections present in correct order.
+- **Topics covered (all 23 required):**
+  1. Role of a Tech Lead
+  2. Senior Developer vs Tech Lead vs Engineering Manager vs Architect
+  3. Technical ownership
+  4. Mentoring
+  5. Code review culture
+  6. Architecture decision-making (Type 1/Type 2, ADR, RFC)
+  7. Delivery responsibility (project planning, breakdown, critical path)
+  8. Risk management (risk register, risk categories)
+  9. Technical debt management (tracking, quantifying, prioritizing, negotiating capacity)
+  10. Roadmap influence (feasibility, sequencing, framing technical work as business value)
+  11. Hiring (interview loop design, scorecards, calibration, debrief)
+  12. Interviewing (structured evaluation, evidence-based assessment)
+  13. Onboarding (30/60/90-day plan, success metrics)
+  14. Team standards (what to standardize, what not to, how to introduce)
+  15. Engineering guidelines (coding conventions, PR process, testing strategy)
+  16. Incident leadership (blast radius, role assignment, mitigation-vs-fix, post-mortem)
+  17. Cross-team collaboration (interfaces, syncs, escalation, integration ownership)
+  18. Balancing business and technical priorities (translation, quality protection, cost visibility)
+  19. Leading without authority (credibility, reasoning, relationships, modeling, disagree-and-commit)
+  20. Decision logs (ADR format, when to write, when not to write)
+  21. RFC process (cross-team decisions, proposal vs decision)
+  22. ADR documents (full example with alternatives and consequences)
+  23. Realistic leadership scenarios (first 30 days, architecture review, project kickoff to launch)
+- **Examples:** 5 practical examples with full explanations (project breakdown, risk register, hiring scorecard, first-30-day plan, ADR example).
+- **Diagrams:** 1 Mermaid flowchart (three altitudes of Tech Lead operation).
+- **Common mistakes:** 8 items, all with what-it-looks-like / why-wrong / correct-approach format.
+- **Trade-offs:** 5-row comparison table with optimizes-for / sacrifices / flips-when format.
+- **Q&A counts:**
+  - Basic: 30
+  - Senior: 8 (detailed format with strong/weak answers and red flags)
+  - Tech Lead: 10 (detailed format)
+  - Scenario-based: 10 (detailed format)
+  - Trick Questions: 5
+  - Red Flags: 5
+  - **Total: 68 questions**
+- **Cross-links:** Software Architecture (14), Security (15), Observability (18), Git and Engineering Workflow (20), Soft Skills (22).
+- **Code fences:** 12 (6 pairs, balanced). Language tags: `mermaid` (1), `text` (5).
+- **Banned words:** 0 occurrences.
+- **No version-sensitive claims** — chapter content is about leadership practices, not specific tool versions.
+- **Open question:** Audited overlap with chapter 22 (Soft Skills). Chapter 23 cross-links to chapter 22 for communication behaviors (feedback, conflict resolution, stakeholder communication, meeting facilitation, STAR format) and focuses on leadership strategy (technical direction, project planning, hiring, architecture decisions, risk management, technical debt). No duplication requiring consolidation.
+
+## `tech-lead-skills-qa-expansion` — 2026-05-07
+
+- **File:** `book/23-tech-lead-skills.md`
+- **Pass:** Expand Interview Q&A.
+- **Previous state:** 1,977 lines, 68 total Q&A (30 Basic, 8 Senior, 10 Tech Lead, 10+1 Scenario, 5 Trick, 5 Red Flags).
+- **New state:** 2,422 lines (+445 lines), 81 total Q&A.
+- **Changes:**
+  - Added 7 Senior questions (detailed format with strong/weak answers and red flags):
+    1. Leading a team through a production incident (incident roles, mitigation-first, post-mortem)
+    2. Onboarding a new engineer (three-phase plan, milestones, buddy system)
+    3. Giving feedback on code quality (data-driven, SBI, development plan)
+    4. Keeping documentation current and useful (minimize, integrate, detect staleness)
+    5. Cross-team collaboration with different priorities (quantify misalignment, trade-offs, joint escalation)
+    6. Transition from Senior Developer to Tech Lead (role change, success metric shift, new skills)
+    7. Running an effective retrospective (async input, limited action items, recurring theme escalation)
+  - Added 6 Tech Lead questions (detailed format):
+    1. Communicating risky technical decisions to non-technical stakeholders (business impact, options, recommendation)
+    2. Re-architect vs continue patching (velocity trend, incident frequency, opportunity cost)
+    3. Consistency vs autonomy across the organization (standardize at interface, flexibility in implementation)
+    4. Building team ability to operate without the Tech Lead (progressive delegation, decision frameworks)
+    5. Time management under competing demands (prioritization buckets, deep work, calendar audit)
+    6. Making decisions when team prefers a different direction (Type 1/Type 2, transparent override, false consensus)
+- **Q&A final counts:**
+  - Basic: 30
+  - Senior: 15
+  - Tech Lead: 15
+  - Scenario-based: 11
+  - Trick Questions: 5
+  - Red Flags: 5
+  - **Total: 81 questions**
+- **Topic coverage added:**
+  - Incident leadership (Senior Q&A)
+  - Onboarding specifics (Senior Q&A)
+  - Code quality feedback (Senior Q&A)
+  - Documentation maintenance (Senior Q&A)
+  - Cross-team priority negotiation (Senior Q&A)
+  - Role transition mechanics (Senior Q&A)
+  - Retrospective facilitation (Senior Q&A)
+  - Stakeholder communication for technical decisions (Tech Lead Q&A)
+  - Re-architecture decision-making (Tech Lead Q&A)
+  - Org consistency vs team autonomy (Tech Lead Q&A)
+  - Team autonomy building (Tech Lead Q&A)
+  - Tech Lead time management (Tech Lead Q&A)
+  - Decision-making under disagreement (Tech Lead Q&A)
+- **Code fences:** 12 (6 pairs, balanced). No new code blocks added.
+- **Banned words:** 0 occurrences.
+- **No version-sensitive claims** — all new questions cover leadership practices, not tooling.
+
+## `tech-lead-skills-examples-improvement` — 2026-05-07
+
+- **File:** `book/23-tech-lead-skills.md`
+- **Pass:** Improve Code and Practical Examples.
+- **Previous state:** 2,422 lines, 5 examples in the Examples section.
+- **New state:** 2,929 lines (+507 lines), 15 examples total in the Examples section.
+- **Changes:** Added 10 new practical process/configuration/template examples, each with a `text` code block and a four-part explanation (what it shows, why useful, common mistake, production changes):
+  1. **Tech Lead responsibility matrix** — RACI-style matrix for TL/EM/PM/Staff responsibilities across 12 decision areas.
+  2. **Role comparison: day-in-the-life** — Concrete daily schedule comparison for Senior Dev, Tech Lead, EM, and Staff Engineer showing qualitative differences in how each role spends time.
+  3. **Technical decision-making with trade-offs** — Three-option evaluation (RabbitMQ/Kafka/SQS) for order processing, with constraint-based reasoning and migration trigger.
+  4. **Mentoring plan by experience level** — Tiered mentoring approach for junior/mid/senior engineers with differentiated cadence, focus areas, and growth signals.
+  5. **Code review culture: examples and anti-patterns** — Three anti-patterns (rubber stamp, nitpick storm, gatekeeper) and two productive patterns (tiered feedback, teaching review).
+  6. **Technical debt prioritization model** — Quantified scoring model (velocity impact + urgency + effort) with a ranked backlog and capacity allocation.
+  7. **Incident leadership checklist** — Structured checklist covering first 5 minutes, mitigation sequence, communication cadence, and post-incident follow-through.
+  8. **Onboarding plan for a new engineer** — Phased plan (pre-start, Week 1, Week 2-3, Week 4-6) with milestones tracked in a table. Includes "what confused me" meta-improvement.
+  9. **Interviewing rubric: calibration examples** — Score 1-4 behavioral descriptions for a system design interview question, demonstrating what observable behaviors correspond to each score level.
+  10. **Engineering standards rollout plan** — Five-phase rollout (automate → co-create → adopt → migrate → review) using structured logging as a concrete example.
+- **Code fences:** 32 (16 pairs, balanced). Language tags: `mermaid` (1), `text` (15).
+- **Banned words:** 0 occurrences.
+- **Cross-links added:** Git and Engineering Workflow (in code review culture example), Observability (in incident leadership example).
+- **No version-sensitive claims** — all examples cover leadership processes and templates, not specific tool versions.
+
+## `tech-lead-skills-tech-lead-perspective` — 2026-05-07
+
+- **File:** `book/23-tech-lead-skills.md`
+- **Pass:** Strengthen Tech Lead Perspective.
+- **Previous state:** 2,929 lines.
+- **New state:** 2,984 lines (+55 lines).
+- **Changes:**
+  - Added 5 inline "Tech Lead perspective" callouts in key sections:
+    1. **Technical ownership** — ownership without bottleneck; knowledge distribution test; pairing on critical decisions as corrective.
+    2. **Architecture decision-making** — when NOT to formalize; overengineering trap of applying heavyweight process (ADR/RFC) to lightweight decisions; reversibility heuristic.
+    3. **Delivery responsibility (estimation)** — estimation as trust currency; coding time vs delivery time gap (2-3x); transparency over accuracy; stakeholder trust mechanics.
+    4. **Incident leadership** — three decisions a Senior Engineer does not make: mitigation vs investigation, who to page at 3 AM, and exit criteria for resolution.
+    5. **Leading without authority** — influence as a budget that is spent and earned; new Tech Lead's small initial balance; selectivity in first 30 days.
+  - Added `### Tech Lead decision-making` subsection under `## Production Considerations` with:
+    - **What a Senior Engineer usually knows** vs **What a Tech Lead is expected to decide** — 5 items vs 7 items, covering build/buy/defer, capacity allocation, formalization decisions, risk classification, team override, scope negotiation, and automation investment.
+    - **Common overengineering trap: over-process** — excessive design docs, mandatory reviews, sign-off gates; test: does the process prevent an observed or imagined problem?
+    - **When to avoid formal Tech Lead processes** — small teams, exploratory phases, mature teams, single-person projects.
+    - **Decision checklist for Tech Leads** — 7-item checklist (Type 1/2, constraints, options, affected parties, cost of being wrong, migration path, documentation).
+- **Code fences:** 32 (16 pairs, balanced). No new code blocks added.
+- **Banned words:** 0 occurrences.
+- **Cross-links added:** Software Architecture (in architecture decision-making callout).
+- **No version-sensitive claims** — all additions cover leadership reasoning and decision frameworks.
+
+## `tech-lead-skills-chapter-audit` — 2026-05-07
+
+- **File:** `book/23-tech-lead-skills.md`
+- **Pass:** Chapter Audit against `BOOK_SPEC.md`, `STYLE_GUIDE.md`, `CHAPTER_TEMPLATE.md`, `SUMMARY.md`.
+- **Chapter size:** 2,984 lines (no change — no fixes required).
+- **Audit results (all 17 checks):**
+  1. Shallow definitions — None. All 12 Core Terminology entries have multi-sentence definitions with role distinctions and cross-links.
+  2. Missing mental models — None. Three-altitudes model with Mermaid diagram.
+  3. Missing trade-offs — None. 5-row trade-off table with "optimizes for / sacrifices / flips when" format.
+  4. Missing production considerations — None. 6 paragraphs plus Tech Lead decision-making subsection.
+  5. Missing Tech Lead perspective — None. 5 inline callouts plus decision-making subsection.
+  6. Missing security considerations — None. Security paragraph in Production Considerations + cross-link to Security chapter.
+  7. Missing performance considerations — Addressed through pipeline optimization, deployment velocity, and incident response. Appropriate for a leadership chapter.
+  8. Missing maintainability concerns — None. Dedicated paragraph in Production Considerations + tech debt management section.
+  9. Weak interview answers — None. All detailed Q&A have specific, non-generic strong/weak pairs.
+  10. Repetitive sections — None. Examples expand theory with concrete templates without duplicating content.
+  11. Examples without explanation — None. All 15 examples have four-part explanations.
+  12. Claims needing verification — None. Chapter covers leadership practices, not version-sensitive tooling.
+  13. Broken Markdown — None. 32 fences (16 pairs balanced), tables well-formed.
+  14. Missing language tags — None. `mermaid` (1) + `text` (15) on all blocks.
+  15. Heading mismatches — None. All 16 H2 sections match template in correct order. H3 uses sentence case. Q&A category headings match template.
+  16. Missing cross-links — None. 7 chapters cross-linked (14, 15, 16, 17, 18, 20, 22) both inline and in Further Study.
+  17. Toy-like examples — None. All 15 examples use realistic scenarios.
+- **SUMMARY.md topic coverage verified:** All 10 required areas covered (TL vs EM vs Staff, technical direction, project planning, risk, estimation, hiring/interviewing, onboarding, cross-functional collaboration, working with leadership, career growth).
+- **User-requested topic coverage verified:** All 10 areas (role boundaries, ownership without bottleneck, mentoring/delegation, architecture decisions, delivery/risk, tech debt, hiring/interviewing/onboarding, incident leadership, leading without authority, behavioral/scenario interview answers).
+- **Banned words:** 0. Two uses of "just" reviewed and confirmed as idiomatic (not hiding complexity).
+- **No fixes applied.** Chapter passed all 17 audit checks without modifications.
+- **No new entries for `notes/verification-needed.md`** or `notes/open-questions.md`.

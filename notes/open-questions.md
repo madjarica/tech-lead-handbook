@@ -263,5 +263,12 @@ Format: one row per question.
   focus on leadership strategy (technical direction, team structure,
   hiring, career development, organizational influence). Cross-link
   is in place.
-- **Action needed:** When chapter 23 is generated, audit for
-  duplication with chapter 22 and consolidate if needed.
+- **Action needed:** ~~When chapter 23 is generated, audit for
+  duplication with chapter 22 and consolidate if needed.~~ **Resolved
+  (2026-05-07):** Chapter 23 generated. Overlap audited. Chapter 23
+  cross-links to chapter 22 for communication behaviors (feedback, SBI,
+  conflict resolution, stakeholder communication, meeting facilitation,
+  STAR format, expectation management). Chapter 23 focuses on leadership
+  strategy: technical direction, project planning, risk management,
+  hiring, architecture decisions, technical debt, onboarding, and
+  cross-team collaboration. No duplication requiring consolidation.
