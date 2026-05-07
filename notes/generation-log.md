@@ -4658,3 +4658,242 @@ All passes completed:
 - **Chapter size:** 2,822 lines (net +2 from caption addition).
 - **No changes to:** `notes/verification-needed.md`,
   `notes/open-questions.md`
+
+---
+
+### `python-initial-generation`
+
+- **Date:** 2026-05-07
+- **Chapter:** `book/11-python.md`
+- **Action:** Initial full chapter generation
+- **Content generated:**
+  - Replaced skeleton with 2,302 lines of production-ready content.
+  - **Mental Model:** Mermaid diagram of GIL, threading, asyncio, and
+    multiprocessing concurrency models.
+  - **Core Terminology:** 15-row table covering GIL, MRO, descriptor,
+    generator, coroutine, context manager, dataclass, Protocol, type
+    hint, virtual environment, lock file, Pydantic, ASGI, WSGI.
+  - **Theoretical Foundation:** 15 subsections covering language model,
+    data structures, functions, decorators, generators, context
+    managers, type hints, OOP/dataclasses, Pydantic, error handling,
+    concurrency (threads/multiprocessing/asyncio), virtual
+    environments/packaging (pip/Poetry/uv), web frameworks
+    (FastAPI/Django/Flask), testing with pytest, async Python, scripting
+    and automation, Python for AI, and performance/profiling.
+  - **Practical Usage:** 3 sections (I/O-bound services, CPU-bound work,
+    data pipelines with pandas/Polars/PySpark/Airflow comparison).
+  - **Examples:** 5 detailed examples with "What this shows / Why / Common
+    mistake / In production" explanations: generator pipeline, async
+    context manager for DB transactions, FastAPI handler with Pydantic,
+    async wrapper for blocking libraries, uvicorn+gunicorn deployment.
+  - **Common Mistakes:** 8 items (threads for CPU, mutable defaults,
+    broad except, blocking async, no lock file, no type hints,
+    import *, no __main__ guard).
+  - **Trade-offs:** 7-row table (threads vs multiprocessing, asyncio vs
+    threads, FastAPI vs Django, Pydantic vs dataclasses, Poetry vs pip,
+    mypy strict vs none, Python vs compiled language).
+  - **Production Considerations:** 7 areas (security, performance,
+    reliability, maintainability, cost, team/hiring, vendor lock-in,
+    migration/rollback).
+  - **Good Answer vs Weak Answer:** asyncio usage comparison.
+  - **Tech Lead Checklist:** 5 sections (packaging, code quality,
+    concurrency/runtime, testing, production) with 18 items.
+  - **Tech Lead Decision-Making:** 3 subsections (language choice, typing
+    standards, process model decisions with decision table).
+  - **Interview Q&A:** 67 questions total: Basic 30, Senior 7, Tech Lead
+    10, Scenario 10, Trick 5, Red Flags 5. Detailed format (Strong
+    Answer / What Interviewer Tests / Weak Answer / Red Flags) for
+    Senior, Tech Lead, and Scenario categories.
+  - **Further Study:** 5 cross-links to related chapters + 4 external
+    references (Fluent Python, Python docs, pyperformance).
+  - **Comparison with JavaScript/TypeScript:** Inline comparisons in
+    language model, data structures, error handling, async, and type
+    hints sections.
+- **Checks passed:**
+  - 0 banned words.
+  - 40 opening code fences (all with language tags), 40 closing fences
+    (balanced).
+  - H2 heading order matches CHAPTER_TEMPLATE.md (with Tech Lead
+    Decision-Making section, consistent with other chapters).
+  - All Q&A counts meet minimums.
+  - 1 Mermaid diagram with caption.
+  - 3 framework comparison tables with captions.
+  - Cross-links to chapters 15, 16, 17, 18, 19.
+- **Chapter size:** 2,302 lines.
+- **Version-sensitive claims:** Pydantic v2 Rust core speed claim,
+  Python 3.10+ union syntax, Python 3.11+ TaskGroup, Python 3.7+ dict
+  ordering, Python 3.13+ free-threaded build — added to
+  `notes/verification-needed.md`.
+
+---
+
+### `python-qa-expansion`
+
+- **Date:** 2026-05-07
+- **Chapter:** `book/11-python.md`
+- **Action:** Expanded Interview Q&A section
+- **Changes:**
+  - Expanded Q&A from 67 to 95 questions.
+  - **Senior** (7 → 15): Added 8 new questions covering Python typing
+    vs TypeScript comparison, Pydantic vs dataclasses vs dicts decision
+    framework, FastAPI dependency injection patterns, automation script
+    structure, error handling and exception hierarchy strategy, async
+    generators and streaming patterns, library vs application packaging
+    differences, and how much Python a Tech Lead should know if it is
+    not their primary language.
+  - **Tech Lead** (10 → 15): Added 5 new questions covering AI/ML
+    tooling evaluation and governance, polyglot vs Python-only
+    enforcement, Python production security posture, team
+    standardization prioritization for growing teams (5 → 25
+    engineers), and Python monorepo design with affected-only CI.
+  - **Performance** (0 → 5): New category. Common web service
+    performance issues, memory model for long-running services,
+    `__slots__` for large-scale instances, data processing
+    optimization, and sync vs async server performance comparison.
+  - **Security** (0 → 5): New category. Python-specific security risks
+    (pickle, eval, YAML, supply chain), dependency management security,
+    SQL injection prevention, secrets management, and information
+    leakage prevention in API responses.
+  - **Testing and Quality** (0 → 5): New category. FastAPI testing with
+    TestClient, pytest fixture structure for multi-service codebases,
+    mocking vs real dependencies, test data management with factories,
+    and async test patterns with pytest-asyncio.
+  - Verified Q&A section order: Basic → Senior → Tech Lead →
+    Scenario-based → Performance → Security → Testing/Quality → Trick
+    Questions → Red Flags.
+  - Fixed 2 occurrences of banned word "just" in non-quoted text
+    (replaced with "simple" and "alone").
+- **Checks passed:**
+  - 0 banned words in non-quoted text.
+  - 48 opening + 48 closing code fences (balanced, all with language
+    tags).
+  - Q&A counts: Basic 30, Senior 15, Tech Lead 15, Scenario 10,
+    Performance 5, Security 5, Testing 5, Trick 5, Red Flags 5
+    (total: 95).
+- **Chapter size:** 2,942 lines (net +640 from Q&A expansion).
+- **No version-sensitive claims added** — new questions cover
+  architecture, patterns, and best practices, not version-specific
+  features.
+
+---
+
+### `python-examples-improvement`
+
+- **Date:** 2026-05-07
+- **Chapter:** `book/11-python.md`
+- **Action:** Added and improved practical code examples
+- **Examples added (7 new, total 12 in `## Examples`):**
+  1. **Idiomatic iteration patterns** (`python`) — `enumerate`, `zip`,
+     dict comprehension, `Counter`, set operations. Inserted in
+     `### Data structures` section. Shows Python fluency patterns that
+     replace manual loops.
+  2. **Retry decorator with exponential backoff** (`python`) — A
+     parameterized decorator for cross-cutting retry logic with
+     configurable exceptions and backoff. Inserted in
+     `### Decorators` section. Includes production notes on jitter
+     and circuit breaking.
+  3. **Dataclasses vs Pydantic side-by-side** (`python`) — The
+     boundary principle in practice: `@dataclass(frozen=True)` for
+     internal data, Pydantic `BaseModel` for request/response
+     validation. Inserted in `## Examples`. Shows when to use which
+     with a naming convention.
+  4. **Async service call with timeout and structured error handling**
+     (`python`) — Production-grade async function with
+     `asyncio.wait_for`, retry on 5xx/timeout, custom exception
+     propagation. Inserted in `## Examples`. Covers circuit breaking,
+     request ID propagation, and `asyncio.sleep` vs `time.sleep`.
+  5. **pytest integration test with FastAPI TestClient** (`python`) —
+     Async integration tests using `httpx.AsyncClient` with ASGI
+     transport, `dependency_overrides` for database injection,
+     transaction rollback fixtures. Inserted in `## Examples`.
+  6. **Automation script with argparse and logging** (`python`) —
+     Complete S3 cleanup script with `argparse`, `logging`, `--dry-run`,
+     batched operations, generator-based pagination, and exit codes.
+     Inserted in `## Examples`. Shows production script standards.
+  7. **Poetry `pyproject.toml`** (`toml`) — Complete project
+     configuration with dependency groups, mypy strict mode, ruff
+     rules, and pytest asyncio_mode. Inserted in `### Poetry` section.
+- **Each non-trivial example includes:** What it shows, why it is
+  useful, common mistake, and how it changes in production.
+- **Checks passed:**
+  - 0 banned words.
+  - 55 opening + 55 closing code fences (balanced, all with language
+    tags).
+  - H2 heading order matches CHAPTER_TEMPLATE.md.
+  - Q&A counts unchanged (95 total).
+- **Chapter size:** 3,321 lines (net +379 from examples).
+- **No version-sensitive claims added** — examples use stable,
+  well-established APIs and patterns.
+
+### `python-tech-lead-perspective` (2026-05-07)
+
+- **Action:** Quality pass — strengthen Tech Lead perspective.
+- **File:** `book/11-python.md`
+- **Changes:**
+  1. **Concurrency section** — added "Tech Lead perspective — async
+     adoption risk" callout covering library compatibility tax, debugging
+     complexity, team skill requirement, and when to stay sync.
+  2. **Pydantic section** — added "Tech Lead perspective — runtime
+     validation strategy" callout with a 4-layer validation model
+     (API boundary → config → integration → internal) and TypeScript
+     comparison.
+  3. **Web frameworks section** — added "Tech Lead perspective — framework
+     selection is an architecture decision" callout covering hiring
+     signal, migration cost, stakeholder explanation, and the common
+     overengineering trap (FastAPI for internal CRUD tools).
+  4. **Testing section** — added "Tech Lead perspective — testing
+     investment decisions" callout covering integration vs unit test
+     ROI, type checking as a test, coverage targets with judgment, and
+     when not to invest in tests.
+  5. **AI/ML section** — added "Tech Lead perspective — governing AI code
+     quality" callout covering quality gates for ML code, cost
+     governance for AI APIs (with dollar estimates), and incident
+     response for AI features.
+  6. **Tech Lead Decision-Making** — added three new subsections:
+     - "Incident response and debugging in Python services" — memory
+       leaks, event loop stalls, import-time side effects, debugging
+       toolkit table.
+     - "Cost-benefit analysis for Python decisions" — Python vs Go/Rust
+       quantified example, async migration ROI, stakeholder framing.
+     - "When not to use Python" — latency, memory, CPU-bound, startup
+       time, team expertise, and interview framing.
+- **Checks passed:**
+  - 1 banned word ("just") in a quoted Weak Answer — intentional.
+  - 55 opening + 55 closing code fences (balanced).
+  - H2 heading order matches CHAPTER_TEMPLATE.md.
+  - Q&A counts unchanged (95 total).
+- **Chapter size:** 3,430 lines (net +109 from Tech Lead perspective).
+
+### `python-chapter-audit` (2026-05-07)
+
+- **Action:** Chapter audit against BOOK_SPEC.md, STYLE_GUIDE.md,
+  CHAPTER_TEMPLATE.md, and SUMMARY.md.
+- **File:** `book/11-python.md`
+- **Issues found and fixed:**
+  1. **`toml` language tag** — not in STYLE_GUIDE allowed list. Changed
+     to `text` on the `pyproject.toml` example (line 614).
+  2. **Missing cross-links in body** — added inline cross-links to
+     AI Usage (line 872), Testing and Quality (line 731), and
+     Observability (Q&A section, line 2508).
+  3. **Approximate numbers unlabeled** — "When not to use Python"
+     section had CPython object sizes (28 bytes int, 49 bytes str) and
+     startup times (100-500ms) stated as exact facts. Labeled as
+     "roughly" / "approximate" / "varies by version" per BOOK_SPEC
+     accuracy rules.
+  4. **Missing Further Study links** — added cross-links to API Design
+     and AI Usage chapters.
+- **Audit results (no issues):**
+  - H2 heading order matches CHAPTER_TEMPLATE.md (17 H2 headings).
+  - All code fences balanced (55/55).
+  - All language tags in allowed list (python, text, bash, mermaid).
+  - 1 banned word ("just") in quoted Weak Answer — intentional.
+  - Q&A counts unchanged (95 total across 9 categories).
+  - 13 cross-links to 7 different chapters.
+  - Summary has 8 bullet points (within 5-8 range).
+  - Trade-offs table uses "optimizes for / sacrifices / flips when" format.
+  - All tables have captions.
+  - Mermaid diagram has explanatory caption.
+  - No shallow definitions found.
+  - All code examples have prose explanations.
+  - No repetitive sections requiring consolidation.
+- **Chapter size:** 3,432 lines (net +2 from audit fixes).

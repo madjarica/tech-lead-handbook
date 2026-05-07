@@ -2048,3 +2048,96 @@ add specific rows here.
 - **Suggested source:** AWS RDS, ElastiCache, and DynamoDB pricing
   pages for us-east-1 on-demand pricing.
 - **Status:** unverified
+
+### #101. Pydantic v2 Rust core speed improvement (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Theoretical Foundation → Pydantic
+- **Claim:** Pydantic v2 uses a Rust core for validation, making it
+  5-50x faster than v1.
+- **Why it matters:** The speed multiplier range is widely cited but the
+  exact range varies by benchmark and data shape. Overstating
+  performance gains misleads optimization decisions.
+- **Suggested source:** Pydantic v2 migration guide and official
+  benchmarks at docs.pydantic.dev.
+- **Status:** unverified
+
+### #102. Python 3.10+ union syntax with pipe operator (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Theoretical Foundation → Type hints and static typing
+- **Claim:** `X | Y` syntax for unions is available in Python 3.10+.
+  Built-in generic syntax (`list[str]`, `dict[str, int]`) is
+  available in Python 3.9+.
+- **Why it matters:** Using the wrong syntax version causes runtime
+  errors in older Python versions. Teams on 3.8/3.9 need the
+  `typing` imports.
+- **Suggested source:** PEP 604 (union type syntax), PEP 585 (generic
+  built-in types).
+- **Status:** unverified
+
+### #103. Python 3.11+ TaskGroup structured concurrency (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Theoretical Foundation → Async Python in depth
+- **Claim:** `asyncio.TaskGroup` was introduced in Python 3.11 and
+  provides structured concurrency with automatic cancellation on
+  failure.
+- **Why it matters:** Using `TaskGroup` in production requires Python
+  3.11+. Teams on 3.10 or earlier must use `asyncio.gather` instead.
+- **Suggested source:** PEP 654 (exception groups) and Python 3.11
+  changelog.
+- **Status:** unverified
+
+### #104. Python 3.7 dict ordering guarantee (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Interview Questions → Trick Questions
+- **Claim:** Dicts preserve insertion order as a language guarantee since
+  Python 3.7 (CPython implementation detail since 3.6).
+- **Why it matters:** Stating the version boundary incorrectly could
+  mislead candidates in interviews.
+- **Suggested source:** Python 3.7 changelog and the Python Language
+  Reference on dict.
+- **Status:** unverified
+
+### #105. Free-threaded Python (PEP 703) experimental status (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Production Considerations → Migration and rollback
+- **Claim:** Free-threaded Python (PEP 703) is experimental in Python
+  3.13+ and removes the GIL.
+- **Why it matters:** The experimental status may change in Python 3.14+.
+  Recommending it for production depends on its stability status at
+  the time of reading.
+- **Suggested source:** PEP 703 and Python 3.13 release notes.
+- **Status:** unverified
+
+### #106. CPython object memory overhead (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Tech Lead Decision-Making → When not to use Python
+- **Claim:** Python objects carry roughly 28 bytes for an `int` and
+  ~50 bytes for an empty `str` in CPython, resulting in 3-10x more
+  memory than languages with value types.
+- **Why it matters:** Exact sizes vary between CPython versions (3.10
+  vs 3.13) and platform (32-bit vs 64-bit). The order of magnitude
+  is correct, but exact bytes may mislead performance-sensitive
+  decisions.
+- **Suggested source:** `sys.getsizeof()` on current CPython version,
+  or CPython source (`Include/object.h`).
+- **Status:** unverified
+
+### #107. Python cold start time range (Python chapter)
+
+- **Chapter:** `book/11-python.md`
+- **Section:** Tech Lead Decision-Making → When not to use Python
+- **Claim:** Python's module import and initialization is typically
+  100-500ms; Go and Rust cold start in roughly 5-50ms.
+- **Why it matters:** Cold start varies significantly by application
+  size, dependency count, and platform. Lambda cold starts depend on
+  package size and runtime. The ranges are orders of magnitude, but
+  specific benchmarks would strengthen the claim.
+- **Suggested source:** AWS Lambda cold start benchmarks, Python
+  import profiling with `python -X importtime`.
+- **Status:** unverified

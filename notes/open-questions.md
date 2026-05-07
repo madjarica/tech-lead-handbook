@@ -198,3 +198,16 @@ Format: one row per question.
   code review, monorepo/multi-repo) have "What a Tech Lead Is Expected to
   Decide" callouts. Twelve chapters now include the dedicated section,
   reinforcing the recommendation for template formalization.
+- **Update (2026-05-07):** `book/11-python.md` now includes a dedicated
+  `## Tech Lead Decision-Making` section with 3 subsections: choosing
+  between Python and another language, setting typing standards for the
+  team, and process model decisions. Thirteen chapters now include the
+  dedicated section.
+- **Update (2026-05-07):** `book/11-python.md` Tech Lead Decision-Making
+  expanded to 6 subsections (added incident response and debugging,
+  cost-benefit analysis, and when not to use Python). Additionally, 5
+  inline "Tech Lead perspective" callouts added throughout the chapter
+  (async adoption risk, runtime validation strategy, framework selection,
+  testing investment, AI code governance). This chapter now has the
+  strongest Tech Lead coverage across the book and may serve as a model
+  for other chapters.
