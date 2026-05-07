@@ -246,3 +246,22 @@ Format: one row per question.
 - **Action needed:** Consider adding a brief note in the cost-benefit
   section stating that the specific numbers are illustrative examples
   and that each team should derive their own figures from a pilot.
+
+---
+
+### Chapter 22 — Soft Skills: overlap with chapter 23 (Tech Lead Skills)
+
+- **Question:** Chapter 22 (Soft Skills) and chapter 23 (Tech Lead Skills)
+  share overlapping territory — leadership decision-making, stakeholder
+  management, and team dynamics. Should content be deduplicated by
+  keeping interpersonal skills in ch22 and organizational/strategic
+  leadership in ch23? Or should each chapter be independently readable
+  with some controlled overlap?
+- **Current decision:** Chapter 22 focuses on communication behaviors
+  (feedback, conflict resolution, stakeholder communication, written
+  communication, meetings, documentation). Chapter 23 is expected to
+  focus on leadership strategy (technical direction, team structure,
+  hiring, career development, organizational influence). Cross-link
+  is in place.
+- **Action needed:** When chapter 23 is generated, audit for
+  duplication with chapter 22 and consolidate if needed.

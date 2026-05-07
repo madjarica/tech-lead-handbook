@@ -5040,3 +5040,153 @@ All passes completed:
   - Further Study has 9 entries (5 chapter cross-links + 4 external references).
   - All required AI topics strongly covered (AI as productivity multiplier, prompt engineering, hallucinations/verification, security/privacy/IP/compliance, AI-assisted testing/documentation, RAG/embeddings/agents/tool use, team policies, Tech Lead AI introduction).
 - **Checks passed:** All 17 audit criteria satisfied.
+
+---
+
+### `soft-skills-initial-generation` — 2026-05-07
+
+- **Chapter:** `book/22-soft-skills.md`
+- **Pass type:** Initial full generation (replaced skeleton)
+- **Chapter size:** 1,860 lines
+- **Content generated:**
+  - Chapter Goal, Why This Matters, Mental Model (with Mermaid decision-communication-execution loop diagram), Core Terminology (15 terms).
+  - Theoretical Foundation (14 subsections): communication for engineers, active listening, giving feedback, receiving feedback, conflict resolution, expectation management, stakeholder communication, negotiation, written communication, meeting facilitation, documentation, explaining technical topics to non-technical people, emotional intelligence, time management and prioritization, ownership and accountability, behavioral interview questions and STAR format, working across timezones and cultures.
+  - Practical Usage (4 subsections): running a design review, writing a one-page design doc, managing a difficult code review conversation, writing a blameless post-mortem.
+  - Examples (1): RFC structure for proposing technical changes with full explanation.
+  - Common Mistakes (8 items, STYLE_GUIDE format).
+  - Trade-offs table (5 rows with "optimizes for X at cost of Y, flips when Z" format).
+  - Production Considerations (6 areas: reliability/on-call, team/hiring, distributed teams, security/compliance, cost, maintainability).
+  - How to Explain This in an Interview (3 openings).
+  - Good Answer vs Weak Answer (code review conflict).
+  - Tech Lead Checklist (16 items across 5 categories: decision documentation, feedback/development, meeting discipline, communication norms, incident response).
+  - Interview Q&A: Basic (30), Senior (10 detailed), Tech Lead (10 detailed), Scenario-based (10 detailed), Trick Questions (5), Red Flags (5) = 70 total.
+  - Summary (8 bullets).
+  - Further Study (10 entries: 5 chapter cross-links + 5 external references).
+  - 6 code blocks (6 text, 1 mermaid), all with allowed language tags.
+  - Cross-links to chapters 14 (Software Architecture), 15 (Security), 16 (Testing/Quality), 18 (Observability), 23 (Tech Lead Skills).
+- **Topics covered:** Communication (written, spoken, listening), BLUF, pyramid principle, active listening, giving/receiving feedback (SBI model, radical candor), conflict resolution, disagree-and-commit, Type 1/Type 2 decisions, expectation management, stakeholder communication (mapping, up/down/sideways), negotiation (principled negotiation, scope-time-quality), written communication, meeting facilitation, documentation (design docs, ADRs, RFCs, post-mortems, runbooks), explaining to non-technical people, emotional intelligence, time management (Eisenhower matrix), prioritization, ownership and accountability, behavioral interviews (STAR format), cross-timezone and cross-cultural communication.
+- **Checks passed:**
+  - H2 heading order matches CHAPTER_TEMPLATE (16 sections).
+  - Code fence balance: 7 opening, 7 closing.
+  - No banned words found.
+  - Q&A counts meet requirements.
+  - Summary has 8 bullets (within 5-8 range).
+
+---
+
+### `soft-skills-qa-expansion` — 2026-05-07
+
+- **Chapter:** `book/22-soft-skills.md`
+- **Pass type:** Q&A expansion
+- **Chapter size:** 2,219 lines (was 1,860, +359 lines)
+- **Q&A counts (before → after):**
+  - Basic: 30 → 30 (unchanged, already met target)
+  - Senior: 10 → 15 (+5 new detailed questions)
+  - Tech Lead: 10 → 15 (+5 new detailed questions)
+  - Scenario-based: 10 → 10 (unchanged, already met target)
+  - Trick Questions: 5 → 5 (unchanged)
+  - Red Flags: 5 → 5 (unchanged)
+  - **Total: 70 → 80 questions**
+- **New Senior questions (5):**
+  1. Communication during high-pressure production incidents (separating team vs stakeholder communication, structured status updates, emotional regulation).
+  2. Active listening changing a technical discussion outcome (paraphrasing, surfacing RabbitMQ vs Kafka disagreement as operational risk vs feature requirement).
+  3. Facilitating a meeting that has gone off the rails (naming the problem, restating goal, structuring time, managing participation).
+  4. Handling communication breakdowns in distributed teams (auditing decision-making venues, shifting to written media, documentation norms, rotating meeting times).
+  5. Delivering bad news to the team about project cancellation (BLUF, business context, acknowledging emotion, concrete next steps, 1:1 follow-up).
+- **New Tech Lead questions (5):**
+  1. Building psychological safety on a team with low trust (modeling vulnerability, round-robin participation, anonymous input, measuring participation patterns).
+  2. Managing cross-team dependency with conflicting priorities (quantifying cost, understanding other team's constraints, joint escalation, structural fix).
+  3. Prioritizing competing urgent requests from multiple stakeholders (objective criteria, visible trade-offs, recommendation over question, escalation with data).
+  4. Handling an engineer who bypasses agreed team process (private conversation, root cause curiosity, distinguishing first offense from pattern, evaluating process itself).
+  5. Managing up when manager disagrees with team's direction (understanding concern, sharing context with data, presenting trade-offs, committing if overruled).
+- **Topic coverage verified:** Communication under pressure, active listening, giving/receiving feedback, conflict resolution, stakeholder management, written communication, meeting facilitation, prioritization/ownership, behavioral interviews and STAR format — all covered.
+- **Checks passed:**
+  - Code fence balance: 7 opening, 7 closing.
+  - No banned words found.
+  - H2 heading order matches CHAPTER_TEMPLATE.
+  - All Q&A targets met or exceeded.
+
+---
+
+### `soft-skills-examples-improvement` — 2026-05-07
+
+- **Chapter:** `book/22-soft-skills.md`
+- **Pass type:** Improve code and practical examples
+- **Chapter size:** 2,683 lines (was 2,219, +464 lines)
+- **New examples added (10):**
+  1. **STAR-format behavioral interview answer** — Complete STAR example for a technical disagreement (GraphQL migration), showing "I" usage, quantified result, leadership behavior, and learning outcome.
+  2. **Feedback conversation using SBI** — Both corrective (overcommitted sprint planning) and positive (incident response communication), each with a Request step.
+  3. **Conflict resolution conversation template** — Five-step facilitator-led template (name disagreement, surface shared constraint, make trade-offs explicit, apply decision criteria, decide and commit).
+  4. **Stakeholder update for a project delay** — BLUF format with decision needed, options with trade-offs, recommendation, and risk quantification.
+  5. **Meeting facilitation agenda** — Time-boxed agenda with pre-read, named decision owner, and post-meeting commitments.
+  6. **Written communication examples** — Three formats: concise weekly status update, decision summary, and escalation note.
+  7. **Expectation management scenario** — Side-by-side comparison of bad (point estimate, surprise delay) vs good (range estimate, early update, stated assumptions).
+  8. **Prioritization with impact/effort/risk framing** — Five-item backlog with impact/effort/risk table, reasoning for each priority, and stakeholder communication.
+  9. **Non-technical explanation of a technical issue** — Same N+1 query issue explained at three levels: engineer (technical detail), PM (analogy), VP (business impact).
+  10. **Receiving feedback and follow-up action plan** — Complete feedback-receiving cycle: listening, suppressing defensiveness, asking for specifics, committing to action, and following up at weeks 1/2/4/6.
+- **Each example includes:**
+  - What it shows
+  - Why it is useful
+  - Common mistake
+  - How it changes in production/real team
+- **No version-sensitive claims added** — all examples are process-oriented, not tool-version-dependent.
+- **Checks:**
+  - All code blocks have `text` language tags.
+  - No banned words introduced.
+  - Examples placed in the `## Examples` section, maintaining chapter structure.
+
+---
+
+### `soft-skills-tech-lead-perspective` — 2026-05-07
+
+- **Chapter:** `book/22-soft-skills.md`
+- **Pass type:** Strengthen Tech Lead perspective
+- **Chapter size:** 2,756 lines (was 2,683, +73 lines)
+- **Inline Tech Lead perspective callouts added (5):**
+  1. **Communication under pressure** — Distinguishes Senior (communicates clearly normally) from Tech Lead (maintains structured communication during incidents, crises, and escalations). Sets the team's communication rhythm. Interview framing: describe how you managed information flow during a specific incident.
+  2. **Active listening as a decision-making tool** — Elevates active listening from "understand requirements" to "surface hidden constraints that change architectural decisions." Detecting hard vs soft deadlines. Detecting violent agreement vs hidden disagreement.
+  3. **Owning the conflict resolution process** — Senior resolves conflicts they are involved in. Tech Lead designs and maintains the conflict resolution process for the team. Creates safety for disagreement. Explains constraints when overriding the technically better option.
+  4. **Meetings as a cost center** — Treats team meeting load as a system to optimize. Quarterly audit of recurring meetings. Cost framing for stakeholder communication (300 engineer-hours/year saved by converting one weekly meeting to a written update).
+  5. **STAR answers that demonstrate leadership, not execution** — Three signals for Tech Lead STAR stories: decision-making under uncertainty, influence without authority, systems thinking. Distinguishes execution stories from leadership stories.
+- **New subsection added to Production Considerations:**
+  - `### Tech Lead decision-making` with 5 sub-topics:
+    1. **What a Senior Engineer usually knows vs what a Tech Lead is expected to decide** — 5 decision categories (communication mode, feedback escalation, decision delegation, process evaluation, time allocation).
+    2. **Common overengineering trap: over-documenting** — Filter for when to document vs when a PR description suffices.
+    3. **When to avoid formal processes** — Criteria for skipping RFCs, design reviews, retros. Exception: never skip post-mortems.
+    4. **Incident communication decision checklist** — 6-item checklist (incident commander, stakeholder communicator, update cadence, facts vs hypotheses, escalation criteria, external communication).
+    5. **Stakeholder communication strategy** — 5-row table mapping stakeholders to needs, cadence, and medium. Failure mode: neglecting sideways communication.
+    6. **Team adoption risks for communication changes** — 4 risks (process fatigue, performative compliance, culture mismatch, leader-dependent processes).
+- **No version-sensitive claims added** — all content is process-oriented.
+- **Checks passed:**
+  - Code fence balance: 34 (17 pairs, unchanged).
+  - No banned words found.
+  - H2 heading order matches CHAPTER_TEMPLATE.
+
+---
+
+### `soft-skills-chapter-audit` — 2026-05-07
+
+- **Chapter:** `book/22-soft-skills.md`
+- **Pass type:** Chapter audit against BOOK_SPEC, STYLE_GUIDE, CHAPTER_TEMPLATE, SUMMARY
+- **Chapter size:** 2,756 lines (unchanged)
+- **Audit checklist results (17 checks):**
+  1. Shallow definitions — None found.
+  2. Missing mental models — Covered (5 models: communication infrastructure, Eisenhower matrix, ownership spectrum, stakeholder map, ladder of inference).
+  3. Missing trade-offs — 5-row trade-offs table present.
+  4. Missing production considerations — 6 areas + Tech Lead decision-making subsection.
+  5. Missing Tech Lead perspective — 5 inline callouts + decision-making subsection.
+  6. Missing security considerations — Covered (SOC 2, incident response, compliance).
+  7. Missing performance considerations — Covered (meeting costs, deep work, communication metrics).
+  8. Missing maintainability concerns — Covered (documentation as infrastructure, stale doc risk).
+  9. Weak interview answers — 80 Q&A items with strong/weak contrasts.
+  10. Repetitive sections — None.
+  11. Examples without explanation — All 17 code blocks have explanations.
+  12. Claims needing verification — None (well-established references only).
+  13. Broken Markdown — None (34 fences, 17 pairs).
+  14. Missing language tags — None (`mermaid` or `text` on all blocks).
+  15. Heading mismatches — None (H2 matches template, H3 uses sentence case).
+  16. Missing cross-links — Fixed: added Git and Engineering Workflow cross-link.
+  17. Toy-like examples — None.
+- **Fix applied:** Added cross-link to [Git and Engineering Workflow](./20-git-and-engineering-workflow.md) in the code review conversation section.
+- **Topic coverage verified:** All 9 required areas covered (communication under pressure, active listening, feedback, conflict resolution, stakeholder management, written communication, meeting facilitation, prioritization/ownership, behavioral interviews/STAR).
+- **No new entries for `notes/verification-needed.md`** or `notes/open-questions.md`.
