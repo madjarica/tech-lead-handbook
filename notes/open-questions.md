@@ -272,3 +272,12 @@ Format: one row per question.
   strategy: technical direction, project planning, risk management,
   hiring, architecture decisions, technical debt, onboarding, and
   cross-team collaboration. No duplication requiring consolidation.
+
+---
+
+### Introduction chapter structural exception
+
+- **Source:** `introduction-editorial-audit` (2026-05-07)
+- **Chapter:** `book/00-introduction.md`
+- **Issue:** The Introduction chapter uses a custom section structure (14 H2 sections focused on orientation, reading paths, and study guidance) instead of the standard `CHAPTER_TEMPLATE.md` structure. This is appropriate — the Introduction is an orientation chapter, not a teaching chapter, and `SUMMARY.md` explicitly says "Interview categories: none (this is an orientation chapter)."
+- **Action needed:** If strict `BOOK_SPEC.md` compliance is desired, add `book/00-introduction.md` to the "Structural Exceptions" section in `BOOK_SPEC.md` alongside `book/26-glossary.md`. This is a documentation-only change — the chapter content is correct as-is.

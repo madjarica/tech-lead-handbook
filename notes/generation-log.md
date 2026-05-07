@@ -5433,3 +5433,70 @@ All passes completed:
 
 ### No new entries for `notes/verification-needed.md`
 - No version-sensitive claims introduced; all technical content draws from existing verified chapters
+
+---
+
+## introduction-initial-generation — 2026-05-07
+
+- **File:** `book/00-introduction.md`
+- **Pass type:** Initial generation
+- **Previous state:** Skeleton (153 lines)
+- **New state:** 392 lines — complete introduction chapter
+
+### Content overview
+
+- **14 H2 sections:** Why This Book Exists, Who This Book Is For, What This Book Is Not, How to Use This Book, How to Study the Chapters, From Practical Experience to Formal Terminology, Senior Engineer vs Tech Lead Thinking, How to Use the Interview Questions, How to Use the Practical Scenarios, How to Build an Interview Preparation Plan, How to Keep This Book Updated, Suggested Reading Paths, Chapter Dependencies, Final Advice Before Starting
+- **7 reading paths:** Backend/Platform TL, Frontend TL, Cloud/DevOps TL, Architecture/System Design interview, Leadership interview, Emergency 7-day prep, 30-day deep prep
+- **1 Mermaid diagram:** chapter dependency graph
+- **6 mental models table:** latency vs throughput, availability vs durability, coupling vs cohesion, blast radius, back-pressure, consistency vs availability under partition
+- **Study method:** 7-step approach (assess gaps, prioritize, study weak areas, drill daily, practice scenarios, track gaps, review morning of)
+- **Senior vs Tech Lead framing table:** 5-dimension comparison with concrete examples
+- **65 cross-links** to other chapters
+
+### Quality checks
+
+- Banned words: 0
+- Code fence balance: 2 (1 pair — Mermaid diagram)
+- No interview Q&A section (per user instruction — this is an orientation chapter)
+- No code examples (per user instruction)
+- No version-sensitive claims introduced
+- **No new entries for `notes/verification-needed.md`** or `notes/open-questions.md`
+
+---
+
+## introduction-editorial-audit — 2026-05-07
+
+- **File:** `book/00-introduction.md`
+- **Pass type:** Editorial audit against BOOK_SPEC.md, STYLE_GUIDE.md, SUMMARY.md
+- **Previous state:** 392 lines (initial generation)
+- **New state:** 401 lines (+9 lines)
+
+### Audit results (16 checks)
+
+All 16 checks passed. Five targeted improvements were made:
+
+1. **Study method strengthened** — Added step 7 to the study method: practice with a partner to find communication gaps (not only knowledge gaps).
+2. **Tech Lead framing sharpened** — Added a "Quick self-test" diagnostic after the 11-item Tech Lead reasoning list. Readers can test whether their own answers are at Senior or Tech Lead level by explaining a past decision out loud.
+3. **Architecture reading path expanded** — Added Docker/Kubernetes (priority 9) and Algorithms (priority 10) to the Architecture and System Design path, bringing it from 8 to 10 entries, consistent with other paths.
+4. **Drill guidance enhanced** — Added a practical time allocation breakdown (40% TL/scenario, 40% senior in weak domains, 20% basic warm-up) and a mock interview recommendation to Step 4.
+5. **Closing strengthened** — Added a final piece of advice ("Treat the interview as a conversation, not an exam") to reframe the interview as dialogue rather than recitation.
+
+### What was NOT changed
+
+- Opening — already direct and problem-focused; no improvement needed.
+- Mermaid diagram — 24 nodes exceeds the STYLE_GUIDE's ~15-node recommendation, but this is the book's overview diagram where the full view is the purpose. Acceptable exception.
+- Diagram arrows are unlabeled — the relationship is uniform ("depends on" / "references") and the caption explains this. Labeling would add clutter.
+- Chapter does not follow CHAPTER_TEMPLATE.md — the Introduction uses a custom structure per user instruction and SUMMARY.md ("Interview categories: none — this is an orientation chapter").
+
+### Remaining review point
+
+- The Introduction chapter is not listed under "Structural Exceptions" in BOOK_SPEC.md. If strict BOOK_SPEC compliance is desired, it should be added there alongside the glossary exception. Noted in `notes/open-questions.md`.
+
+### Quality verification
+
+- Banned words: 0
+- Code fence balance: 2 (1 pair — Mermaid diagram), balanced
+- Cross-links: 67, all verified to resolve to existing files
+- H2 heading case: all Title Case
+- H3 heading case: all sentence case
+- No version-sensitive claims
