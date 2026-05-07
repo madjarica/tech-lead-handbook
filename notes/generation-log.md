@@ -4450,3 +4450,211 @@ All passes completed:
 - **No changes to:** `notes/verification-needed.md`,
   `notes/open-questions.md`
 - **Chapter size:** 3,348 lines (up from 3,345).
+
+---
+
+### `git-engineering-workflow-initial-generation` (2026-05-07)
+
+- **Action:** Replaced skeleton of `book/20-git-and-engineering-workflow.md`
+  with full chapter content.
+- **Topics covered:**
+  - Git object model (blobs, trees, commits, refs)
+  - Branches and refs (HEAD, detached HEAD, reflog)
+  - Merge strategies (fast-forward, three-way merge, rebase, squash)
+  - Branching strategies (trunk-based, GitHub Flow, GitFlow)
+  - Commit hygiene (atomic commits, conventional commits, signed commits)
+  - Semantic versioning (SemVer)
+  - Pull requests and code review (PR size, review depth, review SLA)
+  - Code ownership (CODEOWNERS, ownership boundaries)
+  - Feature flags (categories, lifecycle, cleanup discipline)
+  - Engineering standards (RFC process, ADR process, documentation workflow)
+  - Release management (release branches, hotfix flow, release notes)
+  - What a Tech Lead should standardize (10-point list)
+  - Monorepo vs multi-repo trade-offs and workflows
+  - DORA metrics for measuring engineering velocity
+- **Examples added:**
+  - Mermaid diagram: Git object model (blob, tree, commit, ref)
+  - Clean interactive rebase
+  - CODEOWNERS file with team boundaries
+  - Conventional commit messages (feature + security fix with BREAKING CHANGE)
+  - Git bisect walkthrough (manual + automated)
+  - Trunk-based development with feature flags workflow
+  - Hotfix flow step-by-step
+- **Tables:** 2 (Core Terminology, Trade-offs comparison)
+- **Interview Q&A:** 55 questions total
+  - Basic: 23
+  - Senior: 7 (detailed format)
+  - Tech Lead: 10 (detailed format)
+  - Scenario-based: 10 (detailed format)
+  - Trick: 5
+  - Red Flags: 5
+- **Cross-links:** CI/CD and DevOps (ch17), Software Architecture (ch14),
+  Testing and Quality (ch16), Tech Lead Skills (ch23), Security (ch15)
+- **Chapter size:** 1,712 lines
+- **Banned word check:** Passed (no banned words)
+- **Code block check:** 8 opening fences with language tags, 8 closing fences
+- **Template compliance:** All H2 sections from CHAPTER_TEMPLATE.md present
+  in correct order
+
+---
+
+### `git-engineering-workflow-qa-expansion` (2026-05-07)
+
+- **Action:** Expanded Q&A section of `book/20-git-and-engineering-workflow.md`
+  from 55 to 90 questions.
+- **Basic questions:** Added 7 (staging area, revert vs reset, GitHub Flow,
+  `--force-with-lease`, `git worktree`, release notes, merge conflicts).
+  Total: 30.
+- **Senior questions:** Added 8 (hotfix process, dependency versioning,
+  RFC structure, documentation freshness, feature flag debt, CODEOWNERS
+  scaling, automated SemVer, monorepo history management). Total: 15.
+- **Tech Lead questions:** Added 5 (RFC without bureaucracy, trunk-based
+  readiness, rollback strategy, engineering guidelines, standardize vs
+  delegate). Total: 15.
+- **New categories added:**
+  - Performance (5 questions): repo size, CI optimization, PR size impact,
+    shallow/partial clones, review context-switching.
+  - Security (5 questions): secret prevention, commit signing, secret
+    remediation, supply chain attacks, access control.
+  - Testing and Quality (5 questions): branching and testing, feature flags
+    and coverage, git bisect effectiveness, quality gates, monorepo quality.
+- **Final Q&A counts:**
+  - Basic: 30
+  - Senior: 15
+  - Tech Lead: 15
+  - Performance: 5
+  - Security: 5
+  - Testing and Quality: 5
+  - Scenario-based: 10
+  - Trick: 5
+  - Red Flags: 5
+  - **Total: 90**
+- **Q&A category order:** Verified to match CHAPTER_TEMPLATE.md
+  (Basic → Senior → Tech Lead → Performance → Security →
+  Testing and Quality → Scenario-based → Trick → Red Flags).
+- **Banned word check:** Passed (no banned words).
+- **Code block check:** 8 opening fences, 8 closing fences (unchanged).
+- **Chapter size:** 2,232 lines (up from 1,712).
+- **No changes to:** `notes/verification-needed.md`
+
+---
+
+### `git-engineering-workflow-examples-improvement` (2026-05-07)
+
+- **Action:** Added 10 practical examples to the Examples section of
+  `book/20-git-and-engineering-workflow.md`.
+- **Examples added:**
+  1. **Branching strategy comparison** — Mermaid diagram contrasting
+     trunk-based and GitFlow at a glance.
+  2. **Pull request template** — Markdown PR template with type-of-change
+     checkboxes and review checklist (15 items).
+  3. **ADR template** — Filled ADR-007 for squash merge decision with
+     context, alternatives, consequences, and "revisit when" trigger.
+  4. **RFC template** — Filled RFC for REST-to-gRPC migration with data,
+     alternatives, trade-offs, rollback plan, and decision authority.
+  5. **Automated release notes** — Example v2.4.0 changelog generated from
+     conventional commits (features, bug fixes, breaking changes, chores).
+  6. **Feature flag rollout plan** — 4-stage rollout table with success
+     criteria, rollback triggers, rollback procedure, and cleanup steps.
+  7. **Branch protection configuration** — Conceptual YAML showing required
+     reviews, status checks, force-push prohibition, and admin enforcement.
+  8. **Monorepo structure with workspace scripts** — Directory tree +
+     root package.json with `nx affected` scripts for affected-only CI.
+  9. **Multi-repo coordination workflow** — Mermaid sequence diagram
+     showing API → SDK → consumer PR chain and coordination overhead.
+  10. **Engineering standards checklist** — 30-item checklist organized
+      into Git, commits/releases, code review, CI/CD, documentation,
+      feature flags, and metrics sections.
+- **Each example includes:** What it shows, why it is useful, common
+  mistake, and production/team context.
+- **Total examples in chapter:** 14 (4 existing + 10 new).
+- **Diagrams added:** 2 Mermaid diagrams (branching comparison, multi-repo
+  coordination sequence diagram).
+- **Banned word check:** Passed (no banned words).
+- **Code block check:** 19 opening fences, 19 closing fences (balanced).
+- **Chapter size:** 2,670 lines (up from 2,232).
+- **No changes to:** `notes/verification-needed.md`
+
+---
+
+### `git-engineering-workflow-tech-lead-perspective` (2026-05-07)
+
+- **Action:** Added a dedicated `## Tech Lead Decision-Making` section
+  and strengthened Tech Lead callouts in 4 existing sections of
+  `book/20-git-and-engineering-workflow.md`.
+- **New `## Tech Lead Decision-Making` section** (5 subsections):
+  1. Making workflow decisions under uncertainty — decision framework
+     (cost of inaction, team capability, automation, rollback plan).
+  2. Communicating workflow changes to stakeholders — framing for
+     engineering team, product manager, and VP of Engineering.
+  3. When not to introduce a process — decision checklist table,
+     common overengineering trap for small teams, one-change-per-month
+     rule.
+  4. Incident response and Git workflow — Senior vs Tech Lead
+     expectations, production readiness checklist for hotfix flow.
+  5. Cost-benefit analysis for workflow investments — cost-benefit
+     template table, payback period decision principle.
+- **Tech Lead callouts added to existing sections:**
+  1. Branching strategies — "What a Senior Engineer Usually Knows" /
+     "What a Tech Lead Is Expected to Decide" block covering strategy
+     selection, migration, enforcement, and the Google overengineering
+     trap.
+  2. Feature flags — Tech Lead decisions on build vs buy, flag lifecycle
+     policy, production toggle access control, testing strategy, and
+     when NOT to use feature flags (schema migrations).
+  3. Code review — Tech Lead decisions on review culture vs mechanics,
+     PR size as systemic problem, review backlog investigation, scope
+     of human review, and stakeholder explanation.
+  4. Monorepo vs multi-repo — decision checklist table, when NOT to
+     choose each option, and stakeholder explanation.
+- **Banned word check:** Passed (no banned words).
+- **Code block check:** 19 opening fences, 19 closing fences (unchanged).
+- **Chapter size:** 2,820 lines (up from 2,670).
+- **No changes to:** `notes/verification-needed.md`
+
+### `git-engineering-workflow-chapter-audit` (2026-05-07)
+
+- **Action:** Chapter audit of `book/20-git-and-engineering-workflow.md`
+  against `BOOK_SPEC.md`, `STYLE_GUIDE.md`, `CHAPTER_TEMPLATE.md`, and
+  `SUMMARY.md`.
+- **Audit scope:** 17-point checklist (shallow definitions, missing mental
+  models, missing trade-offs, missing production considerations, missing
+  Tech Lead perspective, missing security/performance/maintainability,
+  weak interview answers, repetitive sections, unexplained examples,
+  unverified claims, broken Markdown, missing language tags, heading
+  template compliance, missing cross-links, toy-like examples).
+- **Findings:**
+  1. **Duplicate H3 heading (fixed):** `### Engineering standards`
+     appeared at both line 288 (Theoretical Foundation) and line 1126
+     (Tech Lead Checklist). Renamed the checklist instance to
+     `### Engineering standards and documentation` for TOC clarity.
+  2. **Missing table caption (fixed):** The Trade-offs table lacked a
+     one-line caption per STYLE_GUIDE.md. Added introductory sentence.
+  3. **All other checks passed:**
+     - No banned words found.
+     - All 38 code fences balanced (19 pairs), all with language tags.
+     - H2 section order matches CHAPTER_TEMPLATE.md (with the
+       deliberate addition of `## Tech Lead Decision-Making` between
+       Tech Lead Checklist and Interview Q&A, consistent with 12 other
+       chapters).
+     - H2 headings use Title Case. H3 headings use sentence case.
+     - 5 inline cross-links in body text + 5 in Further Study section,
+       all resolving to existing chapter files.
+     - 3 Mermaid diagrams, each with a one-paragraph caption.
+     - Core Terminology table, Trade-offs table (8 rows), 3 decision
+       tables, and 1 cost-benefit table — all with captions.
+     - Q&A counts verified: Basic 30, Senior 15, Tech Lead 15,
+       Performance 5, Security 5, Testing 5, Scenario 10, Trick 5,
+       Red Flags 5 (total: 95).
+     - All SUMMARY.md required examples present (clean rebase,
+       CODEOWNERS snippet, conventional commit, trunk-based vs GitFlow
+       diagram).
+     - Production Considerations covers all 8 required areas (security,
+       performance, reliability, maintainability, cost, team/hiring,
+       vendor lock-in, migration/rollback).
+     - No version-sensitive claims requiring verification entries.
+     - No shallow definitions, no weak interview answers, no
+       unexplained code blocks, no toy-like examples.
+- **Chapter size:** 2,822 lines (net +2 from caption addition).
+- **No changes to:** `notes/verification-needed.md`,
+  `notes/open-questions.md`

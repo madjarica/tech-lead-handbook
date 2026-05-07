@@ -189,3 +189,12 @@ Format: one row per question.
   architecture principles, operational maturity assessment, and debugging
   across architectures. This aligns with the pattern used in other
   chapters. Eleven chapters now include this section.
+- **Update (2026-05-07):** `book/20-git-and-engineering-workflow.md` now
+  includes a dedicated `## Tech Lead Decision-Making` section with 5
+  subsections: workflow decisions under uncertainty, communicating changes
+  to stakeholders, when not to introduce a process, incident response and
+  Git workflow, and cost-benefit analysis for workflow investments.
+  Additionally, 4 existing sections (branching strategies, feature flags,
+  code review, monorepo/multi-repo) have "What a Tech Lead Is Expected to
+  Decide" callouts. Twelve chapters now include the dedicated section,
+  reinforcing the recommendation for template formalization.
