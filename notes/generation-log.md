@@ -5361,3 +5361,75 @@ All passes completed:
 - **Banned words:** 0. Two uses of "just" reviewed and confirmed as idiomatic (not hiding complexity).
 - **No fixes applied.** Chapter passed all 17 audit checks without modifications.
 - **No new entries for `notes/verification-needed.md`** or `notes/open-questions.md`.
+
+---
+
+## consolidated-interview-qa — 2026-05-07
+
+- **File:** `book/24-interview-questions-and-answers.md`
+- **Pass type:** Phase 7 — Consolidated Interview Q&A generation
+- **Previous state:** Skeleton (185 lines)
+- **New state:** 8,376 lines — full consolidated interview preparation chapter
+
+### Content overview
+
+- **23 domain sections**, each with 6 categories: Basic, Senior, Tech Lead, Scenario-Based, Trick, Weak Answers and Red Flags
+- **2 intro sections:** How to Use This Chapter, Answering Strategy for Tech Lead Interviews
+- **1 Cross-Domain Tech Lead Questions section:** 10 detailed multi-area questions
+- **1 Final Interview Preparation Checklist:** organized by timeframe (one week, day before, during, after)
+
+### Question counts
+
+| Domain | Basic | Senior | Tech Lead | Scenario | Trick | Red Flags | Total |
+|--------|-------|--------|-----------|----------|-------|-----------|-------|
+| Algorithms and Data Structures | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| SQL and NoSQL | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| Docker and Kubernetes | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| AWS | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| JavaScript | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| TypeScript | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| Angular | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| React | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| Next.js | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Node.js | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| Python | 10 | 10 | 8 | 5 | 3 | — | 34* |
+| API Design | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| System Design | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| Software Architecture | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Security | 12 | 12 | 8 | 6 | 4 | — | 42 |
+| Testing and Quality | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| CI/CD and DevOps | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Observability | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Performance and Scalability | 12 | 12 | 10 | 6 | 4 | — | 44 |
+| Git and Engineering Workflow | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| AI Usage in Software Engineering | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Soft Skills | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Tech Lead Skills | 10 | 10 | 8 | 5 | 3 | — | 36 |
+| Cross-Domain | — | — | 10 | — | — | — | 10 |
+| **Total** | **250** | **250** | **218** | **125** | **77** | — | **916** |
+
+*Python: 34 total (4 detailed questions counted in senior/TL tiers). Red Flags column shows "—" as they are presented as numbered lists, not discrete questions.
+
+### Format breakdown
+
+- **Compact format** (`**Question:** / **Answer:**`): 806 questions
+- **Detailed format** (`### Question` with Strong Answer, Explanation, Practical Example, What the Interviewer Is Testing, Weak Answer, Red Flags): 100 questions
+- **Weak Answers and Red Flags lists:** 23 sections with 3-4 numbered anti-pattern examples each
+
+### Quality verification
+
+- Code fence balance: 18 fences (9 pairs), balanced ✓
+- Banned words scan: 0 matches ✓
+- All 23 domains have 6/6 category headings ✓
+- All 100 detailed questions have matching Strong Answer blocks ✓
+- Question-Strong Answer pairing: 100/100 ✓
+- Cross-domain questions: 10 detailed, covering multi-area synthesis ✓
+
+### Source material
+
+- Curated from 22 fully-generated chapters (chapters 01-15, 17-23)
+- Testing and Quality (chapter 16) generated from scratch (source chapter is skeleton)
+- Questions rewritten and improved — not copied verbatim from source chapters
+
+### No new entries for `notes/verification-needed.md`
+- No version-sensitive claims introduced; all technical content draws from existing verified chapters
