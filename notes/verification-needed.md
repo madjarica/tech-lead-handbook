@@ -2141,3 +2141,95 @@ add specific rows here.
 - **Suggested source:** AWS Lambda cold start benchmarks, Python
   import profiling with `python -X importtime`.
 - **Status:** unverified
+
+---
+
+## #108 — OpenAI embedding model dimensions
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** OpenAI's `text-embedding-3-small` produces 1,536-dimension
+  vectors.
+- **Why it matters:** OpenAI offers multiple embedding models with
+  different dimensionalities. `text-embedding-3-small` supports
+  configurable dimensions. The default and maximum values may change
+  across API versions.
+- **Suggested source:** OpenAI Embeddings API documentation.
+- **Status:** unverified
+
+## #109 — Context window size claims (128K tokens)
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** "A 128K token context window can hold roughly 100K words
+  or several hundred pages of text."
+- **Why it matters:** The 1 token ≈ 0.75 words heuristic varies by
+  language, tokenizer, and content type (code vs prose). Context window
+  sizes for specific models (GPT-4, Claude) change with model versions.
+- **Suggested source:** OpenAI tokenizer documentation, Anthropic
+  Claude documentation.
+- **Status:** unverified
+
+## #110 — Agent task cost range ($0.50-$10)
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** "A single agent task can cost $0.50-$10 in API calls."
+- **Why it matters:** Agent costs depend on the model used, context
+  window consumed, number of iterations, and pricing at the time of
+  use. Model pricing changes frequently. These figures are approximate
+  and may not reflect current rates.
+- **Suggested source:** OpenAI pricing page, Anthropic pricing page,
+  real-world usage reports.
+- **Status:** unverified
+
+## #111 — Fine-tuning cost range ($10K-$100K+)
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** "Fine-tuning is expensive ($10K-$100K+ per training run
+  for quality models)."
+- **Why it matters:** Fine-tuning costs depend heavily on model size,
+  dataset size, training duration, and cloud GPU pricing. OpenAI's
+  fine-tuning API has different pricing than self-hosted fine-tuning.
+  The range is intended as an order-of-magnitude estimate.
+- **Suggested source:** OpenAI fine-tuning pricing, cloud GPU pricing
+  (AWS, GCP), Hugging Face training guides.
+- **Status:** unverified
+
+## #112 — GitHub Copilot Business pricing ($40/seat/month)
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** Scenario calculation uses $40/seat/month for commercial
+  AI coding tools.
+- **Why it matters:** GitHub Copilot pricing changes with plan updates.
+  The figure is used in a cost comparison that influences buy-vs-build
+  decisions. Incorrect pricing weakens the argument.
+- **Suggested source:** GitHub Copilot pricing page, Cursor pricing
+  page.
+- **Status:** unverified
+
+## #113 — OWASP Top 10 for LLM Applications risk numbering
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** OWASP LLM risk numbers cited as LLM01 (Prompt Injection),
+  LLM02 (Insecure Output Handling), LLM06 (Sensitive Information
+  Disclosure), LLM09 (Overreliance).
+- **Why it matters:** OWASP published version 1.1 of the Top 10 for
+  LLM Applications. Risk numbering and names may change in future
+  versions. The specific numbers cited should be verified against the
+  current published version.
+- **Suggested source:** OWASP Top 10 for LLM Applications official
+  page (https://owasp.org/www-project-top-10-for-large-language-model-applications/).
+- **Status:** unverified
+
+## #114 — "Lost in the middle" research claim
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Claim:** "LLMs pay more attention to information at the beginning
+  and end of their context window and less attention to information in
+  the middle."
+- **Why it matters:** This is based on the paper "Lost in the Middle"
+  (Liu et al., 2023). Newer models may have improved on this behavior.
+  The claim should be verified against current model benchmarks and
+  the original research.
+- **Suggested source:** "Lost in the Middle: How Language Models Use
+  Long Contexts" (Liu et al., 2023), plus any updated benchmarks for
+  current models (GPT-4o, Claude 3.5+).
+- **Status:** unverified

@@ -211,3 +211,38 @@ Format: one row per question.
   testing investment, AI code governance). This chapter now has the
   strongest Tech Lead coverage across the book and may serve as a model
   for other chapters.
+
+## AI chapter version sensitivity
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Question:** The AI tooling landscape changes rapidly. Tool names,
+  pricing, capabilities, and best practices described in this chapter
+  may become outdated within months. Should the chapter adopt a
+  pattern-first approach that avoids naming specific tools (Cursor,
+  Copilot, ChatGPT), or should it name tools for concreteness and
+  accept the maintenance burden of quarterly review?
+- **Current decision:** The chapter names specific tools in examples
+  and policies for concreteness, but the theoretical and decision
+  sections focus on patterns rather than tools. The chapter includes
+  an explicit note that AI tooling changes weekly.
+- **Action needed:** Decide on a review cadence for tool-specific
+  content. Consider a versioned "last verified" date in the chapter
+  header.
+
+## AI chapter cost figures and ROI methodology
+
+- **File:** `book/21-ai-usage-in-software-engineering.md`
+- **Question:** The chapter now includes detailed cost-benefit
+  analysis frameworks with approximate figures (e.g., "$120/engineer/month,"
+  "18% cycle time reduction," "$2,400/month pilot cost"). These
+  figures are illustrative examples, not empirical data. Should the
+  chapter explicitly label these as "example calculations for
+  illustration" to prevent readers from citing them as benchmarks?
+  Alternatively, should the chapter reference published case studies
+  that provide real numbers?
+- **Current decision:** The figures appear in stakeholder communication
+  examples and decision frameworks. They are presented as sample
+  narratives ("our 4-week pilot showed..."), not as general claims.
+- **Action needed:** Consider adding a brief note in the cost-benefit
+  section stating that the specific numbers are illustrative examples
+  and that each team should derive their own figures from a pilot.

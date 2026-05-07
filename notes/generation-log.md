@@ -4897,3 +4897,146 @@ All passes completed:
   - All code examples have prose explanations.
   - No repetitive sections requiring consolidation.
 - **Chapter size:** 3,432 lines (net +2 from audit fixes).
+
+## `ai-usage-initial-generation` — 2026-05-07
+
+- **Action:** Full chapter generation for `book/21-ai-usage-in-software-engineering.md`.
+- **Previous state:** Skeleton (164 lines) with TODO markers.
+- **New state:** Complete chapter (1,895 lines).
+- **Sections generated:**
+  - Chapter Goal, Why This Matters for a Tech Lead, Mental Model (with Mermaid diagram: AI-in-SDLC with human checkpoints).
+  - Core Terminology table (14 terms: LLM, hallucination, prompt, context window, RAG, embedding, vector database, agent, tool use, prompt injection, agentic coding, code review bot, guardrails).
+  - Theoretical Foundation (12 subsections: where AI helps in SDLC, prompting patterns, good/bad prompts, AI in code review, 6 risk categories, tool categories with comparison table, RAG, embeddings/vector databases, agents/tool use, LLM evaluation, basic AI architecture patterns, guardrails, how to verify AI output, AI coding policies).
+  - Practical Usage (3 subsections: day-to-day coding, code review patterns, agentic coding patterns).
+  - Examples (4 examples with full explanations: focused refactor prompt, AI+human code review workflow, team policy document, RAG pipeline in Python).
+  - Common Mistakes (8 items).
+  - Trade-offs table (6 trade-offs with "optimizes for / sacrifices / flips when" format).
+  - Production Considerations (8 topics: security, cost, reliability, maintainability, team/hiring, vendor lock-in, data governance, migration/rollback).
+  - How to Explain This in an Interview (3 openings for common questions).
+  - Good Answer vs Weak Answer (AI tool adoption question).
+  - Tech Lead Checklist (19 items across 5 categories: policy/governance, code quality, agent/automation, team development, cost/monitoring).
+  - Tech Lead Decision-Making (3 subsections: setting AI policy, evaluating when AI tools hurt, incident response and AI).
+  - Interview Questions and Answers (68 total: 30 basic, 8 senior, 10 Tech Lead, 10 scenario, 5 trick, 5 red flags).
+  - Summary (8 bullets).
+  - Further Study (9 references including 5 cross-links to other chapters).
+- **Checks passed:**
+  - Code fence balance: 10 opening, 10 closing.
+  - Language tags used: text (5), mermaid (3), python (1), json (1) — all in STYLE_GUIDE allowed list.
+  - H2 heading order matches CHAPTER_TEMPLATE exactly (17 sections).
+  - No banned words (seamless, powerful, simply, just, blazing fast, etc.).
+  - Q&A counts meet requirements: 30 basic, 8 senior (38 basic+senior ≥ 30), 10 Tech Lead (= 10), 10 scenario (= 10), 5 trick (= 5), 5 red flags (= 5).
+  - Summary has 8 bullets (within 5-8 range).
+  - All tables have captions or context.
+  - Mermaid diagrams have explanatory captions.
+  - Cross-links to Security, Testing and Quality, Observability, Software Architecture, and Python chapters.
+
+## `ai-usage-qa-expansion` — 2026-05-07
+
+- **Action:** Expanded Interview Questions and Answers section of `book/21-ai-usage-in-software-engineering.md`.
+- **Previous state:** 68 questions across 6 categories (Basic 30, Senior 8, Tech Lead 10, Scenario 10, Trick 5, Red Flags 5). Chapter size: 1,895 lines.
+- **New state:** 95 questions across 9 categories. Chapter size: 2,508 lines (+613 lines).
+- **Changes:**
+  - **Senior (8 → 15):** Added 7 new detailed questions covering prompt engineering by SDLC phase, systematic verification of AI code, hallucination types in code vs prose, context management for large codebases, documentation vs code generation failure modes, embedding model quality evaluation, and AI autonomy levels by task type.
+  - **Tech Lead (10 → 15):** Added 5 new detailed questions covering introducing AI workflows to skeptical teams, compliance in regulated industries (HIPAA, PCI, SOX), managing AI tool sprawl, budget allocation between tools/training/skills, and internal vs product AI decision framework.
+  - **New category: Performance (5 questions):** Token optimization and cost management, context window impact on RAG design, AI feature latency reduction, "lost in the middle" problem, and agent cost-per-task optimization.
+  - **New category: Security (5 questions):** Data classification policy for AI tools (4-tier model), security risks of code-executing agents, preventing proprietary code leaks, OWASP Top 10 for LLM Applications, and IP implications of AI-generated code.
+  - **New category: Testing and Quality (5 questions):** Evaluating AI-generated test quality, testing AI-powered features in production, validating AI-generated documentation accuracy, metrics for AI code review bot effectiveness, and green-test-wrong-contract problem.
+- **Coverage verified for:**
+  - AI as productivity multiplier (autonomy levels, cycle time measurement).
+  - Prompt engineering (SDLC phase-specific prompting).
+  - Hallucinations and verification (3 hallucination types, 5-layer verification).
+  - Security, privacy, IP, and compliance (data classification tiers, OWASP LLM Top 10, regulated industries, IP dimensions).
+  - AI-assisted testing and documentation (test quality problems, documentation accuracy).
+  - RAG, embeddings, vector databases (embedding evaluation, context window design, lost-in-the-middle).
+  - Team policies and responsible adoption (skeptical team introduction, tool sprawl management).
+  - Tech Lead AI workflow introduction (phased rollout, evidence-based approach).
+- **Section structure:** Basic → Senior → Tech Lead → Performance → Security → Testing and Quality → Scenario-based → Trick Questions → Red Flags.
+- **Checks passed:**
+  - Code fence balance: 10 opening, 10 closing.
+  - No banned words found.
+  - H2 heading order matches CHAPTER_TEMPLATE.
+  - All language tags in allowed list.
+  - Q&A counts meet all requirements.
+
+## `ai-usage-examples-improvement` — 2026-05-07
+
+- **Action:** Added and improved practical code, configuration, and process examples in `book/21-ai-usage-in-software-engineering.md`.
+- **Previous state:** 4 examples in the Examples section, 2 code examples in Theoretical Foundation. Chapter size: 2,508 lines.
+- **New state:** 10 examples in the Examples section, 5 code/process examples in Theoretical Foundation and Practical Usage. Chapter size: 2,863 lines (+355 lines).
+- **New examples added:**
+  1. **Good vs bad prompts for debugging** — constraint-first debugging prompt asking for hypotheses with verification steps, placed in Theoretical Foundation → Good and bad prompts.
+  2. **Good vs bad prompts for tests** — behavior-specification prompt for pytest with explicit factory/fixture references, placed in Theoretical Foundation → Good and bad prompts.
+  3. **Good vs bad prompts for documentation** — "why" and "gotchas" focused docstring prompt, placed in Theoretical Foundation → Good and bad prompts.
+  4. **AI-assisted code review checklist** — 17-item structured checklist covering imports, security, tests, style, and ownership, placed in Practical Usage → Code review patterns.
+  5. **AI-generated code verification workflow** — Mermaid diagram showing 7-step verification pipeline from build through "why" check, placed in Examples section.
+  6. **Privacy-safe prompt template** — 4-step template (strip, anonymize, abstract, verify) with safe/unsafe examples, placed in Examples section.
+  7. **Guardrails for regulated/client projects** — 4-tier classification system (unrestricted → prohibited), placed in Examples section.
+  8. **Embedding and vector search conceptual example** — step-by-step demonstration of embedding, querying, and cosine similarity with realistic function names, placed in Examples section.
+  9. **LLM evaluation checklist** — 20-item checklist across correctness, security, maintainability, scope, and test quality, placed in Examples section.
+  10. **Agent workflow for engineering automation** — Mermaid diagram showing agent task loop with search, generate, test, lint, and human review, placed in Examples section.
+- **Each example includes:** what it shows, why it is useful, common mistake, and production/team changes.
+- **Checks passed:**
+  - Code fence balance: 23 opening, 23 closing.
+  - Language tags used: text (16), mermaid (5), python (1), json (1) — all in STYLE_GUIDE allowed list.
+  - No banned words found.
+  - H2 heading order unchanged and correct.
+  - Q&A section unchanged (95 questions across 9 categories).
+
+## `ai-usage-tech-lead-perspective` — 2026-05-07
+
+- **Action:** Strengthened Tech Lead perspective in `book/21-ai-usage-in-software-engineering.md`.
+- **Previous state:** 3 subsections in Tech Lead Decision-Making (setting policy, evaluating when AI hurts, incident response). Chapter size: 2,863 lines.
+- **New state:** 7 subsections in Tech Lead Decision-Making, plus 5 inline Tech Lead callouts. Chapter size: 2,952 lines (+89 lines).
+- **Inline Tech Lead callouts added (5):**
+  1. **Prompt engineering as a team discipline** — version-controlled prompt libraries, project-level system prompts, retrospective review of prompt effectiveness. Placed in Theoretical Foundation → Prompting patterns.
+  2. **RAG as an infrastructure decision** — operational burden, data freshness SLA, evaluation infrastructure, overengineering trap (wiki vs RAG). Placed in Theoretical Foundation → RAG.
+  3. **Verification as a team process** — automating steps 1-2 in CI, adding "author can explain" to review checklist, tracking verification failure rate. Placed in Theoretical Foundation → How to verify AI output.
+  4. **Governing agents is governing a team member with no judgment** — permission model analogy (contractor on day one), escalation justification. Placed in Theoretical Foundation → Agents and tool use.
+  5. **AI cost governance** — per-team budgets with alerts, per-task limits, cost-output correlation reviews, model tiering by task. Placed in Production Considerations.
+- **New Tech Lead Decision-Making subsections (4):**
+  1. **Cost-benefit analysis for AI adoption** — direct costs, measurable benefits, hidden costs (review overhead, debugging, maintenance, compliance), decision rule, stakeholder framing with sample pilot narrative.
+  2. **Team adoption risk management** — 4 risks with mitigations: uneven adoption creating two-speed teams, invisible quality degradation, vendor dependency without migration path, uncontrolled spend.
+  3. **When not to use AI in software engineering** — 5 specific scenarios with reasoning: wrong-answer cost exceeds writing cost, team still learning domain, verification cost exceeds generation cost, output cannot be verified, active incidents under time pressure. Includes interview framing.
+  4. **Stakeholder communication for AI decisions** — three-audience framing (engineers, engineering leadership, non-technical stakeholders) with specific messaging for each. Includes what not to say.
+- **Expanded existing subsection:**
+  - **Incident response and AI** — added "What a Senior Engineer usually knows" / "What a Tech Lead is expected to decide" structure. Added guidance on post-incident evaluation of AI involvement.
+- **Checks passed:**
+  - Code fence balance: 23 opening, 23 closing.
+  - No banned words found.
+  - H2 heading order matches CHAPTER_TEMPLATE.
+  - All language tags in allowed list.
+  - Q&A section unchanged (95 questions).
+
+---
+
+### `ai-usage-chapter-audit` — 2026-05-07
+
+- **Chapter:** `book/21-ai-usage-in-software-engineering.md`
+- **Pass type:** Chapter Audit against `BOOK_SPEC.md`, `STYLE_GUIDE.md`, `CHAPTER_TEMPLATE.md`, `SUMMARY.md`
+- **Chapter size:** 2,952 lines (unchanged — structural changes were relocations, not additions)
+- **Issues found and fixed:**
+  1. **Extra H2 section removed.** `## Tech Lead Decision-Making` was a non-template H2 section violating `CHAPTER_TEMPLATE.md` and `BOOK_SPEC.md` ("Do not add new top-level sections without updating BOOK_SPEC.md"). Demoted to `### Tech Lead decision-making` (with H4 subsections) and relocated under `## Production Considerations`, where the content naturally belongs. The H2 heading order now matches the template exactly.
+  2. **H3 heading casing fixed.** `### Testing and Quality` changed to `### Testing and quality` to follow STYLE_GUIDE sentence case rule for H3 headings.
+  3. **Cross-links added in body.** Added `[Software Architecture](./14-software-architecture.md)` cross-link in the RAG subsection. Added `[Observability](./18-observability.md)` cross-link in Production Considerations (cost monitoring). Body now has 6 cross-links to 4 chapters; Further Study has 5 cross-links.
+- **Audit results — no issues found:**
+  - No shallow definitions (all terms explained with practical context and failure modes).
+  - No missing mental models (main mental model + inline callouts throughout).
+  - No missing trade-offs (6-row trade-off table + per-section trade-off analysis).
+  - No missing production considerations (8 categories: security, cost, reliability, maintainability, team/hiring, vendor lock-in, data governance, migration/rollback + Tech Lead decision-making subsections).
+  - No missing Tech Lead perspective (5 inline callouts, 7 decision-making subsections, checklist with 19 items).
+  - No missing security considerations (prompt injection, data exfiltration, hallucinated dependencies, 3 Security cross-links).
+  - No missing performance considerations (Performance Q&A section with 5 questions, token optimization, latency reduction, cost-per-task optimization).
+  - No missing maintainability concerns (explicitly covered in Production Considerations + Common Mistakes).
+  - No weak interview answers (all detailed Q&A have Strong/Weak contrast with non-strawman weak answers).
+  - No significant repetitive content (some overlap between cost sections is warranted as each adds distinct context).
+  - All code/configuration/process examples have explanations (what/why/mistake/production).
+  - No broken Markdown formatting.
+  - All 23 code blocks have language tags from the allowed list (text: 16, mermaid: 5, python: 1, json: 1).
+  - All headings match the chapter template order.
+  - Code fence balance verified (23 opening, 23 closing).
+  - No banned words found.
+  - Q&A counts verified (Basic: 30, Senior: 15, Tech Lead: 15, Performance: 5, Security: 5, Testing/Quality: 5, Scenario: 10, Trick: 5, Red Flags: 5 = 95 total).
+  - Summary has 8 bullet points (within 5-8 range).
+  - Further Study has 9 entries (5 chapter cross-links + 4 external references).
+  - All required AI topics strongly covered (AI as productivity multiplier, prompt engineering, hallucinations/verification, security/privacy/IP/compliance, AI-assisted testing/documentation, RAG/embeddings/agents/tool use, team policies, Tech Lead AI introduction).
+- **Checks passed:** All 17 audit criteria satisfied.
