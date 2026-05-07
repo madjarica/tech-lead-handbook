@@ -1941,3 +1941,110 @@ add specific rows here.
   `Arrays.sort` Javadoc, V8 blog post on Timsort, MDN
   `Array.prototype.sort()` stability note.
 - **Status:** unverified
+
+---
+
+### #94. AWS RDS and ElastiCache pricing estimates (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** Tech Lead Decision-Making → Cost model for system
+  design decisions
+- **Claim:** db.r6g.xlarge ≈ $750/month, db.r6g.large ≈ $400/month,
+  cache.r6g.large (2 nodes) ≈ $500/month. These are used in a
+  cost comparison example.
+- **Why it matters:** Pricing is region-dependent and changes over
+  time. The example uses these as rough order-of-magnitude
+  estimates for illustration, not as exact current prices.
+- **Suggested source:** AWS RDS pricing page, AWS ElastiCache
+  pricing page. Verify for us-east-1 on-demand pricing.
+- **Status:** unverified
+
+---
+
+### #95. ElastiCache pricing in caching section (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** Building blocks → Caching → Cost considerations
+- **Claim:** cache.r6g.xlarge (26 GB) costs roughly $400-600/month.
+- **Why it matters:** Used in a cost-benefit analysis comparing cache
+  cost vs read replica cost.
+- **Suggested source:** AWS ElastiCache pricing page for us-east-1.
+- **Status:** unverified
+
+---
+
+### #96. S3 storage and egress pricing (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** Building blocks → File and object storage →
+  Cost considerations
+- **Claim:** S3 Standard ~$0.023/GB-month, IA ~$0.0125/GB-month,
+  Glacier ~$0.004/GB-month, egress ~$0.09/GB.
+- **Why it matters:** Used to explain storage tiering and lifecycle
+  policies.
+- **Suggested source:** AWS S3 pricing page for us-east-1.
+- **Status:** unverified
+
+---
+
+### #97. S3 and CloudFront pricing in file upload system (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** System design problems → File upload system →
+  Cost considerations
+- **Claim:** S3 Standard ~$0.023/GB-month. CloudFront egress
+  ~$0.085/GB. S3 Infrequent Access ~$0.0125/GB-month. Glacier
+  ~$0.004/GB-month. S3 egress ~$0.09/GB.
+- **Why it matters:** Used to explain storage tiering, lifecycle
+  policies, and CDN cost optimization for file-heavy systems.
+- **Suggested source:** AWS S3 pricing page and CloudFront pricing
+  page for us-east-1.
+- **Status:** unverified
+
+---
+
+### #98. BigQuery scan pricing and managed Kafka (MSK) pricing (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** System design problems → Analytics pipeline →
+  Cost considerations
+- **Claim:** BigQuery charges ~$5/TB scanned. Managed Kafka (MSK)
+  costs $10K-$30K/month for a cluster handling 1M events/sec.
+  Flink clusters $5K-$15K/month.
+- **Why it matters:** Used to explain analytics pipeline cost
+  structure and justify architecture decisions around batch vs
+  stream processing.
+- **Suggested source:** GCP BigQuery pricing page and AWS MSK
+  pricing page.
+- **Status:** unverified
+
+---
+
+### #99. GPU instance pricing for ML model training and serving (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** System design problems → AI-powered recommendation
+  system → Cost considerations
+- **Claim:** p3.8xlarge (4 V100 GPUs) costs ~$100 per training run.
+  GPU serving with 2-4 instances costs $5K-$10K/month.
+- **Why it matters:** Used to explain recommendation system cost
+  structure and justify model complexity vs cost trade-offs.
+- **Suggested source:** AWS EC2 pricing page for GPU instances
+  (p3, p4, g5 families) in us-east-1.
+- **Status:** unverified
+
+---
+
+### #100. RDS, ElastiCache, and DynamoDB pricing in cost-performance table (System Design chapter)
+
+- **Chapter:** `book/13-system-design.md`
+- **Section:** Examples → Cost-performance trade-off analysis
+- **Claim:** db.r6g.xlarge ~$750/month, cache.r6g.large ~$500/month,
+  DynamoDB on-demand 10K RCU ~$1,800/month, DynamoDB + DAX
+  ~$2,500/month.
+- **Why it matters:** Used in a cost-performance trade-off matrix
+  comparing 6 architecture options. Incorrect prices would
+  invalidate the comparison.
+- **Suggested source:** AWS RDS, ElastiCache, and DynamoDB pricing
+  pages for us-east-1 on-demand pricing.
+- **Status:** unverified

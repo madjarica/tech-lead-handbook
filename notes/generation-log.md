@@ -3745,3 +3745,510 @@ All passes completed:
 3. `algorithms-examples-pass` — 8 new production-style examples.
 4. `algorithms-tech-lead-pass` — 6 new decision-making subsections.
 5. `algorithms-chapter-audit` — final audit and fix.
+
+---
+
+## `system-design-initial-generation` — 2026-05-06
+
+- **File:** `book/13-system-design.md`
+- **Pass:** Initial full chapter generation, replacing skeleton.
+- **What was done:**
+  - Generated complete chapter content covering all required topics:
+    requirements gathering, functional/non-functional requirements,
+    latency, throughput, availability, consistency, scalability,
+    reliability, maintainability, CAP theorem, PACELC, load balancing,
+    caching (strategies, stampede, invalidation), CDN, database
+    sharding, replication, queues (SQS-style vs Kafka-style),
+    event-driven architecture, outbox pattern, rate limiting, search,
+    file/object storage, background processing, observability,
+    security, disaster recovery, cost optimization, monolith vs
+    microservices vs modular monolith, distributed systems basics
+    (fallacies, failure modes, consensus), multi-region, CQRS,
+    event sourcing, saga pattern, idempotency keys, reliability
+    primitives (retries, timeouts, circuit breakers, load shedding,
+    back-pressure).
+  - System design problems covered: URL shortener, e-commerce checkout,
+    booking system, notification system, file upload system, real-time
+    chat, analytics pipeline, multi-tenant SaaS, AI-powered
+    recommendation system.
+  - H2 sections: 17 (all template sections + Tech Lead
+    Decision-Making).
+  - Code examples: 4 (capacity estimation, rate limiter with Redis
+    Lua script, idempotency key flow, cache stampede mitigation).
+  - Diagrams: 1 Mermaid flowchart (generic high-traffic service
+    architecture).
+  - Tables: 7 (core terminology, capacity math approximations,
+    queue vs log comparison, monolith vs microservices vs modular
+    monolith, multi-tenant isolation models, trade-offs, Senior vs
+    Tech Lead knowledge).
+  - Cross-references: 12 (to chapters 02, 12, 14, 15, 18, 19).
+  - Q&A counts: Basic: 30, Senior: 16, Tech Lead: 10,
+    Scenario-based: 10, Trick: 5, Red Flags: 5. Total: 76.
+  - All Senior and Tech Lead questions use full detailed format
+    (Question, Strong Answer, What the Interviewer Is Testing,
+    Weak Answer, Red Flags).
+  - 1 verification blockquote (AWS pricing estimates).
+  - 1 banned word occurrence ("just") in a Red Flags context —
+    intentional.
+- **Chapter size:** 2,597 lines.
+
+---
+
+## `system-design-pass-01-foundations` — 2026-05-07
+
+- **File:** `book/13-system-design.md`
+- **Pass:** Foundations pass — deep expansion of requirements gathering
+  and non-functional requirements.
+- **What was done:**
+  - Replaced the thin NFR bullet list (15 lines) with comprehensive
+    subsections (350+ lines) covering:
+    - **Requirements gathering:** Structured framework with 5-step
+      process, requirements template (code block), common mistake,
+      interview framing.
+    - **Functional requirements:** Verb-noun pairs, core vs secondary,
+      data entities, APIs, Tech Lead edge-case thinking.
+    - **Non-functional requirements:** Overview, role as architecture
+      driver, interview signal.
+    - **Latency:** Percentile table, latency budget Mermaid diagram,
+      failure modes, cost considerations, interview-ready answer.
+    - **Throughput:** DAU-to-QPS reasoning, bottleneck identification,
+      throughput collapse (death spiral), cost considerations,
+      interview-ready answer.
+    - **Availability:** Nines table with downtime budgets, composite
+      availability calculation, improvement strategies, DDoS as
+      availability concern, cost of each nine, interview-ready answer.
+    - **Throughput vs latency interaction:** Hockey stick curve, Tech
+      Lead capacity threshold guidance.
+    - **Consistency:** Model spectrum table (linearizable to eventual),
+      per-domain decision framework with examples (financial, profile,
+      social feed), read-your-writes implementation, interview-ready
+      answer.
+    - **Scalability:** Four dimensions (load, data, geographic,
+      organizational), scaling test (10× / 100×), cost curves,
+      interview-ready answer.
+    - **Reliability:** Seven building blocks, reliability equation
+      table (per data path), failure mode severity levels (transient,
+      partial, systemic, gray), error budget connection,
+      interview-ready answer.
+    - **Maintainability:** Three aspects (operability, simplicity,
+      evolvability), measurement metrics (onboard time, deploy
+      frequency, lead time, MTTR), cost as hidden multiplier,
+      interview-ready answer.
+  - Strengthened the CAP theorem section with:
+    - Practical system classification table (PostgreSQL, DynamoDB,
+      Cassandra, ZooKeeper, etcd, Redis, Kafka) mapping to CAP and
+      PACELC choices.
+    - CAP misconception clarification (per-domain, not system-wide).
+    - Failure modes for CP vs AP systems.
+    - Interview-ready answer with per-domain framing.
+    - Use-case annotations on each consistency model.
+  - Added 1 new Mermaid diagram (latency budget per request stage).
+  - Added 5 new tables (latency percentiles, availability nines,
+    consistency models, CAP system classification, reliability
+    equation).
+  - Every new subsection includes: failure modes, cost considerations,
+    and an interview-ready answer.
+  - No existing sections were rewritten — only the thin NFR section
+    was replaced and CAP was expanded.
+  - No new verification notes needed (all content is conceptually
+    stable, not version-sensitive).
+- **Chapter size:** 2,924 lines (up from 2,597).
+
+---
+
+## `system-design-pass-02-building-blocks` — 2026-05-07
+
+- **File:** `book/13-system-design.md`
+- **Pass:** Building blocks pass — added missing dimensions to all
+  15 building block sections.
+- **What was done:**
+  - Expanded 15 building block sections by adding missing dimensions:
+    scaling concerns, failure modes, security considerations, cost
+    considerations, trade-offs, and interview-ready answers.
+  - Sections expanded:
+    1. **Load balancing** — added scaling concerns (SPOF, L4/L7
+       layering), 5 failure modes, security (WAF, X-Forwarded-For),
+       cost (managed vs self-managed), trade-off table (L4/L7/sticky/
+       managed), interview answer.
+    2. **Caching** — added scaling (in-process vs distributed), 5
+       failure modes (stampede, cold start, serialization), security
+       (cache poisoning, PII), cost analysis (cache vs read replica),
+       interview answer.
+    3. **CDN** — added scaling (origin shield), 3 failure modes
+       (origin down, purge delay, misconfigured caching of auth
+       content), security (DDoS, signed URLs), cost breakdown
+       (transfer, requests), interview answer.
+    4. **Database** — added scaling (read/write/connection/query),
+       5 failure modes (connection exhaustion, replication lag, lock
+       contention, slow migration, hot partition), security
+       (encryption, RLS, audit), cost breakdown (RDS components),
+       interview answer.
+    5. **Message queues / event-driven** — added scaling (partitions,
+       consumer lag), 5 failure modes (poison message, consumer lag,
+       ordering, schema incompatibility, dual-write), security
+       (encryption, auth, PII), cost comparison (SQS vs Kafka),
+       interview answer.
+    6. **Rate limiting** — added scaling (local vs distributed),
+       3 failure modes (Redis down, clock skew, boundary burst),
+       security (brute force, scraping, DDoS), cost, interview
+       answer.
+    7. **Search** — added scaling (data nodes, time-based indexes),
+       3 failure modes (desync, split brain, slow queries), security
+       (access control, audit, encryption), cost (cluster sizing),
+       interview answer.
+    8. **File/object storage** — added scaling (metadata bottleneck),
+       4 failure modes (upload interruption, presigned URL expiry,
+       processing failure, bucket misconfiguration), security
+       (encryption, IAM, malware scanning, CORS), cost breakdown
+       (storage tiers, egress), interview answer.
+    9. **Background processing** — added scaling (queue depth
+       auto-scaling), 4 failure modes (zombie job, poison message,
+       starvation, duplicate processing), security (least privilege,
+       secrets), cost (reserved vs spot vs serverless), interview
+       answer.
+    10. **Observability** — added RED method, mental model
+       (monitoring vs observability), scaling (sampling), 3 failure
+       modes (alert fatigue, missing traces, log explosion), cost
+       (5-15% of infra), interview answer.
+    11. **Security** — expanded from bullet list to defense-in-depth
+       framework (6 layers: edge, API, service-to-service, data,
+       secrets, audit), scaling (token caching, mTLS reuse), 4
+       failure modes, cost framing (risk reduction), interview
+       answer.
+    12. **Disaster recovery** — added scaling concerns
+       (sync vs async replication), 4 failure modes (split brain,
+       untested failover, replication lag, DNS delay), security
+       (data residency, replication encryption), cost comparison
+       table (backup/restore, pilot light, warm standby, active-
+       active), interview answer.
+    13. **Cost optimization** — added cost stack mental model
+       (4 layers: waste, pricing, architecture, business),
+       3 failure modes (cost surprise, zombie resources, unmonitored
+       auto-scaling), interview answer.
+  - Added 2 new tables (load balancer trade-offs, DR approach
+    comparison).
+  - Added 2 new verification blockquotes (ElastiCache pricing,
+    S3 pricing).
+  - Total tables: 14 (up from 12).
+  - No banned words introduced.
+  - Code blocks balanced: 8/8.
+- **Chapter size:** 3,079 lines (up from 2,924).
+
+---
+
+### system-design-pass-03-example-systems-part1 (2026-05-07)
+
+- **Action:** Expanded 5 system design example problems in
+  `book/13-system-design.md` by adding missing dimensions
+  (data model, APIs, scaling concerns, failure modes, security
+  considerations, cost considerations, interview-ready answers).
+- **Details:**
+  - Each example expanded from ~10-15 lines to ~50-80 lines.
+  - Expanded examples:
+    1. **URL shortener** — added data model (urls table), 3 APIs,
+       scaling analysis (4K redirect QPS, Redis cache), 3 failure
+       modes (cache miss storm, hash collision, expired URL served),
+       security (URL validation, phishing check, rate limiting),
+       cost analysis (~$500/month baseline), interview answer.
+    2. **E-commerce checkout** — added data model (carts, inventory,
+       orders, order_items tables), 3 APIs, scaling analysis (hot
+       rows, optimistic locking, flash sale queue), 4 failure modes
+       (payment succeeds/order fails, reservation leak, double charge,
+       last-item race), security (PCI-DSS, tokenized payments, cart
+       total validation), cost analysis (gateway fees as dominant
+       cost), interview answer.
+    3. **Booking system** — added mental model ("distributed lock with
+       a UI"), data model (slots, bookings, resources tables), 4 APIs
+       (search, hold, book, cancel), scaling analysis (search index,
+       hold-then-book, queue for flash sales), 4 failure modes (hold
+       leak, double booking, stale search, payment/booking mismatch),
+       security (hold ownership, bot prevention, CAPTCHA), cost
+       analysis (Elasticsearch as main cost driver), concurrency
+       strategy comparison table, interview answer.
+    4. **Notification system** — added mental model ("routing and
+       delivery pipeline"), data model (notifications, deliveries,
+       preferences, templates tables), 4 APIs (send, broadcast,
+       history, preferences), scaling analysis (broadcast fan-out,
+       provider rate limits, in-app caching), 4 failure modes
+       (provider outage, invalid token, template error, duplicate
+       SMS), security (no sensitive data in payloads, SPF/DKIM/DMARC,
+       PII encryption), cost comparison table (push/email/SMS/in-app),
+       interview answer.
+    5. **File upload system** — added mental model (3-phase: upload,
+       process, serve), data model (files, file_versions tables),
+       5 APIs (upload URL, complete, metadata, download, multipart),
+       scaling analysis (pre-signed URLs offload data plane, worker
+       pools for processing, CDN for serving), 5 failure modes
+       (interrupted upload, processing failure, URL expiry, virus
+       detected, bucket misconfiguration), security (magic byte
+       validation, virus scanning, signed URLs, CORS), cost analysis
+       (storage tiering, egress, CDN), processing approach comparison
+       table, interview answer.
+  - Added 1 new verification blockquote (S3/CloudFront pricing
+    in file upload section).
+  - Added 3 new tables (booking concurrency strategies, notification
+    channel costs, file upload processing approaches).
+  - Total tables: 17 (up from 14).
+  - No banned words introduced.
+  - Code blocks balanced: 10/10 (added 2 data model text blocks).
+- **Chapter size:** 3,329 lines (up from 3,079).
+
+---
+
+### system-design-pass-04-example-systems-part2 (2026-05-07)
+
+- **Action:** Expanded 4 remaining system design example problems in
+  `book/13-system-design.md` by adding missing dimensions
+  (mental model, data model, APIs, scaling concerns, failure modes,
+  security considerations, cost considerations, interview-ready
+  answers). Also reviewed the Interview Q&A section (76 questions
+  across all categories — no gaps identified).
+- **Details:**
+  - Each example expanded from ~15-20 lines to ~70-100 lines.
+  - Expanded examples:
+    1. **Real-time chat** — added mental model (real-time vs
+       persistence path), data model (conversations, members,
+       messages, user_connections tables), 4 APIs (WebSocket,
+       message history, conversation list, create conversation),
+       scaling analysis (50-100K connections per gateway, connection
+       registry, message routing via broker, partition by
+       conversation_id), 4 failure modes (gateway crash, broker
+       failure, sequence split brain, reconnect thundering herd),
+       security (E2EE, JWT WebSocket auth, XSS prevention),
+       cost analysis ($50K/month gateway infra for 10M users),
+       design trade-off table (transport, broker, ordering, group
+       delivery, persistence), interview answer.
+    2. **Analytics pipeline** — added mental model ("ETL funnel
+       with two speeds"), data model (raw events JSON, aggregated
+       metrics), 4 APIs (single/batch event ingestion, metrics
+       query, ad-hoc SQL), scaling analysis (Kafka partitioning,
+       Flink stateful processing, warehouse micro-batching),
+       4 failure modes (schema evolution break, late-arriving events,
+       processing lag, query timeout), security (PII anonymization,
+       data retention, query audit), cost analysis (Kafka $10-30K,
+       Flink $5-15K, warehouse $20-50K/month at scale),
+       architecture comparison table (batch/stream/Lambda/micro-
+       batch), interview answer. Added 1 verification blockquote
+       (BigQuery and MSK pricing).
+    3. **Multi-tenant SaaS** — added mental model ("apartment
+       building"), data model (tenants, projects with tenant_id,
+       tenant_usage tables), API design (tenant from auth token,
+       auto-scoped queries), scaling analysis (noisy neighbor,
+       database sharding by tenant_id, tenant-aware auto-scaling),
+       4 failure modes (missing tenant_id filter = data breach,
+       config corruption, cache key leak, billing discrepancy),
+       security (RLS, data residency, tenant-specific encryption
+       keys, audit logging), cost model comparison table (shared
+       schema vs per-tenant DB), interview answer.
+    4. **AI-powered recommendation system** — added mental model
+       ("offline vs online time scales + feature store bridge"),
+       data model (interaction events, user/item features with
+       embeddings, model metadata), 4 APIs (recommendations,
+       events, explain, model promote), scaling analysis (two-stage
+       retrieval with ANN + ranking, feature store latency, GPU
+       batching for inference, distributed training), 5 failure
+       modes (model serving down, feature store stale, cold start
+       user/item, model degradation/concept drift), security
+       (behavioral PII, GDPR deletion, anonymization, explanation
+       privacy), cost analysis (GPU training ~$3K/month, GPU
+       serving $5-10K/month, feature store ~$500/month),
+       model trade-off table (5 model types compared), interview
+       answer. Added 1 verification blockquote (GPU instance
+       pricing).
+  - Added 2 new verification blockquotes (BigQuery/MSK pricing,
+    GPU instance pricing).
+  - Added 5 new tables (chat design trade-offs, analytics
+    architecture comparison, multi-tenant cost model, recommendation
+    model trade-offs, analytics pipeline architecture comparison —
+    note: the analytics comparison table was counted once).
+  - Total tables: 21 (up from 17).
+  - Q&A section reviewed: 30 basic, 16 senior, 10 Tech Lead,
+    10 scenario, 5 trick, 5 red flags = 76 total. No changes needed.
+  - No banned words introduced.
+  - Code blocks balanced: 14/14 (added 4 data model text/JSON
+    blocks).
+- **Chapter size:** 3,581 lines (up from 3,329).
+
+---
+
+### system-design-qa-expansion (2026-05-07)
+
+- **Action:** Expanded the Interview Questions and Answers section
+  in `book/13-system-design.md`. Added 3 new question categories
+  (Performance, Security, Testing and Quality) and expanded the
+  Tech Lead category from 10 to 15 questions.
+- **Details:**
+  - Added **Performance** section (6 questions):
+    1. p99 latency investigation process (full format)
+    2. N+1 query problem across ORM, API, and service layers
+       (full format)
+    3. Connection pooling and pool exhaustion (compact)
+    4. Read replicas vs caching for read performance (compact)
+    5. Database connection exhaustion in distributed systems
+       (compact)
+    6. Thundering herd prevention (compact)
+  - Added **Security** section (5 questions):
+    1. Service-to-service communication security / mTLS
+       (full format)
+    2. API gateway security considerations (compact)
+    3. Secrets management in distributed systems (compact)
+    4. Data leakage prevention and detection in multi-tenant
+       systems (compact)
+    5. Encryption at rest vs in transit (compact)
+  - Added **Testing and Quality** section (5 questions):
+    1. Testing distributed systems under failure conditions /
+       chaos engineering (full format)
+    2. Contract testing for microservices (compact)
+    3. Canary deployments (compact)
+    4. Validating system design before building (compact)
+    5. Load testing effectively (compact)
+  - Added 5 new **Tech Lead** questions (10 → 15):
+    1. Prioritizing features vs reliability / error budget
+       (full format)
+    2. Communicating trade-offs to non-technical stakeholders
+       (full format)
+    3. Stabilizing undocumented inherited system (full format)
+    4. On-call process for growing teams (full format)
+    5. Service decomposition criteria (full format)
+  - **Final Q&A counts:** Basic: 30, Senior: 16, Performance: 6,
+    Security: 5, Testing: 5, Tech Lead: 15, Scenario: 10,
+    Trick: 5, Red Flags: 5. Total: 97 (up from 76).
+  - No banned words introduced.
+  - No new verification notes needed.
+- **Chapter size:** 3,956 lines (up from 3,581).
+
+---
+
+### system-design-examples-improvement (2026-05-07)
+
+- **Action:** Added 9 new practical examples to the Examples section
+  of `book/13-system-design.md`. Each example includes code or
+  diagram, explanation, common mistake, production change, and
+  Tech Lead check.
+- **Details:**
+  - New examples added:
+    1. **Cache-aside pattern** — TypeScript example showing read
+       (check cache → fallback to DB → populate cache) and write
+       (update DB → invalidate cache). Explains invalidate-on-write
+       vs update-on-write.
+    2. **Queue-based background processing** — TypeScript example
+       with SQS (enqueue + worker poll loop). Covers at-least-once
+       delivery, dead-letter queues, idempotent processing.
+    3. **Event-driven outbox pattern** — SQL (outbox table +
+       business operation in same transaction) + TypeScript poller
+       that reads unpublished events and publishes to Kafka.
+       Explains dual-write problem and CDC alternative.
+    4. **File upload with pre-signed URL** — Mermaid sequence
+       diagram showing client → API (get URL) → S3 (direct upload)
+       → API (complete) → queue → worker (virus scan, thumbnail).
+       Explains control plane vs data plane separation.
+    5. **Multi-tenant data access middleware** — TypeScript Express
+       middleware + TenantScopedRepository base class that enforces
+       `WHERE tenant_id = $1` on every query. Includes RLS
+       defense-in-depth.
+    6. **Data model: relational vs document trade-off** — text
+       diagram comparing PostgreSQL (normalized + EAV) vs MongoDB/
+       DynamoDB (embedded document) for a product catalog. Explains
+       access-pattern-driven database selection.
+    7. **Failure-mode analysis table** — 9-row table covering
+       primary DB, cache, payment gateway, search index, queue,
+       and load balancer. Each row has detection, impact,
+       mitigation, and recovery.
+    8. **SLO definition and monitoring** — YAML example defining
+       3 SLOs (availability 99.9%, latency 99.0%, correctness
+       99.999%) with burn-rate-based alerting thresholds. Explains
+       error budgets.
+    9. **Cost-performance trade-off analysis** — 6-row table
+       comparing architecture options (PostgreSQL alone, +cache,
+       +replicas, +both, DynamoDB, DynamoDB+DAX) on cost, latency,
+       availability, and complexity.
+    10. **Interview answer structure** — text template with
+        6 sections (requirements, capacity, high-level design,
+        deep dives, trade-offs, wrap-up) with time allocations
+        and transition phrases.
+  - Added 1 new verification blockquote (RDS/ElastiCache/DynamoDB
+    pricing in cost table).
+  - **Code blocks:** 26 total (up from 16). New blocks: 3
+    TypeScript, 1 SQL, 1 Mermaid sequence diagram, 3 text blocks,
+    1 YAML, 1 JSON (embedded in text).
+  - **Tables:** 23 total (up from 21). New tables: failure-mode
+    analysis, cost-performance trade-off.
+  - No banned words introduced.
+  - All code blocks have correct language tags.
+  - All code fences balanced (52 fences = 26 pairs).
+- **Chapter size:** 4,454 lines (up from 3,956).
+
+---
+
+### system-design-tech-lead-perspective (2026-05-07)
+
+- **Action:** Strengthened the Tech Lead perspective throughout
+  `book/13-system-design.md`. Added 6 new subsections to the
+  `## Tech Lead Decision-Making` section and enhanced the
+  `## Production Considerations` section with explicit Tech Lead
+  responsibility callouts.
+- **Details:**
+  - New subsections in `## Tech Lead Decision-Making`:
+    1. **Recognizing overengineering** — the overengineering test
+       (3 questions), signals in interviews and production,
+       Senior vs Tech Lead framing, interview phrasing.
+    2. **Driving ambiguity to zero before designing** — 7-point
+       ambiguity checklist, challenge-before-acceptance pattern,
+       interview framing for requirements clarification.
+    3. **Choosing between simple and distributed designs** —
+       decision matrix (QPS thresholds, team size, region, SLO),
+       complexity tax explanation, stakeholder explanation template.
+    4. **Architecture as business risk management** — 5 risk
+       categories (availability, data, delivery, operational,
+       vendor), risk-based decision template for stakeholders,
+       Senior vs Tech Lead framing.
+    5. **Incremental evolution over big-bang rewrites** — strangler
+       fig approach (4 steps), anti-patterns for system evolution,
+       6-point decision checklist, stakeholder explanation.
+    6. **Designing for day-one operability** — 7-point operability
+       checklist (logging, tracing, health checks, RED metrics,
+       alerting, runbooks, rollback), common trap, interview
+       framing.
+    7. **When not to use common patterns** — specific "when NOT to
+       use" guidance for microservices, event-driven architecture,
+       caching, database sharding, and Kubernetes.
+  - Enhanced `## Production Considerations` — added "Tech Lead
+    responsibility" callout to each of 7 subsections (Security,
+    Performance, Reliability, Maintainability, Cost, Team/hiring,
+    Vendor lock-in, Migration/rollback). Each callout explains
+    what the Tech Lead specifically owns and how to frame it.
+  - Added 1 new table (simple vs distributed decision matrix).
+  - Added 1 new code block (risk-based decision template).
+  - Total tables: 24 (up from 23).
+  - No banned words introduced.
+  - No new verification notes needed.
+- **Chapter size:** 4,654 lines (up from 4,454).
+
+### system-design-chapter-audit (2026-05-07)
+
+- **File:** `book/13-system-design.md`
+- **Pass:** Quality Pass — Chapter Audit
+- **What changed:**
+  - Reordered `## Interview Questions and Answers` categories to match
+    `CHAPTER_TEMPLATE.md`: moved `### Tech Lead` before `### Performance`,
+    `### Security`, and `### Testing and Quality`. Correct order is now:
+    Basic → Senior → Tech Lead → Performance → Security → Testing and
+    Quality → Scenario-based → Trick Questions → Red Flags.
+  - Added 3 cross-links to `## Further Study`: Testing and Quality
+    (`./16-testing-and-quality.md`), CI/CD and DevOps
+    (`./17-ci-cd-and-devops.md`), Docker and Kubernetes
+    (`./03-docker-and-kubernetes.md`).
+- **Audit findings (no fix needed):**
+  - `## Tech Lead Decision-Making` is an extra H2 section not in
+    `CHAPTER_TEMPLATE.md`. It adds significant value and was already
+    noted in `notes/open-questions.md` as a candidate for template
+    formalization. Not removed.
+  - Detailed Q&A format uses `### Strong Answer` containing both answer
+    and explanation, omitting separate `### Explanation` and `### Example`
+    subsections. The content is comprehensive and interview-ready as-is.
+    A future pass could split Strong Answers into the full template
+    format, but this would risk repetition without adding substance.
+  - One instance of "just" (line ~3957) is intentional — appears in a
+    Red Flags context quoting a weak answer.
+- **No new verification notes needed.**
+- **Chapter size:** 4,657 lines (up from 4,654).

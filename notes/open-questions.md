@@ -178,3 +178,5 @@ Format: one row per question.
   also uses this pattern. Nine chapters now include
   `## Tech Lead Decision-Making`. This is clearly a universal section
   and should be added to `CHAPTER_TEMPLATE.md`.
+- **Update (2026-05-06):** `book/13-system-design.md` also uses this
+  pattern. Ten chapters now include `## Tech Lead Decision-Making`.
