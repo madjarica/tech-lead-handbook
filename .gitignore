@@ -1,4 +1,11 @@
 build/
+dist/
+node_modules/
+
+# Website (auto-generated)
+website/build/
+website/.docusaurus/
+website/docs/
 
 .DS_Store
 Thumbs.db
