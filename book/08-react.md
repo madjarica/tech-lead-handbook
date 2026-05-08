@@ -1928,7 +1928,7 @@ it uses `className` instead of `class`, `htmlFor` instead of `for`,
 and requires a single root element (or a Fragment). It is syntactic
 sugar, not a template language.
 
----
+***
 
 **Question:** What is the difference between state and props?
 
@@ -1939,7 +1939,7 @@ Props flow downward; state is local. When a parent re-renders with
 new props, the child re-renders. When state changes, the owning
 component and its subtree re-render.
 
----
+***
 
 **Question:** What are the rules of hooks?
 
@@ -1949,7 +1949,7 @@ from React function components or custom hooks. These rules exist
 because React identifies hooks by their call order. If a hook is
 conditionally skipped, every subsequent hook reads the wrong state.
 
----
+***
 
 **Question:** What is the virtual DOM?
 
@@ -1962,7 +1962,7 @@ The React team now prefers the term "reconciliation" over "virtual
 DOM" because the value is in the diffing algorithm, not the
 in-memory representation.
 
----
+***
 
 **Question:** What is reconciliation?
 
@@ -1973,7 +1973,7 @@ type → update props and recurse into children. For lists, React uses
 keys to match elements by identity, not position. This allows React
 to detect insertions, deletions, and reorderings.
 
----
+***
 
 **Question:** What is `useRef` used for?
 
@@ -1983,7 +1983,7 @@ across renders without triggering re-renders (timers, previous
 values, subscription handles). Unlike state, changing a ref's
 `.current` value does not cause a re-render.
 
----
+***
 
 **Question:** What is the difference between `useMemo` and
 `useCallback`?
@@ -1996,7 +1996,7 @@ values, subscription handles). Unlike state, changing a ref's
 Use `useMemo` for expensive computations. Use `useCallback` for
 stabilizing function references passed to memoized children.
 
----
+***
 
 **Question:** What is a controlled component?
 
@@ -2007,7 +2007,7 @@ This enables real-time validation, conditional formatting, and
 predictable behavior. The alternative — uncontrolled components —
 lets the DOM manage the value and reads it via a ref on submit.
 
----
+***
 
 **Question:** Why are keys important in lists?
 
@@ -2018,7 +2018,7 @@ and loses its internal state. With unique, stable keys (`item.id`),
 React tracks items by identity and correctly inserts, removes, and
 reorders them.
 
----
+***
 
 **Question:** What is `useReducer`?
 
@@ -2029,7 +2029,7 @@ processes: `(state, action) => newState`. Use it when state has
 multiple related values, when transitions are complex, or when the
 state logic should be testable outside the component.
 
----
+***
 
 **Question:** What is Context in React?
 
@@ -2041,7 +2041,7 @@ changes, regardless of which part of the value they use. Split
 contexts by concern and avoid putting high-frequency data in
 Context.
 
----
+***
 
 **Question:** What is `React.memo`?
 
@@ -2052,7 +2052,7 @@ whose parent re-renders frequently for unrelated reasons. It only
 works if props are referentially stable — use `useMemo` for
 objects and `useCallback` for functions.
 
----
+***
 
 **Question:** What is an error boundary?
 
@@ -2063,7 +2063,7 @@ entire app. Error boundaries catch errors during rendering and
 lifecycle methods, but not in event handlers, async code, or SSR.
 Place them at route and feature boundaries.
 
----
+***
 
 **Question:** What is Suspense?
 
@@ -2074,7 +2074,7 @@ Relay) for async data. Nested Suspense boundaries allow granular
 loading states — one spinner per section, not one for the entire
 page.
 
----
+***
 
 **Question:** What is a custom hook?
 
@@ -2084,7 +2084,7 @@ effects + derived values packaged into a single function. Custom
 hooks replace mixins and HOCs for most composition use cases. They
 follow the same rules as built-in hooks.
 
----
+***
 
 **Question:** What is the difference between `useEffect` and event
 handlers for side effects?
@@ -2097,7 +2097,7 @@ If it needs to synchronize with external state (subscribe to a
 WebSocket, update the document title when data changes), use
 `useEffect`.
 
----
+***
 
 **Question:** What is hydration?
 
@@ -2108,7 +2108,7 @@ If the server HTML and the client render do not match, React
 produces a hydration mismatch warning and may re-render the
 component from scratch.
 
----
+***
 
 **Question:** What is code splitting in React?
 
@@ -2118,7 +2118,7 @@ with `Suspense` to load components only when they are rendered.
 This reduces the initial bundle size and improves LCP. Split at
 route boundaries as a default strategy.
 
----
+***
 
 **Question:** What is the difference between `useEffect` with an
 empty dependency array and `componentDidMount`?
@@ -2129,7 +2129,7 @@ while `componentDidMount` runs before paint. In React 18 with
 StrictMode, `useEffect` fires twice in development to surface
 cleanup bugs. They are conceptually similar but not identical.
 
----
+***
 
 **Question:** What does lifting state up mean?
 
@@ -2140,7 +2140,7 @@ as props. This is the simplest form of state sharing — appropriate
 when 2-3 siblings need the same data. Becomes prop drilling at
 depth > 2.
 
----
+***
 
 **Question:** What is the difference between a Server Component and
 a Client Component?
@@ -2153,7 +2153,7 @@ supports full interactivity. Components are Server Components by
 default in the RSC model; add `"use client"` to make a component a
 Client Component.
 
----
+***
 
 **Question:** What is the stale closure problem in hooks?
 
@@ -2164,7 +2164,7 @@ value because it closed over the variable from a previous render.
 Fix: include all used variables in the dependency array, or use
 the updater form of `setState` (`setCount(prev => prev + 1)`).
 
----
+***
 
 **Question:** What is strict mode in React?
 
@@ -2175,7 +2175,7 @@ impure renders, (2) running effects twice to verify cleanup works,
 production. It surfaces bugs that would otherwise be intermittent
 and hard to reproduce.
 
----
+***
 
 **Question:** What is TanStack Query used for?
 
@@ -2186,7 +2186,7 @@ background revalidation (re-fetch stale data silently), retry,
 and pagination. It separates server data from client state, which
 is why server data should not be stored in Redux.
 
----
+***
 
 **Question:** What is the purpose of `React.Fragment`?
 
@@ -2196,7 +2196,7 @@ it when a component needs to return multiple elements but a wrapper
 `<div>` would break the layout or semantics (e.g., inside a
 `<table>` where only `<tr>` is valid).
 
----
+***
 
 **Question:** What is prop drilling?
 
@@ -2207,7 +2207,7 @@ Solutions: Context (for cross-cutting data), component composition
 (passing children or render props), or an external store (for
 shared client state).
 
----
+***
 
 **Question:** What is the difference between `useLayoutEffect` and
 `useEffect`?
@@ -2219,7 +2219,7 @@ modify the DOM before the user sees it (e.g., measuring element
 dimensions for positioning). Use `useEffect` for everything else.
 `useLayoutEffect` can block painting if the effect is slow.
 
----
+***
 
 **Question:** What is React.lazy?
 
@@ -2229,7 +2229,7 @@ component is fetched only when it is first rendered, wrapped in a
 `Suspense` boundary that shows a fallback during loading. This is
 the standard mechanism for route-level code splitting.
 
----
+***
 
 **Question:** What happens when you call `setState` in React?
 
@@ -2240,7 +2240,7 @@ React calls the component function with the new state value. If
 React batches the updates and performs a single re-render (automatic
 batching in React 18+).
 
----
+***
 
 **Question:** What is the `children` prop?
 
@@ -2290,7 +2290,7 @@ re-renders."
 - Does not understand reference stability.
 - Confuses `useMemo` with `React.memo`.
 
----
+***
 
 ### Question
 
@@ -2327,7 +2327,7 @@ subscription). If both sides are React state, no effect is needed."
 - Cannot name specific dangerous patterns.
 - Does not mention cleanup or cancellation.
 
----
+***
 
 ### Question
 
@@ -2364,7 +2364,7 @@ manually."
 - Puts form state in Redux.
 - No mention of validation strategy.
 
----
+***
 
 ### Question
 
@@ -2402,7 +2402,7 @@ changed."
 - No mention of keys or type comparison.
 - No awareness of the concurrent model.
 
----
+***
 
 ### Question
 
@@ -2440,7 +2440,7 @@ renders."
 - Cannot name specific re-render causes.
 - Does not mention React DevTools.
 
----
+***
 
 ### Question
 
@@ -2476,7 +2476,7 @@ Query for server state, local state or Zustand for client state."
 - Puts everything in Redux.
 - No mention of caching or revalidation.
 
----
+***
 
 ### Question
 
@@ -2514,7 +2514,7 @@ displays feedback to the user or reports to monitoring."
 - No monitoring integration.
 - Swallows errors silently.
 
----
+***
 
 ### Question
 
@@ -2550,7 +2550,7 @@ close. I use the `axe-core` Lighthouse audit as a CI gate."
 - No testing strategy.
 - No focus management.
 
----
+***
 
 ### Question
 
@@ -2586,7 +2586,7 @@ focus on the hook's return value and side effects."
 - No mention of `renderHook`.
 - Does not test cleanup.
 
----
+***
 
 ### Question
 
@@ -2623,7 +2623,7 @@ selectors that only re-render when the selected slice changes."
 - No awareness of the re-render problem.
 - Does not know when Context is inappropriate.
 
----
+***
 
 ### Question
 
@@ -2661,7 +2661,7 @@ For a single boolean, it is overkill."
 - Cannot explain when coordinated state transitions matter.
 - Does not mention testability.
 
----
+***
 
 ### Question
 
@@ -2701,7 +2701,7 @@ TanStack Query."
 - Treats it as a convenience wrapper, not a caching layer.
 - No mention of deduplication or race conditions.
 
----
+***
 
 ### Question
 
@@ -2741,7 +2741,7 @@ drilling."
 - Does not know component composition.
 - No awareness of Context re-render costs.
 
----
+***
 
 ### Question
 
@@ -2780,7 +2780,7 @@ implement this pattern."
 - No mention of Suspense or prefetching.
 - Does not name tools or patterns.
 
----
+***
 
 ### Question
 
@@ -2858,7 +2858,7 @@ quarterly to see if the boundaries are holding."
 - No categorization of state types.
 - No documentation of the architecture decision.
 
----
+***
 
 ### Question
 
@@ -2896,7 +2896,7 @@ pain points."
 - Relies solely on manual review.
 - No documented standards.
 
----
+***
 
 ### Question
 
@@ -2935,7 +2935,7 @@ size for data-heavy pages) justifies the complexity."
 - No awareness of the framework dependency.
 - No split pattern knowledge.
 
----
+***
 
 ### Question
 
@@ -2974,7 +2974,7 @@ converting the most-touched ones."
 - No migration policy.
 - Does not consider risk.
 
----
+***
 
 ### Question
 
@@ -3012,7 +3012,7 @@ ship zero JavaScript."
 - No analysis tooling.
 - Cannot name specific optimization techniques.
 
----
+***
 
 ### Question
 
@@ -3051,7 +3051,7 @@ adopting."
 - No bundle cost analysis.
 - No migration risk assessment.
 
----
+***
 
 ### Question
 
@@ -3090,7 +3090,7 @@ the budgets."
 - Only knows memoization as a performance tool.
 - No budget enforcement.
 
----
+***
 
 ### Question
 
@@ -3128,7 +3128,7 @@ trivial code."
 - No integration tests.
 - Coverage as a strict gate (100%).
 
----
+***
 
 ### Question
 
@@ -3166,7 +3166,7 @@ vulnerability."
 - No test suite to validate the upgrade.
 - No incremental deployment.
 
----
+***
 
 ### Question
 
@@ -3207,7 +3207,7 @@ gradually."
 - No automated enforcement.
 - No documentation.
 
----
+***
 
 ### Question
 
@@ -3248,7 +3248,7 @@ use them."
 - No incremental plan.
 - No enforcement or metrics.
 
----
+***
 
 ### Question
 
@@ -3287,7 +3287,7 @@ when deploy independence is non-negotiable."
 - No mention of team deployment independence as the trigger.
 - Does not know monorepo tooling.
 
----
+***
 
 ### Question
 
@@ -3326,7 +3326,7 @@ plain JavaScript."
 - Does not know `useSyncExternalStore`.
 - No concept of a framework-agnostic boundary.
 
----
+***
 
 ### Question
 
@@ -3366,7 +3366,7 @@ catch truncation and layout issues early."
 - No consideration of bundle size or lazy loading.
 - No RTL strategy.
 
----
+***
 
 ### Question
 
@@ -3445,7 +3445,7 @@ from time-travel debugging or action history."
 - No consideration of update frequency.
 - WebSocket in useEffect without singleton.
 
----
+***
 
 ### Question
 
@@ -3487,7 +3487,7 @@ developer builds features differently."
 - Does not diagnose the specific symptoms.
 - No tooling awareness.
 
----
+***
 
 ### Question
 
@@ -3525,7 +3525,7 @@ regression."
 - Cannot name specific heavy dependencies.
 - No CI budget.
 
----
+***
 
 ### Question
 
@@ -3564,7 +3564,7 @@ from a schema to avoid 50 hand-coded field components."
 - No form library.
 - No validation strategy.
 
----
+***
 
 ### Question
 
@@ -3602,7 +3602,7 @@ re-filtering on every keystroke."
 - Pagination changes the UX (not always acceptable).
 - No mention of memoization for list items.
 
----
+***
 
 ### Question
 
@@ -3645,7 +3645,7 @@ client."
 - Cannot name causes of hydration mismatches.
 - No investigation strategy.
 
----
+***
 
 ### Question
 
@@ -3685,7 +3685,7 @@ independently deployable and reversible."
 - Does not mention coexistence.
 - No prioritization.
 
----
+***
 
 ### Question
 
@@ -3727,7 +3727,7 @@ skip re-renders when their props have not changed."
 - No investigation of the render trigger.
 - No state isolation strategy.
 
----
+***
 
 ### Question
 
@@ -3768,7 +3768,7 @@ organization."
 - Does not mention module federation.
 - Cannot name the specific challenges.
 
----
+***
 
 ### Question
 
@@ -3830,7 +3830,7 @@ Diagnose with React DevTools Profiler: enable "Highlight updates
 when components render," identify the component with the highest
 render count, and check what triggered each render.
 
----
+***
 
 **Question:** How does code splitting reduce initial load time?
 
@@ -3844,7 +3844,7 @@ because the browser parses and executes less JavaScript on initial
 load. Measure the impact with Lighthouse and the Coverage tab in
 Chrome DevTools (shows unused bytes per script).
 
----
+***
 
 **Question:** When should you use virtualization vs pagination for
 long lists?
@@ -3862,7 +3862,7 @@ trade-off: virtualization is more complex (accessibility,
 keyboard navigation, dynamic row heights) but provides better UX
 for data-heavy applications.
 
----
+***
 
 **Question:** How do you measure and improve Largest Contentful
 Paint (LCP) in a React application?
@@ -3879,7 +3879,7 @@ in the document head. (5) Avoid client-side redirects — they add
 a full round trip. Measure with `web-vitals` library in production
 and Lighthouse in CI.
 
----
+***
 
 **Question:** What is the performance cost of Context and when
 should you switch to an external store?
@@ -3913,7 +3913,7 @@ Set a Content Security Policy (CSP) header that disallows inline
 scripts. (5) Review third-party components that accept raw HTML.
 See [Security](./15-security.md).
 
----
+***
 
 **Question:** How do you handle authentication tokens in a React
 SPA?
@@ -3930,7 +3930,7 @@ prefer HttpOnly cookies. If the API is on a different domain
 (CORS), configure `SameSite` and `Secure` attributes and ensure
 the API accepts credentials.
 
----
+***
 
 **Question:** What security risks do Server Components introduce?
 
@@ -3947,7 +3947,7 @@ Component that fetches an entire user record and passes it to a
 Client Component may expose sensitive fields (email, phone) in the
 serialized payload. Select only the fields the client needs.
 
----
+***
 
 **Question:** How do you protect sensitive environment variables in
 a React application?
@@ -3964,7 +3964,7 @@ the repository — use CI secrets management instead. (4) Review the
 bundled output periodically: search the production bundle for
 known secrets to catch accidental exposure.
 
----
+***
 
 **Question:** How do you implement CSRF protection in a React SPA?
 
@@ -3999,7 +3999,7 @@ shallow rendering does not test integration between parent and
 child. The Enzyme maintainers have acknowledged that shallow
 rendering is being phased out.
 
----
+***
 
 **Question:** How do you test components that depend on Context or
 external providers?
@@ -4014,7 +4014,7 @@ conditions. For stores (Redux, Zustand), create a test-specific
 store with initial state. This tests the real integration, not a
 mocked-out version.
 
----
+***
 
 **Question:** How do you handle flaky tests in a React test suite?
 
@@ -4032,7 +4032,7 @@ consistent handlers and verify with `findBy`. I triage flaky tests
 as high-priority bugs — a flaky suite trains the team to ignore
 failures.
 
----
+***
 
 **Question:** How do you test error boundaries?
 
@@ -4060,7 +4060,7 @@ Test that the error boundary reports to the monitoring service
 the retry action: click the retry button and verify the child
 re-renders.
 
----
+***
 
 **Question:** What is the role of `msw` (Mock Service Worker) in
 React testing?
@@ -4092,7 +4092,7 @@ only when combined with `useMemo` (for objects/arrays) and
 `useCallback` (for functions) to stabilize prop references. Without
 the full memoization chain, `React.memo` is a no-op.
 
----
+***
 
 **Question:** Is the virtual DOM faster than the real DOM?
 
@@ -4106,7 +4106,7 @@ critical, animation-heavy UIs, direct DOM manipulation or a
 framework like Svelte (which compiles away the abstraction) can be
 faster.
 
----
+***
 
 **Question:** Does `useCallback` improve performance?
 
@@ -4118,7 +4118,7 @@ child (`React.memo`). Without `React.memo` on the child,
 performance gain comes from the child skipping re-renders, not from
 `useCallback` itself.
 
----
+***
 
 **Question:** Are hooks a replacement for class components?
 
@@ -4130,7 +4130,7 @@ and `componentDidCatch`). In practice, teams use function components
 with hooks for everything, wrapping class-based error boundaries
 in a reusable component.
 
----
+***
 
 **Question:** Does `useState` always cause a re-render?
 

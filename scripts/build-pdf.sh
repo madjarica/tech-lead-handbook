@@ -5,31 +5,45 @@
 # Usage:
 #   ./scripts/build-pdf.sh
 #
-# Requirements:
-#   - pandoc 3.x
-#   - a LaTeX engine (xelatex recommended; TeX Live or TinyTeX)
+# Prerequisites:
+#   - pandoc 3.x          https://pandoc.org/installing.html
+#   - xelatex (TeX Live)  https://tug.org/texlive/
+#     or TinyTeX           https://yihui.org/tinytex/
 #
-# See ../CONVERSION.md for details and troubleshooting.
+# Optional:
+#   - mermaid-filter       https://github.com/raghur/mermaid-filter
+#     Add --filter mermaid-filter to the pandoc command below
+#     to render Mermaid diagrams as images.
+#
+# See CONVERSION.md for full details and troubleshooting.
 
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-BUILD_DIR="${ROOT_DIR}/build"
-OUTPUT="${BUILD_DIR}/tech-lead-handbook.pdf"
+DIST_DIR="${ROOT_DIR}/dist"
+OUTPUT="${DIST_DIR}/tech-lead-handbook.pdf"
 
-mkdir -p "${BUILD_DIR}"
+mkdir -p "${DIST_DIR}"
 
 if ! command -v pandoc >/dev/null 2>&1; then
-  echo "error: pandoc is not installed. See ../CONVERSION.md." >&2
+  echo "error: pandoc is not installed." >&2
+  echo "       Install from https://pandoc.org/installing.html" >&2
+  echo "       See CONVERSION.md for details." >&2
   exit 1
 fi
 
 if ! command -v xelatex >/dev/null 2>&1; then
-  echo "error: xelatex is not installed. See ../CONVERSION.md." >&2
+  echo "error: xelatex is not installed." >&2
+  echo "       Install TeX Live or TinyTeX." >&2
+  echo "       See CONVERSION.md for details." >&2
   exit 1
 fi
 
 cd "${ROOT_DIR}"
+
+echo "Building PDF..."
+echo "  Source: book/*.md ($(ls book/*.md | wc -l | tr -d ' ') chapters)"
+echo "  Output: ${OUTPUT}"
 
 pandoc \
   --metadata-file=metadata.yaml \
@@ -41,4 +55,5 @@ pandoc \
   -o "${OUTPUT}" \
   book/*.md
 
-echo "Built: ${OUTPUT}"
+echo "Done: ${OUTPUT}"
+echo "Size: $(du -h "${OUTPUT}" | cut -f1)"

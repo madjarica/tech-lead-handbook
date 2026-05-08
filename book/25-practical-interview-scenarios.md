@@ -146,7 +146,7 @@ If traces implicate a third party with no SLA, how do you harden the integration
 
 Where would you draw the line between acceptable p99 regression for internal admin tools vs. customer checkout on the same cluster?
 
----
+***
 
 ## Scenario 2: A database query is the bottleneck
 
@@ -248,7 +248,7 @@ How do you validate ORM churn does not regress the plan—contract tests on emit
 
 When would you accept a 2–5 minute data delay on executive dashboards if revenue-facing widgets stay real-time?
 
----
+***
 
 ## Scenario 3: The team wants microservices but the app is a small monolith
 
@@ -349,7 +349,7 @@ Would you pilot two pipelines delivering different containers from one repo befo
 
 When does regulatory language force physical separation even though DORA metrics disagree with splitting now?
 
----
+***
 
 ## Scenario 4: Deployments are unstable
 
@@ -450,7 +450,7 @@ How do you align marketing launch trains with technical kill switches without re
 
 Who owns the feature-flag retirement backlog so dual code paths do not linger for quarters?
 
----
+***
 
 ## Scenario 5: A frontend app has poor Core Web Vitals
 
@@ -551,7 +551,7 @@ How do you prove to finance that SEO fixes have positive ROI when attribution wi
 
 Where do you draw the line between acceptable client-only admin consoles vs. customer storefront SSR requirements?
 
----
+***
 
 ## Scenario 6: There is a production incident
 
@@ -653,7 +653,7 @@ How do you run a post-mortem when root cause stays “likely infra” but vendor
 
 How do you rotate exhausted on-call engineers without letting severity drift when fatigue narrows judgment?
 
----
+***
 ## Scenario 7: Junior engineer repeating the same mistakes
 
 ### Situation
@@ -762,7 +762,7 @@ Whether you distinguish mentorship from performance management, use data over an
 
 - How do you document coaching without sounding punitive?
 
----
+***
 
 ## Scenario 8: Product wants a risky share-via-link feature
 
@@ -872,7 +872,7 @@ Threat-model literacy, stakeholder negotiation, knowledge of token patterns, log
 
 - How do you document security decisions for auditors?
 
----
+***
 
 ## Scenario 9: AWS bill jumped from $18K to $42K
 
@@ -980,7 +980,7 @@ Familiarity with AWS billing anatomy, structured debugging under executive press
 
 - What FinOps dashboards do you show engineering leads weekly?
 
----
+***
 
 ## Scenario 10: Kubernetes deployment in CrashLoopBackOff
 
@@ -1090,7 +1090,7 @@ Structured kube debugging, probe literacy, operational judgment on rollback, and
 
 - How do you run game days for deploy failures?
 
----
+***
 
 ## Scenario 11: AI tool generated insecure authentication code
 
@@ -1196,7 +1196,7 @@ Balanced governance, practical CI, responsibility model, and calm incident respo
 
 - What role does threat modeling play before AI-assisted feature starts?
 
----
+***
 
 ## Scenario 12: Legacy Angular app needs modernization
 
@@ -1300,7 +1300,7 @@ Migration strategy literacy, performance discipline, business framing, and skept
 
 - What kill criteria would stop a migration pilot?
 
----
+***
 ## Scenario 13: A React app has chaotic state management
 
 ### Situation
@@ -1400,7 +1400,7 @@ Whether you separate server vs. client concerns, run a disciplined audit, sequen
 How do you invalidate after **partial** GraphQL responses when components subscribe to overlapping fragments? Where do optimistic updates belong when legal requires server-confirmed tax totals? How do you test race-prone transitions without flaky timing?
 
 How do you tag OpenTelemetry spans so traces show whether Redux or Query last wrote an entity? When active **A/B tests** fork API behavior, how do you prevent experiments from multiplying cache keys silently?
----
+***
 
 ## Scenario 14: A Node.js API needs to support 10x more traffic
 
@@ -1503,7 +1503,7 @@ How do you design **cache keys** for multi-tenant, dynamic-segment responses? Wh
 How do you detect **connection pool exhaustion** before customers do when autoscaling adds pods during lunch spikes? When **Redis** fails over, what is your checkout degraded mode—hard fail, stale read, or circuit-open to origin?
 
 How do you size **Redis** RAM and eviction policy before a **10×** traffic holiday? When lab **k6** disagrees with prod latency, what reconciliation steps do you run before trusting the lab?
----
+***
 
 ## Scenario 15: The company has no engineering standards
 
@@ -1605,7 +1605,7 @@ How do you convert a senior IC who still deploys from a laptop? What is your pla
 How do you set **review SLAs** without burning out senior owners in **two** time zones? When leadership demands “zero process overhead,” what single chart changes their mind in **30 days**?
 
 How do you onboard **contractors** to the same CI requirements without killing velocity? What artifact proves compliance when auditors arrive **90 days** after you start?
----
+***
 
 ## Scenario 16: A team has too much technical debt
 
@@ -1706,7 +1706,7 @@ How do you stop the debt register from ossifying? When is a bounded **rewrite** 
 How do you price debt work when finance insists on **story-point velocity** that hides maintenance? What guardrails stop engineers from labeling every bug **debt** to dodge roadmap scrutiny?
 
 How do you keep debt work **visible** in portfolio tools executives already open weekly? When product insists on-date delivery, how do you model the **counterfactual** outage cost numerically?
----
+***
 
 ## Scenario 17: A critical dependency is no longer maintained
 
@@ -1807,7 +1807,7 @@ When **native bindings** break ARM laptops but pass CI on **x86**, what is your 
 How do you keep **customer trust** language accurate when Legal insists on minimal disclosure during active risk? What is your **binary provenance** story if mobile stores still ship the vulnerable artifact?
 
 How do you dedupe **pen-test** findings against existing Dependabot issues so remediation does not thrash owners?
----
+***
 
 ## Scenario 18: A release must be rolled back
 
@@ -1909,7 +1909,7 @@ How do you run **expand/contract** on checkout tables with zero downtime? Which 
 Who has **authority** to override a rollback when the CEO demands a forward fix—document that before the incident? How do you prove **schema compatibility** between `N-1` and `N` binaries using contract tests smoke-run in **90 seconds**?
 
 How do you coordinate **rollback** when a separate **data science** batch job depends on the new column? What customer wording goes out if **partial** recovery holds error rate at **1%** but not zero?
----
+***
 
 ## Scenario 19: A customer reports data inconsistency
 
@@ -2010,7 +2010,7 @@ How do you represent intentional eventual lag in UX without sounding evasive? Wh
 
 When do you snapshot reads vs point-in-time queries? How do you version mobile bundles to kill legacy clients that call deprecated totals fields? What role does idempotency play when recomputing projections?
 
----
+***
 
 ## Scenario 20: A system needs audit logging for compliance
 
@@ -2106,7 +2106,7 @@ Do you model logging availability as an SLO with error budget, or as a hard gate
 
 How would you evidence integrity to an external assessor with screenshots versus cryptographic proofs? Who may query audit data without creating recursive audit debt? How do you handle GDPR erasure when immutable logs reference a person?
 
----
+***
 
 How do you prove tamper resistance with cryptography vs. vendor attestations alone? What is the playbook when an engineer accidentally writes secrets into audit—legal, technical, and communication steps?
 
@@ -2206,7 +2206,7 @@ How do you protect deep review for security-sensitive files without freezing eve
 
 When is two approvals worth the latency tax? How do you protect deep-review time for security-sensitive modules? How do you handle reviewers in wildly different time zones fairly?
 
----
+***
 
 When do you require design docs versus lightweight RFC comments on PRs? How do you tie review SLAs into staffing plans instead of individual heroics during hiring freezes?
 
@@ -2306,7 +2306,7 @@ When do you capture runtime profiles continuously versus on-demand? How do you d
 
 How would you prove pool exhaustion in one graph? What guardrails stop retry amplification from masking root causes? When do you freeze deploys during ambiguous infra signals?
 
----
+***
 
 How do you correlate noisy neighbor tenants on shared nodes with your 503s? What is your incident command ritual when two rare failure modes overlap the same hour?
 
@@ -2410,7 +2410,7 @@ They may ask how you teach junior engineers to spot implicit locks inside ORM mi
 
 How do you coordinate logical replication consumers when additive schema lands before code? What is your property-based test plan for nullable interim reads? What checksum proves backfill completeness before `NOT NULL`? How do you coordinate binlog or logical replication consumers during additive schema? How would you handle rollback if code already shipped? When do you choose shadow tables versus native online DDL for your engine? How do you gate deploy trains so binaries never depend on schema that has not reached all shards?
 
----
+***
 
 ## Scenario 24: A new feature requires background jobs and retries
 
@@ -2511,7 +2511,7 @@ How do you keep monotonic invoice numbers across region failover? What compels C
 
 Who owns SLA reviews when a third party degrades but your queues are healthy?
 
----
+***
 
 ## Scenario 25: Customer-facing incident communication under pressure
 
@@ -2640,7 +2640,7 @@ Who signs off if the incident might be a security issue?
 
 How do you train new leads on comms without waiting for a live fire drill?
 
----
+***
 
 ## Scenario 26: Kubernetes adoption without production operations experience
 
@@ -2760,7 +2760,7 @@ How do you decide between a centralized platform team and embedded “cluster ow
 
 What signals would trigger pausing or rolling back the pilot?
 
----
+***
 
 ## Scenario 27: Monolith boundaries before service extraction
 
@@ -2884,7 +2884,7 @@ What role do architecture decision records play during extraction?
 
 How do you fund test writing without stopping product delivery entirely?
 
----
+***
 
 ## Scenario 28: Frontend framework rewrite without clear business value
 
@@ -3006,7 +3006,7 @@ How do you evaluate Svelte or Solid without endless comparison threads?
 
 When would you recommend staying on Vue indefinitely for years?
 
----
+***
 
 ## Scenario 29: API versioning when clients cannot migrate together
 
@@ -3128,7 +3128,7 @@ How would an API gateway versus in-service routing change cutovers?
 
 What is your policy on security patches that must break semantics?
 
----
+***
 
 ## Scenario 30: Production system with weak observability
 
@@ -3260,7 +3260,7 @@ How do you govern log schemas across dozens of teams?
 
 How do you prove ROI to finance using incident hours saved?
 
----
+***
 ## How to Practice Scenario-Based Interviews
 
 ### Structure every answer

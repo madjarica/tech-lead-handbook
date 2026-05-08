@@ -904,181 +904,181 @@ Yes, 100% coverage means every line is tested, so there are no bugs. More covera
 
 **Answer:** A stub returns predetermined data without verifying how it was called. A mock records calls and lets the test assert on arguments, call count, and order. Use stubs when the test cares about what data a dependency returns. Use mocks when the test cares about how a dependency was called. Over-using mocks creates brittle tests that break on refactoring.
 
----
+***
 
 **Question:** What is the testing pyramid?
 
 **Answer:** A model that recommends many fast unit tests at the base, fewer integration tests in the middle, and few slow E2E tests at the top. The width represents count; the height represents fidelity and cost. Critics argue the pyramid undervalues integration tests for modern web applications, leading to alternatives like the testing trophy and testing honeycomb.
 
----
+***
 
 **Question:** What is a flaky test?
 
 **Answer:** A test that passes and fails without code changes. Common causes include timing dependencies, shared state, test ordering, and network calls. Flaky tests erode trust in the test suite. The fix is isolation — control time, use per-test state, avoid external dependencies, and quarantine flakes with a fix-or-delete deadline.
 
----
+***
 
 **Question:** What is test coverage, and what does it actually measure?
 
 **Answer:** Test coverage measures the percentage of code executed during test runs — typically lines, branches, or functions. It tells what code was touched, not whether the tests verify correct behavior. High coverage with weak assertions gives false confidence. Low coverage reliably indicates untested areas. Use it as a floor, not a ceiling.
 
----
+***
 
 **Question:** What is the difference between a unit test and an integration test?
 
 **Answer:** A unit test verifies a single behavior in isolation from external systems — no database, no network, no file system. An integration test includes real collaborators. The boundary is external dependencies: if setup goes beyond the test file (starting a database, launching a server), it is an integration test. Unit tests are faster and more deterministic; integration tests catch wiring issues.
 
----
+***
 
 **Question:** What is a test double?
 
 **Answer:** A generic term for any object that replaces a real dependency in a test. Subtypes include stubs (return data), mocks (record and verify calls), spies (wrap real code while recording), and fakes (working implementations with shortcuts like an in-memory database). Choosing the right double depends on whether the test verifies data flow or interaction behavior.
 
----
+***
 
 **Question:** What is a smoke test?
 
 **Answer:** A minimal post-deploy check that the system is alive and core paths work. Smoke tests are fast and focused — they verify that the application starts, the database is reachable, and the main endpoint responds. They catch deployment failures (wrong config, missing dependency) but do not replace comprehensive functional tests.
 
----
+***
 
 **Question:** What is snapshot testing?
 
 **Answer:** Snapshot testing captures the serialized output of a component or function and fails when the output changes. It is useful as a regression safety net for stable output (serialized data, rendered HTML). The anti-pattern is auto-updating snapshots without reviewing diffs — this defeats the purpose. Use snapshots for stable output; use assertion-based tests for rapidly changing components.
 
----
+***
 
 **Question:** What is TDD?
 
 **Answer:** Test-Driven Development follows a strict cycle: write a failing test, write the minimum code to make it pass, then refactor. It forces thinking about the API from the caller's perspective before implementation. TDD works well for well-defined behavior (validators, parsers, algorithms) and less well for exploratory work where the interface is unknown. It is a tool, not a dogma.
 
----
+***
 
 **Question:** What is static analysis, and why does it belong in CI?
 
 **Answer:** Static analysis inspects code without executing it — linting for code errors and style, type checking for type safety, formatting for consistency. It catches entire categories of bugs (unused variables, type mismatches, unreachable code) faster than any test. Running it first in CI means developers get feedback in seconds, before waiting for slower test suites.
 
----
+***
 
 **Question:** What are contract tests?
 
 **Answer:** Tests that verify a producer API meets the expectations of its consumers without deploying both services. The consumer defines its expectations as a contract (expected endpoints, request shapes, response shapes). The producer verifies that its implementation satisfies the contract. This catches breaking changes between services before deployment and replaces many slow E2E tests in microservice architectures.
 
----
+***
 
 **Question:** What is the difference between regression testing and smoke testing?
 
 **Answer:** Regression testing verifies that previously fixed bugs have not been reintroduced — it can be any test type (unit, integration, E2E) that guards a specific fix. Smoke testing is a minimal post-deploy check that the system is alive. Regression tests are comprehensive and specific; smoke tests are fast and broad.
 
----
+***
 
 **Question:** What is property-based testing?
 
 **Answer:** Instead of testing specific examples, property-based testing generates random inputs and checks that invariants hold across all of them. For example, "encoding then decoding always returns the original input" tested with thousands of random strings. It catches edge cases that example-based tests miss — empty strings, unicode, boundary values. Tools include fast-check (JS/TS) and Hypothesis (Python).
 
----
+***
 
 **Question:** What is the difference between E2E testing and integration testing?
 
 **Answer:** Integration tests exercise real interactions between a few components — an API with its database, a component with its state. E2E tests exercise the full user flow through the entire deployed system, typically through a browser. Integration tests are faster and more focused; E2E tests provide higher confidence but are slower, more brittle, and more expensive to maintain.
 
----
+***
 
 **Question:** What is a quality gate?
 
 **Answer:** An automated check in CI that must pass before code can merge or deploy. Examples include lint checks, type checks, test suites, coverage thresholds, and security scans. Quality gates should be ordered by speed (fast checks first) and have clear ownership and escalation paths when they block delivery.
 
----
+***
 
 **Question:** What is mutation testing?
 
 **Answer:** Mutation testing introduces small changes to production code (flip a comparison, remove a line, change a constant) and runs the test suite to see if any test catches the change. Surviving mutations indicate tests that execute code without truly verifying its behavior. It measures test quality beyond coverage — a test suite can have 100% coverage but still miss mutations.
 
----
+***
 
 **Question:** What is a fake, and when is it better than a mock?
 
 **Answer:** A fake is a working implementation with shortcuts — an in-memory database, a local file store. Fakes are better than mocks when the test should verify behavior through real interactions without the overhead of the production dependency. A fake repository that stores data in a map lets tests verify queries without starting a database. The trade-off: fakes must be maintained to stay consistent with the real implementation.
 
----
+***
 
 **Question:** What is exploratory testing?
 
 **Answer:** Manual, unscripted testing guided by experience and intuition rather than predefined test cases. Testers explore the application as a real user would, looking for unexpected behavior, usability issues, and edge cases that automated tests miss. It complements automated testing — it does not replace it. Exploratory testing is most valuable after major features or architectural changes.
 
----
+***
 
 **Question:** What is BDD, and how does it differ from TDD?
 
 **Answer:** Behavior-Driven Development uses Given/When/Then specifications shared between developers and product. TDD focuses on the developer's design process (red-green-refactor). BDD focuses on shared understanding of acceptance criteria. BDD adds overhead (Gherkin files, step definitions) that is worth it when product-engineering alignment is a bottleneck and not worth it for internal tools or pure engineering concerns.
 
----
+***
 
 **Question:** What is the difference between SAST and DAST?
 
 **Answer:** SAST (Static Application Security Testing) scans source code for vulnerabilities without running it — SQL injection patterns, hardcoded secrets, unsafe deserialization. DAST (Dynamic Application Security Testing) probes a running application — sending malformed requests, checking for open redirects, testing authentication flows. Both belong in a testing strategy; SAST is faster, DAST catches runtime-specific issues.
 
----
+***
 
 **Question:** What is test isolation, and why does it matter?
 
 **Answer:** Test isolation means each test can run independently without being affected by other tests. Isolated tests do not share mutable state, database rows, or environment variables with other tests. Without isolation, tests become order-dependent — passing individually but failing when run together, or vice versa. Isolation is achieved through per-test setup/teardown, transaction rollback, unique test IDs, and avoiding global state.
 
----
+***
 
 **Question:** What is the difference between a deterministic test and a non-deterministic test?
 
 **Answer:** A deterministic test produces the same result every time given the same code. A non-deterministic test has variable outcomes due to timing, randomness, network calls, or uncontrolled system state. Non-deterministic tests are the root cause of flakiness. Deterministic tests control all inputs — seeded randomness, fixed clocks, mocked network — so the outcome depends only on the code under test.
 
----
+***
 
 **Question:** What is an acceptance criterion, and how does it relate to testing?
 
 **Answer:** An acceptance criterion is a condition that a feature must satisfy to be considered done — defined before implementation, usually by product and engineering together. Each acceptance criterion should map to at least one automated test. "User can filter orders by date range" becomes an integration test that renders the filter, applies a date range, and asserts that only matching orders appear. Without testable acceptance criteria, "done" is subjective.
 
----
+***
 
 **Question:** What is visual regression testing?
 
 **Answer:** Visual regression testing compares screenshots of rendered pages or components against approved baselines. It catches unintended CSS changes, layout shifts, and rendering differences across browsers. Tools like Chromatic, Percy, or Playwright's screenshot comparison automate this. The trade-off: false positives from intentional design changes require review overhead, so use it selectively on design-sensitive components.
 
----
+***
 
 **Question:** What is the difference between a fixture and a factory in test data management?
 
 **Answer:** A fixture is predefined, static test data loaded before tests run — often a JSON or SQL file shared across many tests. A factory is a function that generates test objects with sensible defaults, letting each test override only the fields it cares about. Factories scale better because they avoid hidden coupling between tests. Fixtures work for small, stable datasets but become brittle as the suite grows.
 
----
+***
 
 **Question:** What is the testing trophy, and how does it differ from the pyramid?
 
 **Answer:** The testing trophy (Kent C. Dodds) shifts the bulk of testing to integration tests instead of unit tests, and adds static analysis at the base. The rationale: for UI-heavy applications, integration tests (rendering real components with real state) provide more confidence per test than isolated unit tests. The pyramid puts unit tests at the base; the trophy puts integration tests at the widest layer. Choose based on where bugs actually occur in the system.
 
----
+***
 
 **Question:** What is the role of linting in a quality strategy?
 
 **Answer:** Linting enforces code consistency and catches common errors — unused variables, missing return statements, unreachable code, import order — without running any tests. It is the cheapest quality gate: fast, deterministic, and zero-maintenance once configured. Run it first in CI so obvious issues are caught in seconds. Delegate style debates to the linter configuration and remove them from code review.
 
----
+***
 
 **Question:** What is the purpose of a test spy?
 
 **Answer:** A spy wraps a real implementation, letting the actual code run while recording calls for later assertion. Unlike a mock (which replaces the implementation entirely), a spy preserves real behavior. Use spies when the real implementation is fast and safe but the test needs to verify that a specific call happened — for example, verifying that a logging function was called with the right message while still letting it log.
 
----
+***
 
 **Question:** What does "definition of done" mean for a feature, and how does testing fit?
 
 **Answer:** A definition of done is the team's shared checklist of what must be true before a feature is considered complete. Testing is a core element: unit tests for new logic, integration tests for changed APIs, regression tests for related bug fixes, passing CI, coverage floor met, no new flaky tests introduced. Without an explicit definition of done that includes testing, "done" defaults to "it works on my machine."
 
----
+***
 
 **Question:** What is a sanity test, and how does it differ from a smoke test?
 
 **Answer:** Both are quick verification checks, but they apply at different stages. A smoke test runs after deployment to verify the system is alive. A sanity test runs after a specific change to verify the targeted behavior works — a quick check that the fix or feature did what it was supposed to. Smoke tests are broad and shallow; sanity tests are narrow and focused on the area that changed.
 
----
+***
 
 ### Senior
 
@@ -1116,7 +1116,7 @@ For an order processing service: unit tests for pricing calculations and discoun
 - No mention of contract tests for service boundaries.
 - No coverage strategy beyond "more is better."
 
----
+***
 
 ### Question
 
@@ -1152,7 +1152,7 @@ A team had 12 flaky E2E tests causing 3–4 CI retries per PR. After implementin
 - No deadline for fixing.
 - Treating flakes as normal rather than a reliability signal.
 
----
+***
 
 ### Question
 
@@ -1186,7 +1186,7 @@ Testing an order service: use a fake `OrderRepository` (in-memory map) to test t
 - "Mock everything" approach without considering coupling.
 - No mention of when mocks create brittle tests.
 
----
+***
 
 ### Question
 
@@ -1221,73 +1221,73 @@ Joining a team with a 200k-line monolith and zero tests. Week 1: add ESLint and 
 - "Add tests to everything" without prioritization.
 - No mention of characterization testing or seam identification.
 
----
+***
 
 **Question:** How do you decide what NOT to test?
 
 **Answer:** Do not test generated code (auto-generated types, ORM models). Do not test framework internals (React rendering, Express routing). Do not test trivial pass-through functions that add no logic. Do not test third-party library behavior — that is their responsibility. Do not write E2E tests for flows that integration tests already cover adequately. The cost of each test is writing plus maintenance; if that cost exceeds the risk of the untested code, skip it.
 
----
+***
 
 **Question:** What is the role of code review in a quality strategy?
 
 **Answer:** Code review catches design problems, unclear intent, missing edge cases, security assumptions, and misunderstood requirements — things automated tools cannot. A Tech Lead shapes review culture by defining review expectations (architecture, correctness, clarity), delegating style enforcement to formatters, setting review SLAs (reviewed within one business day), and ensuring reviews are a learning opportunity, not a gatekeeping ritual.
 
----
+***
 
 **Question:** How do you test microservice interactions without deploying everything?
 
 **Answer:** Use contract tests. Each consumer defines its expectations as a contract — the endpoints it calls, the request shapes it sends, and the response shapes it expects. The producer runs these contracts against its real implementation. This catches breaking changes without requiring the full system to be deployed. Complement with integration tests inside each service and reserve E2E tests for 2–3 critical cross-service flows.
 
----
+***
 
 **Question:** How do you test database interactions without making tests slow?
 
 **Answer:** Use containerized databases (Docker, Testcontainers) for integration tests. Run migrations before the suite, wrap each test in a transaction that rolls back, or use per-test schemas. This gives real SQL execution without shared state. For unit tests, use a fake repository that stores data in memory. Avoid mocking the ORM directly — mock at the repository boundary. In CI, cache the database container image to reduce startup time.
 
----
+***
 
 **Question:** How do you handle test data management across a growing test suite?
 
 **Answer:** Use factories with sensible defaults — each test overrides only the fields it cares about. Avoid shared fixture files that every test depends on; they become fragile and create hidden coupling between tests. For database-backed tests, use per-test transactions that roll back or per-test schemas. For tests that need realistic data volume, use anonymized production snapshots generated by a scheduled pipeline. Never use production data directly — PII risks and compliance requirements make this a non-starter.
 
----
+***
 
 **Question:** How do you choose between Cypress and Playwright for E2E testing?
 
 **Answer:** Both are mature. Playwright supports multiple browsers (Chromium, Firefox, WebKit) out of the box, runs tests in parallel by default, and has a lighter architecture (no bundled browser runtime in the test process). Cypress has a stronger interactive debugging experience and a large plugin ecosystem. For a new project, I default to Playwright for its multi-browser support and parallel execution. For teams already invested in Cypress with a working suite, migration is not worth the disruption unless a specific limitation blocks them.
 
----
+***
 
 **Question:** How do you prevent CI from becoming slow and noisy?
 
 **Answer:** Order checks by speed — lint and type check first, unit tests second, integration tests third, E2E tests last. Cache dependencies aggressively. Parallelize test execution across workers. Skip irrelevant checks (documentation-only changes skip E2E). Quarantine flaky tests immediately. Track CI execution time as a metric and set an SLO. When CI exceeds the SLO, prioritize pipeline optimization as engineering work.
 
----
+***
 
 **Question:** When is property-based testing more useful than example-based testing?
 
 **Answer:** Property-based testing excels for functions with well-defined invariants — serialization (encode/decode roundtrips), mathematical properties (commutativity, associativity), parsers (valid input always produces valid output), and data transformations (no data loss). It finds edge cases that example-based tests miss because it generates hundreds or thousands of random inputs. It is less useful for UI behavior, complex integration scenarios, or cases where the "property" is difficult to express formally.
 
----
+***
 
 **Question:** How do you balance mocking third-party APIs with testing real integrations?
 
 **Answer:** Use a layered approach. Build a thin adapter around the third-party API. Unit test business logic with a fake adapter. In CI, use recorded responses (WireMock, Polly.js) that replay real API responses without network calls. On a scheduled basis (daily or weekly), run integration tests against the real sandbox to catch API changes. This gives fast CI feedback while periodically verifying that the adapter assumptions still hold.
 
----
+***
 
 **Question:** How do you evaluate whether snapshot tests are adding value or noise?
 
 **Answer:** Track how often snapshots are updated versus how often they catch real regressions. If the team routinely runs `--updateSnapshot` without reviewing diffs, the snapshots are noise — they add maintenance cost without catching bugs. Valuable snapshots are stable: they change rarely, and when they do, the diff reveals a real regression. Limit snapshots to stable outputs (serialized data, configuration, generated SQL) and prefer assertion-based tests for rapidly changing UI.
 
----
+***
 
 **Question:** How do you structure test suites for long-term maintainability?
 
 **Answer:** Group tests by behavior, not by code structure — a test file named `order-creation.test.ts` is clearer than `orderService.test.ts` when the service covers creation, cancellation, and reporting. Use descriptive `describe`/`it` blocks that read as specifications. Extract shared setup into factories rather than `beforeEach` blocks that hide context. Keep each test self-contained — a developer should understand a test by reading it alone without scrolling to setup at the top of the file. Delete commented-out tests; they signal indecision and rot.
 
----
+***
 
 ### Tech Lead
 
@@ -1325,7 +1325,7 @@ A team under pressure to ship a new checkout flow in two weeks. Non-negotiable: 
 - No mention of stakeholder communication.
 - No practical flexibility tools (feature flags, scope reduction).
 
----
+***
 
 ### Question
 
@@ -1361,7 +1361,7 @@ A team had 92% coverage but was still shipping bugs — tests covered code execu
 - Ties metrics to individual performance.
 - No awareness of gaming dynamics.
 
----
+***
 
 ### Question
 
@@ -1397,79 +1397,79 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 - No mention of leading by example.
 - Ignores team dynamics and resistance.
 
----
+***
 
 **Question:** How do you decide the testing strategy for a monolith vs microservices?
 
 **Answer:** For a monolith, invest in the pyramid — many unit tests for business logic, integration tests for the API layer with a shared database, and a small E2E suite. The monolith's advantage is that integration is internal, so fewer boundary tests are needed. For microservices, invest in the honeycomb — contract tests at service boundaries, integration tests within each service, and very few cross-service E2E tests. The key difference: in a monolith, a broken integration is a compile error or a failed internal test. In microservices, it is a runtime failure between independently deployed services — contract tests catch this.
 
----
+***
 
 **Question:** How do you evaluate whether the team's testing effort is working?
 
 **Answer:** Track defect escape rate (bugs in production that tests should have caught), CI pass rate (percentage of green builds), flake rate (percentage of runs with flaky failures), and time to merge (how long PRs wait for CI). Compare these trends against incident frequency and severity. If defect escape rate is flat while testing effort increases, the tests are not targeting the right areas. If CI pass rate is high but incident rate is high, the tests may have gaps in integration or deployment verification.
 
----
+***
 
 **Question:** When should a Tech Lead decide to delete tests?
 
 **Answer:** Delete tests when they no longer reflect real system behavior (testing deprecated features), when they are permanently flaky and the cost of fixing exceeds the risk of the untested behavior, when they duplicate coverage of the same behavior at a different test level (an E2E test that duplicates an integration test), or when they test internal implementation details that change with every refactoring. Deleting tests is a quality decision, not a shortcut — it reduces noise and maintenance cost while focusing the suite on high-value verifications.
 
----
+***
 
 **Question:** How do you handle testing in a continuous deployment environment?
 
 **Answer:** In continuous deployment, every merge goes to production, so the test suite is the primary gate. This demands fast CI (under 10 minutes), high-confidence integration tests, automated rollback on post-deploy smoke test failure, and feature flags to decouple deploy from release. The testing strategy shifts toward confidence per minute of CI time — replace slow E2E tests with faster integration tests and contract tests wherever possible. Post-deploy synthetic monitoring becomes a critical complement.
 
----
+***
 
 **Question:** What is the right amount of test coverage?
 
 **Answer:** There is no universal number. A coverage floor of 70–80% branch coverage prevents large untested areas. Above that, focus on what is covered, not how much. Critical paths (payment, authentication, data processing) should have near-complete coverage. Low-risk utilities and CRUD endpoints may have less. Use mutation testing on critical modules to verify that coverage translates to actual defect detection. Track defect escape rate to measure whether the coverage level is adequate.
 
----
+***
 
 **Question:** How do you communicate testing trade-offs to a product manager?
 
 **Answer:** Frame testing in terms the PM cares about — delivery speed, incident risk, and customer impact. "If we skip integration tests on the new payment flow, we can ship two days sooner, but we risk a payment processing bug that would affect all customers and require a hotfix deploy. I recommend shipping with tests and using a feature flag to control rollout." Use past incidents to calibrate — if the team has had production issues from insufficient testing, reference them. If the PM still pushes back, negotiate scope (smaller feature, same quality) rather than quality (same feature, fewer tests).
 
----
+***
 
 **Question:** How do you decide when to invest in contract tests vs E2E tests?
 
 **Answer:** Contract tests when services are owned by different teams, deploy independently, and communicate through well-defined APIs. They verify compatibility without deploying the full system, run fast, and catch breaking changes before integration. E2E tests when verifying critical end-to-end user journeys that cross multiple services and cannot be decomposed — login flow, checkout flow. The rule: contract tests for API compatibility between services, E2E tests for user-visible flows that no single service owns. In most microservice architectures, contract tests replace 80% of what E2E suites used to do.
 
----
+***
 
 **Question:** How do you make testing a team norm rather than a mandate?
 
 **Answer:** Lead by example — write well-structured tests in every PR and explain the reasoning in review comments. Celebrate when tests catch real bugs ("the regression test from last sprint's fix caught a reintroduction today"). Make testing infrastructure a first-class engineering investment — allocate sprint time for test helpers, factories, and CI improvements. Co-create the testing strategy with the team rather than imposing it. Avoid tying test metrics to individual performance. The goal is internalized practice, not compliance.
 
----
+***
 
 **Question:** How do you evaluate and adopt a new testing tool for the team?
 
 **Answer:** Define the problem the tool solves — speed, coverage gap, developer experience, or specific test type support. Evaluate against the current tool: run a small proof-of-concept (one module or one service) and compare setup effort, execution speed, debugging experience, and CI integration. Assess team adoption cost — learning curve, documentation quality, community support. Avoid adopting tools because they are trending; adopt them because they solve a measured problem. If adopted, migrate incrementally (new tests first, old tests later) with a deadline.
 
----
+***
 
 **Question:** How do you prevent testing from becoming a bottleneck during rapid growth?
 
 **Answer:** Establish testing infrastructure early — shared test utilities, factories, CI templates — so new services start with a working test setup from day one. Use a service template or scaffold that includes CI configuration, a unit test example, and an integration test harness. For the existing codebase, track CI time as a team metric and set an SLO. When a new service or feature is added, the architect or Tech Lead reviews the proposed testing strategy before the first PR, not after the suite is already slow. Invest in parallel test execution, container caching, and selective test runs (only run tests affected by the changed code) to keep CI fast as the codebase grows.
 
----
+***
 
 **Question:** How do you connect testing strategy with incident reduction?
 
 **Answer:** After every production incident, ask: "Could a test have caught this before deployment?" If yes, identify which test type (unit, integration, contract, E2E) and add it as a regression test. Track defect escape rate by category — if most escapes are integration failures, invest in integration and contract tests. If most escapes are logic errors, invest in unit tests. Over time, the testing strategy should be shaped by where bugs actually come from, not by dogma. Present this data to the team quarterly so the testing investment is visibly connected to incident reduction.
 
----
+***
 
 **Question:** How do you handle cross-team testing ownership in a platform organization?
 
 **Answer:** Each team owns the tests for the services they maintain — unit, integration, and contract tests. Shared E2E tests that span multiple teams need a clear owner (usually the team closest to the user journey) and contribution norms. Define contract testing responsibilities: the consuming team writes the contract; the producing team verifies it. Avoid orphaned tests — tests without a clear owner rot. Periodically audit shared test suites and assign ownership or delete.
 
----
+***
 
 ### Frontend testing
 
@@ -1477,43 +1477,43 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 **Answer:** Use React Testing Library for integration tests — render real components, simulate user interactions, assert on visible output. Use Vitest or Jest for unit tests on utility functions, custom hooks, and complex state logic. Use Playwright for 5–10 E2E tests covering critical user journeys (login, checkout, key workflows). Add visual regression tests for design-sensitive components. Use axe for accessibility checks. Avoid testing implementation details — assert on what the user sees, not on internal state.
 
----
+***
 
 **Question:** What should you test in a frontend component — behavior or implementation?
 
 **Answer:** Test behavior: what the user sees, what callbacks fire, what network requests are made. Do not test implementation: internal state values, method call counts, DOM structure specifics. React Testing Library enforces this by querying by role, label, and text — not by class name or component internals. Testing behavior means the test survives refactoring; testing implementation means every internal change breaks the test.
 
----
+***
 
 **Question:** How do you handle accessibility testing in a frontend project?
 
 **Answer:** Automate what is automatable — use axe-core (via jest-axe or Playwright axe integration) to catch structural issues: missing alt text, form labels, heading order, color contrast violations. Run it as a CI check. But automation catches only 30–40% of accessibility issues. Complement with manual testing: navigate with keyboard only, test with a screen reader (VoiceOver, NVDA), check focus management in modals and dropdowns. Treat accessibility bugs as P1 — they affect real users and often have legal implications.
 
----
+***
 
 **Question:** When is visual regression testing worth the overhead?
 
 **Answer:** Visual regression testing is worth it for design-system components (buttons, inputs, cards), marketing pages, and any surface where a CSS change can silently break layout. It is not worth it for rapidly changing prototypes or internal tools where visual polish is secondary. The main cost is review overhead — every intentional design change generates a diff that must be approved. Keep the set of visually tested components small and high-value.
 
----
+***
 
 **Question:** How do you test state management in a frontend application?
 
 **Answer:** Test state management through the components that consume it, not in isolation. Render the component that reads and writes state, simulate user interactions (clicks, input changes), and assert on the rendered output. This tests the state logic, the component wiring, and the user-visible result in one test. Testing a Redux reducer in isolation verifies logic but misses wiring bugs. Testing through the component catches both.
 
----
+***
 
 **Question:** How do you test forms with complex validation?
 
 **Answer:** Unit test validation functions directly — they are pure logic and fast to test. Integration test the form component by rendering it, filling fields, submitting, and asserting on error messages and success behavior. Test edge cases: empty submission, partial input, invalid formats, max-length boundaries, and server-side validation errors returned after submission. Use React Testing Library's `getByRole` and `getByText` to assert on user-visible error messages, not on internal state.
 
----
+***
 
 **Question:** How do you approach cross-browser testing?
 
 **Answer:** Run E2E tests against multiple browser engines using Playwright (Chromium, Firefox, WebKit). Prioritize browsers based on analytics data — if 90% of users are on Chrome, focus testing effort there and run Firefox/Safari as a secondary check. Use a CI matrix to run critical E2E tests across all supported browsers. For CSS-specific issues, visual regression testing across browsers catches rendering differences. Do not test every scenario in every browser — focus on the top 3–5 user journeys.
 
----
+***
 
 ### Backend and API testing
 
@@ -1521,37 +1521,37 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 **Answer:** Test with real HTTP requests against a running server (Supertest for Node, pytest with httpx/TestClient for Python). Assert on status codes, response body shapes, headers (content-type, cache headers), and error responses. Test authentication and authorization at this level — they are integration concerns. Test pagination, filtering, and sorting with realistic data. Test rate limiting if applicable. Test idempotency for POST/PUT endpoints. Always test both happy paths and error paths (400, 401, 403, 404, 500).
 
----
+***
 
 **Question:** How do you test background jobs and async workflows?
 
 **Answer:** Unit test the job handler logic with injected dependencies. Integration test by enqueuing a real job and asserting that the expected side effects occurred — database writes, events published, emails sent (to a fake email service). Use polling with a timeout instead of fixed delays to wait for async completion. For complex workflows with multiple steps, test each step independently and add one integration test for the full chain. Monitor job queues in production as a quality signal — growing dead-letter queues indicate untested failure modes.
 
----
+***
 
 **Question:** How do you test event-driven architectures?
 
 **Answer:** Test event producers by verifying the event shape and content after a triggering action (an in-memory event bus or a spy on the publish function). Test event consumers by feeding them a real event and asserting on the resulting behavior (database changes, API calls, state transitions). Use contract tests to verify that the event schema expected by consumers matches the schema produced by publishers. This is the distributed equivalent of contract testing for REST APIs.
 
----
+***
 
 **Question:** How do you test error handling and resilience patterns?
 
 **Answer:** Inject failures: make the database return errors, make the HTTP client time out, make the queue reject messages. Assert that the system handles each failure correctly — retries with backoff, circuit breaker opens, fallback response is returned, error is logged with context. Use chaos-style testing at the integration level: kill a dependency container mid-test and verify graceful degradation. These tests are high-value because error paths are where most production incidents originate.
 
----
+***
 
 **Question:** How do you test authorization logic?
 
 **Answer:** Test authorization at the API integration level — for each endpoint, test with valid credentials, invalid credentials, expired tokens, missing tokens, and tokens with insufficient permissions. Assert that unauthorized requests return 401 or 403, not 500. Test role-based access: admin can access admin endpoints, regular user cannot. Test row-level access: user A cannot access user B's resources. Authorization bugs are security vulnerabilities — cover them thoroughly.
 
----
+***
 
 **Question:** How do you test database migrations?
 
 **Answer:** Run the full migration chain (up and down) against a clean database in CI. Verify that schema changes are applied correctly. For data migrations, seed the database with representative data before the migration, run the migration, and assert that the data was transformed correctly. Test the down migration to verify rollback works. Treat migration tests as one-time regression tests — they run on every CI build to catch schema drift but are most valuable when the migration is first written.
 
----
+***
 
 ### CI and quality gate questions
 
@@ -1559,37 +1559,37 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 **Answer:** Order by speed and value: static analysis (lint, type check, format — seconds) → unit tests (seconds to minutes) → integration tests (minutes) → security scans (minutes) → E2E tests (minutes). Each gate should fail fast — a lint error should block the pipeline before waiting for slow integration tests. Use blocking gates for critical checks (lint, type check, unit tests, security) and non-blocking gates for informational checks (coverage reports, performance benchmarks). Define clear ownership for each gate and an escalation path when it blocks delivery.
 
----
+***
 
 **Question:** How do you handle a quality gate that is blocking a critical hotfix?
 
 **Answer:** Distinguish between gates that protect against the specific risk and gates that are unrelated. A lint failure on a hotfix is worth fixing — it takes 30 seconds. A flaky E2E test unrelated to the hotfix should not block it. Have a documented bypass process: a senior engineer or Tech Lead can approve bypassing specific gates with a justification logged. Never make bypass the default — it should require explicit human approval and leave an audit trail. After the hotfix ships, go back and address whatever was bypassed.
 
----
+***
 
 **Question:** How do you manage CI pipeline costs as the test suite grows?
 
 **Answer:** Measure CI cost per PR and per month. Optimize by caching dependencies and Docker layers, parallelizing test execution, using spot instances for CI workers, and implementing selective testing (only run tests affected by the changed code using dependency graphs or file-change detection). Separate fast-feedback checks (lint, unit) from slow checks (E2E, performance) — run slow checks only on merge to main or on specific triggers. Track CI cost as an engineering metric alongside CI time.
 
----
+***
 
 **Question:** What is the role of security scanning in a CI pipeline?
 
 **Answer:** Security scanning catches known vulnerabilities before they reach production. Include dependency scanning (npm audit, Snyk, Dependabot) for known CVEs in third-party packages, SAST for code-level vulnerabilities (hardcoded secrets, SQL injection patterns), and optionally container image scanning for deployed images. Run security scans as blocking gates for high-severity findings and non-blocking for informational findings. Review and triage findings weekly — not every CVE requires immediate action. See [Security](./15-security.md) for depth.
 
----
+***
 
 **Question:** How do you implement coverage thresholds without creating perverse incentives?
 
 **Answer:** Set coverage as a floor, not a ceiling — block merges that drop below 70–75% branch coverage. Do not block merges that fail to increase coverage. Focus review energy on whether new code includes meaningful tests, not on the aggregate number. Use per-directory or per-module coverage reports to identify areas that are significantly below the floor. Complement with mutation testing on critical modules to measure test quality beyond coverage quantity.
 
----
+***
 
 **Question:** How do you make CI results actionable for developers?
 
 **Answer:** Ensure CI failures produce clear, specific messages — not stack traces from the test runner but human-readable summaries: "Test X failed because the response status was 500 instead of 200" or "Coverage dropped below 75% in the auth module." Annotate PRs with inline comments at the failure location when possible. Keep CI time under 10 minutes so developers wait for results instead of context-switching. Post failure summaries to Slack or the PR thread so the developer does not need to dig through CI logs.
 
----
+***
 
 ### Performance and security testing
 
@@ -1597,43 +1597,43 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 **Answer:** Performance testing verifies that the system meets latency, throughput, and resource usage requirements under expected and peak load. It is not run on every PR — it is expensive and slow. Run load tests against a staging environment on a schedule (weekly) or before major releases. Set performance budgets (p99 latency under 200ms, throughput above 1000 RPS) and alert when benchmarks regress. See [Performance and Scalability](./19-performance-and-scalability.md) for depth on load testing methodology.
 
----
+***
 
 **Question:** What is the difference between load testing, stress testing, and soak testing?
 
 **Answer:** Load testing simulates expected traffic to verify the system meets performance requirements. Stress testing pushes beyond expected capacity to find the breaking point and observe failure behavior (does it degrade gracefully or crash?). Soak testing runs at moderate load for an extended period (hours or days) to find slow leaks — memory leaks, connection pool exhaustion, file handle accumulation. Each answers a different question: "Is it fast enough?", "Where does it break?", "Does it survive over time?"
 
----
+***
 
 **Question:** How do you integrate security testing into a development workflow?
 
 **Answer:** Shift security left. Add SAST (Semgrep, SonarQube) and dependency scanning (Snyk, npm audit) as CI gates. Use pre-commit hooks for secret detection (git-secrets, gitleaks). Run DAST against staging environments on a schedule. Include security-focused code review checks: auth bypass, injection, error disclosure, sensitive data in logs. Treat high-severity security findings as P1 bugs. The goal is to make security testing as routine as linting — not a quarterly audit that produces a 200-page report no one reads.
 
----
+***
 
 **Question:** How do you test for common web security vulnerabilities?
 
 **Answer:** For XSS: test that user input is escaped in rendered output — submit a script tag and verify it is displayed as text, not executed. For CSRF: verify that state-changing requests require a valid token. For SQL injection: test that parameterized queries are used — submit `'; DROP TABLE users; --` and verify it is treated as a string value. For auth bypass: test that unauthenticated and under-privileged requests are rejected. For IDOR: test that user A cannot access user B's resources by manipulating IDs. Automate these as integration tests. See [Security](./15-security.md).
 
----
+***
 
 **Question:** How do you set performance budgets and enforce them?
 
 **Answer:** Define measurable thresholds: API p99 latency under 200ms, frontend bundle size under 250KB, Lighthouse performance score above 90, time to interactive under 3 seconds. Measure in CI where possible — Lighthouse CI for frontend, k6 or Artillery for backend. Set budgets as CI warnings initially and blocking gates once the team has established baselines. Track trends over time — a 5% regression per sprint compounds quickly. Treat performance budget violations like lint errors: fix before merge.
 
----
+***
 
 **Question:** What is the role of accessibility testing tools like axe, and what are their limitations?
 
 **Answer:** axe (and similar tools) automate structural accessibility checks: missing labels, insufficient color contrast, heading hierarchy violations, missing alt text, ARIA misuse. They catch approximately 30–40% of accessibility issues — the automatable ones. They miss interaction problems: keyboard navigation, focus trapping in modals, screen reader announcement order, custom component semantics. A complete accessibility strategy combines automated scans in CI with periodic manual testing using assistive technologies.
 
----
+***
 
 **Question:** How do you test frontend performance specifically?
 
 **Answer:** Use Lighthouse CI to measure Core Web Vitals (LCP, FID/INP, CLS) on every PR. Test bundle size with a budgeting tool (size-limit, bundlewatch). Profile rendering performance with React DevTools Profiler or Chrome DevTools Performance tab. Test with throttled network and CPU to simulate real-world conditions — a page that loads fast on a developer machine may be unusable on a mid-range mobile phone with 3G. Set budgets, measure in CI, and track trends.
 
----
+***
 
 ### Scenario-based
 
@@ -1641,61 +1641,61 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 **Answer:** First, fix the bug and deploy the fix. Then write a regression test that reproduces the bug — this test must fail against the buggy code and pass against the fix. Next, do a post-mortem: why did the existing tests miss this? Was the area untested? Was the test level wrong (unit test when integration was needed)? Was the test asserting on the wrong thing? Use the finding to improve the testing strategy — add a test for this class of bug, not the specific instance. Document the lesson in the team's testing guidelines.
 
----
+***
 
 **Question:** Your CI pipeline takes 25 minutes and the team is frustrated. How do you speed it up?
 
 **Answer:** Profile the pipeline — identify which stages are slowest. Typical culprits: dependency installation (add caching), sequential test execution (parallelize), redundant E2E tests (replace with integration tests), uncached Docker builds (use layer caching). Move lint and type checks to a fast first stage that fails within 30 seconds. Parallelize unit and integration tests across CI workers. Split E2E tests into a separate non-blocking job if they take more than 5 minutes. Set a CI time SLO (e.g., 10 minutes) and track it as a team metric.
 
----
+***
 
 **Question:** A team member argues that integration tests are a waste of time because they already have unit tests. How do you respond?
 
 **Answer:** Acknowledge that unit tests are valuable — they are fast, focused, and catch logic errors. Then explain what they miss: wiring between components, database query correctness, middleware behavior, and serialization. Show a concrete example — a function that passes all unit tests with a mocked database but fails in production because the SQL query has a subtle join error. Integration tests catch exactly this class of bug. The goal is not to replace unit tests but to complement them where they have blind spots.
 
----
+***
 
 **Question:** You are joining a team with 400 E2E tests, 20% of which are flaky. What do you do in the first month?
 
 **Answer:** Week 1: instrument flake rate — tag each test and track pass/fail over 50 runs. Week 2: quarantine the worst offenders (tests that fail more than 10% of the time). Week 3: triage quarantined tests — fix timing issues and shared state; delete tests that duplicate integration coverage. Week 4: propose replacing the bulk of E2E tests with integration and contract tests. Present data: "We spent X engineer-hours on flake retries last month. Here is the plan to reduce that by 80%."
 
----
+***
 
 **Question:** Your team needs to test a service that depends on a third-party payment API. How do you approach this?
 
 **Answer:** Build a thin adapter (wrapper) around the payment API. Unit test the business logic with a fake adapter. Integration test the adapter against a sandbox environment provided by the payment provider (most have one). For CI, use a recorded response mock (WireMock or similar) that replays the sandbox responses without network calls. Contract test the adapter's expectations against the real sandbox on a scheduled basis (weekly) to catch API changes early. Never hit the production payment API from tests.
 
----
+***
 
 **Question:** How would you test a real-time feature like a chat application?
 
 **Answer:** Unit test the message formatting, validation, and routing logic. Integration test the WebSocket connection lifecycle — connect, send, receive, disconnect — with a real server instance. Use Playwright for 1–2 E2E tests: send a message from user A, verify it appears for user B. For performance, load-test concurrent WebSocket connections with k6 or Artillery. The main risk is flaky timing in tests — use event-based assertions (wait for the message event) rather than fixed delays.
 
----
+***
 
 **Question:** A developer says "we don't need tests for this — it's just a CRUD endpoint." Do you agree?
 
 **Answer:** Partially. Simple CRUD without business logic has a lower testing priority than complex domain operations. But "just CRUD" still needs: validation tests (what happens with missing or malformed fields?), authorization tests (who can create/read/update/delete?), and error handling tests (what happens when the database is down?). Skip testing the ORM's ability to insert a row — that is the ORM's responsibility. Test the behavior the team owns — validation, auth, error handling.
 
----
+***
 
 **Question:** You need to migrate from Jest to Vitest. How do you plan the migration?
 
 **Answer:** Run both in parallel — Vitest can coexist with Jest during migration. Start with new tests in Vitest. Migrate existing tests file by file, starting with the simplest (utility tests). Use codemods for mechanical changes (import swaps). Keep both runners in CI until migration is complete. Set a deadline (e.g., 6 weeks) and track progress weekly. The main risk is subtle differences in mocking APIs — test the migration on a representative sample before committing.
 
----
+***
 
 **Question:** How do you test infrastructure code (Terraform, CloudFormation)?
 
 **Answer:** Lint and validate (terraform validate, cfn-lint). Use plan-based tests (terraform plan and assert on expected resource changes). For integration, use ephemeral environments — spin up real infrastructure, run assertions, tear it down. Use tools like Terratest (Go) or Checkov (policy-as-code) for automated compliance checks. The trade-off: real infrastructure tests are slow and cost money, so run them on merge to main, not on every PR. See [CI/CD and DevOps](./17-ci-cd-and-devops.md).
 
----
+***
 
 **Question:** Your team ships a mobile app. How does the testing strategy differ from web?
 
 **Answer:** Mobile adds device fragmentation (OS versions, screen sizes, hardware), slower build times, and app store review cycles. Use unit tests for shared business logic. Use framework-specific component tests (XCTest, Espresso). Use a device farm (BrowserStack, AWS Device Farm) for E2E tests on real devices — simulators miss hardware-specific issues. Prioritize the top 5 device/OS combinations based on analytics. The app store review cycle means bugs are expensive to fix after release, so invest more in pre-release testing than web.
 
----
+***
 
 ### Trick Questions
 
@@ -1703,31 +1703,31 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 **Answer:** No. Tests verify the behaviors the team thought to test. They cannot verify behaviors no one anticipated. Missing test cases, incorrect assumptions, and integration paths not covered by tests all leave room for bugs. Tests reduce risk; they do not eliminate it. Complement testing with monitoring, alerting, and observability to catch what tests miss in production.
 
----
+***
 
 **Question:** Is 100% code coverage a guarantee of quality?
 
 **Answer:** No. Coverage measures execution, not verification. A test that calls a function without asserting on its output contributes to coverage but catches no bugs. Coverage says "this code ran during tests" — not "this code is correct." Mutation testing exposes this gap: if a mutation (changing `>` to `>=`) does not fail any test, the coverage was superficial.
 
----
+***
 
 **Question:** Are mocks always better than real dependencies in tests?
 
 **Answer:** No. Mocks are faster and more isolated but can drift from real behavior. A mock that returns `{ status: 200 }` will pass even if the real API changed to return `{ statusCode: 200 }`. For data-layer dependencies, fakes (in-memory databases) test real query logic. For external services, periodic integration tests against sandboxes catch drift. Mocks are appropriate for notification-style side effects (email, events) where the assertion is "was this called correctly?"
 
----
+***
 
 **Question:** Should every function have a test?
 
 **Answer:** No. Trivial functions (getters, setters, pass-throughs with no logic) do not justify the maintenance cost of a test. Test behavior, not code — a private helper function that is exercised through a public method's test does not need its own test. Focus testing effort where the risk of incorrect behavior is highest: business logic, data transformations, security checks, and error handling.
 
----
+***
 
 **Question:** Is E2E testing the most reliable form of testing because it tests everything?
 
 **Answer:** E2E tests have the highest fidelity — they test the real system as a user experiences it. But they are the least reliable in practice: they are slow, brittle, expensive to maintain, and frequently flaky. A single CSS change can break 50 E2E tests. They are most valuable for a small set of critical user journeys and should not be the primary testing strategy. Integration and contract tests cover most of the same ground faster and more reliably.
 
----
+***
 
 ### Red Flags
 

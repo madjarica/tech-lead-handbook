@@ -2217,175 +2217,175 @@ SQL.
 
 **Answer:** A primary key is a column (or column set) that uniquely identifies each row in a table. It implies NOT NULL and UNIQUE constraints. It defines the physical storage order in some engines (InnoDB clusters by primary key). Use surrogate keys (UUID, bigint) for application tables; natural keys (country codes) for reference tables.
 
----
+***
 
 **Question:** What is a foreign key?
 
 **Answer:** A foreign key is a column that references another table's primary key, enforcing referential integrity at the database level. It prevents orphaned rows (e.g., an order referencing a non-existent user). Options include ON DELETE CASCADE (delete children), RESTRICT (block deletion), and SET NULL.
 
----
+***
 
 **Question:** What is normalization?
 
 **Answer:** Normalization is the process of structuring tables to eliminate data redundancy by decomposing into related tables. 1NF ensures atomic values; 2NF eliminates partial dependencies; 3NF eliminates transitive dependencies. It prevents update anomalies (changing a value in one place updates it everywhere) at the cost of requiring joins for retrieval.
 
----
+***
 
 **Question:** What is an index?
 
 **Answer:** An index is a separate data structure (typically a B-tree) that maps column values to row locations, enabling the database to find rows without scanning the entire table. It speeds reads but slows writes (every modification must update the index). The query planner decides whether to use an index based on selectivity and statistics.
 
----
+***
 
 **Question:** What is the difference between a clustered and non-clustered index?
 
 **Answer:** A clustered index determines the physical storage order of rows on disk (there can be only one per table). In PostgreSQL, the heap is unordered by default; in MySQL/InnoDB, the primary key is the clustered index. A non-clustered (secondary) index stores pointers to the heap location. Implication: range scans on the clustered key are fast (sequential I/O); secondary index lookups require an additional heap fetch.
 
----
+***
 
 **Question:** What are the ACID properties?
 
 **Answer:** Atomicity: all operations in a transaction succeed or all roll back. Consistency: the database moves from one valid state to another (all constraints hold). Isolation: concurrent transactions do not see each other's intermediate states. Durability: once committed, data survives crashes (WAL flushed to disk before acknowledgment).
 
----
+***
 
 **Question:** What is a transaction?
 
 **Answer:** A transaction is a unit of work that groups multiple database operations. It guarantees atomicity (all-or-nothing) and isolation (concurrent transactions are logically sequential). Transactions are bounded by BEGIN and COMMIT (or ROLLBACK). Keep transactions short to minimize lock contention.
 
----
+***
 
 **Question:** What is MVCC?
 
 **Answer:** Multi-Version Concurrency Control allows readers and writers to operate concurrently without blocking each other. Each transaction sees a consistent snapshot. Writers create new row versions; old versions remain visible to transactions that started earlier. Dead versions are reclaimed by VACUUM (PostgreSQL) or purge threads (MySQL).
 
----
+***
 
 **Question:** What is a JOIN?
 
 **Answer:** A JOIN combines rows from two or more tables based on a related column. Types: INNER (only matching rows), LEFT (all from left + matching right), RIGHT (all from right + matching left), FULL OUTER (all from both), CROSS (cartesian product). The planner chooses the algorithm: nested loop, hash join, or merge join based on table sizes and indexes.
 
----
+***
 
 **Question:** What is the N+1 query problem?
 
 **Answer:** When an ORM lazily loads related entities, it executes one query for the parent list and one query per related child — N+1 total queries for N results. Fix: eager loading (JOIN or IN subquery via `include`/`with`), DataLoader batching, or explicit query builder joins.
 
----
+***
 
 **Question:** What is a partial index?
 
 **Answer:** An index that includes only rows satisfying a WHERE condition. Smaller, faster, and less write overhead than a full index. Use for status columns where only one value is queried frequently (e.g., `WHERE status = 'active'` on a table where 90% are inactive).
 
----
+***
 
 **Question:** What is a covering index?
 
 **Answer:** An index that includes all columns needed by a query, enabling an Index Only Scan (no heap access). In PostgreSQL: `CREATE INDEX idx ON t(a, b) INCLUDE (c, d)`. The INCLUDE columns are stored in the index leaf pages but not used for sorting. Eliminates the random I/O of heap fetches.
 
----
+***
 
 **Question:** What is the difference between DELETE and TRUNCATE?
 
 **Answer:** DELETE removes rows one by one, fires triggers, is transactional, and can have a WHERE clause. TRUNCATE removes all rows by deallocating pages, does not fire row-level triggers, is faster, and resets sequences. Use TRUNCATE for clearing test data; DELETE for conditional removal.
 
----
+***
 
 **Question:** What is a materialized view?
 
 **Answer:** A query result stored on disk as a table. Reads are fast (no re-execution of the query). Must be refreshed manually or on schedule. Useful for dashboards, reports, and pre-aggregated data where slight staleness is acceptable. `REFRESH MATERIALIZED VIEW CONCURRENTLY` allows reads during refresh (requires a unique index).
 
----
+***
 
 **Question:** What is a deadlock?
 
 **Answer:** Two transactions each hold a lock the other needs, creating a cycle. Neither can proceed. The database detects the cycle and aborts one transaction (the victim). Prevention: acquire locks in a consistent order, keep transactions short, use NOWAIT or SKIP LOCKED for queue patterns.
 
----
+***
 
 **Question:** What is connection pooling?
 
 **Answer:** Reusing a pool of established database connections across application requests instead of opening a new connection per request. Eliminates TCP/TLS handshake overhead (~3ms per connection). Tools: PgBouncer (external), Prisma connection pool (application-level), HikariCP (JVM). Size the pool based on: `(CPU cores * 2) + disk_spindles`.
 
----
+***
 
 **Question:** What is the CAP theorem?
 
 **Answer:** In a distributed system experiencing a network partition, the system must choose between consistency (every read sees the latest write) and availability (every request gets a response). It does NOT mean "pick 2 of 3" — partitions are not optional in distributed systems. The choice only applies during a partition; normally, both C and A are achievable.
 
----
+***
 
 **Question:** What is eventual consistency?
 
 **Answer:** A consistency model where all replicas converge to the same state given sufficient time without new writes. Reads may return stale data during the convergence window (typically milliseconds to seconds). Used by DynamoDB (default), Cassandra (ONE consistency), and DNS. The trade-off: lower latency and higher availability at the cost of reading potentially stale data.
 
----
+***
 
 **Question:** What is a partition key in DynamoDB?
 
 **Answer:** The column whose hash determines which physical partition stores the item. All items with the same partition key are co-located. Queries must include the partition key (equality). A good partition key distributes writes evenly and groups related data for efficient queries. Bad choice: a key with few unique values (hot partition).
 
----
+***
 
 **Question:** What is TTL in databases?
 
 **Answer:** Time-to-Live is an expiration mechanism. In Redis: `SET key value EX 3600` expires after 1 hour. In DynamoDB: a `ttl` attribute (Unix epoch) triggers background deletion (within 48 hours, not instant). Use for session tokens, temporary cache entries, and auto-archiving old data.
 
----
+***
 
 **Question:** What is the difference between optimistic and pessimistic locking?
 
 **Answer:** Pessimistic locking acquires a lock before reading (`SELECT FOR UPDATE`) — blocks other transactions. Optimistic locking reads without locks, then checks a version column at commit time — if the version changed, the transaction retries. Use pessimistic for high contention (many writers on same rows); optimistic for low contention (rare conflicts, shorter lock windows).
 
----
+***
 
 **Question:** What is a B-tree?
 
 **Answer:** A balanced search tree where each node contains multiple sorted keys and child pointers. Leaf nodes point to data (or row IDs). Tree depth is typically 3-4 for millions of rows. Each level requires one disk I/O — so lookups are 3-4 I/O operations. B-trees support equality, range, and prefix queries efficiently.
 
----
+***
 
 **Question:** What is query planning?
 
 **Answer:** The process by which the database translates SQL into a physical execution plan. The planner considers: table statistics (row count, value distribution), available indexes, join order permutations, and cost estimates (sequential I/O, random I/O, CPU). The result is a tree of operations (Seq Scan, Index Scan, Hash Join, Sort, etc.) with estimated costs.
 
----
+***
 
 **Question:** What is the difference between EXPLAIN and EXPLAIN ANALYZE?
 
 **Answer:** EXPLAIN shows the query plan without executing it (estimated costs and row counts). EXPLAIN ANALYZE actually executes the query and shows real costs, actual row counts, and timing. Use EXPLAIN for quick checks; EXPLAIN ANALYZE for diagnosing real performance issues. Beware: EXPLAIN ANALYZE executes side effects (wrap mutations in a rolled-back transaction).
 
----
+***
 
 **Question:** What is a view?
 
 **Answer:** A named query stored in the database catalog. Accessing the view re-executes the underlying query every time. No storage overhead but no performance benefit. Use for: access control (expose only certain columns), simplifying complex joins for application queries, and abstracting schema details from consumers.
 
----
+***
 
 **Question:** What is Redis?
 
 **Answer:** An in-memory data structure server supporting strings, hashes, lists, sets, sorted sets, streams, and bitmaps. Sub-millisecond latency. Use cases: caching (cache-aside pattern), session storage, rate limiting (INCR + EXPIRE), distributed locks (Redlock), leaderboards (sorted sets), pub/sub. Persistence: RDB snapshots and AOF (append-only file). Trade-off: dataset must fit in RAM.
 
----
+***
 
 **Question:** What is DynamoDB?
 
 **Answer:** A fully managed key-value and document database by AWS. Single-digit millisecond latency at any scale. Primary key: partition key (hash) + optional sort key (range). Supports Global Secondary Indexes and Local Secondary Indexes. Pricing: on-demand (pay per request) or provisioned (capacity units). Strengths: zero ops, predictable latency. Weaknesses: limited query flexibility, no joins, complex single-table design.
 
----
+***
 
 **Question:** What is the difference between SQL and NoSQL?
 
 **Answer:** SQL databases (PostgreSQL, MySQL) enforce a fixed schema, support complex joins, and provide ACID transactions. NoSQL databases (MongoDB, DynamoDB, Redis) relax one or more of these constraints to optimize for flexibility, horizontal scaling, or latency. The choice depends on: access pattern (joins vs key lookup), consistency needs (ACID vs eventual), and scaling model (vertical vs horizontal).
 
----
+***
 
 **Question:** What is sharding?
 
 **Answer:** Splitting data across multiple database instances by a partition key to achieve horizontal scaling. Each shard holds a subset of the data. Queries that include the partition key route to one shard (fast). Cross-shard queries require scatter-gather (slow). Resharding (adding/removing shards) requires data migration and is operationally expensive.
 
----
+***
 
 **Question:** What are isolation levels?
 
@@ -2397,85 +2397,85 @@ SQL.
 
 **Answer:** (1) Check `pg_stat_statements` for the query's avg time, calls, and total time. (2) Run `EXPLAIN ANALYZE` on a replica with production-like data. (3) Look for: Seq Scan on large tables (missing index), high "rows removed by filter" (index doesn't match WHERE), Sort spilling to disk (missing index for ORDER BY), nested loop with high loop count (N+1 or missing index on inner table). (4) Fix: add a composite index matching the WHERE + ORDER BY, rewrite the query to avoid unnecessary joins, or add a covering index to avoid heap access. (5) Verify: re-run EXPLAIN ANALYZE, monitor p99 latency after deploy.
 
----
+***
 
 **Question:** When would you use Serializable isolation vs Read Committed with explicit locks?
 
 **Answer:** Serializable: when correctness spans multiple rows and the conflict rate is low (inventory across warehouses, seat reservations). The database detects and aborts conflicting transactions — the application retries. Read Committed + SELECT FOR UPDATE: when the hot row is known upfront and contention is high (account balance updates). Pessimistic locking avoids the retry cost but limits concurrency. Trade-off: Serializable is cleaner code (no explicit locks) but requires retry logic and has ~10-20% throughput overhead. FOR UPDATE is lower overhead per transaction but risks deadlocks if lock order is inconsistent.
 
----
+***
 
 **Question:** How do you handle schema migrations without downtime?
 
 **Answer:** Expand-and-contract pattern: (1) Expand — add the new column/table, deploy code that writes to both old and new. (2) Migrate — backfill existing data. (3) Contract — deploy code that reads from new, stop writing to old. (4) Drop — remove old column in a later deploy. For indexes: `CREATE INDEX CONCURRENTLY` (no table lock). For NOT NULL: add constraint as NOT VALID, then VALIDATE separately. Critical: never hold a long-running transaction during DDL (blocks autovacuum and causes table bloat).
 
----
+***
 
 **Question:** How do you implement multi-tenant data isolation?
 
 **Answer:** Three models: (1) Shared schema with `tenant_id` column + Row Level Security (RLS). Lowest cost, highest density, but bugs can leak data. (2) Schema-per-tenant — one PostgreSQL schema per tenant. Medium isolation, complex migration (must run per schema). (3) Database-per-tenant — highest isolation, required for some compliance (HIPAA dedicated tenancy). Highest cost, most connection management complexity. Recommendation: start with shared schema + RLS. Move individual large tenants to dedicated schemas/databases when they outgrow the shared pool.
 
----
+***
 
 **Question:** What is the outbox pattern and when do you need it?
 
 **Answer:** The outbox pattern ensures reliable event publishing alongside database writes. Instead of publishing an event to a message broker directly (which may fail after DB commit or succeed before DB commit), the service writes the event to an "outbox" table within the same database transaction. A separate process (CDC with Debezium, or a polling worker) reads the outbox and publishes to the broker. Guarantees at-least-once delivery without distributed transactions. Use for: order creation → notification, payment → receipt, any operation where "DB committed but event lost" is unacceptable.
 
----
+***
 
 **Question:** How do you choose between a single shared database and database-per-service?
 
 **Answer:** Single shared database: simpler operations, cross-service joins possible, one backup strategy. But: tight coupling (schema changes affect multiple services), single point of failure, scaling limits, ownership conflicts. Database-per-service: strong service boundaries, independent scaling, team autonomy. But: no cross-service joins (requires API calls or data replication), distributed transactions are hard, operational overhead multiplied. Decision factors: team size (>3 teams → separate), data coupling (shared entities → start shared, migrate later), compliance (PCI/HIPAA may require isolation), and operational maturity (can the team manage N databases?).
 
----
+***
 
 **Question:** How does DynamoDB single-table design work and when is it appropriate?
 
 **Answer:** All entity types share one table using composite keys (PK + SK) designed around access patterns. Advantages: single-digit ms latency for any pattern, co-located data reduces round trips, fewer tables to manage. Disadvantages: extremely rigid — adding a new access pattern may require a data migration or a new GSI. Appropriate when: access patterns are known and stable (mature product). Inappropriate when: patterns are evolving (early-stage), ad-hoc queries are needed (analytics), or the team lacks DynamoDB expertise.
 
----
+***
 
 **Question:** How do you prevent and detect hot partitions?
 
 **Answer:** Prevention: choose partition keys with high cardinality and even distribution (user_id is good for user-centric workloads, timestamp alone is bad — creates write hotspots). Detection: monitor per-partition metrics (DynamoDB CloudWatch, Cassandra nodetool cfstats). Mitigation: add a random suffix to the partition key (write sharding) for extremely hot keys (celebrity user, viral event). In DynamoDB: use adaptive capacity (automatic) or split the hot partition into N synthetic partitions (`PK: "USER#123#shard_0"` through `shard_9`).
 
----
+***
 
 **Question:** What is the difference between logical and physical replication?
 
 **Answer:** Physical replication streams raw WAL bytes — the replica is byte-for-byte identical. Use for: HA failover (fast promotion), identical read replicas. Cannot filter tables or transform data. Logical replication streams decoded row changes (INSERT/UPDATE/DELETE as events). Use for: selective table replication, cross-version replication (PG 14 → PG 16), Change Data Capture (CDC), and replicating to different systems (Elasticsearch, data warehouse).
 
----
+***
 
 **Question:** How do you implement cursor-based pagination?
 
 **Answer:** Instead of OFFSET (which scans and discards rows), use a WHERE clause on the sort column: `WHERE (created_at, id) < ($last_created_at, $last_id) ORDER BY created_at DESC, id DESC LIMIT 20`. The cursor is the last item's `(created_at, id)` tuple, encoded and returned to the client. Advantages: consistent under concurrent writes, O(1) cost regardless of page depth (uses index seek). Disadvantage: no random page access ("jump to page 50"). Use for APIs with infinite scroll or "next page" buttons.
 
----
+***
 
 **Question:** How do you handle cache invalidation for a multi-instance API?
 
 **Answer:** (1) For distributed cache (Redis): invalidate the key on write (explicit deletion). All instances see the invalidation immediately. (2) For in-process caches: use short TTLs as the primary invalidation mechanism. For critical data, publish an invalidation event (Redis pub/sub or message queue) that all instances consume. (3) Combined: distributed cache for shared hot data, in-process cache (LRU, 30s TTL) for ultra-hot near-static data. (4) Stampede protection: mutex lock (only one request regenerates) or stale-while-revalidate. Monitor: cache hit rate should be >90%.
 
----
+***
 
 **Question:** When should you use a graph database?
 
 **Answer:** When the primary access pattern is traversing relationships of variable depth: social networks (friends-of-friends), fraud detection (transaction chains), recommendation engines (users who liked X also liked Y), access control (permission inheritance graphs), knowledge graphs. Graph databases are O(relationships traversed), not O(total data size) — unlike SQL JOINs which degrade with table size. Do NOT use for: tabular data, simple CRUD, high write throughput, or when the team has no graph query experience.
 
----
+***
 
 **Question:** What is write amplification and why does it matter?
 
 **Answer:** Write amplification is the ratio of bytes written to storage versus bytes written by the application. B-tree databases (PostgreSQL): ~2-10x (page splits, WAL, index updates). LSM-tree databases (Cassandra, RocksDB): ~10-30x (compaction rewrites data multiple times). It matters because: (1) it determines SSD wear rate (lifetime), (2) it limits write throughput, and (3) it affects cost (provisioned IOPS pricing). Monitor with `pg_stat_bgwriter` (PostgreSQL) or compaction metrics (Cassandra).
 
----
+***
 
 **Question:** How do you implement full-text search in PostgreSQL?
 
 **Answer:** (1) Add a `tsvector` column (generated or trigger-maintained) with weighted fields (`setweight`). (2) Create a GIN index on the vector. (3) Query with `tsquery` and rank with `ts_rank`. PostgreSQL full-text supports stemming, stop words, and phrase search. Sufficient for: <10M documents, simple ranking, no faceting. Migrate to Elasticsearch/Meilisearch when: corpus is large, relevance tuning is complex, autocomplete with typo tolerance is needed, or multi-language support is required.
 
----
+***
 
 **Question:** How do you design a DynamoDB table for multiple access patterns?
 
@@ -2512,7 +2512,7 @@ I would use DynamoDB because it scales horizontally and is serverless.
 - No mention of team capability or operational cost.
 - Chooses based on marketing features, not workload analysis.
 
----
+***
 
 ### Question
 
@@ -2543,7 +2543,7 @@ Increase max_connections to 1000.
 - No awareness of memory overhead per connection.
 - No monitoring strategy.
 
----
+***
 
 ### Question
 
@@ -2574,7 +2574,7 @@ Use Citus or Vitess — they handle sharding automatically.
 - No awareness of cross-shard query complexity.
 - Treats sharding as a tooling problem, not an architectural decision.
 
----
+***
 
 ### Question
 
@@ -2605,7 +2605,7 @@ Use RDS Multi-AZ — AWS handles failover automatically.
 - No monitoring strategy.
 - Relies entirely on managed service without understanding the mechanism.
 
----
+***
 
 ### Question
 
@@ -2636,7 +2636,7 @@ We use Prisma Migrate and just run `prisma migrate deploy` in CI.
 - No awareness of lock implications.
 - No rollback plan.
 
----
+***
 
 ### Question
 
@@ -2667,7 +2667,7 @@ Add Redis for everything.
 - No awareness of database buffer pool as a caching layer.
 - No measurement criteria for when to add caching.
 
----
+***
 
 ### Question
 
@@ -2699,7 +2699,7 @@ Switch to MongoDB or DynamoDB.
 - No cost analysis.
 - Binary "SQL vs NoSQL" thinking.
 
----
+***
 
 ### Question
 
@@ -2730,7 +2730,7 @@ Use distributed transactions with a two-phase commit.
 - No mention of saga or outbox patterns.
 - No error handling or compensation strategy.
 
----
+***
 
 ### Question
 
@@ -2762,7 +2762,7 @@ The new database is better, so we should switch.
 - No migration plan or rollback strategy.
 - Driven by technology enthusiasm rather than business need.
 
----
+***
 
 ### Question
 
@@ -2793,7 +2793,7 @@ Tell developers to write fast queries and review them in PRs.
 - No tooling for enforcement.
 - Relies on individual discipline rather than systematic process.
 
----
+***
 
 ### Question
 
@@ -2824,7 +2824,7 @@ Switch to a NoSQL database that handles more writes.
 - No mention of batching or index reduction.
 - Treats sharding as trivial.
 
----
+***
 
 ### Question
 
@@ -2856,7 +2856,7 @@ Delete old data with a DELETE query in a cron job.
 - No compliance framework.
 - DELETE on millions of rows = table locks and WAL bloat.
 
----
+***
 
 ### Question
 
@@ -2888,7 +2888,7 @@ Upgrade to a bigger instance or switch to a cheaper cloud provider.
 - No query optimization as a cost lever.
 - Ignores operational cost of alternatives.
 
----
+***
 
 ### Question
 
@@ -2919,7 +2919,7 @@ Use PostgreSQL for both — it can handle analytics with materialized views.
 - No CDC or data pipeline thinking.
 - Assumes one database handles all workloads indefinitely.
 
----
+***
 
 ### Question
 
@@ -2957,55 +2957,55 @@ Let each team choose the best database for their service.
 
 **Answer:** (1) Database: PostgreSQL with shared schema and Row Level Security (RLS). The 1000 tenants share one database — operational simplicity and cost efficiency. (2) Tenant isolation: `tenant_id` column on every table. RLS policies enforce isolation at the database level. `SET app.tenant_id = ?` at connection setup. (3) Indexing: every query-accessed table has `tenant_id` as the first column in composite indexes. (4) Large tenants: if a tenant exceeds 10M rows, partition their tables by a secondary key (date range). (5) Connection pooling: PgBouncer in transaction mode — 1000 tenants × multiple instances would exhaust connections without it. (6) Scaling path: when the shared database reaches 80% capacity, move the top 10 largest tenants to a dedicated database (database-per-tenant for large accounts). (7) Migration: the application routes connections based on a tenant → database mapping table.
 
----
+***
 
 **Question:** Your e-commerce platform has a "flash sale" feature where 10,000 users try to buy 100 items simultaneously. Design the inventory system.
 
 **Answer:** (1) Data model: `products` table with `stock` column. (2) Concurrency control: `SELECT stock FROM products WHERE id = $1 FOR UPDATE` — pessimistic lock on the product row. Only one transaction can decrement at a time. (3) Alternative: optimistic locking with version — `UPDATE products SET stock = stock - 1, version = version + 1 WHERE id = $1 AND version = $2 AND stock > 0`. Retry on conflict. (4) Queue approach: for extreme concurrency, put purchase intents into a queue (Redis sorted set with timestamp). A single consumer processes them sequentially. Returns "in queue" to the user, confirms asynchronously. (5) Pre-reservation: decrement stock on "add to cart" with a 10-minute TTL. Return stock if cart expires. (6) Monitoring: track stock levels in real-time, alert on race conditions (stock going negative means the locking failed).
 
----
+***
 
 **Question:** You need to store 1 billion time-series data points per day (IoT sensor readings). Design the storage.
 
 **Answer:** (1) Write path: sensors → Kafka (buffer) → consumer → TimescaleDB (or ClickHouse). Kafka absorbs write bursts without back-pressuring sensors. (2) Schema: hypertable partitioned by time (e.g., 1-day chunks). Partition key: `(sensor_id, timestamp)`. (3) Compression: TimescaleDB native compression (10-20x) on chunks older than 1 hour. (4) Retention: keep raw data for 30 days, downsample to 1-minute averages for 1 year, delete after 1 year. (5) Queries: recent data (last hour) is hot — served from uncompressed chunks in memory. Historical queries hit compressed chunks (slower but rare). (6) Indexes: `(sensor_id, time DESC)` for per-sensor queries. No global full-scan indexes — they would be too expensive at this volume. (7) Cost: ~2TB/day raw → ~200GB/day compressed. Storage cost is manageable; compute for ingest is the bottleneck.
 
----
+***
 
 **Question:** An internal admin dashboard is slow (5s load time). It queries PostgreSQL with multiple JOINs across 6 tables with millions of rows. Fix it.
 
 **Answer:** (1) Profile: `EXPLAIN ANALYZE` the dashboard queries. Identify Seq Scans, sort spills, and hash join sizes. (2) Quick wins: add composite indexes matching WHERE + JOIN + ORDER BY. Add LIMIT where the dashboard shows only top N. (3) Materialized views: pre-aggregate the dashboard data. Refresh every 5 minutes with `REFRESH MATERIALIZED VIEW CONCURRENTLY`. Dashboard reads from the materialized view (sub-100ms). (4) Read replica: route dashboard queries to a replica — no impact on transactional workload. (5) Caching: for data that changes rarely (monthly reports), cache in Redis with a 1-hour TTL. (6) Long-term: if the dashboard needs grow, extract into a separate analytical database (ClickHouse, BigQuery) fed by CDC from the primary.
 
----
+***
 
 **Question:** Your team uses MongoDB for a service that now needs cross-document transactions and complex reporting. What do you recommend?
 
 **Answer:** (1) Assess: how many operations need transactions? If <5% of writes, MongoDB 4.0+ multi-document transactions work (with performance caveats — higher latency, limited to 16MB per transaction). (2) Reporting: MongoDB aggregation pipeline handles moderate analytics. For complex joins and window functions, add a read replica with CDC to PostgreSQL (Debezium → Kafka → PG). (3) If transactions are a core requirement: consider migrating the transactional entities to PostgreSQL while keeping hierarchical documents in MongoDB (polyglot persistence). (4) Migration plan: dual-write, shadow-read, validate, cut over. Timeline: 3-6 months for a bounded scope. (5) Decision framework: if >50% of operations now need ACID transactions or complex joins, the workload has outgrown MongoDB's sweet spot.
 
----
+***
 
 **Question:** Design the data architecture for a ride-sharing service (drivers, riders, trips, payments).
 
 **Answer:** (1) PostgreSQL for core transactional data: users, trips, payments (ACID, joins, strong consistency). (2) Redis for real-time: driver locations (GeoSet), session tokens, rate limiting counters. (3) DynamoDB or Cassandra for trip events: GPS pings during a trip (100+ per trip, append-only, high write volume). (4) Elasticsearch for search: find drivers by location (geo queries), search trip history. (5) Partition strategy: partition trips by `user_id` (riders and drivers query their own trips). (6) Consistency: trip creation is ACID (PostgreSQL). Real-time location is eventually consistent (Redis with 1s refresh). Payment is ACID with Serializable isolation. (7) Read path: driver app reads from Redis (current assignments), rider app reads from PostgreSQL + Redis (trip status + ETA).
 
----
+***
 
 **Question:** You inherit a database with no indexes, 500 tables, and growing query latency. Prioritize your work.
 
 **Answer:** (1) Enable `pg_stat_statements` (if not already). Wait 24 hours for data. (2) Query the top 10 queries by `total_exec_time` — these have the highest impact. (3) For each: run `EXPLAIN ANALYZE`, identify Seq Scans on large tables. (4) Create composite indexes matching the top queries' WHERE + ORDER BY patterns. Use `CREATE INDEX CONCURRENTLY` to avoid locks. (5) Quick wins first: partial indexes for status-based filters, covering indexes for SELECT-heavy queries. (6) Monitor after each index: verify the query now uses the index, measure latency improvement. (7) Governance: add a query review process to prevent new slow queries. Require `EXPLAIN` output in PRs that add queries to large tables. (8) Timeline: stabilize the top 10 in week 1, systematic review of all slow queries over month 1.
 
----
+***
 
 **Question:** Your application needs to support "undo" for the last 30 days of operations. Design the data model.
 
 **Answer:** (1) Event sourcing: store every state change as an immutable event (e.g., `OrderCreated`, `OrderItemAdded`, `OrderCancelled`). The current state is a projection (materialized view) of the event stream. (2) Undo: replay events up to the point before the operation to undo. Insert a compensating event. (3) Simpler alternative (if full event sourcing is overkill): audit log table with `entity_id`, `entity_type`, `old_state` (JSONB), `new_state` (JSONB), `timestamp`, `user_id`. Undo = INSERT the `old_state` back as the current state + insert a new audit record. (4) TTL: partition the audit/event table by month. Drop partitions older than 30 days. (5) Access pattern: "show change history for entity X" → query by `entity_id ORDER BY timestamp DESC`.
 
----
+***
 
 **Question:** Design a system to detect and prevent duplicate API requests (idempotency) backed by PostgreSQL.
 
 **Answer:** (1) Client sends an `Idempotency-Key` header (UUID). (2) Server begins a Serializable transaction: query `idempotency_keys` table for the key. If found, return the cached response (stored as JSONB). (3) If not found: execute the business logic, insert the result into `idempotency_keys` (key, response, status_code, created_at), commit. (4) Unique constraint on `key` column — database-level protection against race conditions from concurrent retries. (5) TTL: add `expires_at` column, cron job deletes keys older than 24 hours. (6) Table: `idempotency_keys (key UUID PRIMARY KEY, response JSONB, status_code INT, created_at TIMESTAMPTZ DEFAULT now())`. (7) Index: BRIN on `created_at` for the cleanup job.
 
----
+***
 
 **Question:** Your PostgreSQL database disk is at 90% capacity and growing 5% per week. What do you do?
 
@@ -3017,37 +3017,37 @@ Let each team choose the best database for their service.
 
 **Answer:** (1) Enable `pg_stat_statements` — it tracks every query's call count, total execution time, rows returned, and buffer usage. (2) Sort by `total_exec_time` (not mean) — a 5ms query called 10M times is worse than a 500ms query called 100 times. (3) For the top offenders: run `EXPLAIN ANALYZE` on a replica with production data. Look for Seq Scans, high "rows removed by filter," sort spills to disk, and nested loops with high loop counts. (4) Create the narrowest composite index matching WHERE + ORDER BY + JOIN predicates. Use `CREATE INDEX CONCURRENTLY` to avoid locking. (5) Verify: re-run EXPLAIN, confirm the index is used, monitor p99 latency after deploy. (6) Iterate weekly — new code introduces new slow queries.
 
----
+***
 
 **Question:** What causes table bloat in PostgreSQL and how do you fix it?
 
 **Answer:** Cause: MVCC creates dead tuples on every UPDATE/DELETE. VACUUM marks them for reuse but does not return space to the OS. If autovacuum cannot keep up (long-running transactions hold old snapshots, high update rate, aggressive `autovacuum_vacuum_scale_factor`), the table and indexes grow indefinitely. Detection: `pg_stat_user_tables.n_dead_tup` / `n_live_tup` ratio. If dead > 20% of live, the table is bloated. Fix: (1) Tune autovacuum (lower `autovacuum_vacuum_scale_factor` to 0.05, increase `autovacuum_vacuum_cost_limit`). (2) For immediate relief: `VACUUM FULL` (rewrites table, acquires ACCESS EXCLUSIVE lock — schedule during maintenance window). (3) Online alternative: `pg_repack` (rewrites without full lock). (4) Prevention: avoid long-running transactions (they pin the oldest visible snapshot).
 
----
+***
 
 **Question:** How do you optimize a query that uses OFFSET pagination on a 50M-row table?
 
 **Answer:** OFFSET requires the database to scan and discard N rows before returning results. `OFFSET 1000000 LIMIT 20` means scanning 1M rows to return 20. Fix: (1) Switch to cursor-based pagination: `WHERE (sort_col, id) > ($last_value, $last_id) ORDER BY sort_col, id LIMIT 20`. Uses an index seek — O(1) cost regardless of page depth. (2) If random access is needed (admin UI): use a covering index with deferred join — first fetch IDs with OFFSET on a narrow index, then JOIN to the full table for only the 20 IDs. (3) For analytics: pre-compute results into a materialized view with a row number, paginate on the materialized view. (4) Set maximum page limits in the API — reject `OFFSET > 10000` for public-facing endpoints.
 
----
+***
 
 **Question:** What is the impact of a missing index on a JOIN query?
 
 **Answer:** Without an index on the JOIN column of the inner table, the planner falls back to: (1) Nested loop with Seq Scan on the inner table — O(N×M) for every outer row, catastrophically slow for large tables. (2) Hash join — builds a hash table of the smaller table in memory, which is better but still requires a full scan of the inner table and memory allocation. With an index: the nested loop uses an Index Scan on the inner table — O(N×log(M)), fast for selective outer sets. For hash joins, the index does not help (full scan needed regardless). The fix: create an index on the foreign key column of the referenced table. This is so common that "add indexes on foreign keys" should be a checklist item for every new table.
 
----
+***
 
 **Question:** How do you handle a query that has good p50 latency but terrible p99?
 
 **Answer:** High p99 with good p50 means: most executions are fast, but some are slow. Causes: (1) Buffer cache misses — occasionally the query hits cold pages on disk instead of shared_buffers. Fix: increase shared_buffers or ensure the working set fits in RAM. (2) Lock waits — the query occasionally waits for a row lock held by another transaction. Fix: reduce transaction duration, use SKIP LOCKED. (3) Autovacuum contention — VACUUM running on the table during the query. Fix: tune autovacuum to run during low-traffic windows. (4) Planner choosing different plans based on parameter values (generic plan vs custom plan). Fix: use `plan_cache_mode = force_custom_plan` or rewrite the query to avoid plan instability. (5) Connection pool starvation — query waits for a connection. Fix: size the pool correctly.
 
----
+***
 
 **Question:** When should you use a covering index vs a regular index?
 
 **Answer:** A covering index includes all columns the query needs in the index itself (via `INCLUDE`), enabling an Index Only Scan — no heap access required. Use when: (1) A query is called thousands of times per second and even the heap fetch matters. (2) The table is large and heap pages are often not in cache. (3) The SELECT list is small (2-4 columns beyond the indexed columns). Do NOT use when: (1) The included columns are large (JSONB, TEXT) — bloats the index. (2) The table is small enough that the heap fits in shared_buffers anyway. (3) The index is rarely used — the maintenance cost outweighs the read benefit. Monitor: check `idx_tup_fetch` (non-covering) vs `idx_tup_read` (covering) in `pg_stat_user_indexes`.
 
----
+***
 
 **Question:** How does connection pooling affect database performance?
 
@@ -3059,37 +3059,37 @@ Let each team choose the best database for their service.
 
 **Answer:** (1) Parameterized queries exclusively — never string interpolation for SQL. In Prisma: `prisma.$queryRaw\`SELECT * FROM users WHERE id = ${id}\`` (automatically parameterized). In raw SQL: use `$1`, `$2` placeholders. (2) ORM default methods (`.find()`, `.create()`) are safe. (3) Ban `$queryRawUnsafe()` and equivalent functions — lint for them in CI with ESLint rules. (4) Defense in depth: database user has minimal privileges (no DDL, no COPY, no superuser). Even if injection occurs, blast radius is limited. (5) Input validation at API boundary (Zod schema rejects unexpected types). (6) WAF rules for common injection patterns as an additional layer. (7) Regular security testing: automated DAST scanning against staging.
 
----
+***
 
 **Question:** How do you implement least-privilege database access?
 
 **Answer:** (1) Create separate database roles for each concern: `app_read` (SELECT only), `app_write` (SELECT, INSERT, UPDATE, DELETE), `app_migrate` (DDL permissions for schema migrations), `app_admin` (for emergency access, audited). (2) Application code uses `app_write` for normal operations. Migration CI uses `app_migrate`. Developers never have production credentials. (3) Grant per-table: `GRANT SELECT, INSERT ON orders TO app_write`. Do not grant on all tables by default. (4) Revoke: `REVOKE CREATE ON SCHEMA public FROM PUBLIC` (PostgreSQL default gives CREATE to everyone). (5) Row Level Security for multi-tenant: even if a role has SELECT on the table, RLS restricts visible rows. (6) Secrets management: credentials stored in AWS Secrets Manager, rotated automatically, never in code or environment files.
 
----
+***
 
 **Question:** How do you protect sensitive data at rest and in transit in a database?
 
 **Answer:** At rest: (1) Enable TDE (Transparent Data Encryption) or filesystem-level encryption (LUKS, EBS encryption). Protects against physical disk theft and snapshot leaks. (2) For column-level sensitivity (PII, credit cards): use application-level encryption with a KMS-managed key. The database stores ciphertext — even a full database dump is useless without the key. In transit: (3) Require TLS for all database connections (`sslmode=require` in connection strings). (4) Mutual TLS (mTLS) for service-to-database connections in zero-trust networks. Access control: (5) No direct database access from developer machines in production — use a bastion host with audit logging. (6) Query masking in non-production: use tools like `postgresql_anonymizer` to mask PII when copying production data to staging.
 
----
+***
 
 **Question:** How do you audit database access for compliance (SOC 2, HIPAA)?
 
 **Answer:** (1) Enable `pgaudit` extension in PostgreSQL — logs all DDL and optionally DML (SELECT, INSERT, UPDATE, DELETE) with the executing role, timestamp, and query text. (2) Log to a tamper-proof destination (CloudWatch Logs, S3 with Object Lock). (3) Alert on: DDL by non-migration roles, access to sensitive tables outside business hours, bulk data exports (SELECT without LIMIT on PII tables). (4) For application-level audit: audit log table with `who`, `when`, `what`, `before_state`, `after_state`. Immutable (append-only, no UPDATE/DELETE permissions). (5) Retention: audit logs retained for the compliance period (7 years SOC 2, 6 years HIPAA). (6) Review: quarterly access review — verify that only authorized roles have access, revoke stale credentials.
 
----
+***
 
 **Question:** How do you handle database credential rotation without downtime?
 
 **Answer:** (1) Dual-credential approach: application supports two credentials simultaneously (primary and fallback). (2) Rotation process: generate new credential → deploy to secrets manager → application picks up new credential on next connection pool refresh → verify new credential works → revoke old credential. (3) With PgBouncer: rotate PgBouncer's downstream credential; application connections are unaffected (PgBouncer handles reconnection). (4) AWS Secrets Manager: enable automatic rotation with a Lambda function that updates the password and stores both current and previous versions. Application retrieves "current" — during rotation, "previous" still works until the next cycle. (5) Connection pool configuration: set `max_lifetime` on pool connections (e.g., 30 minutes) so connections naturally refresh with new credentials.
 
----
+***
 
 **Question:** How do you prevent data leakage in a multi-tenant database?
 
 **Answer:** (1) Row Level Security (RLS): PostgreSQL policies enforce `WHERE tenant_id = current_setting('app.tenant_id')` on every query, even if application code forgets. (2) Application-level enforcement: middleware sets `tenant_id` at the start of every request. Never trust the client to provide it. (3) Testing: integration tests that verify cross-tenant queries return empty results. Chaos tests that randomize tenant context. (4) Monitoring: log all queries that return data for a tenant other than the request context (canary check). (5) Schema isolation for high-security tenants: move to schema-per-tenant or database-per-tenant when compliance requires physical separation. (6) Backup isolation: tenant-specific backups if one tenant requests data deletion (GDPR).
 
----
+***
 
 **Question:** What are the security risks of database backups and how do you mitigate them?
 
@@ -3101,37 +3101,37 @@ Let each team choose the best database for their service.
 
 **Answer:** (1) Use `testcontainers` to spin up a real PostgreSQL instance per test suite — Docker-based, isolated, disposable. (2) Run migrations to set up the schema. (3) Seed with realistic test data (factories, not fixtures — factories compose and are explicit). (4) Wrap each test in a transaction, rollback after — fast isolation without cleanup logic. (5) For Prisma: use `prisma.$transaction()` in test setup and rollback in teardown. (6) Parallel test suites: each gets a separate schema or database name to avoid interference. (7) CI configuration: PostgreSQL service container (GitHub Actions `services:` block). (8) Trade-off: ~100ms per test (vs ~1ms for mocks) but catches real bugs (constraint violations, index behavior, query correctness).
 
----
+***
 
 **Question:** How do you test database migrations before deploying to production?
 
 **Answer:** (1) Run migrations against a production-clone database in CI — same schema, same row counts (anonymized data). (2) Measure execution time: if a migration takes >30s on production-sized data, it needs optimization (CONCURRENTLY, NOT VALID + VALIDATE, etc.). (3) Test rollback: every migration must have a reverse migration that succeeds. (4) Shadow deployment: run the migration on a replica first, promote it, verify the application works with the new schema. (5) Staging environment with production-scale data (anonymized) — the final validation before production. (6) Tools: `squawk` (PostgreSQL migration linter) catches unsafe patterns (missing CONCURRENTLY, ALTER TABLE locking) in CI.
 
----
+***
 
 **Question:** How do you validate data integrity in a database with complex business rules?
 
 **Answer:** (1) Database constraints for invariants that must never be violated: CHECK constraints, foreign keys, UNIQUE, NOT NULL. These are the last line of defense — bugs in application code cannot bypass them. (2) Application-level validation for business rules that may change: Zod schemas, domain service validation. (3) Integration tests that exercise constraint violations: verify that invalid state is rejected by the database (not just by the application). (4) Periodic integrity checks: scheduled job that queries for orphaned records, violated invariants (e.g., `SELECT * FROM orders WHERE total_cents < 0`), and data inconsistencies. Alert on findings. (5) For eventual consistency systems: reconciliation jobs that compare state across services and report divergence.
 
----
+***
 
 **Question:** How do you load-test a database to find its breaking point?
 
 **Answer:** (1) Use `pgbench` (built-in) for basic TPS measurement or `k6` with database-realistic scripts. (2) Test against a production-sized dataset (not an empty schema). (3) Ramp load linearly: measure throughput, latency (p50, p95, p99), error rate, connection pool utilization, disk IOPS, and CPU at each step. (4) Find the saturation point: where does p99 latency exceed the SLO (e.g., 200ms)? Where do errors start? That is the capacity ceiling. (5) Test realistic patterns: 80/20 read/write ratio, realistic query mix, not just `SELECT 1`. (6) Soak test: run at 80% of saturation for 4+ hours — reveals bloat accumulation, memory leaks, and connection pool degradation. (7) Document: record the ceiling, the bottleneck (CPU? IOPS? connections?), and the scaling plan for when traffic approaches it.
 
----
+***
 
 **Question:** How do you ensure backward-compatible schema changes in a CI pipeline?
 
 **Answer:** (1) CI runs every migration against a fresh database (correctness) and against a production-clone (performance/safety). (2) Linting: `squawk` or custom rules check for unsafe patterns — `ALTER TABLE` without CONCURRENTLY, DROP COLUMN without a prior "stop reading" deploy, NOT NULL without DEFAULT. (3) Two-phase testing: first test the migration with the old application code (backward compatibility), then test with the new code (forward compatibility). (4) Canary migration: run the migration on a single replica before the primary. If the application breaks, abort. (5) Rollback test: every PR that includes a migration must include the reverse migration. CI runs both directions.
 
----
+***
 
 **Question:** How do you monitor database health and set up alerting?
 
 **Answer:** Essential metrics and thresholds: (1) Connection count: alert at 80% of `max_connections`. (2) Replication lag: warning at 5s, critical at 30s. (3) Disk usage: alert at 70%, critical at 85%. (4) Transaction duration: alert on any transaction >60s (likely a bug holding locks). (5) Dead tuples ratio: alert when `n_dead_tup / n_live_tup > 0.2` (autovacuum falling behind). (6) Query latency: alert when p99 of top queries exceeds SLO (e.g., 200ms). (7) Checkpoint frequency: alert on more than 1 checkpoint/minute (disk pressure). Tools: `pg_stat_activity`, `pg_stat_statements`, `pg_stat_user_tables`, `pg_stat_bgwriter`. Export to Prometheus via `postgres_exporter`. Dashboards in Grafana. On-call runbook for each alert.
 
----
+***
 
 **Question:** How do you handle data seeding and test data management for a large team?
 
@@ -3143,25 +3143,25 @@ Let each team choose the best database for their service.
 
 **Answer:** Neither is inherently faster. Speed depends on the access pattern and the data model. Redis (NoSQL) is faster for key-value lookups because data is in memory. PostgreSQL (SQL) is faster for complex joins because it has a query optimizer. DynamoDB is faster for partition-key lookups at any scale but slower (or impossible) for ad-hoc queries. The question is misleading — "faster at what?" is the correct response.
 
----
+***
 
 **Question:** Does MongoDB not have a schema?
 
 **Answer:** MongoDB does not enforce a schema at the database level (by default), but the data always has a schema — it is defined in application code. Every document in a collection typically follows a shared structure. Schema validation can be enforced (`$jsonSchema` in MongoDB). The correct framing: MongoDB has a flexible schema (schema-on-read), not "no schema."
 
----
+***
 
 **Question:** Is the CAP theorem about choosing 2 out of 3?
 
 **Answer:** No. The common "pick 2" framing is a simplification. CAP states: during a network partition, you must choose consistency or availability. When there is no partition, you can have both. Partitions are not a design choice — they happen. The real engineering question is PACELC: what trade-off do you make during normal operation (latency vs consistency)?
 
----
+***
 
 **Question:** Should you always normalize your database?
 
 **Answer:** No. Normalization is a tool, not a dogma. Normalize for OLTP workloads where data changes frequently (prevents update anomalies). Denormalize for read-heavy workloads where join cost dominates and data changes rarely (analytics dashboards, search indexes, materialized read models). The decision: normalize by default, denormalize by measurement.
 
----
+***
 
 **Question:** Is PostgreSQL slow for large datasets?
 

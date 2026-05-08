@@ -8164,7 +8164,7 @@ Deploying across AZs provides resilience against data center
 failures; deploying across Regions provides resilience against
 regional disasters.
 
----
+***
 
 **Question:** What is a VPC and why is it needed?
 
@@ -8174,7 +8174,7 @@ network isolation, IP address management, routing control, and
 security group/NACL enforcement. Without a VPC, resources would share
 network space and could not be properly segmented.
 
----
+***
 
 **Question:** What is the difference between a public and private
 subnet?
@@ -8185,7 +8185,7 @@ the internet. A private subnet has no IGW route; outbound internet
 access goes through a NAT Gateway. Application servers and databases
 belong in private subnets.
 
----
+***
 
 **Question:** What is a security group?
 
@@ -8195,7 +8195,7 @@ allowed inbound and outbound traffic by protocol, port, and source
 automatically allowed. Default is deny-all inbound, allow-all
 outbound.
 
----
+***
 
 **Question:** What is the difference between a security group and a
 NACL?
@@ -8205,7 +8205,7 @@ rules. NACLs are stateless, subnet-level, support explicit deny, and
 evaluate by rule number. Use security groups for instance-level
 control and NACLs for defense-in-depth at the subnet level.
 
----
+***
 
 **Question:** What is IAM and what are its main components?
 
@@ -8215,7 +8215,7 @@ can do what (actions) on which resources (ARNs). Components: users
 credentials), policies (JSON permission documents), and groups
 (collections of users sharing policies).
 
----
+***
 
 **Question:** What is the difference between an IAM user and an IAM
 role?
@@ -8225,7 +8225,7 @@ keys). A role has no permanent credentials — temporary credentials
 are issued by STS when the role is assumed. Prefer roles for all
 non-human access and for human access via federation.
 
----
+***
 
 **Question:** What is S3 and what is its durability guarantee?
 
@@ -8234,7 +8234,7 @@ non-human access and for human access via federation.
 within a bucket. S3 provides strong read-after-write consistency for
 all operations.
 
----
+***
 
 **Question:** What is the difference between S3 storage classes?
 
@@ -8244,7 +8244,7 @@ access (lower storage cost, retrieval fee), Glacier for archival
 (12-48 hours retrieval), and Intelligent-Tiering for unknown access
 patterns (automatic tier transitions).
 
----
+***
 
 **Question:** What is an Elastic Load Balancer?
 
@@ -8253,7 +8253,7 @@ targets. ALB operates at layer 7 (HTTP/HTTPS, path routing, host
 routing). NLB operates at layer 4 (TCP/UDP, static IPs, high
 throughput). GWLB operates at layer 3 (inline appliances).
 
----
+***
 
 **Question:** What is Lambda?
 
@@ -8262,7 +8262,7 @@ to events without provisioning servers. Billed per invocation and
 GB-second of execution. Maximum 15-minute execution. Supports
 Node.js, Python, Java, .NET, Go, and custom runtimes.
 
----
+***
 
 **Question:** What is a cold start in Lambda?
 
@@ -8272,7 +8272,7 @@ running initialization code. Ranges from 100 ms (Node.js) to
 seconds (Java). Mitigated by small packages, provisioned
 concurrency, and initializing SDK clients outside the handler.
 
----
+***
 
 **Question:** What is SQS?
 
@@ -8281,7 +8281,7 @@ Standard queues offer at-least-once delivery with best-effort
 ordering. FIFO queues offer exactly-once delivery with strict
 ordering. Both support DLQs for failed messages.
 
----
+***
 
 **Question:** What is the difference between SQS and SNS?
 
@@ -8290,7 +8290,7 @@ consumer. SNS is pub/sub — a published message fans out to all
 subscribers. Use SQS for task distribution and load leveling. Use
 SNS for event broadcast and notification.
 
----
+***
 
 **Question:** What is CloudFormation?
 
@@ -8299,7 +8299,7 @@ YAML/JSON templates. It manages resources as stacks with lifecycle
 management, rollback on failure, and drift detection. CDK is a
 higher-level abstraction that synthesizes to CloudFormation.
 
----
+***
 
 **Question:** What is Route 53?
 
@@ -8308,7 +8308,7 @@ policies (simple, weighted, latency, failover, geolocation). Alias
 records route to AWS resources (ALB, CloudFront, S3) without CNAME
 restrictions at the zone apex.
 
----
+***
 
 **Question:** What is CloudFront?
 
@@ -8317,7 +8317,7 @@ static and dynamic content, APIs, and WebSocket. Reduces latency
 for end users and offloads origin traffic. Integrates with WAF for
 security filtering.
 
----
+***
 
 **Question:** What is CloudWatch?
 
@@ -8326,7 +8326,7 @@ custom), logs (aggregation and querying), alarms (threshold-based
 and anomaly detection), and dashboards. Most AWS services publish
 metrics to CloudWatch automatically.
 
----
+***
 
 **Question:** What is CloudTrail?
 
@@ -8335,7 +8335,7 @@ account. Covers management events (IAM, VPC changes) and optionally
 data events (S3 access, Lambda invocations). Essential for security
 auditing and compliance.
 
----
+***
 
 **Question:** What is the shared responsibility model?
 
@@ -8344,7 +8344,7 @@ hypervisor, managed services). The customer secures what runs on it
 (IAM, network config, data, application code, OS patching for EC2).
 The boundary shifts: more managed = less customer responsibility.
 
----
+***
 
 **Question:** What is KMS?
 
@@ -8353,7 +8353,7 @@ keys. It integrates with AWS services for envelope encryption: KMS
 generates a data key, the data key encrypts data, and KMS encrypts
 the data key with the master key. Supports automatic key rotation.
 
----
+***
 
 **Question:** What is Secrets Manager?
 
@@ -8363,7 +8363,7 @@ retrieve secrets at runtime by ARN. Encrypted with KMS. Preferable
 to environment variables because values are not exposed in console
 or API responses.
 
----
+***
 
 **Question:** What is a NAT Gateway?
 
@@ -8372,7 +8372,7 @@ subnets to access the internet for outbound traffic without
 exposing them to inbound connections. Charges per hour and per GB
 processed. Use VPC endpoints to bypass NAT for AWS service traffic.
 
----
+***
 
 **Question:** What is DynamoDB?
 
@@ -8381,7 +8381,7 @@ access patterns. Provides single-digit millisecond latency at any
 scale. Requires upfront access pattern modeling. Supports on-demand
 and provisioned capacity modes.
 
----
+***
 
 **Question:** What is ElastiCache?
 
@@ -8390,7 +8390,7 @@ Redis supports data structures, persistence, replication, and
 pub/sub. Memcached supports simple key-value caching. Use for
 session storage, hot data caching, and rate limiting.
 
----
+***
 
 **Question:** What is EventBridge?
 
@@ -8399,7 +8399,7 @@ schema discovery, cross-account delivery, and archive/replay.
 Connects AWS services, SaaS providers, and custom applications via
 structured events.
 
----
+***
 
 **Question:** What is WAF?
 
@@ -8408,7 +8408,7 @@ exploits. Attaches to CloudFront, ALB, or API Gateway. Supports
 rate-based rules, managed rule groups (SQLi, XSS), and custom rules
 on headers, body, and query parameters.
 
----
+***
 
 **Question:** What is Cognito?
 
@@ -8417,7 +8417,7 @@ sign-up, sign-in, and JWT issuance. Identity Pools provide temporary
 AWS credentials for direct resource access. Supports social login,
 SAML, and OIDC federation.
 
----
+***
 
 **Question:** What is Auto Scaling?
 
@@ -8426,7 +8426,7 @@ Auto Scaling Groups manage EC2 instances with target tracking,
 step scaling, or scheduled policies. ECS Service Auto Scaling manages
 task count. Both maintain desired capacity across AZs.
 
----
+***
 
 **Question:** What is AWS Organizations?
 
@@ -8435,7 +8435,7 @@ accounts. Defines organizational units (OUs) with Service Control
 Policies (SCPs) that restrict permissions account-wide. Enables
 consolidated billing and account provisioning.
 
----
+***
 
 ### Senior
 
@@ -8482,7 +8482,7 @@ reading recently written objects."
   replication is not).
 - Cannot explain the practical impact on application design.
 
----
+***
 
 **Question:** How do security groups and NACLs work together?
 
@@ -8495,7 +8495,7 @@ security groups for fine-grained instance control. In practice,
 security groups handle 90% of use cases; NACLs add defense in
 depth.
 
----
+***
 
 **Question:** When would you use a VPC endpoint instead of a NAT
 Gateway?
@@ -8509,7 +8509,7 @@ endpoint policies. The trade-off: Interface endpoints cost
 ~$0.01/hour per AZ plus data processing, so they are cost-effective
 only when the NAT data processing savings exceed the endpoint cost.
 
----
+***
 
 **Question:** What is the difference between an ALB and an NLB?
 
@@ -8521,7 +8521,7 @@ PrivateLink. Use ALB for web applications. Use NLB when static IPs
 are required, non-HTTP protocols are used, or extreme throughput is
 needed.
 
----
+***
 
 **Question:** How does DynamoDB differ from a relational database in
 data modeling?
@@ -8536,7 +8536,7 @@ replicates projected attributes). The trade-off: DynamoDB provides
 single-digit ms latency at any scale, but sacrifices query
 flexibility.
 
----
+***
 
 **Question:** How would you choose between SQS, SNS, and
 EventBridge?
@@ -8549,7 +8549,7 @@ management. Start with SQS; add SNS when fan-out is needed; adopt
 EventBridge when routing complexity grows. The SNS+SQS fan-out
 pattern covers most use cases without EventBridge.
 
----
+***
 
 **Question:** What are Lambda layers and when should you use them?
 
@@ -8562,7 +8562,7 @@ code — they add deployment complexity and version management
 overhead. Maximum 5 layers per function, total unzipped size
 including function code cannot exceed 250 MB.
 
----
+***
 
 ### Question
 
@@ -8610,7 +8610,7 @@ If one AZ fails, the other takes over."
   components.
 - Assumes Multi-AZ is automatic for all services.
 
----
+***
 
 **Question:** What is the difference between Standard and FIFO SQS
 queues?
@@ -8624,7 +8624,7 @@ sequential workflow steps) and Standard for everything else.
 Standard queues may deliver duplicates — design consumers to be
 idempotent.
 
----
+***
 
 **Question:** How does Aurora differ from standard RDS?
 
@@ -8637,7 +8637,7 @@ v2 auto-scales compute. The trade-off: Aurora costs more per hour
 but provides better HA, faster failover, and simpler storage
 management.
 
----
+***
 
 **Question:** What is an IAM permission boundary?
 
@@ -8650,7 +8650,7 @@ the permission boundary. Without a permission boundary, a developer
 with `iam:CreateRole` could create a role with
 `AdministratorAccess`.
 
----
+***
 
 **Question:** How do you handle secrets rotation in AWS?
 
@@ -8663,7 +8663,7 @@ process: createSecret, setSecret, testSecret, finishSecret.
 Applications using the SDK retrieve the current version
 automatically — no code change needed during rotation.
 
----
+***
 
 **Question:** What is a VPC peering connection and when would you
 use it?
@@ -8674,7 +8674,7 @@ IP communication. Non-overlapping CIDRs required. Not transitive
 for simple, low-count VPC connections. For hub-and-spoke or mesh
 topologies with many VPCs, use Transit Gateway instead.
 
----
+***
 
 **Question:** What is the difference between Secrets Manager and
 Parameter Store?
@@ -8686,7 +8686,7 @@ Use Secrets Manager for credentials that must be rotated (database
 passwords, API keys). Use Parameter Store for non-sensitive
 configuration (URLs, feature flags, environment settings).
 
----
+***
 
 **Question:** How does IAM policy evaluation work when multiple
 policies apply?
@@ -8700,7 +8700,7 @@ least one policy allows and no policy denies is the request
 permitted. SCPs and permission boundaries further restrict — they
 can only reduce permissions, never add them.
 
----
+***
 
 ### Tech Lead
 
@@ -8760,7 +8760,7 @@ Everyone uses IAM users with access keys."
 - Long-lived access keys for human users.
 - No centralized logging or audit account.
 
----
+***
 
 ### Question
 
@@ -8809,7 +8809,7 @@ We use reserved instances for the big databases."
 - No mention of visibility tools (Cost Explorer, Budgets).
 - Confusing Reserved Instances with Savings Plans.
 
----
+***
 
 ### Question
 
@@ -8856,7 +8856,7 @@ and review them when there is a security incident."
 - IAM users with access keys instead of roles.
 - Reviewing permissions only during incidents.
 
----
+***
 
 ### Question
 
@@ -8898,7 +8898,7 @@ simpler."
 - Confusing DynamoDB's simplicity in operations with simplicity in
   data modeling.
 
----
+***
 
 ### Question
 
@@ -8937,7 +8937,7 @@ automatically. We do not need to manage servers."
 - No cost analysis.
 - Treating serverless as universally superior to containers.
 
----
+***
 
 ### Question
 
@@ -8979,7 +8979,7 @@ goes wrong, we restore from the backup."
 - No DR testing plan.
 - No runbook for recovery procedures.
 
----
+***
 
 ### Question
 
@@ -9019,7 +9019,7 @@ groups to control access."
 - No mention of threat detection (GuardDuty).
 - No encryption strategy.
 
----
+***
 
 ### Question
 
@@ -9059,7 +9059,7 @@ configuration files."
 - No mention of multi-cloud as a decision factor.
 - No mention of state management differences.
 
----
+***
 
 ### Question
 
@@ -9100,7 +9100,7 @@ and look at the logs when something breaks."
 - Alarming on causes (CPU) instead of symptoms (error rate).
 - No mention of SLOs or error budgets.
 
----
+***
 
 ### Question
 
@@ -9143,7 +9143,7 @@ practices for each one."
 - No mention of the AWS Well-Architected Tool.
 - Cannot explain trade-offs between pillars.
 
----
+***
 
 ### Question
 
@@ -9191,7 +9191,7 @@ something fails, we retry."
 - Using SNS directly to Lambda without SQS (no retry buffer).
 - No awareness of saga patterns for multi-step processes.
 
----
+***
 
 ### Question
 
@@ -9239,7 +9239,7 @@ everything to ECS at once. We have tests, so it should work."
 - Rewriting before containerizing.
 - No incremental traffic shifting.
 
----
+***
 
 ### Question
 
@@ -9293,7 +9293,7 @@ takes too long, we restart the affected services."
 - No communication plan.
 - No post-incident review.
 
----
+***
 
 ### Question
 
@@ -9345,7 +9345,7 @@ We review Terraform changes in pull requests."
 - No drift detection.
 - Console changes tolerated in production.
 
----
+***
 
 ### Question
 
@@ -9398,7 +9398,7 @@ together. I use diagrams to show the data flow."
 - Cannot provide cost or risk numbers.
 - Has never communicated a technical decision to a non-engineer.
 
----
+***
 
 ### Performance
 
@@ -9420,7 +9420,7 @@ Java, use SnapStart to snapshot the initialized JVM. Monitor the
 `Init Duration` metric in CloudWatch to track cold start frequency
 and duration over time.
 
----
+***
 
 **Question:** How do you right-size ECS Fargate tasks for cost and
 performance?
@@ -9437,7 +9437,7 @@ needs the full vCPU. After right-sizing, validate with a load test
 to ensure the new configuration handles peak traffic without
 degradation.
 
----
+***
 
 **Question:** How do you optimize DynamoDB read performance for a
 high-traffic API?
@@ -9455,7 +9455,7 @@ zero capacity planning). Monitor `ConsumedReadCapacityUnits` and
 `ThrottledRequests` in CloudWatch. If throttling occurs, check for
 hot partitions (uneven key distribution) before adding capacity.
 
----
+***
 
 **Question:** How does CloudFront cache key design affect
 performance?
@@ -9475,7 +9475,7 @@ entry). Origin Shield adds a centralized cache layer between
 regional edge caches and the origin, consolidating cache misses
 and reducing origin load by 30-60%.
 
----
+***
 
 **Question:** When should you add ElastiCache versus relying on
 database read replicas for performance?
@@ -9494,7 +9494,7 @@ strategy — stale data causes subtle bugs. Always define a TTL and
 an explicit invalidation path (write-through or cache-aside with
 event-driven invalidation).
 
----
+***
 
 **Question:** How do you identify and reduce unnecessary cross-AZ
 data transfer costs?
@@ -9516,7 +9516,7 @@ specific communication path.
 > Verify cross-AZ data transfer pricing ($0.01/GB each way) against
 > current AWS pricing documentation.
 
----
+***
 
 ### Security
 
@@ -9571,7 +9571,7 @@ control network access. We also enable encryption on our databases."
 - IAM users with access keys instead of federation.
 - No detection layer (relies entirely on prevention).
 
----
+***
 
 **Question:** How do you handle a suspected security breach in AWS?
 
@@ -9591,7 +9591,7 @@ backdoor IAM users or roles created by the attacker. (4) Post-
 incident: blameless post-mortem, update SCPs and Config rules to
 prevent recurrence, document the incident for compliance.
 
----
+***
 
 **Question:** How do you secure cross-account access in a multi-
 account organization?
@@ -9608,7 +9608,7 @@ credentials — never embed long-lived keys. For centralized
 services (CI/CD deploying to multiple accounts), use a deployment
 role with permission boundaries that limit what it can create.
 
----
+***
 
 **Question:** How do you prevent data exfiltration from S3?
 
@@ -9625,7 +9625,7 @@ public access at the organization level via SCP — this makes it
 structurally impossible for any account to create public buckets,
 regardless of individual bucket policies.
 
----
+***
 
 **Question:** How do you manage encryption at rest across AWS
 services?
@@ -9642,7 +9642,7 @@ usage to specific IAM roles. Enable automatic key rotation (annual
 for symmetric CMKs). Monitor KMS API usage in CloudTrail — unusual
 Decrypt calls may indicate data access anomalies.
 
----
+***
 
 **Question:** How do you implement network segmentation in a
 production VPC?
@@ -9660,7 +9660,7 @@ VPC Flow Logs to S3 for network forensics. For multi-account
 environments, use Transit Gateway with route table segmentation to
 control which accounts can communicate.
 
----
+***
 
 ### Testing and Quality
 
@@ -9682,7 +9682,7 @@ Plan/synth review — every PR includes the `cdk diff` or
 change before approving. Production deployments require plan
 approval from a second engineer.
 
----
+***
 
 **Question:** How do you validate a database migration on AWS (e.g.,
 RDS to Aurora, schema changes)?
@@ -9702,7 +9702,7 @@ write freeze. (5) Post-migration validation: compare row counts,
 checksums on critical tables, and run a representative workload
 against the new database before releasing to production.
 
----
+***
 
 **Question:** How do you test disaster recovery procedures on AWS?
 
@@ -9722,7 +9722,7 @@ finding in first-time DR tests: expired credentials, missing secrets
 in the DR region, and security groups that reference source-region-
 specific CIDR ranges.
 
----
+***
 
 **Question:** How do you load test an AWS architecture before a
 major traffic event?
@@ -9745,7 +9745,7 @@ service (third-party API rate limit). Auto-scaling should activate
 during the ramp — verify it scales fast enough. (7) Document
 results and right-size before the event.
 
----
+***
 
 **Question:** How do you ensure deployment safety for production AWS
 services?
@@ -9765,7 +9765,7 @@ deployment from feature activation — deploy dark, verify in
 production, then enable. (8) Post-deployment verification: automated
 smoke tests hit critical endpoints after every deployment.
 
----
+***
 
 ### Scenario-based
 
@@ -9815,7 +9815,7 @@ We add CloudWatch for monitoring."
 - No awareness of Lambda execution limits.
 - No concurrency management.
 
----
+***
 
 ### Question
 
@@ -9852,7 +9852,7 @@ practice.
 - Balance between quick wins and structural changes.
 - Organizational process (governance, ongoing practice).
 
----
+***
 
 ### Question
 
@@ -9888,7 +9888,7 @@ cutover. Secrets and configuration must be replicated to DR region.
 - Automated vs manual failover trade-offs.
 - Testing discipline.
 
----
+***
 
 ### Question
 
@@ -9923,7 +9923,7 @@ Common causes and fixes:
 - Awareness of common causes (not just "increase timeout").
 - Connection between Lambda configuration and performance.
 
----
+***
 
 ### Question
 
@@ -9957,7 +9957,7 @@ multi-step processes). DLQs for poison message isolation.
 - Error handling and compensation.
 - Idempotency awareness.
 
----
+***
 
 ### Question
 
@@ -9994,7 +9994,7 @@ database during Phase 2 to avoid data migration complexity.
 - Understanding of the container ecosystem.
 - Strangler fig pattern awareness.
 
----
+***
 
 ### Question
 
@@ -10030,7 +10030,7 @@ network forensics, GuardDuty for threat detection.
 - Alerting philosophy (symptoms, not causes; actionable alerts).
 - Organizational process (runbooks, on-call).
 
----
+***
 
 ### Question
 
@@ -10069,7 +10069,7 @@ requests/day): under $20/month.
 - Knowledge of CloudFront OAC (not the deprecated OAI).
 - Correct use of AWS service types (HTTP API vs REST API).
 
----
+***
 
 ### Question
 
@@ -10109,7 +10109,7 @@ Migrate services incrementally. Keep ECS as a fallback.
 - Team readiness assessment.
 - Pragmatic comparison against simpler alternatives.
 
----
+***
 
 ### Question
 
@@ -10145,7 +10145,7 @@ automatic rollback on CloudWatch alarm triggers.
 - Health check awareness.
 - Knowledge of CodeDeploy integration.
 
----
+***
 
 ### Question
 
@@ -10193,7 +10193,7 @@ partitioned architecture.
 - Understanding of data residency requirements.
 - Cost-awareness (active-active is roughly 2x cost).
 
----
+***
 
 ### Question
 
@@ -10245,7 +10245,7 @@ I walk through a structured checklist:
 - Awareness of security and cost from day one.
 - Use of standardized templates and automation.
 
----
+***
 
 ### Trick Questions
 
@@ -10265,7 +10265,7 @@ cost at high utilization.
 **The trap:** Candidates who say "always" or "never" without
 calculating the break-even point.
 
----
+***
 
 ### Question
 
@@ -10282,7 +10282,7 @@ and backups serve different purposes: HA vs data durability.
 **The trap:** Conflating high availability with backup/disaster
 recovery.
 
----
+***
 
 ### Question
 
@@ -10300,7 +10300,7 @@ indexes is faster.
 **The trap:** Equating "NoSQL" with "fast" without considering
 access pattern fit.
 
----
+***
 
 ### Question
 
@@ -10320,7 +10320,7 @@ Block Public Access at the account level and enforce it with SCPs.
 **The trap:** Assuming "private by default" means the bucket
 cannot be made public. The default can be overridden.
 
----
+***
 
 ### Question
 
@@ -10336,7 +10336,7 @@ hundreds of tasks and generate a large bill.
 
 **The trap:** Equating "serverless" with "no capacity planning."
 
----
+***
 
 ### Red Flags
 

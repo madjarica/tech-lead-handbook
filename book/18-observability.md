@@ -2206,7 +2206,7 @@ metrics for alerting and trends, traces for latency analysis and
 dependency mapping, logs for detailed investigation. The three are
 most effective when correlated via a shared trace ID.
 
----
+***
 
 **Question:** What is the difference between monitoring and
 observability?
@@ -2219,7 +2219,7 @@ in advance. Observability requires high-cardinality, structured data
 that supports exploratory queries. Monitoring is a subset of
 observability.
 
----
+***
 
 **Question:** What is an SLI?
 
@@ -2230,7 +2230,7 @@ of HTTP requests that return a 2xx status within 300ms. Good SLIs
 measure what users experience, not what the infrastructure reports —
 "successful requests" is a good SLI; "CPU utilization" is not.
 
----
+***
 
 **Question:** What is the difference between an SLO and an SLA?
 
@@ -2242,7 +2242,7 @@ customer receives credits." The SLO should be stricter than the SLA
 to provide a safety margin. Engineers target the SLO; the business
 commits to the SLA.
 
----
+***
 
 **Question:** What is an error budget?
 
@@ -2254,7 +2254,7 @@ team prioritizes reliability. When it is exhausted, non-critical
 deployments freeze until reliability is restored. Error budgets make
 the reliability vs velocity trade-off quantitative.
 
----
+***
 
 **Question:** What is a structured log?
 
@@ -2266,7 +2266,7 @@ Example: `{"timestamp": "...", "level": "error", "event":
 per minute), and correlatable (include trace_id to link to traces).
 Unstructured logs require regex parsing, which is fragile and slow.
 
----
+***
 
 **Question:** What is a trace, and what is a span?
 
@@ -2279,7 +2279,7 @@ trace), a span ID (unique to the span), start time, duration,
 attributes, and status. The trace ID is the correlation key that
 links all spans from a single request.
 
----
+***
 
 **Question:** What is context propagation in distributed tracing?
 
@@ -2292,7 +2292,7 @@ child span linked to the parent. Without context propagation, each
 service creates a separate trace, and the distributed request
 cannot be reconstructed.
 
----
+***
 
 **Question:** What is OpenTelemetry?
 
@@ -2304,7 +2304,7 @@ telemetry). OTel's key value is vendor independence: instrument once,
 export to any backend (Prometheus, Datadog, Jaeger, Grafana Cloud).
 It is the second-largest CNCF project after Kubernetes.
 
----
+***
 
 **Question:** What is metric cardinality, and why does it matter?
 
@@ -2316,7 +2316,7 @@ create millions. High cardinality increases storage cost, slows
 queries, and can crash the metrics backend. Label discipline — using
 only bounded, useful labels — is critical.
 
----
+***
 
 **Question:** What is the difference between a counter and a gauge?
 
@@ -2327,7 +2327,7 @@ goes up and down — it represents a snapshot of current state.
 Example: `active_connections`, `queue_depth`. The key rule: never
 query a counter's raw value; always compute the rate.
 
----
+***
 
 **Question:** What are the four DORA metrics, and how do they relate
 to observability?
@@ -2341,7 +2341,7 @@ observability investment. See
 [CI/CD and DevOps](./17-ci-cd-and-devops.md) for the full DORA
 framework.
 
----
+***
 
 **Question:** What is a runbook?
 
@@ -2352,7 +2352,7 @@ causes, mitigation steps (rollback, toggle, scale), and escalation
 criteria. A runbook turns incident response from ad-hoc debugging
 into a repeatable procedure. Every paged alert should have one.
 
----
+***
 
 **Question:** What is alert fatigue?
 
@@ -2365,7 +2365,7 @@ do not require human action. Alert fatigue is the most common failure
 mode of alerting systems. Target: fewer than 2 pages per on-call
 shift.
 
----
+***
 
 **Question:** What is an exemplar?
 
@@ -2377,7 +2377,7 @@ point to a specific trace. When the p99 latency histogram shows
 engineer clicks the exemplar to drill from the metric into the
 specific trace and its associated logs.
 
----
+***
 
 **Question:** What is the difference between head-based and
 tail-based sampling?
@@ -2391,7 +2391,7 @@ requests) are kept. It captures all errors but requires a collector
 with enough memory to buffer in-flight traces. Head-based is the
 default; tail-based is for critical paths where every error matters.
 
----
+***
 
 **Question:** What is the RED method?
 
@@ -2402,7 +2402,7 @@ these three signals as the minimum observability baseline. RED is
 complementary to USE (Utilization, Saturation, Errors), which
 applies to infrastructure resources like CPU, memory, and disk.
 
----
+***
 
 **Question:** What is the USE method?
 
@@ -2413,7 +2413,7 @@ network. USE helps identify resource bottlenecks. RED and USE are
 complementary — RED for application-level signals, USE for
 infrastructure-level signals.
 
----
+***
 
 **Question:** What is a burn rate?
 
@@ -2426,7 +2426,7 @@ alerting with budget-aware alerting. It reduces false positives by
 ignoring transient spikes that do not meaningfully consume the
 budget.
 
----
+***
 
 **Question:** What is PromQL?
 
@@ -2438,7 +2438,7 @@ operations between metrics. PromQL is the de facto standard for
 metrics querying — even non-Prometheus backends (Thanos, Mimir,
 Victoria Metrics) support it.
 
----
+***
 
 **Question:** What is the difference between Prometheus and Grafana?
 
@@ -2450,7 +2450,7 @@ many others) and renders dashboards. Prometheus collects and stores;
 Grafana visualizes. They are complementary and almost always used
 together.
 
----
+***
 
 **Question:** What is log aggregation?
 
@@ -2462,7 +2462,7 @@ a distributed system requires SSH-ing into individual servers and
 grepping files — impractical at scale. A central log aggregator
 enables cross-service queries and pattern-based alerting.
 
----
+***
 
 **Question:** What is a correlation ID?
 
@@ -2474,7 +2474,7 @@ OpenTelemetry, the trace ID serves as the correlation ID. Searching
 logs by correlation ID retrieves every log line from every service
 touched by a single user request.
 
----
+***
 
 **Question:** Why should latency be measured with percentiles, not
 averages?
@@ -2486,7 +2486,7 @@ but the average looks fine. Percentiles (p50, p95, p99) reveal the
 distribution: p50 is the median, p99 shows the worst 1% experience.
 Alert on p99 to catch tail latency that averages would miss.
 
----
+***
 
 **Question:** What is a postmortem?
 
@@ -2498,7 +2498,7 @@ postmortem focuses on systemic failures, not individual mistakes.
 The goal is to improve the system so the same failure cannot
 recur, not to assign blame.
 
----
+***
 
 **Question:** What is the difference between MTTD and MTTR?
 
@@ -2509,7 +2509,7 @@ detection to resolution. MTTR = MTTD + time to investigate +
 time to mitigate. Observability primarily improves MTTD (better
 alerting) and investigation time (better traces and logs).
 
----
+***
 
 **Question:** What is the ELK stack?
 
@@ -2521,7 +2521,7 @@ maintained fork of Elasticsearch. In modern setups, Logstash is
 often replaced by Fluent Bit or the OTel Collector for lower
 resource usage.
 
----
+***
 
 **Question:** What is CloudWatch?
 
@@ -2534,7 +2534,7 @@ observability tool for AWS-native workloads. Its strengths are zero
 setup and tight AWS integration; its weaknesses are a limited query
 language and cost at high metric/log volume.
 
----
+***
 
 **Question:** What is Grafana Loki?
 
@@ -2546,7 +2546,7 @@ cheaper to operate at scale but slower for full-text search across
 all fields. Loki integrates natively with Grafana and uses LogQL (a
 PromQL-like query language) for log queries.
 
----
+***
 
 **Question:** What is a service health dashboard?
 
@@ -2611,7 +2611,7 @@ customers expect."
 - Does not mention iteration or adjustment.
 - 99.99% for a new service with no operational maturity.
 
----
+***
 
 **Question:** How do you reduce observability cost without losing
 signal?
@@ -2629,7 +2629,7 @@ stakeholders: "reducing trace sampling from 100% to 10% saves
 $4,000/month and still captures 100% of errors via tail-based
 sampling."
 
----
+***
 
 **Question:** How do you handle observability for asynchronous
 event-driven systems?
@@ -2646,7 +2646,7 @@ lag), dead-letter queue volume (processing failures). These queue-
 level metrics are often more useful than per-message tracing for
 understanding system health.
 
----
+***
 
 **Question:** How do you prevent alert fatigue on a growing system?
 
@@ -2661,7 +2661,7 @@ heals," convert the alert to a dashboard panel or a ticket. Set a
 target: fewer than 2 pages per on-call shift. Track the false
 positive rate as a metric.
 
----
+***
 
 **Question:** When would you choose self-hosted observability over
 a vendor-managed platform?
@@ -2678,7 +2678,7 @@ product, not operating infrastructure. Grafana Cloud is the middle
 ground — managed infrastructure with open-source query languages
 (PromQL, LogQL), reducing lock-in.
 
----
+***
 
 **Question:** How do you trace a request across a system that mixes
 synchronous HTTP and asynchronous message queues?
@@ -2695,7 +2695,7 @@ rather than a tree. Validate context propagation by checking that
 producer and consumer spans share the same trace ID in the tracing
 UI.
 
----
+***
 
 **Question:** How do you implement SLO-based alerting?
 
@@ -2710,7 +2710,7 @@ burn (6x, pages), and a 1-day/2-hour pair for slow-burn (3x,
 tickets). This approach is documented in the Google SRE workbook
 and is the industry standard.
 
----
+***
 
 **Question:** How do you handle observability during a database
 migration?
@@ -2726,7 +2726,7 @@ split ratio between old and new databases. After migration: monitor
 for 1-2 SLO windows before removing the old database dashboards.
 Remove temporary metrics and alerts to avoid accumulation.
 
----
+***
 
 **Question:** What is the difference between Prometheus histograms
 and summaries?
@@ -2742,7 +2742,7 @@ preferred because they support aggregation. Summaries are useful
 for single-instance monitoring or when bucket boundaries are
 difficult to define in advance.
 
----
+***
 
 **Question:** How do you ensure observability does not impact
 application performance?
@@ -2760,7 +2760,7 @@ keeping span attributes small (do not attach full request bodies),
 reduce sampling or disable low-value instrumentations (e.g., file
 system tracing).
 
----
+***
 
 **Question:** How do you handle log retention and compliance
 requirements?
@@ -2777,7 +2777,7 @@ S3 lifecycle policies) to automate deletion. Verify that log
 deletion is complete — compressed archives and backups must also be
 purged. See [Security](./15-security.md) for compliance frameworks.
 
----
+***
 
 **Question:** How do you design effective Prometheus recording rules?
 
@@ -2794,7 +2794,7 @@ recording rule creates a new time series that consumes storage.
 Record only queries that are reused or on the alerting critical
 path.
 
----
+***
 
 **Question:** How do you handle observability for a multi-tenant
 SaaS platform?
@@ -2812,7 +2812,7 @@ For noisy-neighbor detection, monitor per-tenant request rates and
 latency distributions using log-based aggregation rather than
 high-cardinality metrics.
 
----
+***
 
 **Question:** How do you build and maintain a service dependency map
 from distributed traces?
@@ -2831,7 +2831,7 @@ failing service?), change risk assessment (this service has 12
 dependents), and capacity planning (this database serves 8
 services).
 
----
+***
 
 **Question:** How do you choose histogram bucket boundaries for
 latency metrics?
@@ -2912,7 +2912,7 @@ is easy."
 - Delegates observability to individual teams without governance.
 - No mention of SLOs or alerting philosophy.
 
----
+***
 
 ### Question
 
@@ -2952,7 +2952,7 @@ days.' The decision is theirs, but I provide the data."
 - No per-service differentiation.
 - No data-driven decisions.
 
----
+***
 
 ### Question
 
@@ -2991,7 +2991,7 @@ not when our dashboards show them."
 - Appeals to authority ("best practice") instead of business value.
 - Cannot connect observability to business outcomes.
 
----
+***
 
 ### Question
 
@@ -3033,7 +3033,7 @@ it."
 - No mention of lock-in.
 - Chooses by popularity, not by trade-offs.
 
----
+***
 
 ### Question
 
@@ -3072,7 +3072,7 @@ what breaks."
 - No production readiness checklist.
 - No enforcement mechanism.
 
----
+***
 
 ### Question
 
@@ -3112,7 +3112,7 @@ much."
 - No audit or classification.
 - No target for acceptable alert volume.
 
----
+***
 
 ### Question
 
@@ -3150,7 +3150,7 @@ a doc no one reads has no value."
 - Blame-oriented language.
 - No tracking mechanism for improvements.
 
----
+***
 
 ### Question
 
@@ -3189,7 +3189,7 @@ shows the aggregated SLO status."
 - No data residency consideration.
 - No per-region vs global distinction.
 
----
+***
 
 ### Question
 
@@ -3226,7 +3226,7 @@ feeling. That is when SLOs are working."
 - SLOs as a dashboard exercise, not a team practice.
 - No mention of error budgets in decision-making.
 
----
+***
 
 ### Question
 
@@ -3266,7 +3266,7 @@ different. Parallel validation catches this."
 - No alert validation.
 - No risk mitigation.
 
----
+***
 
 ### Question
 
@@ -3307,7 +3307,7 @@ separately."
 - No redundancy for the observability stack.
 - Accepts being blind during incidents.
 
----
+***
 
 ### Question
 
@@ -3350,7 +3350,7 @@ live."
 - No self-service model.
 - No automated compliance checks.
 
----
+***
 
 ### Question
 
@@ -3391,7 +3391,7 @@ that the team actively manages."
 - No distinction between user-facing and internal services.
 - No user journey mapping.
 
----
+***
 
 ### Question
 
@@ -3434,7 +3434,7 @@ pipeline. Document the approach and audit it annually."
 - No mention of trace attributes.
 - No compliance-specific strategies (GDPR, PCI-DSS).
 
----
+***
 
 ### Question
 
@@ -3495,7 +3495,7 @@ burn-rate alerts (which detect trends earlier than threshold
 alerts), and ensuring every customer-facing endpoint has SLI
 coverage.
 
----
+***
 
 **Question:** How do you optimize Prometheus query performance?
 
@@ -3509,7 +3509,7 @@ recording rules to pre-aggregate for long-range queries. For
 Grafana dashboards: set appropriate refresh intervals (not 5 seconds
 for a capacity planning dashboard) and use query caching.
 
----
+***
 
 **Question:** How does observability overhead affect application
 latency?
@@ -3525,7 +3525,7 @@ adds latency to every request. Always use async batch exporters. A
 misconfigured tracer that blocks on export can add 5-10ms per span,
 which compounds across deep call chains.
 
----
+***
 
 **Question:** How do you handle high-throughput logging without
 overwhelming the log aggregator?
@@ -3540,7 +3540,7 @@ burst traffic. Monitor log volume per service and alert when a
 service exceeds its log budget — usually indicates a logging bug
 (e.g., a new endpoint logging at DEBUG).
 
----
+***
 
 **Question:** What is the impact of high metric cardinality on
 system performance?
@@ -3572,7 +3572,7 @@ For traces, redact sensitive span attributes (database queries
 containing user data, HTTP request bodies). Audit PII controls
 annually and after any data-related incident.
 
----
+***
 
 **Question:** How do you secure access to observability data?
 
@@ -3588,7 +3588,7 @@ retention and access policies accordingly. (5) For multi-tenant
 systems, ensure tenant isolation in logs and metrics — a query for
 tenant A must not return tenant B's data.
 
----
+***
 
 **Question:** How do you handle observability data in a GDPR-
 compliant system?
@@ -3604,7 +3604,7 @@ user_id to a pseudonym, delete the mapping on erasure request).
 (3) Retention limits — do not retain PII-containing logs longer
 than the processing purpose requires. Automate retention policies.
 
----
+***
 
 **Question:** How do you handle observability data when a security
 incident is suspected?
@@ -3623,7 +3623,7 @@ items), and restore normal retention policies. Ensure the
 investigation logs are retained per the organization's incident
 retention policy (typically 1-2 years).
 
----
+***
 
 **Question:** How do you prevent observability infrastructure from
 being an attack vector?
@@ -3659,7 +3659,7 @@ dashboards monthly to ensure queries return data and panels are
 not broken. Observability is infrastructure — test it like
 infrastructure.
 
----
+***
 
 **Question:** How do you validate that SLO burn-rate alerts actually
 fire when they should?
@@ -3674,7 +3674,7 @@ production (kill a pod, add latency to a dependency) and verify the
 alert fires. Run these tests quarterly. An untested alert is an
 unreliable alert.
 
----
+***
 
 **Question:** How do you measure the effectiveness of your
 observability investment?
@@ -3689,7 +3689,7 @@ insufficient. If the answer is "5 minutes, I followed the trace from
 the alert," it is working. Track these metrics over time to
 demonstrate ROI.
 
----
+***
 
 **Question:** How do you test that context propagation works across
 all service boundaries?
@@ -3707,7 +3707,7 @@ message carries trace context in its attributes and that the consumer
 creates a child span. Run these tests in CI/CD to catch propagation
 regressions early.
 
----
+***
 
 **Question:** How do you verify that dashboards display accurate
 data after a metrics backend migration?
@@ -3767,7 +3767,7 @@ the missing alert."
 - Skips investigation, jumps to action.
 - No mention of traces or logs.
 
----
+***
 
 ### Question
 
@@ -3798,7 +3798,7 @@ kicks in: reliability work is prioritized until the budget recovers."
 - Feature flags as a risk mitigation strategy.
 - Clear escalation path and consequences.
 
----
+***
 
 ### Question
 
@@ -3828,7 +3828,7 @@ label set and a dedicated Prometheus instance for tenant metrics."
 - Does not dismiss the need — provides a path forward.
 - Understands when per-customer metrics *are* justified.
 
----
+***
 
 ### Question
 
@@ -3857,7 +3857,7 @@ investment pays for itself after the first incident."
 - Concrete timeline and effort estimate.
 - ROI framing (investment vs incident cost).
 
----
+***
 
 ### Question
 
@@ -3888,7 +3888,7 @@ incident response training (game days) for new team members."
 - Considers human factors (team turnover, knowledge loss).
 - Concrete mitigations (runbooks, training, alert specificity).
 
----
+***
 
 ### Question
 
@@ -3919,7 +3919,7 @@ weeks.' The CFO makes the risk/cost trade-off."
 - Risk assessment for each cut.
 - Stakeholder communication (options, not a single answer).
 
----
+***
 
 ### Question
 
@@ -3949,7 +3949,7 @@ the migration cost is justified by the long-term benefit."
 - Lock-in awareness.
 - Pragmatic decision-making (migrate only with justification).
 
----
+***
 
 ### Question
 
@@ -3979,7 +3979,7 @@ teams."
 - Addresses the root cause of the ambiguity (missing tracing).
 - Blameless postmortem culture.
 
----
+***
 
 ### Question
 
@@ -4008,7 +4008,7 @@ achievable in 1-2 weeks per service and provides immediate value."
 - Concrete timeline.
 - Integration with on-call and runbooks.
 
----
+***
 
 ### Question
 
@@ -4056,7 +4056,7 @@ captured) and affordability (90% trace volume reduction). The only
 case for 100% sampling is low-traffic services (< 100 RPS) where
 the cost is negligible and every request matters.
 
----
+***
 
 **Question:** Is average latency a useful metric?
 
@@ -4068,7 +4068,7 @@ latency). Alert on p99 to catch latency issues that averages miss.
 The only scenario where averages are useful is when the distribution
 is tightly clustered — which is rare for production services.
 
----
+***
 
 **Question:** Should every metric have an alert?
 
@@ -4080,7 +4080,7 @@ panel is not an alert. If you alert on every gauge (CPU, memory,
 disk, connections), you create alert fatigue that makes real alerts
 invisible.
 
----
+***
 
 **Question:** Is more logging always better?
 
@@ -4094,7 +4094,7 @@ operations (cache lookups, loop iterations). Reducing log volume
 from 10 GB/day to 1 GB/day by tightening log levels often
 *improves* observability because it is easier to find the signal.
 
----
+***
 
 **Question:** Is observability only for production?
 

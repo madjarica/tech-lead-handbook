@@ -18,13 +18,13 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Area:** Algorithms and Data Structures
 
-**Definition:** Big O describes an asymptotic upper bound on how a cost measure—usually time or space—grows with input size \(n\), ignoring constant factors and lower-order terms. It answers “how does cost scale?” rather than raw wall-clock time. Worst-case big O bounds the pathological input; amortized analysis averages cost over a sequence of operations (e.g., dynamic array appends) so occasional expensive steps are spread across many cheap ones.
+**Definition:** Big O describes an asymptotic upper bound on how a cost measure—usually time or space—grows with input size $n$, ignoring constant factors and lower-order terms. It answers “how does cost scale?” rather than raw wall-clock time. Worst-case big O bounds the pathological input; amortized analysis averages cost over a sequence of operations (e.g., dynamic array appends) so occasional expensive steps are spread across many cheap ones.
 
-**Practical example:** Choosing between two candidate algorithms for log aggregation: one is \(O(n \log n)\) sort per batch, another is \(O(n)\) with a bounded-size heap; big O plus expected \(n\) drives the decision more than micro-optimizations.
+**Practical example:** Choosing between two candidate algorithms for log aggregation: one is $O(n \log n)$ sort per batch, another is $O(n)$ with a bounded-size heap; big O plus expected $n$ drives the decision more than micro-optimizations.
 
-**Interview usage:** Signal rigor by saying: “We’re \(O(n)\) per request in the worst case, but the hot path is amortized \(O(1)\) because…” Reference [Algorithms and Data Structures](./01-algorithms-and-data-structures.md) when discussing trade-offs at scale.
+**Interview usage:** Signal rigor by saying: “We’re $O(n)$ per request in the worst case, but the hot path is amortized $O(1)$ because…” Reference [Algorithms and Data Structures](./01-algorithms-and-data-structures.md) when discussing trade-offs at scale.
 
-**Common confusion:** People treat big O as “runtime in milliseconds” or confuse worst-case with average-case or amortized; they also mix up \(\Theta\) (tight bound) and \(O\) (upper bound).
+**Common confusion:** People treat big O as “runtime in milliseconds” or confuse worst-case with average-case or amortized; they also mix up $\Theta$ (tight bound) and $O$ (upper bound).
 
 **Related terms:** Time complexity, Space complexity, Amortized analysis, Asymptotic analysis
 
@@ -36,9 +36,9 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Definition:** Time complexity characterizes how the number of primitive operations or steps an algorithm performs grows as input size increases, typically expressed in big O. It abstracts machine differences so teams can compare approaches before implementation. The relevant “size” may be length of an array, number of nodes, or bits in an encoding depending on the problem.
 
-**Practical example:** A service that scans every row for a filter is \(O(n)\) in table size; adding an index can reduce lookup to roughly \(O(\log n)\) or \(O(1)\) depending on access pattern—see [SQL and NoSQL Databases](./02-sql-and-nosql.md).
+**Practical example:** A service that scans every row for a filter is $O(n)$ in table size; adding an index can reduce lookup to roughly $O(\log n)$ or $O(1)$ depending on access pattern—see [SQL and NoSQL Databases](./02-sql-and-nosql.md).
 
-**Interview usage:** “The naive approach is \(O(n^2)\) because of nested loops over edges; we can get to \(O(n \log n)\) with sorting + sweep.” Ties code review judgment to scalable design.
+**Interview usage:** “The naive approach is $O(n^2)$ because of nested loops over edges; we can get to $O(n \log n)$ with sorting + sweep.” Ties code review judgment to scalable design.
 
 **Common confusion:** Confusing per-request complexity with total system complexity, or ignoring that hidden costs (I/O, locks) often dominate CPU step counts.
 
@@ -50,11 +50,11 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Definition:** Space complexity measures how extra memory usage (auxiliary space beyond the input) grows with input size, again usually in big O. It includes allocated structures, recursion stack depth, and temporary buffers. For distributed systems, “space” also maps to per-node RAM, shard footprint, and spill-to-disk behavior under pressure.
 
-**Practical example:** DFS on a deep graph can use \(O(h)\) stack space for recursion depth \(h\); BFS may need \(O(w)\) queue space for frontier width \(w\); choosing one affects memory limits in a path-finding microservice.
+**Practical example:** DFS on a deep graph can use $O(h)$ stack space for recursion depth $h$; BFS may need $O(w)$ queue space for frontier width $w$; choosing one affects memory limits in a path-finding microservice.
 
-**Interview usage:** “We’re time-optimal but \(O(n)\) extra space; if memory is tight we can trade time for \(O(1)\) auxiliary space with an in-place variant.”
+**Interview usage:** “We’re time-optimal but $O(n)$ extra space; if memory is tight we can trade time for $O(1)$ auxiliary space with an in-place variant.”
 
-**Common confusion:** Counting input storage as auxiliary space, or ignoring stack space for recursion when quoting \(O(1)\) space.
+**Common confusion:** Counting input storage as auxiliary space, or ignoring stack space for recursion when quoting $O(1)$ space.
 
 **Related terms:** Time complexity, Big O notation, Recursion depth, External memory
 
@@ -66,9 +66,9 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Practical example:** Session stores, rate limiters, and deduplication caches often back onto in-memory hash maps; many databases use hash indexes for equality predicates.
 
-**Interview usage:** “Average \(O(1)\), worst-case \(O(n)\) if everything hashes to one bucket; we’d mitigate with a better hash or switching to a tree index for ordered scans.” Link to [SQL and NoSQL Databases](./02-sql-and-nosql.md) for index choice.
+**Interview usage:** “Average $O(1)$, worst-case $O(n)$ if everything hashes to one bucket; we’d mitigate with a better hash or switching to a tree index for ordered scans.” Link to [SQL and NoSQL Databases](./02-sql-and-nosql.md) for index choice.
 
-**Common confusion:** Assuming strict \(O(1)\) always, or conflating hash maps with consistent hashing (distributed routing) or cryptographic hashes.
+**Common confusion:** Assuming strict $O(1)$ always, or conflating hash maps with consistent hashing (distributed routing) or cryptographic hashes.
 
 **Related terms:** Hash function, Load factor, Chaining, Open addressing, Hash index
 
@@ -76,7 +76,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Area:** Algorithms and Data Structures
 
-**Definition:** A tree is a hierarchical collection of nodes with a root and parent–child edges, usually acyclic in CS usage. Binary trees restrict each node to two children; binary search trees (BSTs) order keys so in-order traversal is sorted. Balanced variants (AVL, red–black) maintain height near \(O(\log n)\) via rotations to avoid skewed chains that degrade to \(O(n)\) operations.
+**Definition:** A tree is a hierarchical collection of nodes with a root and parent–child edges, usually acyclic in CS usage. Binary trees restrict each node to two children; binary search trees (BSTs) order keys so in-order traversal is sorted. Balanced variants (AVL, red–black) maintain height near $O(\log n)$ via rotations to avoid skewed chains that degrade to $O(n)$ operations.
 
 **Practical example:** File system directories, DOM trees, and many database indexes (B-trees are generalizations for disk) are tree-shaped structures with predictable traversal semantics.
 
@@ -90,11 +90,11 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Area:** Algorithms and Data Structures
 
-**Definition:** A heap is a complete binary tree (often stored implicitly in an array) satisfying the heap property: min-heap parents are ≤ children (max-heap the reverse). This yields \(O(\log n)\) insert and extract-extremum and \(O(1)\) peek at min/max. Heaps underpin priority queues used in scheduling and graph algorithms (e.g., Dijkstra).
+**Definition:** A heap is a complete binary tree (often stored implicitly in an array) satisfying the heap property: min-heap parents are ≤ children (max-heap the reverse). This yields $O(\log n)$ insert and extract-extremum and $O(1)$ peek at min/max. Heaps underpin priority queues used in scheduling and graph algorithms (e.g., Dijkstra).
 
 **Practical example:** Job schedulers, connection pools with priority, and “top-K” streaming problems often use a heap of bounded size rather than sorting the full stream.
 
-**Interview usage:** “We maintain a min-heap of \(k\) elements so each update is \(O(\log k)\) and memory stays bounded.”
+**Interview usage:** “We maintain a min-heap of $k$ elements so each update is $O(\log k)$ and memory stays bounded.”
 
 **Common confusion:** Confusing heap memory (dynamic allocation) with the heap data structure; or assuming heaps keep fully sorted order (only the extremum is cheap).
 
@@ -104,7 +104,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Area:** Algorithms and Data Structures
 
-**Definition:** A graph comprises vertices (nodes) and edges (links), optionally directed or undirected and weighted or unweighted. Representations include adjacency lists (space near \(O(V+E)\), fast neighbor iteration) and adjacency matrices (\(O(V^2)\) space, fast edge presence checks). Graphs model dependencies, networks, and state spaces.
+**Definition:** A graph comprises vertices (nodes) and edges (links), optionally directed or undirected and weighted or unweighted. Representations include adjacency lists (space near $O(V+E)$, fast neighbor iteration) and adjacency matrices ($O(V^2)$ space, fast edge presence checks). Graphs model dependencies, networks, and state spaces.
 
 **Practical example:** Service dependency graphs, social graphs, and workflow DAGs are graphs; build systems and package managers use directed acyclic graphs for ordering work.
 
@@ -120,7 +120,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Area:** Algorithms and Data Structures
 
-**Definition:** BFS explores a graph layer by layer from a source, using a queue: dequeue a node, enqueue unvisited neighbors. On an unweighted graph it finds shortest path by edge count. It systematically covers all nodes at distance \(d\) before \(d+1\), which is useful for level-order processing and minimum-hop routing.
+**Definition:** BFS explores a graph layer by layer from a source, using a queue: dequeue a node, enqueue unvisited neighbors. On an unweighted graph it finds shortest path by edge count. It systematically covers all nodes at distance $d$ before $d+1$, which is useful for level-order processing and minimum-hop routing.
 
 **Practical example:** Crawling web pages by depth of links from a seed, or finding shortest path in an unweighted grid maze for pathfinding in games or robotics abstractions.
 
@@ -152,7 +152,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Practical example:** Edit distance between strings for diff tooling, optimal resource allocation with capacity constraints, or parsing algorithms in compilers that reuse sub-parse results.
 
-**Interview usage:** “Subproblems overlap; naive recursion is exponential. I’d define state \(dp[i]\) (or \(dp[i][j]\)) and fill in \(O(\cdot)\) time.” Reference [Algorithms and Data Structures](./01-algorithms-and-data-structures.md) for pattern drills.
+**Interview usage:** “Subproblems overlap; naive recursion is exponential. I’d define state $dp[i]$ (or $dp[i][j]$) and fill in $O(\cdot)$ time.” Reference [Algorithms and Data Structures](./01-algorithms-and-data-structures.md) for pattern drills.
 
 **Common confusion:** Using DP when greedy suffices, or when subproblems are not overlapping; mixing up state definition leading to wrong recurrence.
 
@@ -166,7 +166,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 
 **Practical example:** Fibonacci with a dict cache, or recursive parsers with `@lru_cache` in Python for production grammars where the same nonterminals reappear.
 
-**Interview usage:** “I memoize on \((i, j)\) so each subproblem is solved once; complexity drops from exponential to \(O(n^2)\) states.”
+**Interview usage:** “I memoize on $(i, j)$ so each subproblem is solved once; complexity drops from exponential to $O(n^2)$ states.”
 
 **Common confusion:** Memoization vs caching arbitrary service responses (different invalidation story); forgetting that memo size can blow memory if state space is huge.
 
@@ -323,6 +323,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 **Related terms:** Strong consistency, Replication, Vector clock, CRDT, CAP theorem
 
 **Tech Lead note:** Document user-visible staleness SLAs and remediation (manual merge, compensating events) so support and product know what “eventually” means in practice.
+
 ## Docker and Kubernetes
 
 ### Container image
@@ -742,6 +743,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 **Common confusion:** Enabling every managed rule without tuning—false positives can block legit customers.
 
 **Related terms:** CloudFront, ALB, Shield, Rule group, Rate-based rule
+
 ## JavaScript and TypeScript
 
 ### Event loop
@@ -1221,6 +1223,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 **Related terms:** Throttling, quota, circuit breaker
 
 **Tech Lead note:** Rate limits encode product policy and incident posture—align caps with contracts and support expectations before launch traffic.
+
 ## Security
 
 ### Authentication
@@ -1692,6 +1695,7 @@ Terms marked with **Tech Lead Note** carry additional context relevant to leader
 **Common confusion:** Assuming old broad E2E tests are sufficient regression nets without targeted reproduction near the fault.
 
 **Related terms:** Unit test, Integration test, Flaky test, [Testing and Quality](./16-testing-and-quality.md)
+
 ## CI/CD and DevOps
 
 ### Continuous integration (CI)

@@ -6222,3 +6222,121 @@ The book is **editorially ready** for a first publishing cycle. All structural, 
 #### Recommended final step
 
 Run `scripts/build-pdf.sh` to test PDF compilation. This will surface any Mermaid rendering issues, LaTeX Unicode errors, code block overflow, and large-chapter pagination problems. Fix any build errors, then declare the book ready for the current interview cycle.
+
+---
+
+### Phase 8: PDF and EPUB Preparation Pass
+
+**Date:** 2026-05-08
+
+**Scope:** Final publishing-readiness pass over structural files, build
+scripts, metadata, and all 27 chapter files.
+
+#### Changes made
+
+**`metadata.yaml`:**
+
+- Replaced `author` with `"Personal Study Notes"` (removed specific name).
+- Changed `language` from `"en-US"` to `"en"` (standard BCP-47 short form).
+- Replaced `rights` and `date` with generic values to avoid personal info.
+- Removed `monofont: "Menlo"` — Menlo is macOS-only and would break
+  builds on Linux/Windows. Font guidance moved to `CONVERSION.md`.
+- Removed `publisher` and empty `epub-cover-image` fields.
+
+**`scripts/build-pdf.sh`:**
+
+- Output directory changed from `build/` to `dist/`.
+- Added descriptive prerequisite URLs in header comments.
+- Added progress and size output.
+- Improved error messages with install URLs.
+
+**`scripts/build-epub.sh`:**
+
+- Output directory changed from `build/` to `dist/`.
+- Added descriptive prerequisite URLs in header comments.
+- Added progress and size output.
+- Improved error messages with install URLs.
+
+**`.gitignore`:**
+
+- Added `dist/` alongside existing `build/`.
+
+**`CONVERSION.md`:**
+
+- Full rewrite with all required sections: Requirements, Recommended
+  Build Order, Build PDF, Build EPUB, Build Both, Handling Mermaid
+  Diagrams, Handling Code Blocks, Handling Tables, Handling Internal
+  Links, Handling Fonts, Troubleshooting, Conversion Risks, Final
+  Publishing Checklist.
+- Added platform-specific install commands (macOS, Ubuntu, Windows).
+- Documented all 43 Mermaid diagrams by chapter.
+- Documented 6 chapters with wide tables.
+- Added Windows-specific troubleshooting notes.
+- Added Conversion Risks table with severity ratings.
+
+**`book/26-glossary.md`:**
+
+- Fixed 4 missing blank lines before `## Docker and Kubernetes`,
+  `## JavaScript and TypeScript`, `## Security`, and `## CI/CD and DevOps`
+  section headings.
+
+#### Conversion risks identified
+
+| Risk | Severity | Action |
+|------|----------|--------|
+| Mermaid diagrams (43 blocks, 24 chapters) | Medium | Documented. Content is self-contained without diagrams. |
+| Wide tables (6 chapters, 6+ columns) | Low | Documented. Readable in source and EPUB. |
+| Long code lines (>80 chars) | Low | Documented. May overflow PDF margins. |
+| Deep list nesting (ch03, ch22) | Low | Documented. Pandoc handles 4-level nesting. |
+| Raw HTML in code blocks | None | Inside fenced blocks — Pandoc treats as code. |
+| Internal `.md` links | Low | All 27 links verified matching. Pandoc resolves in concat mode. |
+| Missing blank lines before headings (30 total) | Low | Fixed 4 in ch26. Remaining 26 are `---` before headings (valid) or in early chapters (non-blocking). |
+| Untagged code blocks | None | All code blocks have language tags (verified in Global Code Examples Pass). |
+| Duplicate H1 headings | None | False positive — all "duplicates" are inside code blocks. Each chapter has exactly one H1. |
+
+#### Not tested
+
+- PDF build was not run (requires LaTeX installation).
+- EPUB build was not run (requires Pandoc installation).
+- Mermaid rendering was not tested.
+
+#### Verification status
+
+All structural files are aligned:
+
+- `SUMMARY.md` links match all 27 chapter files exactly.
+- `metadata.yaml` fields are reasonable and contain no personal info.
+- Build scripts use `set -euo pipefail`, output to `dist/`, check
+  prerequisites, and do not assume unavailable fonts.
+- `CONVERSION.md` documents all known risks and includes the Final
+  Publishing Checklist.
+
+#### Build test results (2026-05-08)
+
+PDF and EPUB builds were tested successfully.
+
+**PDF build:**
+
+- Output: `dist/tech-lead-handbook.pdf` (7.6 MB)
+- Build time: ~70 seconds
+- Pandoc 3.9.0.2, XeTeX (TeX Live 2026), no mermaid-filter
+- 35 cosmetic warnings: Unicode ≤ ≥ missing in Latin Modern font
+- No errors
+
+**EPUB build:**
+
+- Output: `dist/tech-lead-handbook.epub` (3.0 MB, ~2.3 MB compressed)
+- Build time: ~14 seconds
+- 2 minor math parse warnings (backtick inside text misread as math)
+- No errors
+
+**Issues fixed during build:**
+
+1. Replaced all `---` horizontal rules with `***` across 18 chapters
+   to prevent Pandoc YAML metadata parse errors.
+2. Replaced Unicode `Θ` with `\Theta` inside math expressions (ch24).
+3. Converted 88 `\(...\)` inline math expressions to `$...$` syntax
+   in ch24 and ch26 for reliable LaTeX rendering.
+4. Restored `---` YAML document separators inside code blocks in ch03
+   and ch22 that were accidentally replaced.
+5. Updated `--toc-depth` from 2 to 3 for full subtopic coverage in TOC.

@@ -3608,7 +3608,7 @@ kernel but uses Linux namespaces (PID, network, mount) and cgroups
 security boundary differs: a kernel exploit can escape a container
 but not a VM.
 
----
+***
 
 **Question:** What is a Docker image layer?
 
@@ -3618,7 +3618,7 @@ filesystem diff stored as a layer. Layers are content-addressed
 same base layer, it is stored and pulled once. Layer ordering matters
 for build cache — put frequently changing instructions at the bottom.
 
----
+***
 
 **Question:** What is a Pod in Kubernetes?
 
@@ -3629,7 +3629,7 @@ use the sidecar pattern (log forwarder, envoy proxy, config
 reloader). Pods are ephemeral — they are never rescheduled; controllers
 create replacements.
 
----
+***
 
 **Question:** What is the difference between a Deployment and a StatefulSet?
 
@@ -3641,7 +3641,7 @@ storage (each pod keeps its PVC across restarts). Use StatefulSets
 for databases, Kafka, Elasticsearch — workloads where identity and
 storage persistence matter.
 
----
+***
 
 **Question:** What is a Kubernetes Service?
 
@@ -3651,7 +3651,7 @@ name, and load-balances traffic to pods matching its label selector.
 Types: ClusterIP (internal), NodePort (external via node port),
 LoadBalancer (cloud LB), ExternalName (DNS alias).
 
----
+***
 
 **Question:** What does `kubectl describe pod` show that `kubectl get pod` does not?
 
@@ -3661,7 +3661,7 @@ PodScheduled), container states with exit codes, resource
 requests/limits, mounted volumes, and node assignment. It is the
 first debugging command for any pod issue.
 
----
+***
 
 **Question:** What is the difference between a ConfigMap and a Secret?
 
@@ -3672,7 +3672,7 @@ encrypted by default), have stricter RBAC defaults, and can be
 encrypted at rest with EncryptionConfiguration. Neither should be
 committed to Git in plain text.
 
----
+***
 
 **Question:** What is an Ingress?
 
@@ -3683,7 +3683,7 @@ routing. Without a controller, Ingress resources are inert.
 Ingress handles TLS termination, virtual hosting, and path-based
 routing.
 
----
+***
 
 **Question:** What is a Namespace?
 
@@ -3693,7 +3693,7 @@ provide: RBAC boundary (Roles are namespace-scoped), resource quotas
 logical separation between teams or environments. Production
 workloads should not run in the `default` namespace.
 
----
+***
 
 **Question:** What is a multi-stage Docker build?
 
@@ -3703,7 +3703,7 @@ production artifacts from previous stages. Benefit: the production
 image contains no build tools, no dev dependencies, no source code —
 smaller size, fewer CVEs, and faster startup.
 
----
+***
 
 **Question:** What are resource requests and limits in Kubernetes?
 
@@ -3714,7 +3714,7 @@ throttling. Requests determine scheduling; limits determine enforcement.
 The ratio between them determines the QoS class (Guaranteed,
 Burstable, BestEffort).
 
----
+***
 
 **Question:** What is the purpose of `.dockerignore`?
 
@@ -3724,7 +3724,7 @@ fixtures, .env files) to the daemon — slowing builds and risking
 secret leakage into image layers. It is analogous to `.gitignore`
 for Docker builds.
 
----
+***
 
 **Question:** What is a DaemonSet?
 
@@ -3734,7 +3734,7 @@ collectors (Fluent Bit), monitoring agents (Prometheus node-exporter),
 CNI plugins, storage drivers. When a new node joins, the DaemonSet
 automatically schedules a pod on it.
 
----
+***
 
 **Question:** What is Helm?
 
@@ -3745,7 +3745,7 @@ charts exist for PostgreSQL, Redis, Prometheus, Grafana. Trade-off:
 Go templating adds complexity and makes debugging harder (`helm
 template` renders locally for review).
 
----
+***
 
 **Question:** What is the difference between liveness, readiness, and startup probes?
 
@@ -3756,7 +3756,7 @@ Readiness probe: detects inability to serve — failure removes the
 pod from Service endpoints (no traffic routed). Critical rule: never
 check external dependencies in liveness probes.
 
----
+***
 
 **Question:** What is a Docker volume, and how does it differ from a bind mount?
 
@@ -3768,7 +3768,7 @@ named references, and are managed via `docker volume` commands. Bind
 mounts depend on host filesystem structure — useful for development
 (live code reload) but fragile in production.
 
----
+***
 
 **Question:** What is RBAC in Kubernetes?
 
@@ -3780,7 +3780,7 @@ ServiceAccount within a namespace), and ClusterRoleBindings (grant a
 ClusterRole cluster-wide). Production rule: least privilege — no
 application team needs cluster-admin.
 
----
+***
 
 **Question:** What is a PersistentVolumeClaim (PVC)?
 
@@ -3791,7 +3791,7 @@ provisioning creates the underlying PersistentVolume automatically.
 PVCs decouple storage lifecycle from pod lifecycle — data survives
 pod restarts and rescheduling.
 
----
+***
 
 **Question:** What is the difference between `COPY` and `ADD` in a Dockerfile?
 
@@ -3802,7 +3802,7 @@ you specifically need tar extraction. `ADD` with URLs is unpredictable
 (no checksum verification, no caching control). Explicit `COPY` +
 `RUN curl` is more transparent and cacheable.
 
----
+***
 
 **Question:** What is a Kubernetes controller?
 
@@ -3814,7 +3814,7 @@ completion), Node controller (monitors node health). The controller
 pattern is Kubernetes' core design principle — declarative, eventually
 consistent, self-healing.
 
----
+***
 
 **Question:** What happens when you run `docker build`?
 
@@ -3826,7 +3826,7 @@ creates a temporary container, executes the command, and commits the
 result as a new layer. (5) BuildKit (default since Docker 23) adds
 parallelism, better caching, and secret mounting.
 
----
+***
 
 **Question:** What is the difference between `CMD` and `ENTRYPOINT` in a Dockerfile?
 
@@ -3838,7 +3838,7 @@ run myimage worker.js` overrides only the CMD (runs `node
 worker.js`). Use ENTRYPOINT for the fixed binary, CMD for
 overridable arguments.
 
----
+***
 
 **Question:** What is a Kubernetes label, and how does it differ from an annotation?
 
@@ -3850,7 +3850,7 @@ Ingress controller hints. Labels are indexed (fast lookup);
 annotations are not. Labels should be concise; annotations can hold
 larger payloads.
 
----
+***
 
 **Question:** What is `imagePullPolicy` and when does it matter?
 
@@ -3862,7 +3862,7 @@ images). Critical rule: `:latest` tag forces `Always` by default.
 Immutable tags (semver, git SHA) with `IfNotPresent` is the
 production pattern — fast starts and deterministic versions.
 
----
+***
 
 **Question:** What is a PodDisruptionBudget (PDB)?
 
@@ -3873,7 +3873,7 @@ or `maxUnavailable`. Without PDB, a node drain can terminate all
 replicas at once. PDB does not protect against involuntary disruptions
 (node crash, OOM-kill) — only voluntary ones initiated by the cluster.
 
----
+***
 
 **Question:** What is a Docker network, and what types exist?
 
@@ -3885,7 +3885,7 @@ in Swarm/Docker Compose clusters), `none` (no networking — complete
 isolation). Custom bridge networks enable DNS-based container
 discovery by name.
 
----
+***
 
 **Question:** What is the difference between `docker stop` and `docker kill`?
 
@@ -3896,7 +3896,7 @@ shutdown). Production containers should handle SIGTERM (drain
 connections, finish work, close cleanly). `docker kill` is for hung
 containers that ignore SIGTERM.
 
----
+***
 
 **Question:** What is a Kubernetes Job, and how does it differ from a Deployment?
 
@@ -3908,7 +3908,7 @@ failure); Jobs track completion (restart only on failure until
 success count is met). Jobs have `backoffLimit` (max retries) and
 `activeDeadlineSeconds` (timeout).
 
----
+***
 
 **Question:** What is container image tagging best practice for production?
 
@@ -3920,7 +3920,7 @@ mutable and provides no rollback target. Pin base images by digest
 `imagePullPolicy: IfNotPresent` with immutable tags for fast pod
 startup.
 
----
+***
 
 **Question:** What is the Horizontal Pod Autoscaler (HPA)?
 
@@ -3932,7 +3932,7 @@ require Prometheus Adapter. Key parameters: `minReplicas` (floor),
 Scale-down includes a stabilization window (default 5 minutes) to
 prevent flapping.
 
----
+***
 
 ### Senior
 
@@ -3940,91 +3940,91 @@ prevent flapping.
 
 **Answer:** Start by observing actual usage (Prometheus metrics, `kubectl top`, VPA recommendations). Set CPU request to P50 usage and memory request to P95 usage (memory is not compressible — OOM is worse than CPU throttling). Set memory limit at 1.5-2× request for spike headroom. CPU limits are controversial — some teams omit them to avoid throttling (Burstable QoS). Review quarterly: over-requesting wastes money (idle reserved resources); under-requesting causes evictions and scheduling failures.
 
----
+***
 
 **Question:** How do you design a zero-downtime deployment strategy?
 
 **Answer:** Use RollingUpdate with `maxUnavailable: 0` (no pod removed until new one is ready). Ensure readiness probes pass only after the app is fully initialized and can serve traffic. Add `preStop` lifecycle hook with a sleep (5-10 seconds) to allow load balancers to deregister the pod before it terminates. Set `terminationGracePeriodSeconds` long enough for in-flight requests to complete. Add PodDisruptionBudget (`minAvailable: N-1`) for voluntary disruptions like node drains.
 
----
+***
 
 **Question:** When would you choose a StatefulSet over a Deployment?
 
 **Answer:** When the workload requires: (1) stable network identity — each pod needs a predictable hostname (pod-0, pod-1) for cluster formation (Kafka brokers, Elasticsearch nodes). (2) Ordered startup/shutdown — database replicas must start primary first, then secondaries. (3) Stable persistent storage — each pod has its own PVC that survives pod rescheduling. Trade-off: StatefulSets are harder to scale (ordered operations are slow), harder to update (rolling update goes one-by-one), and cannot easily rebalance across nodes.
 
----
+***
 
 **Question:** How do you handle secrets in Kubernetes without committing them to Git?
 
 **Answer:** Layer 1: External Secrets Operator syncs secrets from AWS Secrets Manager, Vault, or GCP Secret Manager into Kubernetes Secret objects. The Git repo contains ExternalSecret resources (metadata only, not values). Layer 2: Enable encryption at rest for etcd (EncryptionConfiguration with KMS provider). Layer 3: RBAC restricts Secret read access per namespace. Layer 4: Audit logging tracks who accessed which secrets. Never base64-encode secrets in Git — anyone can decode them.
 
----
+***
 
 **Question:** How do you troubleshoot a pod stuck in `Pending` state?
 
 **Answer:** (1) `kubectl describe pod` — check Events section for scheduling failures. (2) Common causes: insufficient resources (no node can fit the request), unbound PVC (StorageClass misconfigured), unsatisfied affinity/anti-affinity, taint without toleration, or exceeded ResourceQuota. (3) Check node capacity: `kubectl describe nodes | grep -A5 Allocated`. (4) If resource-bound: reduce requests, add nodes, or enable cluster autoscaler. (5) If taint-bound: add toleration or remove taint.
 
----
+***
 
 **Question:** How does the Kubernetes scheduler decide where to place a pod?
 
 **Answer:** Two phases: (1) Filtering — eliminates nodes that cannot run the pod (insufficient resources, incompatible taints, failed affinity rules, unmet topology constraints). (2) Scoring — ranks remaining nodes by factors: resource balance (spread load), affinity preferences, topology spread, pod priority. The highest-scoring node wins. Key insight: the scheduler uses *requests* (not limits) for capacity calculation — under-requesting causes over-packing.
 
----
+***
 
 **Question:** How do you implement canary deployments in Kubernetes?
 
 **Answer:** Native Deployments do not support canary (they replace all pods). Options: (1) Manual: deploy canary as a separate Deployment (1 replica) behind the same Service selector. Observe metrics. If healthy, update the main Deployment. (2) Argo Rollouts: native canary support with traffic splitting, analysis (Prometheus queries), and automatic promotion/rollback. (3) Service mesh (Istio): VirtualService weight-based routing (send 5% to canary). The choice depends on existing tooling — Argo Rollouts is the most common for teams without a service mesh.
 
----
+***
 
 **Question:** How do you manage cluster upgrades safely?
 
 **Answer:** (1) Follow version skew policy (kubelet within 2 minor versions of API server). (2) Upgrade staging cluster first, run integration tests. (3) Upgrade control plane (managed services handle this). (4) Upgrade node groups one at a time: cordon → drain → upgrade → uncordon. (5) PodDisruptionBudgets prevent draining too many pods at once. (6) For major version jumps: blue/green cluster strategy — spin up new cluster, migrate workloads, tear down old. (7) Deprecation warnings: check `kubectl deprecations` before upgrading.
 
----
+***
 
 **Question:** What is the difference between Horizontal Pod Autoscaler and Vertical Pod Autoscaler?
 
 **Answer:** HPA adjusts replica count (more pods). VPA adjusts resource requests/limits per pod (bigger pods). HPA works for stateless services (scale out). VPA works for workloads where adding replicas does not help (single-threaded, memory-bound). Trade-off: HPA is production-ready and widely used. VPA in "Auto" mode can restart pods (disruptive) — most teams use VPA in "Off" mode (recommendations only) and apply manually. Do not use HPA and VPA on the same metric (they conflict).
 
----
+***
 
 **Question:** How do you implement NetworkPolicies effectively?
 
 **Answer:** Start with a default-deny policy per namespace (deny all ingress and egress). Then add explicit allow rules for known communication paths. Require DNS egress (port 53 to kube-dns) for service discovery. Key constraint: NetworkPolicies require a CNI that supports them (Calico, Cilium — not all CNIs enforce them). Validate policies actually block traffic (test in staging with `kubectl exec` curl attempts). Policy-as-code: store policies in Git, review with PRs.
 
----
+***
 
 **Question:** How do you choose between Helm and Kustomize?
 
 **Answer:** Helm when: (1) distributing charts to external users (parameterization is essential), (2) using community charts (PostgreSQL, Prometheus), (3) managing complex dependency trees. Kustomize when: (1) the team owns all manifests (no need for parameterization), (2) the team prefers plain YAML without templating, (3) environment differences are small (patch files are sufficient). Some teams use both: Helm for third-party software, Kustomize for internal services. Never mix both for the same service — it creates confusion.
 
----
+***
 
 **Question:** How do you handle persistent storage for databases in Kubernetes?
 
 **Answer:** (1) Use StatefulSet with volumeClaimTemplates (each pod gets its own PVC). (2) Choose appropriate StorageClass (gp3 for general, io2 for high-IOPS databases). (3) Enable volume snapshots for backup (CSI VolumeSnapshot). (4) Set appropriate `reclaimPolicy` (Retain for databases — never Delete). (5) Test pod rescheduling: when a pod moves to a new node, the PVC must reattach (only works within same AZ for EBS). (6) Consider whether running databases in Kubernetes is worth the complexity — managed databases (RDS, Cloud SQL) eliminate this entire problem.
 
----
+***
 
 **Question:** When should you run databases in Kubernetes vs managed services?
 
 **Answer:** Managed services (RDS, Cloud SQL) when: the team lacks deep database ops experience, HA/backup/patching must be someone else's problem, or the database is critical infrastructure. Kubernetes when: multi-cloud portability is a hard requirement, the team has Kubernetes operator expertise, or cost savings at scale justify the ops investment. Most teams should default to managed. Running PostgreSQL on Kubernetes is possible (with operators like CloudNativePG) but adds complexity that managed services eliminate. Trade-off: managed services cost more per-unit but less in total when including engineer time.
 
----
+***
 
 **Question:** How do you debug a container that crashes immediately on startup?
 
 **Answer:** (1) `kubectl logs pod-name --previous` — shows logs from the crashed container. (2) If no logs: the crash is before logging starts — check the entrypoint/CMD. (3) Override the entrypoint: `kubectl run debug --image=same-image --command -- sleep infinity`, then exec in and run the command manually. (4) Check events: `kubectl describe pod` for OOMKilled (memory too low), exit code 137 (SIGKILL/OOM), exit code 1 (application error). (5) Ephemeral debug containers: `kubectl debug pod-name --image=busybox --target=container-name`.
 
----
+***
 
 **Question:** How do you implement multi-tenancy in a Kubernetes cluster?
 
 **Answer:** (1) Namespace-per-tenant with RBAC restricting each team to their namespace. (2) ResourceQuotas per namespace (prevent one tenant from starving others). (3) LimitRanges set default requests/limits (prevent BestEffort pods). (4) NetworkPolicies isolate inter-namespace traffic. (5) Pod Security Standards (restricted profile) enforced via admission controller. (6) Separate node pools for hard isolation (noisy neighbors, compliance). Trade-off: soft multi-tenancy (namespaces) vs hard multi-tenancy (separate clusters) depends on trust level between tenants.
 
----
+***
 
 ### Tech Lead
 
@@ -4058,7 +4058,7 @@ Kubernetes is the industry standard, so we should adopt it. It gives us auto-sca
 - Portability cited without evidence of multi-cloud requirement.
 - No awareness of the complexity cost.
 
----
+***
 
 ### Question
 
@@ -4090,7 +4090,7 @@ We just set resource limits and use the cluster autoscaler. Kubernetes handles s
 - No mention of governance or quotas.
 - No awareness that over-provisioning is the primary cost driver.
 
----
+***
 
 ### Question
 
@@ -4122,7 +4122,7 @@ I would roll back the cluster upgrade and investigate later. Upgrades always cau
 - "Upgrades always cause issues" (fatalistic, not analytical).
 - No understanding of the pod lifecycle during termination.
 
----
+***
 
 ### Question
 
@@ -4154,7 +4154,7 @@ The platform team sets up the cluster and the application teams deploy whatever 
 - No concept of "golden paths" or developer experience.
 - Platform team only does initial setup (no ongoing ownership).
 
----
+***
 
 ### Question
 
@@ -4186,7 +4186,7 @@ We should run databases in Kubernetes because it gives us portability and we can
 - No awareness of managed service trade-offs.
 - Portability cited without evidence of multi-cloud need.
 
----
+***
 
 ### Question
 
@@ -4218,7 +4218,7 @@ We need to upgrade to bigger node types so we use fewer nodes. Also, we should n
 - "Negotiate pricing" instead of addressing waste.
 - No concept of resource requests or right-sizing.
 
----
+***
 
 ### Question
 
@@ -4250,7 +4250,7 @@ We use RBAC to control access and scan images for vulnerabilities.
 - No runtime protection (just pre-deploy scanning).
 - RBAC alone is not a complete security strategy.
 
----
+***
 
 ### Question
 
@@ -4282,7 +4282,7 @@ Teams write their own Dockerfiles and YAML and submit them for review. The platf
 - No CI/CD automation.
 - No mention of developer experience or speed.
 
----
+***
 
 ### Question
 
@@ -4314,7 +4314,7 @@ I would upgrade directly from 1.26 to 1.30 on a weekend. Kubernetes is backwards
 - No staging test.
 - Weekend upgrade implies no preparation or testing.
 
----
+***
 
 ### Question
 
@@ -4346,7 +4346,7 @@ I would override the team's resource requests to save money. If things break, we
 - No data, no gradual approach.
 - Ignores team autonomy and trust.
 
----
+***
 
 ### Question
 
@@ -4378,7 +4378,7 @@ I would check the logs and fix the issue. We should also add monitoring.
 - No ownership model or alerting strategy.
 - No prevention of recurrence.
 
----
+***
 
 ### Question
 
@@ -4410,7 +4410,7 @@ Helm is the industry standard. I would mandate it and set a deadline for all tea
 - No acknowledgment of valid concerns.
 - No pilot, no data, no gradual adoption.
 
----
+***
 
 ### Question
 
@@ -4442,7 +4442,7 @@ Separate clusters give each team full autonomy. We should give each team their o
 - No middle-ground options explored.
 - Autonomy as a goal (rather than a means to solve a specific problem).
 
----
+***
 
 ### Question
 
@@ -4474,7 +4474,7 @@ We should use a bigger node type so images pull faster. Or we could increase the
 - No mention of multi-stage builds or distroless.
 - No understanding of layer caching.
 
----
+***
 
 ### Question
 
@@ -4506,7 +4506,7 @@ Each team builds their own pipeline. We use Jenkins with a shared library.
 - No security scanning in the pipeline.
 - No mention of rollback or deployment strategy.
 
----
+***
 
 ### Question
 
@@ -4538,7 +4538,7 @@ If they need it for monitoring, we should allow it. We trust our teams.
 - No alternative solutions proposed.
 - No governance process for security exceptions.
 
----
+***
 
 ### Question
 
@@ -4570,7 +4570,7 @@ We need to rewrite the platform from scratch with proper standards. I would prop
 - No prioritization by risk.
 - No mention of making compliance easy for teams.
 
----
+***
 
 ### Scenario-based
 
@@ -4578,61 +4578,61 @@ We need to rewrite the platform from scratch with proper standards. I would prop
 
 **Answer:** (1) Namespace-per-team with RBAC (each team has admin within their namespace, no access to others). (2) ResourceQuotas per namespace — CPU: 20 cores, Memory: 40Gi per team (prevents any team from starving others). (3) LimitRanges with defaults (every pod gets at least requests if the developer forgets). (4) NetworkPolicies: default-deny between namespaces. Explicit allow for shared services (monitoring, logging). (5) Pod Security Standards: restricted profile enforced via admission controller (no privileged, no root, no host networking). (6) Separate node pools for teams with strict isolation requirements (compliance, GPU). (7) Cost attribution: Kubecost labels by namespace. Monthly report to each team lead. (8) Shared services in a platform namespace: Ingress controller, cert-manager, external-secrets-operator, monitoring stack.
 
----
+***
 
 **Question:** Your CI pipeline takes 15 minutes because Docker builds are slow. How do you optimize?
 
 **Answer:** (1) Layer ordering: put `COPY package*.json` and `RUN npm ci` before `COPY . .` — dependencies change less often than code. (2) BuildKit cache mounts: `--mount=type=cache,target=/root/.npm` persists npm cache across builds. (3) Multi-stage: only rebuild changed stages. (4) Remote cache: push layer cache to registry (`--cache-to` / `--cache-from`). (5) Smaller base image: Alpine over full Debian (fewer layers to pull). (6) .dockerignore: exclude node_modules, .git, test fixtures from build context. (7) Parallel builds: build independent images concurrently. Expected result: 15 min → 2-3 min with proper caching.
 
----
+***
 
 **Question:** A pod is consuming 4× more memory than expected and getting OOM-killed. How do you investigate?
 
 **Answer:** (1) Confirm OOM: `kubectl describe pod` shows `OOMKilled` reason, last state exit code 137. (2) Check memory usage over time: Prometheus `container_memory_working_set_bytes`. Is it a gradual leak or a sudden spike? (3) If gradual leak: the application has a memory leak. Profile with `--inspect` (Node.js), heap dump, or language-specific tools. Common causes: unbounded caches, event listener accumulation, unresolved promises. (4) If sudden spike: a specific request triggers high allocation. Check request patterns correlating with OOM timestamps. (5) Short-term fix: increase memory limit to prevent restarts while investigating. (6) Long-term: fix the leak, add memory metrics alerting at 70% of limit, consider setting `maxOldSpaceSize` for Node.js.
 
----
+***
 
 **Question:** You need to migrate 20 services from Docker Compose (development) to Kubernetes (production). What is your plan?
 
 **Answer:** (1) Do not migrate all at once. Start with 2-3 stateless services to establish patterns. (2) Create base Helm chart or Kustomize base that encodes team standards (probes, resources, security context, labels). (3) For each service: convert Compose volumes/ports/env to Kubernetes equivalents. Compose `depends_on` becomes readiness probes and init containers. Compose networks become Services and NetworkPolicies. (4) Stateful services (databases) last — evaluate managed alternatives first (RDS over PostgreSQL on K8s). (5) CI pipeline: add image build + push, manifest generation, and ArgoCD sync. (6) Parallel operation: run old and new simultaneously, shift traffic gradually. (7) Timeline: expect 2-3 months for 20 services (1 sprint for patterns, then batch migration).
 
----
+***
 
 **Question:** Design an HPA strategy for an API that is I/O-bound (database calls), not CPU-bound. Standard CPU-based HPA does not scale correctly.
 
 **Answer:** (1) CPU-based HPA fails because the pods are waiting on I/O (low CPU despite high latency). (2) Use custom metrics: expose request queue depth or P95 latency as a Prometheus metric. HPA scales on this metric. (3) Setup: deploy Prometheus Adapter to expose custom metrics to the Kubernetes metrics API. Configure HPA with `type: Pods` and `metric.name: http_request_duration_p95`. (4) Target value: scale when P95 exceeds your SLO threshold (e.g., 200ms). (5) Alternative: scale on requests-per-second if it correlates better with latency. (6) Combine with connection pool size limits — adding replicas without adding database connections does not help. (7) Scale-down stabilization: 5 minutes minimum to prevent flapping.
 
----
+***
 
 **Question:** Your service receives traffic from 3 teams via internal APIs. One team's traffic spikes are causing degradation for the other two. How do you solve this in Kubernetes?
 
 **Answer:** (1) Immediate: rate limiting at the Ingress controller level per-client (identify by header or source namespace). (2) Structural: configure resource requests and HPA to handle the expected combined load. If one team's traffic is unbounded, the service cannot absorb it. (3) Priority-based: if one team's traffic is lower priority, implement pod priority classes and preemption, or use a service mesh with traffic prioritization. (4) Architectural: separate the service into per-team deployments behind the same API (traffic shaping at the load balancer). More expensive but complete isolation. (5) Governance: define SLOs per consumer and alert when one team exceeds their allocation. Conversations about capacity become data-driven.
 
----
+***
 
 **Question:** You are tasked with implementing a disaster recovery strategy for a Kubernetes platform running in a single region. What do you design?
 
 **Answer:** (1) Cluster state: etcd backups every hour to a different region (S3 cross-region replication). Velero for full cluster backup (resources + PVs). (2) Application data: database replication to standby region (RDS read replica or managed cross-region replication). Object storage already multi-region (S3). (3) Recovery procedure: documented, tested quarterly. Target: RTO 1 hour, RPO 1 hour for stateless services; RTO 4 hours, RPO 15 minutes for databases. (4) Infrastructure-as-Code: entire cluster can be recreated from Terraform/Pulumi. Manifests in Git (Argo CD resyncs to new cluster). (5) DNS failover: Route53 health checks with automatic failover to DR region. (6) Testing: annual DR drill — actually fail over, serve production traffic from DR, measure actual recovery time.
 
----
+***
 
 **Question:** Design a strategy for handling configuration changes (feature flags, connection strings) across 30 services without redeploying.
 
 **Answer:** (1) ConfigMaps with volume mounts: application watches the mounted file for changes. ConfigMap updates propagate to pods within the kubelet sync period (~60s). No restart needed if the app reloads config on file change. (2) External configuration service: LaunchDarkly for feature flags (SDK polls, no redeploy). Vault for secrets with dynamic refresh. (3) For connection strings: use Kubernetes-native config reloader (stakater/Reloader) that triggers rolling restart when ConfigMap hash changes. Controlled restart is better than live-reloading database connections. (4) Graduated rollout: change config in one namespace first, observe, then propagate. Never change all 30 simultaneously. (5) Audit trail: all config changes go through Git PR (GitOps). ConfigMap history visible in Git log.
 
----
+***
 
 **Question:** Your team deploys 50 times per day across 15 services. Occasionally a bad deploy causes a production incident. How do you reduce blast radius?
 
 **Answer:** (1) Canary deployments: every deploy goes to 1 replica first. Automatic rollback if error rate exceeds threshold (Argo Rollouts analysis). (2) Progressive delivery: 5% → 25% → 100% traffic over 15 minutes with automated metric checks between steps. (3) Feature flags: decouple deploy from release. New code deploys dark, enabled gradually via flag. (4) Blast radius reduction: PodDisruptionBudgets ensure at least N-1 pods are always healthy. Readiness probes remove bad pods from traffic before users notice. (5) Fast rollback: Argo CD can revert to previous Git commit in <1 minute (faster than building a hotfix). (6) Deployment windows: avoid deploying all 15 services simultaneously. Stagger deployments and observe between batches.
 
----
+***
 
 **Question:** How do you set up observability for a Kubernetes cluster so the on-call engineer can quickly diagnose issues at 3 AM?
 
 **Answer:** (1) Metrics: Prometheus scrapes all pods (standard labels: app, namespace, pod). Pre-built Grafana dashboards: cluster overview, per-namespace, per-service. Key metrics: request rate, error rate, latency (RED), and resource saturation. (2) Logs: Fluent Bit DaemonSet collects container stdout/stderr. Ship to centralized logging (Elasticsearch, Loki). Structured JSON logs with request ID for correlation. (3) Traces: OpenTelemetry collector as DaemonSet. Auto-instrumentation injects tracing into HTTP calls. Jaeger or Tempo for trace visualization. (4) Alerts: symptom-based (high error rate, high latency) not cause-based (high CPU). Alert text includes: what is happening, likely causes, and link to runbook. (5) Runbooks: one per alert, linked in the alert annotation. Steps are mechanical, not requiring deep system knowledge. See [Observability](./18-observability.md) for the full observability strategy.
 
----
+***
 
 ### Trick Questions
 
@@ -4640,31 +4640,31 @@ We need to rewrite the platform from scratch with proper standards. I would prop
 
 **Answer:** No. A Pod is a group of one or more containers that share a network namespace and storage volumes. Most pods contain one container, making them appear equivalent, but the distinction matters: multi-container pods (sidecars, init containers) are common patterns. The Pod is the scheduling unit — containers within a pod are always co-located on the same node.
 
----
+***
 
 **Question:** Does Kubernetes guarantee that a Deployment always has exactly N replicas running?
 
 **Answer:** No. During rolling updates, node failures, or resource pressure, the actual replica count may temporarily differ from desired. `maxSurge` and `maxUnavailable` control how far from desired during updates. Eviction under resource pressure can reduce count. PodDisruptionBudgets limit voluntary disruptions but cannot prevent involuntary ones (node crash). Kubernetes guarantees *eventual convergence* to desired state, not instantaneous enforcement.
 
----
+***
 
 **Question:** If you set a CPU limit of 1000m, does the container always get 1 full CPU core?
 
 **Answer:** No. CPU limits are enforced via CFS (Completely Fair Scheduler) throttling. The container cannot *exceed* 1000m over any 100ms period, but it is not *guaranteed* 1000m — that is what requests are for. With only a limit and no request, the scheduler does not reserve capacity. Under contention, the container may be throttled below its limit. Also: CPU throttling can cause latency spikes even when average utilization looks low (CFS quota enforcement at 100ms boundaries).
 
----
+***
 
 **Question:** Are Kubernetes Secrets encrypted?
 
 **Answer:** By default, no. Kubernetes Secrets are base64-encoded (trivially decodable), stored in etcd in plaintext. Encryption at rest requires explicit EncryptionConfiguration with a KMS provider. Even then, anyone with RBAC permission to read Secrets in a namespace can access them. For true security: use external secret managers (Vault, AWS Secrets Manager) with operators that inject secrets at runtime.
 
----
+***
 
 **Question:** Does a Kubernetes Service do load balancing?
 
 **Answer:** It does round-robin distribution across endpoints, but calling it "load balancing" is misleading. There is no health-weighted routing, no connection draining, no session affinity (unless explicitly configured), and no intelligent traffic shaping. kube-proxy uses iptables or IPVS rules — it is layer-4, not layer-7. For true load balancing (health-aware, weighted, circuit-breaking), use a service mesh (Istio, Linkerd) or Ingress controller with advanced features.
 
----
+***
 
 ### Red Flags
 

@@ -2128,181 +2128,181 @@ and the server calculates the offset.
 
 **Answer:** REST (Representational State Transfer) is an architectural style for networked applications defined by six constraints: client-server, stateless, cacheable, uniform interface, layered system, and optional code-on-demand. In practice, REST means modeling domain entities as resources with unique URIs, using HTTP methods semantically (GET for retrieval, POST for creation, PUT for replacement, DELETE for removal), and leveraging HTTP features (status codes, headers, caching) as the protocol's built-in contract.
 
----
+***
 
 **Question:** What are the standard HTTP methods and their semantics?
 
 **Answer:** GET (retrieve, safe, idempotent), POST (create or trigger action, not safe, not idempotent), PUT (replace entire resource, idempotent), PATCH (partial update, not idempotent by default), DELETE (remove, idempotent), HEAD (same as GET without body), OPTIONS (discover allowed methods, used for CORS preflight).
 
----
+***
 
 **Question:** What is idempotency?
 
 **Answer:** An operation is idempotent if executing it once or N times produces the same server state. GET, PUT, and DELETE are idempotent by HTTP specification. POST is not — sending the same POST twice may create two resources. Idempotency is critical for safe retries over unreliable networks.
 
----
+***
 
 **Question:** What is the difference between 401 and 403?
 
 **Answer:** 401 Unauthorized means "I don't know who you are" — the request lacks valid authentication credentials. 403 Forbidden means "I know who you are, but you don't have permission." 401 should trigger a login flow; 403 should show an access denied message. Security note: some APIs return 404 instead of 403 to avoid leaking resource existence.
 
----
+***
 
 **Question:** What is cursor pagination?
 
 **Answer:** Pagination using an opaque token (cursor) that encodes the position of the last returned item. The server decodes the cursor into a keyset condition (`WHERE (col, id) < (val, val)`), enabling constant-time page retrieval at any depth. Unlike offset pagination, cursor pagination is consistent under concurrent writes and does not degrade with page depth.
 
----
+***
 
 **Question:** What is an ETag?
 
 **Answer:** An ETag (Entity Tag) is an opaque identifier representing a specific version of a resource. The server returns it in the `ETag` response header. Clients use it for conditional requests: `If-None-Match` (cache validation — returns 304 if unchanged) or `If-Match` (optimistic concurrency — returns 412 if the resource was modified by another client).
 
----
+***
 
 **Question:** What is the purpose of the `Content-Type` header?
 
 **Answer:** `Content-Type` declares the media type of the request or response body (e.g., `application/json`, `multipart/form-data`). The server uses it to select the correct parser. Mismatched content types cause parsing failures (sending JSON with `text/plain`) or security issues (MIME sniffing attacks).
 
----
+***
 
 **Question:** What is CORS?
 
 **Answer:** Cross-Origin Resource Sharing — a browser security mechanism that restricts which origins can call an API. The browser sends a preflight OPTIONS request; the server responds with `Access-Control-Allow-Origin` and related headers. APIs must explicitly whitelist allowed origins. Setting `Access-Control-Allow-Origin: *` on authenticated APIs is a security vulnerability.
 
----
+***
 
 **Question:** What is the difference between PUT and PATCH?
 
 **Answer:** PUT replaces the entire resource — the client must send all fields. Missing fields are set to null/default. PATCH applies a partial update — only sent fields are modified, others remain unchanged. PUT is idempotent by definition; PATCH can be made idempotent with conditional headers (`If-Match`). Use PATCH for updates where clients rarely need to send the full object.
 
----
+***
 
 **Question:** What is rate limiting?
 
 **Answer:** Restricting the number of requests a client can make within a time window (e.g., 100 requests per minute). Protects the server from abuse, ensures fair usage across clients, and prevents cascading failures. Implemented using algorithms like token bucket (allows bursts), sliding window (smooth), or fixed window (simple). Returns 429 Too Many Requests with a `Retry-After` header when exceeded.
 
----
+***
 
 **Question:** What is an API gateway?
 
 **Answer:** An infrastructure component that sits in front of backend services and handles cross-cutting concerns: authentication, rate limiting, routing, TLS termination, request transformation, and observability. Common examples: Kong, AWS API Gateway, Envoy. It decouples these concerns from individual services, enabling consistent policy enforcement.
 
----
+***
 
 **Question:** What is OpenAPI?
 
 **Answer:** A specification (formerly Swagger) for describing REST APIs in a machine-readable format (YAML or JSON). Defines endpoints, request/response schemas, authentication, and error formats. Used for documentation generation, client code generation, contract testing, and breaking change detection. The standard for API contracts in REST ecosystems.
 
----
+***
 
 **Question:** What is a webhook?
 
 **Answer:** An HTTP callback — the producer sends an HTTP POST to a consumer-registered URL when an event occurs. The consumer provides the callback URL; the producer pushes events to it. Used for asynchronous notifications (payment completed, build finished, PR merged). Must be secured with HMAC signatures and implement retry logic for failed deliveries.
 
----
+***
 
 **Question:** What is the BFF pattern?
 
 **Answer:** Backend for Frontend — a dedicated backend layer tailored to a specific client type (mobile BFF, web BFF). Each BFF aggregates data from multiple backend services and shapes the response for its specific client's needs. Owned by the frontend team, not the backend team. Reduces over-fetching and enables independent evolution of client-specific APIs.
 
----
+***
 
 **Question:** What makes a change "backward compatible"?
 
 **Answer:** A change is backward compatible if existing consumers continue to function without modification. Safe changes: adding optional fields, adding new endpoints, relaxing validation constraints. Breaking changes: removing/renaming fields, changing types, tightening validation, changing semantics. The rule: existing requests that worked before must still work after.
 
----
+***
 
 **Question:** What is HATEOAS?
 
 **Answer:** Hypermedia as the Engine of Application State — the principle that API responses include links to related actions and resources, allowing clients to discover the API by following links rather than hardcoding URLs. In practice, almost no production API implements full HATEOAS. Most APIs are at Richardson Maturity Level 2 (resources + HTTP methods) and provide links only for pagination (`next`, `prev`).
 
----
+***
 
 **Question:** What is the difference between REST and RPC?
 
 **Answer:** REST is resource-oriented (nouns: `/orders/123`), uses HTTP methods semantically, and leverages HTTP features (caching, content negotiation). RPC is action-oriented (verbs: `createOrder()`), typically uses POST for everything, and treats HTTP as a transport layer. gRPC is a modern RPC framework using protobuf and HTTP/2. REST is better for public APIs (discoverable, cacheable); RPC is better for internal high-performance communication.
 
----
+***
 
 **Question:** What is the `Retry-After` header?
 
 **Answer:** A response header that tells the client how long to wait before retrying. Used with 429 (rate limited) and 503 (service unavailable). Can be a number of seconds (`Retry-After: 30`) or an HTTP date. Clients must respect this header — retrying immediately after a 429 wastes resources and may result in longer bans.
 
----
+***
 
 **Question:** What is content negotiation?
 
 **Answer:** The mechanism by which a client specifies preferred response format via the `Accept` header (`Accept: application/json`) and the server selects the best representation. The server responds with `Content-Type` indicating the actual format. Enables the same endpoint to serve JSON, XML, or other formats. In practice, most modern APIs only support JSON.
 
----
+***
 
 **Question:** What is the difference between synchronous and asynchronous APIs?
 
 **Answer:** Synchronous: the client sends a request and blocks until the response arrives (standard HTTP request-response). Asynchronous: the server accepts the request (202 Accepted), processes it in the background, and the client retrieves the result later (polling, webhook, or WebSocket). Use async for long-running operations (report generation, video processing, bulk imports) that would exceed HTTP timeout limits.
 
----
+***
 
 **Question:** What is an idempotency key?
 
 **Answer:** A client-generated unique identifier (typically UUID) sent in a request header (`Idempotency-Key`) that allows the server to recognize duplicate requests. If the server receives two requests with the same key, it processes only the first and returns the cached result for subsequent ones. This makes POST endpoints safe to retry without creating duplicate resources or double-charging.
 
----
+***
 
 **Question:** What is the purpose of the `Location` header?
 
 **Answer:** Returned with 201 (Created) to indicate the URI of the newly created resource. Also used with 3xx redirects to indicate where the client should go next. For 202 (Accepted), the Location header points to a status polling endpoint. It enables clients to discover the new resource without constructing URLs manually.
 
----
+***
 
 **Question:** What is GraphQL?
 
 **Answer:** A query language for APIs where the client specifies exactly which fields to return. Uses a single endpoint (typically `POST /graphql`), a type system (schema), and resolvers that map fields to data sources. Eliminates over-fetching (getting unused fields) and under-fetching (needing multiple round-trips). Trade-off: loses HTTP caching, increases server complexity, and requires depth/cost limiting to prevent abuse.
 
----
+***
 
 **Question:** What is gRPC?
 
 **Answer:** A high-performance RPC framework using Protocol Buffers (protobuf) for serialization and HTTP/2 for transport. Features: binary encoding (smaller, faster), strict schema (proto files), code generation (typed clients/servers), streaming (unary, server, client, bidirectional). Use case: internal service-to-service communication where performance and type safety matter. Limitation: poor browser support (requires grpc-web proxy), not human-readable (binary).
 
----
+***
 
 **Question:** What is a webhook signature?
 
 **Answer:** An HMAC hash (typically SHA-256) computed over the webhook payload using a shared secret. The producer includes the signature in a header (e.g., `X-Signature-256`). The consumer recalculates the HMAC on receipt and compares — if they match, the payload is authentic and unmodified. Without signature verification, any attacker can forge webhook payloads.
 
----
+***
 
 **Question:** What is the difference between a query parameter and a path parameter?
 
 **Answer:** Path parameters identify a specific resource (`/users/123` — `123` is the user ID). Query parameters filter, sort, or paginate collections (`/users?status=active&sort=-created_at`). Rule: use path parameters for resource identity (required, identifies one resource), query parameters for optional modifiers (filtering, pagination, field selection).
 
----
+***
 
 **Question:** What is API throttling vs rate limiting?
 
 **Answer:** Rate limiting caps the total requests per time window (e.g., 100/min) — excess requests are rejected with 429. Throttling slows down requests instead of rejecting them (queuing or delaying). Rate limiting protects the server from overload. Throttling provides a smoother degradation experience but adds latency. Most production APIs use rate limiting (simpler, predictable); throttling is used in streaming/download APIs.
 
----
+***
 
 **Question:** What are the common API pagination response formats?
 
 **Answer:** Three common patterns: (1) Envelope with metadata: `{ "data": [...], "pagination": { "total": 500, "page": 3, "pages": 25 } }`. (2) Cursor-based: `{ "data": [...], "pagination": { "hasMore": true, "nextCursor": "abc123" } }`. (3) Link headers: `Link: </items?cursor=abc>; rel="next"`. Cursor-based is preferred for APIs (consistent, performant). Page-number style is acceptable for admin UIs with small datasets.
 
----
+***
 
 **Question:** What is Server-Sent Events (SSE)?
 
 **Answer:** A browser-native technology for server-to-client unidirectional streaming over HTTP. The server sends events in `text/event-stream` format over a long-lived HTTP connection. Key features: automatic reconnection (browser handles it), event IDs (resume from last seen), and standard HTTP infrastructure (works with load balancers, CDNs). Simpler than WebSockets for one-way updates (notifications, live feeds, progress).
 
----
+***
 
 **Question:** What is the OpenAPI `operationId` and why does it matter?
 
 **Answer:** A unique identifier for each endpoint operation in an OpenAPI schema. Used by code generation tools to name the generated function/method (e.g., `operationId: createOrder` becomes `client.createOrder()`). Without meaningful `operationId` values, generated clients have auto-generated names that are hard to use. Best practice: use camelCase verb+noun (`listUsers`, `getOrderById`, `cancelSubscription`).
 
----
+***
 
 ### Senior
 
@@ -2310,91 +2310,91 @@ and the server calculates the offset.
 
 **Answer:** Require clients to send a unique `Idempotency-Key` header (a UUID generated per logical operation). Server-side: (1) check if the key exists in a store (Redis with 24-72h TTL), (2) if yes, return the stored result, (3) if no, acquire a lock on the key (prevent concurrent duplicates), process the request, store the result, release the lock. The lock prevents the race condition where two retries both miss the cache. Return the same status code on retries as on the original request. This is the pattern used by Stripe, PayPal, and most payment APIs.
 
----
+***
 
 **Question:** How do you handle API versioning in a large organization?
 
 **Answer:** URL path versioning for external APIs (`/v1/`, `/v2/`) — explicit and discoverable. Custom header versioning for internal APIs (cleaner URLs, coordinated teams). Enforce backward compatibility in CI with schema diff tools (Optic, openapi-diff). When a breaking change is necessary: create a new version, run both in parallel, track consumer usage of the old version, communicate a sunset timeline, and return 410 Gone after the deadline. Internal APIs: 1-3 sprint deprecation. External APIs: 12-24 month deprecation with advance notice.
 
----
+***
 
 **Question:** When would you choose GraphQL over REST?
 
 **Answer:** When (1) multiple clients have significantly different data needs (mobile wants fewer fields than web), (2) the data graph is deep with variable shapes (product → reviews → authors), (3) the frontend team iterates faster than the backend and is bottlenecked by backend schema changes. I would NOT choose GraphQL for: simple CRUD APIs with uniform consumers, APIs that need HTTP caching (CDN), or teams without GraphQL experience. The trade-off: client flexibility at the cost of caching complexity, security surface (depth attacks), and operational overhead (N+1 with DataLoader, query cost analysis).
 
----
+***
 
 **Question:** How do you design error responses for a production API?
 
 **Answer:** Use RFC 9457 (Problem Details). Every error response includes: `type` (stable URI identifying the error class), `title` (human-readable summary), `status` (HTTP status code), `detail` (specific instance explanation), `instance` (request path). Validation errors include an `errors` array with per-field details (field path, message, error code). Never expose stack traces, SQL, or internal IDs. Document all error types in OpenAPI. Consistent error shape across all endpoints enables clients to build generic error handling.
 
----
+***
 
 **Question:** How do you protect a GraphQL API from malicious queries?
 
 **Answer:** (1) Depth limiting — reject queries deeper than 7-10 levels (prevents exponential nested joins). (2) Cost analysis — assign point costs to fields/connections, reject queries exceeding a budget (e.g., 1000 points). (3) Query whitelisting / persisted queries — clients register queries at build time; the server only executes known queries (eliminates arbitrary query risk entirely). (4) Rate limiting — per-client query cost budget per time window. (5) Timeout — kill queries exceeding execution time limits. These are defense-in-depth — use multiple layers.
 
----
+***
 
 **Question:** What is the difference between an API gateway and a BFF?
 
 **Answer:** An API gateway handles cross-cutting infrastructure concerns (auth, rate limiting, routing, TLS) for any consumer. It is generic and consumer-agnostic. A BFF is consumer-specific — it tailors API responses for a particular client type (mobile, web), aggregates data from multiple services, and is owned by the frontend team. A gateway sits in front of all services; a BFF sits in front of one client type. They can coexist: gateway → BFF → backend services.
 
----
+***
 
 **Question:** How do you implement rate limiting that is fair across clients?
 
 **Answer:** (1) Per-client identification (API key, authenticated user, or IP as fallback). (2) Token bucket or sliding window algorithm (allows short bursts while enforcing average rate). (3) Different tiers per client class (free: 100/min, paid: 1000/min, enterprise: custom). (4) Return standard headers: `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`, `Retry-After`. (5) Centralized implementation at the gateway (not per-service). (6) Alert on legitimate clients hitting limits — may indicate a needed increase, not abuse. (7) Distributed implementation: Redis sorted sets for sliding window, or a dedicated service (Envoy rate limit service).
 
----
+***
 
 **Question:** How do you ensure backward compatibility in CI?
 
 **Answer:** (1) Commit the OpenAPI schema to the repository (not auto-generated at runtime). (2) Add a CI step that diffs the schema against the main branch (tools: Optic, openapi-diff, Redocly). (3) The diff tool classifies changes as breaking or non-breaking based on rules (field removal = breaking, field addition = non-breaking). (4) Breaking changes fail the build unless explicitly flagged as a new version. (5) For gRPC: `buf breaking` checks protobuf backward compatibility. (6) Contract tests (Pact) verify consumer expectations are met. Multiple layers of defense — schema diff catches structural breaks; contract tests catch semantic breaks.
 
----
+***
 
 **Question:** How do you handle long-running operations in a REST API?
 
 **Answer:** Use the async request pattern: (1) Client sends POST, server returns 202 Accepted with a `Location` header pointing to a status resource (`/operations/{id}`). (2) Client polls the status resource (or receives a webhook when done). (3) Status resource returns progress (pending, running, completed, failed) and the result when complete. This avoids HTTP timeouts for operations taking >30 seconds (video processing, report generation, data exports). Include a `Retry-After` header to guide polling frequency.
 
----
+***
 
 **Question:** How do you design a webhook system that is reliable?
 
 **Answer:** (1) Store events durably before attempting delivery (database or queue). (2) Retry with exponential backoff (3 retries: 1min, 10min, 1hr). (3) After max retries, mark as failed and alert the consumer (email or dashboard). (4) Provide a replay API — consumers can request redelivery of missed events by time range. (5) Sign payloads with HMAC-SHA256 so consumers verify authenticity. (6) Use unique event IDs so consumers can deduplicate. (7) Require HTTPS-only endpoints. (8) Monitor delivery success rate per consumer — disable endpoints that consistently fail (return 4xx/5xx).
 
----
+***
 
 **Question:** When do you use SSE vs WebSockets?
 
 **Answer:** SSE (Server-Sent Events) for server-to-client unidirectional streaming over HTTP: notifications, live feeds, progress updates. Advantages: HTTP-native (works with standard load balancers, CDNs), automatic reconnection, simpler infrastructure. WebSockets for bidirectional real-time communication: chat, collaborative editing, multiplayer games. Advantages: full-duplex, lower latency for frequent bidirectional messages. Default to SSE unless bidirectional communication is required — it is operationally simpler (HTTP infrastructure, no sticky sessions, standard monitoring).
 
----
+***
 
 **Question:** How do you handle API authentication for different consumer types?
 
 **Answer:** Match the auth pattern to the consumer: (1) External developers (API keys) — simple, per-client keys with scopes, revocable. Good for server-to-server. (2) End users via web/mobile (OAuth 2.0 + JWT) — authorization code flow with PKCE for web, short-lived access tokens (15min) + refresh tokens. (3) Internal services (mTLS or service mesh identity) — certificate-based mutual auth, no tokens to manage. (4) Web apps (session cookies) — HTTP-only, Secure, SameSite=Strict cookies for same-origin web clients. Do not use API keys for user-facing clients (keys get leaked in client-side code).
 
----
+***
 
 **Question:** What is contract testing and when do you use it?
 
 **Answer:** Contract testing verifies that a producer's API matches consumer expectations without deploying all services together. The consumer-driven model (Pact): (1) consumer generates a "pact" (expected request/response pairs), (2) producer runs these pact tests against its actual API, (3) if producer changes break a pact, CI fails. Benefits: fast (no service deployment), specific (names which consumer breaks), independent (teams test alone). Use when: multiple consumers depend on one API, services are developed by different teams, integration test environments are slow/flaky. Skip when: single consumer (just integration test directly).
 
----
+***
 
 **Question:** How do you design a search endpoint with complex filters?
 
 **Answer:** Use `POST /resources/search` with a JSON body for complex filters (avoids URL length limits, supports nested conditions). Define a filter DSL: `{ "filters": [{ "field": "status", "op": "in", "value": ["active", "pending"] }, { "field": "created_at", "op": "gte", "value": "2024-01-01" }], "sort": ["-created_at"], "limit": 20, "cursor": "..." }`. Whitelist filterable fields and operators server-side (prevent injection). Return the same paginated response format as list endpoints. Document the filter schema in OpenAPI with examples.
 
----
+***
 
 **Question:** How do you implement optimistic concurrency control in an API?
 
 **Answer:** Use ETags and conditional requests. On GET, the server returns an `ETag` header (hash of the resource state or a version number). On PUT/PATCH, the client sends `If-Match: <etag>`. The server checks if the current ETag matches — if yes, applies the update; if no (another client modified the resource), returns 412 Precondition Failed. The client must re-fetch, re-apply changes, and retry. This prevents lost updates without pessimistic locking. Implementation: store a `version` column in the database and increment on each update. The ETag is the version number or content hash.
 
----
+***
 
 ### Tech Lead
 
@@ -2427,7 +2427,7 @@ I would write a wiki page with API guidelines and share it in Slack.
 - No mention of breaking change detection.
 - Guidelines without tooling = guidelines nobody follows.
 
----
+***
 
 ### Question
 
@@ -2458,7 +2458,7 @@ I would email everyone and give them a month to migrate.
 - No parallel running of old and new versions.
 - Arbitrary timeline not based on blast radius.
 
----
+***
 
 ### Question
 
@@ -2489,7 +2489,7 @@ GraphQL is better because clients get exactly what they need.
 - No mention of caching, operational cost, or team capability.
 - "Better" without stating what is sacrificed.
 
----
+***
 
 ### Question
 
@@ -2520,7 +2520,7 @@ Add a rate limiter middleware that returns 429 after 100 requests per minute.
 - No mention of headers or client communication.
 - No distributed implementation consideration.
 
----
+***
 
 ### Question
 
@@ -2551,7 +2551,7 @@ Use JWT tokens and validate them in middleware.
 - No mention of output sanitization.
 - No rate limiting or abuse prevention.
 
----
+***
 
 ### Question
 
@@ -2582,7 +2582,7 @@ Sure, GraphQL is modern and flexible.
 - No cost-benefit analysis.
 - Technology choice driven by novelty, not constraints.
 
----
+***
 
 ### Question
 
@@ -2613,7 +2613,7 @@ We keep a Confluence page updated after each release.
 - No connection between docs and actual API behavior.
 - No CI validation of documentation accuracy.
 
----
+***
 
 ### Question
 
@@ -2644,7 +2644,7 @@ Use caching to reduce costs.
 - No mention of gateway pricing.
 - No response size or endpoint-level analysis.
 
----
+***
 
 ### Question
 
@@ -2676,7 +2676,7 @@ Add a try-catch and retry a few times.
 - No fallback strategy.
 - Unlimited retries (amplification risk).
 
----
+***
 
 ### Question
 
@@ -2707,7 +2707,7 @@ Rewrite everything to match our conventions and tell their clients to migrate.
 - Big-bang approach without parallel operation.
 - No timeline or phased plan.
 
----
+***
 
 ### Question
 
@@ -2738,7 +2738,7 @@ Always use a BFF for clean architecture.
 - Business logic in the BFF.
 - No mention of ownership or operational cost.
 
----
+***
 
 ### Question
 
@@ -2769,7 +2769,7 @@ POST to the webhook URL in a background job and retry a few times.
 - Unlimited retries (wastes resources on dead endpoints).
 - No consumer health tracking.
 
----
+***
 
 ### Question
 
@@ -2800,7 +2800,7 @@ Each team should handle errors the way that makes sense for their service.
 - No shared library (every team reinvents).
 - No gateway normalization.
 
----
+***
 
 ### Question
 
@@ -2831,7 +2831,7 @@ GraphQL is fine for public APIs, just add authentication.
 - No awareness of caching challenges.
 - No distinction between internal and public consumers.
 
----
+***
 
 ### Question
 
@@ -2862,7 +2862,7 @@ Everyone should deploy together so versions stay in sync.
 - No shared tooling for breaking change detection.
 - No negotiation process for cross-team impacts.
 
----
+***
 
 ### Scenario-based
 
@@ -2870,61 +2870,61 @@ Everyone should deploy together so versions stay in sync.
 
 **Answer:** Resources: `POST /v1/charges` (create charge, idempotency key required), `GET /v1/charges/{id}` (retrieve), `POST /v1/charges/{id}/refunds` (create refund, partial or full), `GET /v1/refunds/{id}`. Authentication: API keys with publishable (client-side) and secret (server-side) variants. Idempotency: required on POST endpoints — stores result for 24h. Error format: RFC 9457 with payment-specific extensions (`decline_code`, `charge_id`). Webhooks: `charge.succeeded`, `charge.failed`, `refund.created` events signed with HMAC-SHA256. Versioning: URL path (`/v1/`). Rate limiting: 100/sec for all keys, higher by request. Pagination: cursor-based on list endpoints. Response: includes `created_at`, `amount`, `currency`, `status`, `metadata` (user-defined key-value). Testing: sandbox mode with test API keys that simulate success/failure scenarios.
 
----
+***
 
 **Question:** Design a cursor-paginated search API for an e-commerce product catalog with filters.
 
 **Answer:** `POST /v1/products/search` (POST because complex filter bodies exceed URL limits). Request body: `{ "filters": { "category": "electronics", "price_min": 1000, "in_stock": true }, "sort": "-relevance", "limit": 20, "cursor": "eyJ..." }`. Response: `{ "data": [...], "pagination": { "hasMore": true, "nextCursor": "..." }, "facets": { "category": { "electronics": 142, "audio": 38 } } }`. Backend: cursor encodes (score, id) for relevance sort. Whitelist filterable fields. Validate operators. Index strategy: composite indexes matching common filter combinations. Facets: pre-computed or aggregation query. Cache: CDN for popular filter combinations (5min TTL). Rate limit: 50 search requests/sec per client.
 
----
+***
 
 **Question:** You are designing an API for a multi-tenant SaaS platform. How do you handle tenant isolation?
 
 **Answer:** (1) Tenant identification: `X-Tenant-Id` header (internal) or derived from API key (external). Gateway validates tenant exists and key belongs to tenant. (2) Request scoping: middleware injects tenant context; all queries are automatically scoped (`WHERE tenant_id = ?`). Use RLS at the database level as defense-in-depth. (3) Rate limiting per tenant (not per user) — one tenant's traffic spike should not affect others. (4) Response isolation: never return data from other tenants in error messages or logs. (5) Subdomain routing: `tenant.api.example.com` enables per-tenant CORS and SSL certs. (6) Audit: log tenant_id on every request for compliance and debugging. (7) Endpoint: `GET /v1/tenants/current` returns the current tenant's configuration and limits.
 
----
+***
 
 **Question:** A mobile app needs data from 5 backend services in one screen. How do you design the API?
 
 **Answer:** Option 1: BFF — a mobile-specific backend that aggregates the 5 calls into one response. The BFF makes parallel calls to backend services, combines results, and returns a tailored payload (smaller than the sum of 5 individual responses). Mobile makes 1 request instead of 5 (critical on high-latency mobile networks). Option 2: GraphQL — single query resolves data from multiple backend services via resolvers. Client specifies exactly which fields it needs. Requires DataLoader for N+1 prevention. Option 3: API composition at the gateway — gateway fetches from multiple backends and merges. Simpler but less flexible. Recommendation: BFF for mobile if the team owns both client and backend. GraphQL if multiple clients (mobile + web + TV) with divergent needs.
 
----
+***
 
 **Question:** Design a webhook delivery system that handles consumer outages gracefully.
 
 **Answer:** Architecture: (1) Event queue (SQS/RabbitMQ) receives events from producers. (2) Delivery workers consume events and POST to consumer endpoints. (3) On success (2xx): mark delivered. (4) On failure (4xx/5xx/timeout): retry with exponential backoff (1min, 5min, 30min, 2hr, 12hr). (5) After max retries (5): mark as failed, send notification email to consumer. (6) Consumer dashboard: shows delivery history, retry status, and allows manual replay. (7) Signing: HMAC-SHA256 of the payload with a per-consumer secret. Consumer verifies before processing. (8) Deduplication: include event ID; consumers use it to deduplicate (at-least-once delivery). (9) Event ordering: include sequence number; consumers detect gaps. (10) Disable: after 7 consecutive days of failures, disable the endpoint and notify the consumer.
 
----
+***
 
 **Question:** Design API rate limiting that distinguishes between legitimate spikes and abuse.
 
 **Answer:** (1) Baseline: establish per-client normal traffic patterns (moving average over 7 days). (2) Burst allowance: token bucket with capacity = 2x average rate. Accommodates legitimate spikes (marketing campaigns, product launches) without triggering limits. (3) Hard limit: absolute maximum regardless of burst (prevents runaway loops). (4) Anomaly detection: flag clients whose traffic pattern deviates significantly from baseline (sudden 10x spike with no prior pattern). (5) Graduated response: first warning (header indicating approaching limit), then soft limit (slower responses via delay injection), then hard limit (429). (6) Human review: when a legitimate client hits limits, an automated alert triggers a review — should the limit increase? (7) Abuse fingerprinting: clients sending identical requests rapidly, high error rates, known bad IPs → immediate hard limit.
 
----
+***
 
 **Question:** You need to migrate an API from REST to GraphQL. How do you approach this?
 
 **Answer:** (1) Do not rewrite — incrementally migrate. Run both REST and GraphQL in parallel. (2) Start with read operations: expose existing data through GraphQL resolvers that call the same backend services. REST endpoints remain unchanged. (3) GraphQL gateway: Apollo Federation or schema stitching to compose multiple service schemas into one graph. (4) Client migration: frontend team migrates one screen at a time to GraphQL queries. No big-bang rewrite. (5) Write operations: add GraphQL mutations after reads are stable. (6) Monitor: track REST endpoint usage — sunset endpoints only when traffic reaches zero. (7) Timeline: 6-12 months for a full migration. (8) Fallback: REST endpoints remain available during the entire migration as a safety net.
 
----
+***
 
 **Question:** Design an API that supports real-time collaboration (like Google Docs).
 
 **Answer:** (1) WebSocket connection for bidirectional real-time updates. Client connects on document open, disconnects on close. (2) Operational Transform (OT) or CRDT for conflict resolution — multiple users editing simultaneously. (3) REST API for non-real-time operations: `GET /documents/{id}` (initial load), `POST /documents` (create), `GET /documents/{id}/history` (version history). (4) WebSocket protocol: JSON messages with operation type, position, content, and user cursor position. (5) Presence: broadcast connected users and their cursor positions via the WebSocket. (6) Persistence: operations are persisted to a log; the document state is periodically snapshotted. (7) Reconnection: client sends last-seen operation sequence number; server replays missed operations. (8) Load balancing: sticky sessions to maintain WebSocket connections; or pub/sub (Redis) to broadcast operations across instances.
 
----
+***
 
 **Question:** Design an API for a file upload service that handles large files (up to 5GB).
 
 **Answer:** (1) Multipart upload: `POST /uploads/initiate` returns an `upload_id`. (2) Client uploads parts: `PUT /uploads/{id}/parts/{part_number}` with 5-100MB chunks. Each part returns an ETag. (3) Complete: `POST /uploads/{id}/complete` with list of part ETags. Server assembles the file. (4) Abort: `DELETE /uploads/{id}` (cleanup incomplete uploads). (5) Direct upload: for small files (<100MB), presigned URL to cloud storage (S3) — client uploads directly without going through the API server. (6) Progress: client tracks upload by counting successful parts. (7) Resumption: if a part fails, re-upload only that part (not the entire file). (8) Validation: server validates file type, size, and content after assembly. (9) Webhook: `upload.completed` event when processing finishes.
 
----
+***
 
 **Question:** Design an API for a notification system that supports email, SMS, and push notifications with delivery preferences.
 
 **Answer:** Resources: `POST /v1/notifications` (send notification), `GET /v1/notifications/{id}` (status), `GET /v1/users/{id}/preferences` (delivery preferences), `PUT /v1/users/{id}/preferences`. Request body: `{ "recipient": "user_123", "template": "order_shipped", "data": { "order_id": "ord_456", "tracking_url": "..." } }`. The server resolves the template + user preferences to determine channels (email, SMS, push, or all). Response: 202 Accepted (async processing). Delivery status: poll `GET /notifications/{id}` or receive webhook `notification.delivered`/`notification.failed`. Batch: `POST /v1/notifications/batch` for bulk sends. Rate limiting: per-sender and per-recipient (prevent spam). Idempotency: required on POST (prevent duplicate sends). Unsubscribe: `POST /v1/users/{id}/unsubscribe` with channel-specific or global options. Audit: full delivery log per notification.
 
----
+***
 
 ### Performance
 
@@ -2932,43 +2932,43 @@ Everyone should deploy together so versions stay in sync.
 
 **Answer:** (1) Parallel fan-out: fetch from independent services concurrently (`Promise.all` or async gather). A sequential chain of 3 services × 100ms = 300ms; parallel = 100ms. (2) Selective fields: request only needed fields from each backend (GraphQL internally, or custom field parameters). (3) Response caching: cache aggregated responses with short TTL (30-60s). Invalidate on writes via event bus. (4) Pre-computation: for dashboards and report screens, pre-aggregate in a background job and serve from a read model. (5) Connection pooling and keep-alive: reuse HTTP connections to backend services. (6) Timeout budgets: allocate a total timeout (e.g., 2s) and distribute across upstream calls. Degrade gracefully — return partial data with a `warnings` field if one source times out.
 
----
+***
 
 **Question:** When should you use HTTP/2 for API communication?
 
 **Answer:** HTTP/2 benefits: multiplexing (many requests over one connection — eliminates head-of-line blocking at the connection level), header compression (HPACK — significant for APIs with large auth headers), server push (rarely used for APIs). Use HTTP/2 for: (1) service-to-service communication with high request volume (gRPC mandates HTTP/2). (2) Client-to-server when the client makes many parallel requests (mobile apps, SPAs loading multiple resources). (3) APIs behind a load balancer that terminates HTTP/2 and speaks HTTP/1.1 to backends (common pattern — backend simplicity, client performance). Cost: HTTP/2 connection setup is more expensive (more memory per connection on the server). For single-request APIs with short connections, HTTP/1.1 is sufficient.
 
----
+***
 
 **Question:** How do you implement and optimize API response compression?
 
 **Answer:** (1) Enable gzip/brotli at the reverse proxy level (nginx, Cloudflare). Do not compress in application code — the proxy handles it more efficiently. (2) Use `Accept-Encoding` header for content negotiation. Prefer brotli (15-25% smaller than gzip) for browser clients; gzip for broader compatibility. (3) Set a minimum body size threshold (e.g., 1KB) — compressing tiny responses wastes CPU with negligible size reduction. (4) Skip compression for already-compressed formats (images, protobuf). (5) Pre-compress static responses (OpenAPI schema, documentation) at deploy time. (6) Monitor compression ratio in production — if responses are very small (< 200B), compression overhead may increase latency.
 
----
+***
 
 **Question:** How does cursor pagination outperform offset pagination at scale?
 
 **Answer:** Offset pagination (`OFFSET 100000 LIMIT 20`) forces the database to scan and discard 100,000 rows before returning 20. Performance degrades linearly with depth. Cursor pagination (`WHERE created_at < :cursor ORDER BY created_at DESC LIMIT 20`) uses an index seek — constant time regardless of depth. Additional: offset is inconsistent under concurrent writes (items shift between pages). Cursor pagination is stable. Trade-off: cursor pagination cannot jump to arbitrary pages (no "go to page 50"). For admin UIs requiring page jumps with small datasets, offset is acceptable. For any consumer-facing API with unbounded data, cursor is mandatory.
 
----
+***
 
 **Question:** How do you handle the N+1 problem in API design?
 
 **Answer:** N+1: listing N resources and then making N additional requests for related data. Solutions: (1) Compound documents/sideloading: `GET /orders?include=customer,items` — server resolves relations in one query and includes them in a side section. (2) Batch endpoints: `GET /customers?ids=1,2,3,4,5` — client collects IDs and fetches in one call. (3) GraphQL: client specifies the full graph in one query; server uses DataLoader to batch database access. (4) BFF aggregation: the BFF layer fetches and joins data from multiple services before responding. Detection: if the client consistently makes a list request followed by N detail requests, the API is missing an aggregation endpoint.
 
----
+***
 
 **Question:** What strategies reduce payload size for mobile clients with limited bandwidth?
 
 **Answer:** (1) Field selection: `?fields=id,name,thumbnail_url` — return only requested fields. Server parses the fields parameter and projects in the database query. (2) Sparse fieldsets (JSON:API style): per-resource field selection. (3) Response compression (brotli for mobile — 25% better than gzip). (4) Image/media references: return URLs instead of embedding binary. Use responsive image URLs with size parameters (`?w=200`). (5) Pagination with small page sizes (10-20 items for initial load, infinite scroll). (6) Partial responses for large objects: summary endpoint for lists, full endpoint for detail. (7) Delta/incremental sync: `GET /resource?since=2024-01-01T00:00:00Z` — return only changed records since last sync.
 
----
+***
 
 **Question:** How do you prevent a single slow consumer from degrading API performance for others?
 
 **Answer:** (1) Per-client rate limiting: each API key has its own quota. One client exhausting their limit does not affect others. (2) Request timeouts: enforce server-side timeouts per request (e.g., 30s). Kill long-running queries rather than holding connections. (3) Bulkhead pattern: isolate heavy consumers into separate connection pools or pod groups. If enterprise client X hammers the API, their traffic is routed to dedicated capacity. (4) Queue-based processing for expensive operations: accept the request (202), process async, return results later. The API server stays responsive. (5) Connection limits per client IP/key: prevent one client from monopolizing all available connections. (6) Priority queues: premium clients get higher processing priority; free-tier clients are deferred under load.
 
----
+***
 
 ### Security
 
@@ -2976,43 +2976,43 @@ Everyone should deploy together so versions stay in sync.
 
 **Answer:** (1) Input validation at the boundary: validate every request field against a strict schema (Zod, Joi, JSON Schema). Reject unexpected fields. (2) Parameterized queries: never concatenate user input into SQL, NoSQL, or LDAP queries. (3) Output encoding: if API responses are rendered in HTML (emails, webhooks to web dashboards), encode output to prevent XSS. (4) Content-Type enforcement: reject requests with wrong Content-Type. Do not auto-parse bodies. (5) URL parameter validation: whitelist allowed characters for path parameters (UUID regex, numeric ID). (6) Header size limits: limit total header size (8KB) and body size (configurable per endpoint). (7) Structured logging: never log raw user input without sanitization (log injection).
 
----
+***
 
 **Question:** How do you implement API authentication for different consumer types?
 
 **Answer:** (1) Machine-to-machine (service-to-service): mutual TLS (mTLS) for zero-trust networks. Client presents a certificate; server verifies against CA. No shared secrets to rotate. (2) Server-side apps: OAuth 2.0 client credentials flow. Short-lived access tokens (5-60 min), no user context. (3) User-facing SPAs: OAuth 2.0 authorization code flow + PKCE. Access token in memory (not localStorage), refresh token in secure httpOnly cookie. (4) Mobile apps: same as SPA + device attestation. (5) Third-party developers: API keys for identification + OAuth for authorization. API key alone is insufficient (no scope restriction, no expiration). (6) Webhooks: HMAC signature verification (not authentication per se, but integrity + authenticity).
 
----
+***
 
 **Question:** What is the principle of least privilege applied to API authorization?
 
 **Answer:** Every client should have access only to the resources and operations required for its specific use case. Implementation: (1) Scoped tokens: OAuth scopes limit what an access token can do (`read:orders` vs `write:orders`). A reporting service gets read-only scope. (2) Resource-level authorization: even with a valid token, verify the user/service owns the requested resource. `GET /orders/123` → check order belongs to authenticated user. (3) Field-level authorization: sensitive fields (SSN, salary) returned only if the token has elevated scope. (4) Admin vs regular routes: separate admin endpoints with additional authorization middleware. (5) Audit: log every authorization decision (granted/denied) for compliance.
 
----
+***
 
 **Question:** How do you secure webhook delivery endpoints?
 
 **Answer:** (1) HMAC signature verification: compute HMAC-SHA256 over the raw request body using a shared secret. Compare with the signature header using constant-time comparison (prevent timing attacks). (2) Timestamp validation: webhook includes a timestamp header. Reject if timestamp is older than 5 minutes (prevents replay attacks). (3) IP allowlisting: only accept webhooks from known producer IP ranges (published by the provider). (4) Dedicated secret per provider: do not share the HMAC secret across integrations. Rotate secrets periodically. (5) Idempotent processing: webhooks may be delivered multiple times. Use the event ID to deduplicate. (6) No sensitive data in webhook payload: include only event type and resource ID. Consumer fetches full data via authenticated API call.
 
----
+***
 
 **Question:** How do you prevent API key leakage and what is the response when it happens?
 
 **Answer:** Prevention: (1) Server-side only: API keys in environment variables or secret managers. Never in client-side code, mobile apps, or Git. (2) Secret scanning: enable GitHub/GitLab secret scanning to detect committed keys. (3) Key rotation: support multiple active keys per client (overlap period for rotation). (4) Scoped keys: create separate keys for different environments and services (production key never in staging). Response to leakage: (1) Immediate revocation of the compromised key. (2) Issue a new key and notify the owner. (3) Audit log review: check what actions were performed with the leaked key. (4) Blast radius assessment: determine what data was accessible. (5) Incident report and root-cause fix (how did it leak).
 
----
+***
 
 **Question:** How do you implement CORS correctly for a public API?
 
 **Answer:** (1) Never use `Access-Control-Allow-Origin: *` with credentials. If cookies or auth headers are needed, whitelist specific origins. (2) Validate the `Origin` header against an allowlist — do not reflect it back blindly (allows any domain to make authenticated requests). (3) Limit `Access-Control-Allow-Methods` to actually supported methods. (4) Cache preflight responses: `Access-Control-Max-Age: 86400` (24h) reduces OPTIONS requests. (5) Do not expose sensitive headers: explicitly list only necessary headers in `Access-Control-Expose-Headers`. (6) Private APIs: do not enable CORS at all. If only server-side consumers exist, CORS is unnecessary and increases attack surface. (7) API Gateway CORS: configure at the gateway level for consistency across services.
 
----
+***
 
 **Question:** What is the difference between API key, OAuth token, and session cookie security?
 
 **Answer:** API key: long-lived, identifies the client (not the user), typically no expiration until rotated. Risk: if leaked, attacker has indefinite access. Mitigation: IP restrictions, usage alerts. OAuth access token: short-lived (minutes to hours), scoped permissions, represents a user+client pair, can be revoked. Risk: if intercepted, valid until expiration. Mitigation: short TTL, refresh token rotation. Session cookie: httpOnly + secure + SameSite attributes. Tied to server-side session state. Risk: CSRF (mitigated by SameSite=Strict/Lax + CSRF tokens). Each mechanism suits a different trust level: session cookies for first-party web apps, OAuth tokens for third-party delegation, API keys for machine identification.
 
----
+***
 
 ### Testing and Quality
 
@@ -3020,43 +3020,43 @@ Everyone should deploy together so versions stay in sync.
 
 **Answer:** Contract testing verifies that a producer API fulfills the expectations defined by its consumers — without deploying both together. Consumer writes a "contract" (expected request → expected response shape). Producer runs the contract as a test against its actual implementation. Difference from integration testing: integration tests deploy the full stack and test end-to-end flow. Contract tests run independently (producer tests can run in CI without consumer deployed). Tool: Pact is the most common framework. Contract testing catches: breaking schema changes, removed fields, changed types. It does not catch: business logic bugs, performance issues, or end-to-end flow errors.
 
----
+***
 
 **Question:** How do you validate API backward compatibility in CI?
 
 **Answer:** (1) Schema diff: compare the current OpenAPI schema against the published baseline. Tools: Optic, openapi-diff, Swagger Diff. (2) Breaking change detection: fail CI if detected changes are breaking (removed endpoint, removed field, type change, tightened validation). (3) Baseline management: the baseline is the last released version (tagged in Git). Every PR is compared against it. (4) Exception process: if a breaking change is intentional, it requires explicit approval (commit message flag, reviewer sign-off) and a new major version. (5) Consumer contract tests: run Pact provider verification in CI. If any consumer contract fails, the PR cannot merge. Combined approach: schema diff catches structural breaks; contract tests catch behavioral breaks.
 
----
+***
 
 **Question:** How do you load-test an API before a major launch?
 
 **Answer:** (1) Identify critical paths: which endpoints will receive the highest traffic? Focus load testing there. (2) Realistic scenarios: use production-like data volumes and access patterns. Not just `GET /health`. (3) Ramp-up: start at baseline traffic, ramp to expected peak (e.g., 3× normal), then to breaking point. (4) Tools: k6, Locust, Gatling, or artillery.io. (5) Metrics to capture: p50/p95/p99 latency, error rate, throughput (RPS), system resources (CPU, memory, DB connections). (6) Failure identification: at what load does latency exceed SLA? At what point do errors spike? What is the bottleneck (DB connections? CPU? memory? network)? (7) Environment: test against a production-like environment (same instance sizes, same DB config). Never load-test staging if it has 1/10th the capacity. (8) Baseline comparison: compare results against previous load test to detect regressions.
 
----
+***
 
 **Question:** How do you test webhook delivery reliability?
 
 **Answer:** (1) Unit test: verify event payload shape and HMAC signature computation. (2) Integration test: use a mock HTTP server (nock, WireMock) as the webhook consumer. Verify that the system delivers the correct payload to the correct URL. (3) Retry testing: mock the consumer to return 500 for the first 3 attempts, then 200. Verify the system retries with correct backoff intervals and eventually succeeds. (4) Dead-letter testing: mock the consumer to always fail. Verify the system moves the event to a dead-letter queue after max attempts. (5) Ordering test: produce events rapidly and verify they arrive in order per consumer. (6) Chaos testing: inject network failures between the delivery worker and consumer. Verify no data loss (events are re-queued, not lost).
 
----
+***
 
 **Question:** What is the testing pyramid for API development?
 
 **Answer:** (1) Unit tests (base, most numerous): test individual handlers, validators, serializers, business logic in isolation. Mock external dependencies. Fast (milliseconds). (2) Integration tests (middle): test the API handler + database + middleware together. Use test database (testcontainers). Verify full request-response cycles. Moderate speed (seconds). (3) Contract tests (above integration): verify API schema compliance against consumer contracts. Run in CI. (4) End-to-end tests (top, fewest): deploy the full system and test critical user flows. Slowest, most brittle. Use sparingly for smoke tests. Ratio guideline: 70% unit, 20% integration, 8% contract, 2% E2E. Anti-pattern: "ice cream cone" (mostly E2E tests) — slow CI, flaky tests, hard to debug.
 
----
+***
 
 **Question:** How do you test API rate limiting logic?
 
 **Answer:** (1) Unit test the rate limiter algorithm: given a fixed window of 100 requests, verify request 101 is rejected. Test edge cases: exact boundary, window reset timing. (2) Integration test with Redis: verify that the rate limiter correctly increments counters and respects TTL. Test concurrent requests (race conditions). (3) Test response headers: verify `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset` are correct after each request. (4) Test 429 response body: verify it includes `Retry-After` header and a meaningful error message. (5) Per-client isolation: verify that one client hitting their limit does not affect another client. (6) Test sliding window vs fixed window behavior: verify that the chosen algorithm behaves as documented at window boundaries.
 
----
+***
 
 **Question:** How do you ensure API documentation stays accurate over time?
 
 **Answer:** (1) Schema-first development: write the OpenAPI schema before implementation. Generate server stubs and client SDKs from the schema. Implementation divergence causes test failures. (2) Schema validation in CI: validate every response in integration tests against the OpenAPI schema (using libraries like express-openapi-validator). If the response doesn't match the schema, the test fails. (3) Generated documentation: serve docs from the schema (Redoc, Swagger UI) — they update automatically. (4) Example requests in the schema: OpenAPI `examples` field with realistic data. Validate that examples are parseable and match the schema. (5) Changelog automation: diff the schema between releases and generate a human-readable changelog. (6) Deprecation annotations: `deprecated: true` in schema triggers warnings in generated clients.
 
----
+***
 
 ### Trick Questions
 
@@ -3064,31 +3064,31 @@ Everyone should deploy together so versions stay in sync.
 
 **Answer:** By HTTP specification, yes — repeating a PUT request must produce the same server state. However, in practice, a poorly implemented PUT that uses server-generated values (auto-increment IDs, timestamps without client control) may not behave idempotently. If `PUT /orders/123` creates the order when it doesn't exist (upsert behavior), repeated calls with the same body are idempotent. If the server adds a `modified_at` timestamp, the state changes each time — but this is considered acceptable because the semantics (the resource content) are the same. The trap: confusing "same response" with "same state" — idempotency is about server state, not response content.
 
----
+***
 
 **Question:** Is REST the same as CRUD?
 
 **Answer:** No. REST is an architectural style with constraints (stateless, cacheable, uniform interface). CRUD (Create, Read, Update, Delete) is a set of operations. REST uses HTTP methods that map to CRUD-like operations, but REST is broader: it includes hypermedia, caching, content negotiation, and resource relationships. Many "REST" APIs are actually "CRUD over HTTP" at Richardson Maturity Level 1-2. True REST (Level 3) includes hypermedia links. The confusion arises because most practical REST APIs stop at Level 2 and look like CRUD. The trap: equating the two implies REST is just a database exposed over HTTP, which misses the architectural benefits.
 
----
+***
 
 **Question:** Should you use 404 or 200 with an empty body when a resource doesn't exist?
 
 **Answer:** 404 — the resource does not exist. This is the semantically correct answer. However, there is a nuance: for collection endpoints (`GET /orders?status=pending`), returning 200 with an empty array is correct (the collection exists but contains no items). For single resources (`GET /orders/123`), 404 is correct. The trap: some API designers return 200 with `null` or empty body to "avoid error handling in the client." This violates HTTP semantics and confuses clients that need to distinguish "not found" from "found but empty." Exception: for security, return 404 (not 403) when the resource exists but the user lacks access — prevents enumeration.
 
----
+***
 
 **Question:** Can you cache POST responses?
 
 **Answer:** According to HTTP specification (RFC 9110), POST responses CAN be cached if the response includes appropriate caching headers (`Cache-Control`, `Expires`) and a `Content-Location` header indicating the resource URI. However, in practice, almost no one caches POST responses — caches, CDNs, and browsers typically do not cache POST by default. The trap: the interviewer is testing whether you know the spec vs common practice. In GraphQL, all queries are POST — and CDN-level caching requires workarounds (persisted queries with GET, or application-level caching with Apollo). Correct answer: "technically yes per spec, practically never, and GraphQL's POST-only model is why HTTP caching is GraphQL's weakness."
 
----
+***
 
 **Question:** Is GraphQL a replacement for REST?
 
 **Answer:** No — they solve different problems. REST optimizes for cacheability, simplicity, and universal tooling. GraphQL optimizes for client flexibility and reducing over/under-fetching. They can coexist: REST for public APIs (cacheable, simple, well-tooled), GraphQL for product APIs (diverse clients, deep data graphs). GraphQL is not "REST 2.0" — it trades HTTP caching and simplicity for query flexibility. Many organizations use both. The trap: treating them as competing solutions rather than complementary tools with different trade-off profiles.
 
----
+***
 
 ### Red Flags
 

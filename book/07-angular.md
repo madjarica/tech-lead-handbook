@@ -1927,7 +1927,7 @@ finds a provider. Services are typically singletons (`providedIn:
 'root'`) but can be scoped to a component (new instance per
 component) or a lazy-loaded module.
 
----
+***
 
 **Question:** What is the difference between a component and a
 directive?
@@ -1938,7 +1938,7 @@ structure without its own template. Structural directives (`@if`,
 `*ngIf`) add or remove elements. Attribute directives change
 element properties (e.g., background color, visibility).
 
----
+***
 
 **Question:** What is OnPush change detection?
 
@@ -1949,7 +1949,7 @@ inside the component, (3) `markForCheck()` is called, (4) the
 template changes. It reduces the number of checks from
 "every component" to "only affected components."
 
----
+***
 
 **Question:** What is the `async` pipe?
 
@@ -1959,7 +1959,7 @@ unsubscribes when the component is destroyed. It eliminates manual
 subscription management and works with OnPush (triggers
 `markForCheck` on new values).
 
----
+***
 
 **Question:** What is the difference between `ngOnInit` and the
 constructor?
@@ -1969,7 +1969,7 @@ properties. Use it only for DI. `ngOnInit` runs after Angular
 initializes the component's inputs. Use it for initialization that
 depends on input values — fetching data, setting up subscriptions.
 
----
+***
 
 **Question:** What is a pipe?
 
@@ -1979,7 +1979,7 @@ depends on input values — fetching data, setting up subscriptions.
 pipes run only when the input reference changes (memoized). Impure
 pipes run on every change detection cycle (expensive).
 
----
+***
 
 **Question:** What is lazy loading in Angular?
 
@@ -1989,7 +1989,7 @@ of including it in the initial bundle. Configured with
 route definition. Reduces the initial download size, improving
 Time to Interactive.
 
----
+***
 
 **Question:** What is Zone.js?
 
@@ -1999,7 +1999,7 @@ when async operations complete. This triggers change detection.
 Zone.js is how Angular knows "something happened" without
 requiring explicit state update calls (unlike React's `setState`).
 
----
+***
 
 **Question:** What is a standalone component?
 
@@ -2009,7 +2009,7 @@ its dependencies (other components, directives, pipes) in the
 `imports` array. Standalone components are the modern default,
 replacing NgModules for code organization.
 
----
+***
 
 **Question:** What are reactive forms?
 
@@ -2020,7 +2020,7 @@ the form object directly), supports dynamic fields (add/remove
 controls at runtime), and enables complex validation (cross-field,
 async).
 
----
+***
 
 **Question:** What is an Angular interceptor?
 
@@ -2030,7 +2030,7 @@ can modify requests (add auth tokens, logging), handle responses
 Modern Angular uses functional interceptors
 (`HttpInterceptorFn`).
 
----
+***
 
 **Question:** What is `trackBy` in `@for` / `*ngFor`?
 
@@ -2040,7 +2040,7 @@ DOM elements when the list changes. With `trackBy`, Angular reuses
 existing DOM elements for items with the same identifier, reducing
 DOM operations.
 
----
+***
 
 **Question:** What is a route guard?
 
@@ -2050,7 +2050,7 @@ leaving a route with unsaved changes. `canMatch` controls whether a
 route configuration matches. Guards can return `boolean`, `UrlTree`
 (redirect), or `Observable<boolean>`.
 
----
+***
 
 **Question:** What is a Subject in RxJS?
 
@@ -2060,7 +2060,7 @@ gets its own execution), a Subject shares a single execution.
 `BehaviorSubject` holds a current value and emits it to new
 subscribers immediately. `ReplaySubject` replays the last N values.
 
----
+***
 
 **Question:** What is the difference between `@Input` and
 `input()`?
@@ -2071,7 +2071,7 @@ signal-based input that integrates with the signal reactivity
 system. `input.required()` makes the input required at compile time.
 Signal inputs work natively with `computed()` and `effect()`.
 
----
+***
 
 **Question:** What is `FormArray`?
 
@@ -2080,7 +2080,7 @@ controls. Used when the number of fields is not known at compile
 time — e.g., a list of phone numbers where the user can add or
 remove entries. Each entry is a `FormControl` or `FormGroup`.
 
----
+***
 
 **Question:** What is `ngOnDestroy` used for?
 
@@ -2090,7 +2090,7 @@ clearing intervals, removing event listeners. With
 `takeUntilDestroyed()`, explicit `ngOnDestroy` cleanup is often
 unnecessary.
 
----
+***
 
 **Question:** What is Angular's template syntax for control flow?
 
@@ -2101,7 +2101,7 @@ structural directives `*ngIf`, `*ngFor`, and `[ngSwitch]`. The new
 syntax is block-based and supports `@else`, `@empty` (for empty
 lists), and deferred loading with `@defer`.
 
----
+***
 
 **Question:** What is `providedIn: 'root'`?
 
@@ -2111,7 +2111,7 @@ application. It enables tree-shaking — if no component injects the
 service, it is removed from the bundle. Preferred over providing
 services in NgModule `providers` arrays.
 
----
+***
 
 **Question:** What is the difference between `switchMap`,
 `mergeMap`, `concatMap`, and `exhaustMap`?
@@ -2123,7 +2123,7 @@ Observables concurrently (use for parallel requests).
 mutations). `exhaustMap` ignores new values while one is in progress
 (use for form submit).
 
----
+***
 
 **Question:** What is Angular's HttpClient?
 
@@ -2132,7 +2132,7 @@ Observables. It supports typed responses (`http.get<User[]>(url)`),
 request/response interceptors, and automatic JSON parsing. It is
 provided via `provideHttpClient()` in the application config.
 
----
+***
 
 **Question:** What is `ngOnChanges`?
 
@@ -2142,7 +2142,7 @@ previous and current values for each changed input. Useful for
 reacting to input changes. With signal-based inputs (`input()`),
 `computed()` often replaces `ngOnChanges`.
 
----
+***
 
 **Question:** What is the difference between `ng-content` and
 `ng-template`?
@@ -2153,7 +2153,7 @@ into the child component (content projection / transclusion).
 explicitly used by a structural directive or
 `ViewContainerRef.createEmbeddedView()`.
 
----
+***
 
 **Question:** What is AOT compilation?
 
@@ -2163,7 +2163,7 @@ Benefits: faster rendering (no runtime compilation), smaller
 bundles (compiler not shipped), earlier template error detection.
 AOT is the default for production builds.
 
----
+***
 
 **Question:** What is a resolver?
 
@@ -2172,7 +2172,7 @@ component activates. The component receives the resolved data
 via `ActivatedRoute.data`. This prevents rendering a component
 with empty state and eliminates loading spinners for critical data.
 
----
+***
 
 **Question:** What is `@ViewChild`?
 
@@ -2181,7 +2181,7 @@ a child component, directive, or DOM element. The query result is
 available in `ngAfterViewInit`, not in `ngOnInit`. Used for
 programmatic access to child components or DOM elements.
 
----
+***
 
 **Question:** What is the `async` pipe's relationship with OnPush?
 
@@ -2192,7 +2192,7 @@ automatically — no manual `markForCheck()` needed. This is why the
 `async` pipe is the recommended way to consume Observables in
 OnPush components.
 
----
+***
 
 **Question:** What is `@defer` in Angular?
 
@@ -2203,7 +2203,7 @@ dependencies are loaded in a separate bundle chunk, reducing the
 initial load. `@defer` replaces manual lazy loading patterns for
 below-the-fold content.
 
----
+***
 
 **Question:** What is `ChangeDetectorRef`?
 
@@ -2214,7 +2214,7 @@ OnPush), `detectChanges()` runs change detection immediately for
 the component and its children, `detach()` excludes the component
 from automatic change detection entirely.
 
----
+***
 
 **Question:** What is content projection?
 
@@ -2263,7 +2263,7 @@ snapshots — the clearest symptom of subscription leaks."
 - No enforcement mechanism.
 - Cannot diagnose subscription leaks.
 
----
+***
 
 ### Question
 
@@ -2301,7 +2301,7 @@ and train the team on immutable data patterns."
 - Cannot explain when OnPush breaks.
 - No enforcement strategy.
 
----
+***
 
 ### Question
 
@@ -2336,7 +2336,7 @@ local state, RxJS handles async flows. I migrate
 - Does not know when RxJS is still needed.
 - No migration strategy.
 
----
+***
 
 ### Question
 
@@ -2372,7 +2372,7 @@ tests, and 10% to E2E."
 - No mention of harnesses.
 - No E2E strategy.
 
----
+***
 
 ### Question
 
@@ -2408,7 +2408,7 @@ or a state machine pattern would reduce complexity."
 - No shared validators.
 - No mention of async validation.
 
----
+***
 
 ### Question
 
@@ -2447,7 +2447,7 @@ elimination."
 - No bundle budgets.
 - No analysis tooling.
 
----
+***
 
 ### Question
 
@@ -2483,7 +2483,7 @@ throws an error."
 - Cannot explain why it is preferred.
 - Does not know the injection context constraint.
 
----
+***
 
 ### Question
 
@@ -2520,7 +2520,7 @@ I never skip versions — v16 → v18 is not supported."
 - No sprint budget.
 - Does not update third-party deps first.
 
----
+***
 
 ### Question
 
@@ -2557,7 +2557,7 @@ execution order."
 - Does not understand the chain model.
 - Uses class-based interceptors without knowing functional ones.
 
----
+***
 
 ### Question
 
@@ -2595,7 +2595,7 @@ which removes Zone.js entirely."
 - No mention of computed() or effect().
 - Does not know about zoneless detection.
 
----
+***
 
 ### Question
 
@@ -2633,7 +2633,7 @@ lazy chunk exceeds the budget, I investigate with
 - No bundle budgets.
 - No second-level lazy loading for large features.
 
----
+***
 
 ### Question
 
@@ -2674,7 +2674,7 @@ writes, `mergeMap` for parallel reads."
 - No marble testing awareness.
 - Errors handled outside the pipeline.
 
----
+***
 
 ### Question
 
@@ -2714,7 +2714,7 @@ wrong for shared state."
 - Cannot explain when component-level providers are appropriate.
 - Does not understand the injector hierarchy.
 
----
+***
 
 ### Question
 
@@ -2756,7 +2756,7 @@ code."
 - Cannot identify leak sources beyond subscriptions.
 - No prevention strategy.
 
----
+***
 
 ### Question
 
@@ -2839,7 +2839,7 @@ to inconsistent codebases without strong conventions."
 - No team-level considerations.
 - No mention of hiring or maintenance.
 
----
+***
 
 ### Question
 
@@ -2879,7 +2879,7 @@ go."
 - No training plan.
 - No conventions.
 
----
+***
 
 ### Question
 
@@ -2916,7 +2916,7 @@ it with an ESLint rule that bans `BehaviorSubject` in new code
 - No state categorization.
 - No enforcement mechanism.
 
----
+***
 
 ### Question
 
@@ -2955,7 +2955,7 @@ standalone components, percentage of functional guards) monthly."
 - No migration schematic awareness.
 - No progress tracking.
 
----
+***
 
 ### Question
 
@@ -2992,7 +2992,7 @@ and adjust based on the team's pain points."
 - No schematics configuration.
 - No documented standards.
 
----
+***
 
 ### Question
 
@@ -3031,7 +3031,7 @@ SSR critical content and defer interactive widgets."
 - No cost analysis.
 - No hydration awareness.
 
----
+***
 
 ### Question
 
@@ -3069,7 +3069,7 @@ with the library, not the library's internals."
 - No scope criteria.
 - Hardcoded styles.
 
----
+***
 
 ### Question
 
@@ -3107,7 +3107,7 @@ button re-initializes the failed component."
 - No monitoring integration.
 - No independent failure design.
 
----
+***
 
 ### Question
 
@@ -3146,7 +3146,7 @@ containerized. The pipeline runs on every PR and on merge to main."
 - No E2E.
 - No security scanning.
 
----
+***
 
 ### Question
 
@@ -3185,7 +3185,7 @@ interactive elements."
 - No route change announcement.
 - No CI enforcement.
 
----
+***
 
 ### Question
 
@@ -3227,7 +3227,7 @@ supply chain risk."
 - No abstraction layer.
 - No automated update strategy.
 
----
+***
 
 ### Question
 
@@ -3269,7 +3269,7 @@ and version skew between remotes."
 - No evaluation of whether micro-frontends are needed.
 - No awareness of Module Federation.
 
----
+***
 
 ### Question
 
@@ -3309,7 +3309,7 @@ strategy quarterly."
 - No CI enforcement.
 - No trend tracking.
 
----
+***
 
 ### Question
 
@@ -3351,7 +3351,7 @@ operations."
 - No audit trail.
 - No awareness of data handling regulations.
 
----
+***
 
 ### Question
 
@@ -3435,7 +3435,7 @@ components in `shared/components/`."
 - No mention of `canMatch`.
 - No offline strategy.
 
----
+***
 
 ### Question
 
@@ -3474,7 +3474,7 @@ to load them after initial render."
 - Cannot name specific heavy libraries.
 - No CI budget.
 
----
+***
 
 ### Question
 
@@ -3514,7 +3514,7 @@ entire subtree."
 - Cannot name specific failure modes.
 - No systematic debugging approach.
 
----
+***
 
 ### Question
 
@@ -3552,7 +3552,7 @@ and cleanup (async pipe unsubscribes) automatically."
 - Manual subscription without cleanup.
 - No race condition handling.
 
----
+***
 
 ### Question
 
@@ -3591,7 +3591,7 @@ medium-sized application."
 - No hybrid approach.
 - No migration timeline.
 
----
+***
 
 ### Question
 
@@ -3632,7 +3632,7 @@ static assets so returning users load instantly."
 - Only knows lazy loading.
 - No SSR consideration.
 
----
+***
 
 ### Question
 
@@ -3669,7 +3669,7 @@ accumulate as untestable branches."
 - No runtime flag service.
 - No dead-flag cleanup.
 
----
+***
 
 ### Question
 
@@ -3710,7 +3710,7 @@ template-driven forms in review. Track migration progress (count of
 - No shared validators.
 - No ADR.
 
----
+***
 
 ### Question
 
@@ -3750,7 +3750,7 @@ the cache from the previous run."
 - No dependency constraints.
 - No affected-based CI.
 
----
+***
 
 ### Question
 
@@ -3808,7 +3808,7 @@ fine-grained reactivity — signals tell Angular exactly which
 bindings changed, eliminating unnecessary checks. (6) Avoid impure
 pipes — they run on every change detection cycle.
 
----
+***
 
 **Question:** How do you reduce Time to Interactive (TTI) in an
 Angular application?
@@ -3824,7 +3824,7 @@ analytics, chat widgets, and ads often block the main thread. Load
 them after the `load` event. (6) Use `NgOptimizedImage` for
 responsive images with lazy loading and `srcset`.
 
----
+***
 
 **Question:** What is the performance impact of impure pipes?
 
@@ -3837,7 +3837,7 @@ and pass the filtered result to the template. Pure pipes are
 memoized and run only when the input reference changes — they are
 safe for performance.
 
----
+***
 
 **Question:** How does lazy loading affect Angular performance?
 
@@ -3850,7 +3850,7 @@ injector scope — services provided in a lazy module are not
 singletons with the root injector. This can be a benefit
 (isolation) or a bug (unexpected separate instances).
 
----
+***
 
 **Question:** How do you profile Angular rendering performance?
 
@@ -3880,7 +3880,7 @@ should be used only for trusted content (e.g., sanitized on the
 server). In code review, any use of `bypassSecurityTrust*` requires
 justification and a comment explaining why the content is trusted.
 
----
+***
 
 **Question:** How do you handle authentication tokens securely in
 an Angular SPA?
@@ -3900,7 +3900,7 @@ applications.
 > Verify `withXsrfConfiguration()` API against current Angular
 > HttpClient documentation.
 
----
+***
 
 **Question:** What is CSP and how do you configure it for Angular?
 
@@ -3918,7 +3918,7 @@ mode before enforcing. Monitor CSP violations to catch issues.
 > Verify `ngCspNonce` attribute availability and usage against
 > current Angular documentation.
 
----
+***
 
 **Question:** How do you prevent CSRF attacks in Angular?
 
@@ -3933,7 +3933,7 @@ cookie-based authentication — token-based auth (Bearer tokens in
 headers) is inherently CSRF-resistant because the token is not sent
 automatically.
 
----
+***
 
 **Question:** How do you secure route navigation in Angular?
 
@@ -3966,7 +3966,7 @@ form submission). These are slow (seconds each) and flaky if not
 well-maintained. I target 70% component tests, 20% unit tests, 10%
 E2E. Every feature PR includes tests for the new behavior.
 
----
+***
 
 **Question:** What are Angular CDK test harnesses and why do they
 matter?
@@ -3983,7 +3983,7 @@ can provide their own harnesses for consumers. Use harnesses for all
 Angular Material component interactions. Use direct DOM queries only
 for custom components without harnesses.
 
----
+***
 
 **Question:** How do you test reactive forms?
 
@@ -3999,7 +3999,7 @@ not test Angular's built-in validators (`Validators.required`,
 `Validators.email`) — they are already tested by Angular. I test
 custom validators and form behavior.
 
----
+***
 
 **Question:** How do you handle flaky tests in an Angular test
 suite?
@@ -4018,7 +4018,7 @@ Fix — use `fakeAsync`/`tick` for all timer-based logic, use
 the flaky test (with a tracking issue) rather than letting it
 block the entire team. Fix within one sprint.
 
----
+***
 
 **Question:** How do you test Angular interceptors?
 
@@ -4050,7 +4050,7 @@ signal change). When a trigger fires, the component is checked
 normally. OnPush is an optimization, not an opt-out from change
 detection.
 
----
+***
 
 **Question:** Is Angular's change detection the same as React's
 virtual DOM?
@@ -4063,7 +4063,7 @@ more direct but less flexible — it cannot discard and restart a
 render like React's concurrent mode. Both achieve the same goal
 (minimal DOM updates) with different mechanisms.
 
----
+***
 
 **Question:** Do standalone components make NgModules obsolete?
 
@@ -4074,7 +4074,7 @@ have not migrated to standalone. Standalone components replace
 NgModules for component organization and compilation scope, but
 NgModules remain in legacy code and some library patterns.
 
----
+***
 
 **Question:** Is `BehaviorSubject` obsolete because of signals?
 
@@ -4086,7 +4086,7 @@ RxJS operators (e.g., `combineLatest` with other Observables),
 specific), (3) existing code where migration is not justified. The
 migration from `BehaviorSubject` to signals should be incremental.
 
----
+***
 
 **Question:** Does `takeUntilDestroyed()` work everywhere?
 

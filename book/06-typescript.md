@@ -1412,175 +1412,175 @@ type. You need a type check before you can use it.
 
 **Answer:** Two types are compatible if they have the same shape (properties and their types), regardless of declared name or inheritance. TypeScript uses structural typing; Java and C# use nominal typing. This means you can pass an object to a function expecting an interface it never explicitly `implements` — as long as the shape matches.
 
----
+***
 
 **Question:** What is the difference between `interface` and `type`?
 
 **Answer:** Both define object shapes. `interface` supports declaration merging (re-opening to add fields) and `extends` for inheritance. `type` supports unions, intersections, mapped types, conditional types, and computed types. Use `interface` for public API shapes; use `type` for everything else.
 
----
+***
 
 **Question:** What is type narrowing?
 
 **Answer:** The process by which TypeScript refines a wider type to a narrower one inside a control-flow branch. Narrowing is triggered by `typeof`, `instanceof`, `in`, equality checks, discriminant field checks, and user-defined type guards.
 
----
+***
 
 **Question:** What is the difference between `any` and `unknown`?
 
 **Answer:** `any` disables type checking — assignments flow in and out without restriction. `unknown` accepts any value but forbids operations until the value is narrowed. `unknown` is the type-safe top type; `any` is an escape hatch that breaks type safety.
 
----
+***
 
 **Question:** What is `never`?
 
 **Answer:** The bottom type — no value inhabits `never`. It represents functions that never return (always throw or loop forever), impossible branches in conditional types, and the type of an exhausted union after all members are narrowed away. Use it for exhaustiveness checks.
 
----
+***
 
 **Question:** What does `keyof` produce?
 
 **Answer:** A union of the known property keys of a type. `keyof { a: string; b: number }` produces `"a" | "b"`. Combined with indexed access (`T[K]`), it enables type-safe property lookup functions.
 
----
+***
 
 **Question:** What is a discriminated union?
 
 **Answer:** A union of object types where each member has a shared literal-typed field (the discriminant). TypeScript narrows the union based on the discriminant in `if`/`switch` branches, enabling exhaustive handling where missing a case is a compile error.
 
----
+***
 
 **Question:** What is a generic constraint?
 
 **Answer:** A restriction on a type parameter using `extends`. `function f<T extends { id: string }>(x: T)` means `T` must have at least an `id: string` property. It prevents passing values that don't meet the minimum shape.
 
----
+***
 
 **Question:** What does `Partial<T>` do?
 
 **Answer:** Makes all properties of `T` optional. Useful for update operations where only some fields are provided. `Partial<{ name: string; age: number }>` becomes `{ name?: string; age?: number }`.
 
----
+***
 
 **Question:** What is `typeof` at the type level?
 
 **Answer:** It captures the TypeScript type of a runtime value. `const x = { a: 1 }; type X = typeof x;` gives `{ a: number }`. With `as const`, it preserves literal types. It is not the same as the runtime `typeof` operator (which returns a string like `"object"`).
 
----
+***
 
 **Question:** What is type inference?
 
 **Answer:** TypeScript automatically determines types from context without explicit annotations. Variable types are inferred from their initializer, return types from the function body, and generic type parameters from the arguments. Explicit annotations are needed mainly at module boundaries and ambiguous cases.
 
----
+***
 
 **Question:** What is the `satisfies` operator?
 
 **Answer:** It checks that a value conforms to a type without widening the inferred type. `const x = { a: 1 } satisfies Record<string, number>` ensures the value matches the constraint while keeping `x.a` as the literal type `1`, not widened to `number`.
 
----
+***
 
 **Question:** What is a mapped type?
 
 **Answer:** A type that transforms every key of another type using the syntax `{ [K in keyof T]: ... }`. It enables creating derived types like `Partial`, `Readonly`, and custom transformations without repetition.
 
----
+***
 
 **Question:** What is a conditional type?
 
 **Answer:** A type-level ternary: `T extends U ? X : Y`. If `T` is assignable to `U`, the type resolves to `X`; otherwise `Y`. Conditional types distribute over unions by default and support `infer` for capturing sub-types.
 
----
+***
 
 **Question:** What does `infer` do?
 
 **Answer:** Inside a conditional type, `infer` declares a type variable that TypeScript fills in during the assignability check. `T extends Promise<infer U> ? U : T` captures the resolved type of a Promise. It is how utility types like `ReturnType` and `Parameters` work internally.
 
----
+***
 
 **Question:** What is the excess property check?
 
 **Answer:** TypeScript rejects extra properties on object literals assigned directly to a typed target. This catches typos. It does not apply when assigning a variable (which may have extra properties). It is a development ergonomics check, not a runtime guarantee.
 
----
+***
 
 **Question:** What is declaration merging?
 
 **Answer:** When two declarations with the same name exist, TypeScript merges them. Interfaces merge their members. Namespaces merge with classes or functions. This enables augmenting third-party types (`declare module "express" { interface Request { user: User } }`). The risk: scattered declarations make types hard to trace.
 
----
+***
 
 **Question:** What is the difference between `type` assertions and type guards?
 
 **Answer:** A type assertion (`as`) tells the compiler to trust the developer — no runtime check occurs. A type guard (`value is Type` predicate or `typeof`/`instanceof` check) performs a runtime check and narrows the type safely. Assertions lie when wrong; guards are verifiable.
 
----
+***
 
 **Question:** What does `isolatedModules` enforce?
 
 **Answer:** It ensures each file can be independently transpiled without type information from other files. This is required by transpilers like swc and esbuild that process one file at a time. It disallows features that need cross-file type resolution: `const enum` (inlined from another file), namespace merging across files, and re-exports of types without `type` keyword.
 
----
+***
 
 **Question:** What is the purpose of `strictNullChecks`?
 
 **Answer:** It prevents `null` and `undefined` from being assignable to non-nullable types. Without it, every type implicitly includes `null | undefined`, and property access on potentially-null values is unchecked. With it, the developer must explicitly handle null (via narrowing, optional chaining, or non-null assertion).
 
----
+***
 
 **Question:** What is a template literal type?
 
 **Answer:** A type constructed from string template syntax: `` type Route = `/${string}` ``. It enables type-safe string patterns, key remapping in mapped types (`` `get${Capitalize<K>}` ``), and event name typing. Combined with conditional types, it can parse and validate string formats at the type level.
 
----
+***
 
 **Question:** What does `noUncheckedIndexedAccess` change?
 
 **Answer:** Array access (`arr[i]`) and record access (`obj[key]`) return `T | undefined` instead of `T`. This forces handling the out-of-bounds case explicitly. Without it, TypeScript pretends indexing always succeeds — a common source of runtime `undefined` errors.
 
----
+***
 
 **Question:** What is `ReturnType<T>`?
 
 **Answer:** A utility type that extracts the return type of a function type. `ReturnType<typeof fetch>` gives `Promise<Response>`. Implemented internally as a conditional type with `infer`.
 
----
+***
 
 **Question:** What happens to types at runtime?
 
 **Answer:** They are completely erased. No interface, type alias, generic parameter, or type annotation exists in the emitted JavaScript. This means you cannot reflect on types at runtime, cannot `instanceof` an interface, and cannot branch on a generic parameter. Runtime type information requires explicit runtime artifacts (classes, enums, or validation schemas).
 
----
+***
 
 **Question:** What is `Exclude<T, U>`?
 
 **Answer:** A utility type that removes from union `T` all members assignable to `U`. `Exclude<"a" | "b" | "c", "a">` gives `"b" | "c"`. Implemented as a distributive conditional type: `T extends U ? never : T`.
 
----
+***
 
 **Question:** When would you use `Record<K, V>`?
 
 **Answer:** When you need an object type with specific key and value types. `Record<string, number>` is equivalent to `{ [key: string]: number }`. `Record<"a" | "b", boolean>` ensures exactly those keys exist. Use it for lookup tables, configuration objects, and state maps.
 
----
+***
 
 **Question:** What is a type predicate?
 
 **Answer:** A return type annotation of the form `value is Type` on a function. It tells TypeScript that if the function returns `true`, the argument is narrowed to `Type` in the calling scope. The function must perform a runtime check that justifies the narrowing.
 
----
+***
 
 **Question:** What is `exactOptionalPropertyTypes`?
 
 **Answer:** It distinguishes between a property that is missing and one that is present with value `undefined`. With the flag, `{ a?: string }` means `a` can be absent but cannot be explicitly `undefined`. Without the flag, both are allowed. This prevents accidentally writing `undefined` where deletion was intended.
 
----
+***
 
 **Question:** What is the difference between `extends` in generics vs in interfaces?
 
 **Answer:** In generics, `T extends U` is a constraint — it restricts what `T` can be. In interfaces, `interface A extends B` is inheritance — `A` has all of `B`'s members plus its own. In conditional types, `T extends U` is an assignability test. Same keyword, three different contexts.
 
----
+***
 
 **Question:** How do you type a function that accepts variable arguments?
 
@@ -1592,85 +1592,85 @@ type. You need a type check before you can use it.
 
 **Answer:** Use `Record<string, T>` with `noUncheckedIndexedAccess` enabled. Every access returns `T | undefined`, forcing the consumer to handle the missing case. The alternative — `Map<string, T>` — has the same semantics and is preferable when you need deletion and iteration without prototype concerns.
 
----
+***
 
 **Question:** Explain covariance and contravariance in TypeScript.
 
 **Answer:** Covariance: a type `A` is substitutable where `B` is expected if `A extends B`. This applies to return types and readonly properties. Contravariance: the reverse — applies to function parameters under `strictFunctionTypes`. A function `(x: Animal) => void` is assignable to `(x: Dog) => void` only if Dog extends Animal (contravariant). Without `strictFunctionTypes`, parameters are bivariant (unsound but convenient for callbacks).
 
----
+***
 
 **Question:** How do you prevent the team from using `any`?
 
 **Answer:** Three layers: (1) lint rule `@typescript-eslint/no-explicit-any` as an error in CI; (2) suppress only with `@ts-expect-error` plus a linked issue (so suppressions are tracked); (3) `noImplicitAny` in tsconfig catches inferred `any`. Track the count of suppressions as a metric — it should trend down.
 
----
+***
 
 **Question:** What is the difference between `type assertion` and `satisfies`?
 
 **Answer:** `as` overrides the inferred type — it can widen or narrow, and it silences errors. `satisfies` checks conformance without changing the inferred type. Use `satisfies` when you want to validate that a value matches a constraint while keeping the specific inferred type. Use `as` (rarely) when you have information the compiler cannot infer.
 
----
+***
 
 **Question:** How do branded types work and when would you use them?
 
 **Answer:** A branded type adds a phantom property (`& { __brand: "X" }`) that exists only at the type level. Two structurally identical types with different brands are incompatible. Use them to prevent mix-ups between same-shaped values (UserId vs PostId, validated email vs raw string). The trade-off: creation requires an assertion or a factory function, which adds ceremony.
 
----
+***
 
 **Question:** Explain the difference between `declare module` and module augmentation.
 
 **Answer:** `declare module "x" {}` in a non-module file (no import/export) creates an ambient module declaration — defining types for an untyped package. The same syntax inside a module file augments an existing module — adding properties to its exported types. The distinction is whether the file has its own top-level import/export. Misplacing the declaration is a common source of "type not found" errors.
 
----
+***
 
 **Question:** When would you use `unknown` in a catch block?
 
 **Answer:** Always, with `useUnknownInCatchVariables` enabled. In JavaScript, anything can be thrown — not just `Error`. The `catch` variable is genuinely unknown. Narrowing with `instanceof Error` before accessing `.message` or `.stack` prevents runtime crashes on non-Error throws. Without this flag, the catch variable is `any`, which propagates unsafety.
 
----
+***
 
 **Question:** How do you type a higher-order function that preserves the argument types?
 
 **Answer:** Use a generic that captures the function's signature: `function wrap<T extends (...args: any[]) => any>(fn: T): (...args: Parameters<T>) => ReturnType<T>`. This preserves both parameter types and return type without widening. For async wrappers, use `Awaited<ReturnType<T>>`.
 
----
+***
 
 **Question:** What problems does `verbatimModuleSyntax` solve?
 
 **Answer:** It forces developers to mark type-only imports/exports with the `type` keyword explicitly. Without it, the compiler must decide which imports are type-only (and can be erased) versus runtime. This causes subtle bugs when transpilers (swc, esbuild) erase imports they think are type-only but are actually needed at runtime (side-effect imports). With the flag, intent is explicit.
 
----
+***
 
 **Question:** How do you handle optional properties vs nullable properties?
 
 **Answer:** An optional property (`a?: T`) may be absent from the object. A nullable property (`a: T | null`) is always present but may be null. With `exactOptionalPropertyTypes`, you cannot assign `undefined` to an optional property — only omission is allowed. The design choice: use optional for "may not be provided" (creation), nullable for "known to be empty" (database null).
 
----
+***
 
 **Question:** How do distributive conditional types work and when are they surprising?
 
 **Answer:** When a conditional type `T extends U ? X : Y` receives a naked union for `T`, it distributes — applying the condition to each union member independently. `ToArray<string | number>` distributes to `string[] | number[]`, not `(string | number)[]`. To prevent distribution, wrap both sides: `[T] extends [U] ? X : Y`. The surprise: developers expect the union to be treated as a whole but get per-member results.
 
----
+***
 
 **Question:** What is the difference between `Pick` and `Omit`, and when is each dangerous?
 
 **Answer:** `Pick<T, K>` keeps only keys `K` from `T`. `Omit<T, K>` removes keys `K`. The danger: `Omit` does not constrain `K` to actual keys of `T` — `Omit<User, "typo">` compiles without error and returns the full `User` type. A typo in the key silently produces the wrong type. Use `Omit` with `keyof T` constraints in utility types, or prefer `Pick` where exhaustiveness matters.
 
----
+***
 
 **Question:** How do you type a function that returns different types based on an input discriminant?
 
 **Answer:** Use function overloads or a generic with a conditional return: `function handle<T extends Event["type"]>(type: T): Extract<Event, { type: T }>`. Overloads are clearer for 2–3 cases. Conditional return types scale better for many cases but are harder to read. The implementation must use `as` internally because TypeScript cannot verify the conditional logic in the body.
 
----
+***
 
 **Question:** What is the difference between `readonly` and `Readonly<T>`?
 
 **Answer:** `readonly` on a property prevents reassignment of that specific field. `Readonly<T>` applies `readonly` to all top-level properties of `T`. Both are shallow — nested objects remain mutable. For deep immutability, use a recursive type (`type DeepReadonly<T> = { readonly [K in keyof T]: DeepReadonly<T[K]> }`) or `as const` at creation. Neither enforces immutability at runtime — it is purely a compile-time contract.
 
----
+***
 
 **Question:** How do you type middleware that augments `req` in Express?
 
@@ -1712,7 +1712,7 @@ Enable strict mode globally and fix all the errors in a sprint.
 - No mention of product velocity trade-off.
 - Treating TypeScript migration as a one-time task.
 
----
+***
 
 ### Question
 
@@ -1746,7 +1746,7 @@ Let engineers write whatever types they want as long as it compiles.
 - No readability threshold.
 - Treating type complexity as "free" because it's erased at runtime.
 
----
+***
 
 ### Question
 
@@ -1780,7 +1780,7 @@ Use Zod because it's popular.
 - No mention of bundle size or team consistency.
 - Using multiple validation libraries without justification.
 
----
+***
 
 ### Question
 
@@ -1814,7 +1814,7 @@ No, we have TypeScript types so it's safe.
 - No awareness of deployment sequencing.
 - Binary thinking (always/never) without context.
 
----
+***
 
 ### Question
 
@@ -1848,7 +1848,7 @@ Use `^5.0.0` and let it auto-update.
 - No review of release notes.
 - No dedicated upgrade process.
 
----
+***
 
 ### Question
 
@@ -1882,7 +1882,7 @@ Tell developers not to use `as`.
 - No distinction between safe and unsafe assertions.
 - No metrics or tracking.
 
----
+***
 
 ### Question
 
@@ -1916,7 +1916,7 @@ Copy the types into both projects.
 - No versioning strategy.
 - Manual synchronization without automation.
 
----
+***
 
 ### Question
 
@@ -1950,7 +1950,7 @@ Always use TypeScript everywhere.
 - No recognition of TypeScript's overhead.
 - Cannot name a legitimate exception.
 
----
+***
 
 ### Question
 
@@ -1984,7 +1984,7 @@ One tsconfig.json at the root that includes everything.
 - No separation of emit and type-check.
 - No incremental build strategy.
 
----
+***
 
 ### Question
 
@@ -2018,7 +2018,7 @@ Add `declare module "x"` and move on.
 - No attempt to find or contribute types.
 - No adapter pattern for critical dependencies.
 
----
+***
 
 ### Question
 
@@ -2052,7 +2052,7 @@ Both teams write their own types and keep them in sync manually.
 - No code generation.
 - No CI validation of contract adherence.
 
----
+***
 
 ### Question
 
@@ -2086,7 +2086,7 @@ Push the change and let consumers fix their builds.
 - No migration tooling.
 - No communication or deprecation period.
 
----
+***
 
 ### Question
 
@@ -2120,7 +2120,7 @@ Just wait for tsc to finish; it's a one-time cost.
 - No incremental build strategy.
 - No separation of emit from type-check.
 
----
+***
 
 ### Question
 
@@ -2154,7 +2154,7 @@ Switch to TC39 decorators immediately for all code.
 - No consideration of framework compatibility.
 - No mention of bundler support.
 
----
+***
 
 ### Question
 
@@ -2238,7 +2238,7 @@ Use `string` for the flag name and `Record<string, boolean>` for values.
 - Stringly-typed design.
 - No compile-time enforcement of valid flag names.
 
----
+***
 
 ### Question
 
@@ -2281,7 +2281,7 @@ Use `type: string` and cast based on the value.
 - No runtime validation.
 - Type assertion instead of narrowing.
 
----
+***
 
 ### Question
 
@@ -2337,7 +2337,7 @@ Use function overloads for each endpoint.
 - No single source of truth for the route map.
 - Returns `any` from the client.
 
----
+***
 
 ### Question
 
@@ -2371,7 +2371,7 @@ Decorators are great, use them everywhere.
 - No mention of build-tool constraints.
 - No evaluation of alternatives.
 
----
+***
 
 ### Question
 
@@ -2427,7 +2427,7 @@ Use a string for state and check transitions at runtime.
 - No compile-time enforcement.
 - No awareness of when to use a runtime library instead.
 
----
+***
 
 ### Question
 
@@ -2461,7 +2461,7 @@ Cast with `as StripeEvent` and process.
 - No dead-letter strategy.
 - Rejecting malformed webhooks with 4xx (causes infinite retries).
 
----
+***
 
 ### Question
 
@@ -2495,7 +2495,7 @@ If it compiles, it's fine.
 - No testing strategy for type utilities.
 - Treating type code as second-class.
 
----
+***
 
 ### Question
 
@@ -2554,7 +2554,7 @@ Use `string` for event names and `any` for payloads.
 - `any` exposed to consumers.
 - No payload type inference.
 
----
+***
 
 ### Question
 
@@ -2608,7 +2608,7 @@ Type the form values manually and hope validators match.
 - Manual type/validator synchronization.
 - No use of `satisfies` or schema-driven typing.
 
----
+***
 
 ### Question
 
@@ -2649,31 +2649,31 @@ Convert all files to `.ts` in a branch, fix all errors, merge.
 
 **Answer:** (1) Deeply recursive conditional types (e.g. deep `Partial`, path extraction on nested objects). (2) Large union types (>50 members) combined with mapped types — the checker evaluates every combination. (3) Excessive use of `infer` in nested positions. (4) Template literal types that produce combinatorial explosions (e.g. all permutations of multi-segment route strings). (5) `Omit` on large interfaces (internally iterates all keys). Mitigation: use `--extendedDiagnostics` to find slow files, simplify types, or break them into cached intermediates.
 
----
+***
 
 **Question:** How does `skipLibCheck` improve build performance and what does it sacrifice?
 
 **Answer:** `skipLibCheck: true` skips type-checking `.d.ts` files (from node_modules and generated declarations). It can cut build time by 30–50% on large projects. The trade-off: bugs in declaration files go unnoticed until runtime. In practice, well-maintained libraries rarely have `.d.ts` bugs, and the speed gain is worth it. Enable it always in application projects; disable only in library projects where you publish your own `.d.ts`.
 
----
+***
 
 **Question:** What is the performance difference between `tsc` and `swc`/`esbuild` for TypeScript?
 
 **Answer:** `swc` and `esbuild` transpile TypeScript to JavaScript 10–100x faster than `tsc` because they skip type-checking entirely — they only strip types and transform syntax. They cannot replace `tsc` for correctness because they do not perform type analysis (no error reporting, no type inference affecting emit). The production pattern: `swc`/`esbuild` for compilation in dev and CI build steps; `tsc --noEmit` as a separate CI step for type safety.
 
----
+***
 
 **Question:** How do project references improve type-check performance in a monorepo?
 
 **Answer:** Project references (`composite: true` + `references` in tsconfig) tell `tsc --build` to process packages in dependency order and cache the results (`.tsBuildInfo`). On subsequent runs, only packages with changed source files are re-checked. Without references, a single `tsc` run re-checks the entire codebase. For a 50-package monorepo, this typically reduces incremental type-check from minutes to seconds.
 
----
+***
 
 **Question:** When does TypeScript's structural type system cause performance issues at the type level?
 
 **Answer:** When types are wide and deep. A type with 100 optional properties compared against another wide type triggers O(n) property comparisons for each assignment check. Intersection of multiple large interfaces creates a combined type the checker must flatten. The worst case: recursive types without a termination depth limit — the checker explores branches until it hits an internal limit. Fix: keep types narrow, avoid deeply nested intersections, and profile with `--generateTrace`.
 
----
+***
 
 **Question:** How do you diagnose a slow `tsserver` in the IDE?
 
@@ -2685,19 +2685,19 @@ Convert all files to `.ts` in a branch, fix all errors, merge.
 
 **Answer:** A type assertion bypasses the compiler's check. If used at a boundary where data enters the system (API request, query parameter, form input), it tells the compiler the data is trusted without actually validating it. An attacker can send a payload that violates the asserted type — e.g. `as AdminUser` on an unauthenticated request — and the code proceeds as if authorization was granted. The fix: validate (Zod, io-ts), never assert, at trust boundaries.
 
----
+***
 
 **Question:** How does TypeScript interact with Content Security Policy (CSP)?
 
 **Answer:** TypeScript itself does not affect CSP — types are erased. But TypeScript patterns can indirectly create CSP issues: (1) `eval` usage hidden in type-erased decorators. (2) `new Function()` in template literal type utilities that are misused at runtime. (3) Enum reverse-mappings that use computed property access patterns some CSP analyzers flag. The key: TypeScript does not add security; it is a development tool. Runtime security policies (CSP, input validation, output encoding) are orthogonal.
 
----
+***
 
 **Question:** How do you prevent sensitive data from leaking through TypeScript's structural typing?
 
 **Answer:** Structural typing means any object with the right shape passes type checks — including objects with extra fields containing secrets. If you serialize a `User` object that also has a `passwordHash` property (from a database row), TypeScript will not warn you. Prevention: (1) Use `Pick` or explicit response types that include only public fields. (2) Use branded types to distinguish `InternalUser` from `PublicUser`. (3) Validate at the serialization boundary with a schema that whitelists fields.
 
----
+***
 
 **Question:** How do you safely type environment variables to prevent secret exposure?
 
@@ -2710,7 +2710,7 @@ const PublicConfig = z.object({ APP_NAME: z.string(), LOG_LEVEL: z.enum(["debug"
 
 Load and validate at startup. Never pass `PrivateConfig` to frontend code or client-visible responses. The type boundary prevents accidental inclusion. Without this separation, a `process.env` record passes anywhere `Record<string, string>` is accepted — including response bodies.
 
----
+***
 
 **Question:** What security considerations apply when using `declaration merging` to augment types?
 
@@ -2722,31 +2722,31 @@ Load and validate at startup. Never pass `PrivateConfig` to frontend code or cli
 
 **Answer:** (1) Use `expectType` from `tsd` or `expect-type` — assertion functions that fail at compile time if the type does not match. (2) Use `// @ts-expect-error` to assert that invalid usage produces an error (if the error disappears, the test fails). (3) Snapshot type outputs for complex utility types. Example: `expectTypeOf(result).toEqualTypeOf<{ name: string; age: number }>()`. This catches regressions when utility types are refactored.
 
----
+***
 
 **Question:** How do you prevent type regressions in a shared library?
 
 **Answer:** (1) Use `api-extractor` or a similar tool that generates an API report (`.api.md` file). Check it into source control. CI diffs the report — any unintentional public type change fails the build. (2) Type-level tests (via `tsd`) that assert the public API shape. (3) Consumer integration tests — a test project that imports the library and type-checks against expected usage patterns.
 
----
+***
 
 **Question:** How do you handle `any` in test files without letting it spread?
 
 **Answer:** (1) Allow `@typescript-eslint/no-explicit-any` as a warning in test files only (via ESLint overrides), never in source. (2) Prefer `unknown` + narrowing even in tests — it catches bugs in test setup. (3) For mock objects, use typed helpers (`jest.mocked(fn)`, `vi.fn<Parameters<T>, ReturnType<T>>`) instead of `as any`. (4) Track `any` usage in tests as a metric — high usage indicates the production types are hard to construct, which is a design smell.
 
----
+***
 
 **Question:** How do you type mocks and stubs in unit tests?
 
 **Answer:** Use `Partial<T>` or `Pick<T, K>` for partial mocks: `const mockUser: Pick<User, "id" | "name"> = { id: "1", name: "Alice" }`. For function mocks, use the framework's typed mock utility: `vi.fn<[string], Promise<User>>()`. Avoid `as any` — it hides test setup bugs. For complex objects, create factory functions: `function buildUser(overrides?: Partial<User>): User { return { ...defaults, ...overrides } }`.
 
----
+***
 
 **Question:** What is the relationship between TypeScript strictness and test coverage?
 
 **Answer:** Stricter TypeScript reduces the number of runtime paths that need testing — `strictNullChecks` eliminates the "forgot to check null" category of bugs entirely at compile time. `noUncheckedIndexedAccess` eliminates the "accessed undefined array element" category. This lets test coverage focus on business logic rather than null-pointer scenarios. Teams that disable strict mode need significantly more defensive tests to cover the cases the type system would have prevented.
 
----
+***
 
 **Question:** How do you test that a discriminated union is exhaustively handled?
 
@@ -2758,25 +2758,25 @@ Load and validate at startup. Never pass `PrivateConfig` to frontend code or cli
 
 **Answer:** No. They overlap for object shapes but differ in: (1) interfaces support declaration merging (re-opening); type aliases do not. (2) Type aliases support unions, intersections, conditional types, mapped types; interfaces do not. (3) Interfaces produce better error messages in some cases (named vs anonymous). (4) Interfaces can `extend` multiple interfaces; type aliases use `&`. For plain object shapes, they are functionally equivalent; for computed types, only `type` works.
 
----
+***
 
 **Question:** Does TypeScript guarantee runtime type safety?
 
 **Answer:** No. TypeScript types are erased at compile time. The compiled JavaScript has no type information. If untrusted data enters the system without runtime validation, it can violate types silently. TypeScript guarantees type safety only within the boundary of code it type-checks — not at runtime boundaries (APIs, files, user input).
 
----
+***
 
 **Question:** Can you use `instanceof` with a TypeScript interface?
 
 **Answer:** No. Interfaces do not exist at runtime — they are erased. `instanceof` requires a constructor function (a class). To check if a value conforms to an interface shape at runtime, use a type guard with property checks or a validation library. This is a direct consequence of type erasure.
 
----
+***
 
 **Question:** Is `object` the same as `Object` in TypeScript?
 
 **Answer:** No. `object` (lowercase) means "any non-primitive value" — excludes `string`, `number`, `boolean`, `symbol`, `null`, `undefined`. `Object` (uppercase) is the `Object` interface — almost everything is assignable to it (including primitives via boxing). Use `object` for "any reference type"; never use `Object` as a type annotation — it is nearly useless.
 
----
+***
 
 **Question:** Does `strict: true` include `noUncheckedIndexedAccess`?
 

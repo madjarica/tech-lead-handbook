@@ -2241,7 +2241,7 @@ production. The difference is the approval gate. Most teams practice
 Continuous Delivery; Continuous Deployment requires mature automation,
 strong test coverage, and automated rollback.
 
----
+***
 
 **Question:** What is a build artifact?
 
@@ -2252,7 +2252,7 @@ must be immutable (never modified after creation) and versioned
 is promoted through environments (staging → production) and never
 rebuilt.
 
----
+***
 
 **Question:** What is the difference between a rolling deployment
 and a blue/green deployment?
@@ -2265,7 +2265,7 @@ the other atomically. Blue/green requires double the infrastructure
 but offers instant rollback; rolling uses existing infrastructure
 but requires backward-compatible code during the transition.
 
----
+***
 
 **Question:** What is Infrastructure as Code?
 
@@ -2278,7 +2278,7 @@ actual state to match. IaC enables code review for infrastructure
 changes, reproducible environments, and rollback through Git
 history.
 
----
+***
 
 **Question:** What is a pipeline quality gate?
 
@@ -2289,7 +2289,7 @@ security scan (CVEs), and manual approval. Each gate catches a
 different class of defect. The order matters: fast gates (lint, type
 check) run first to provide quick feedback.
 
----
+***
 
 **Question:** What is semantic versioning?
 
@@ -2300,7 +2300,7 @@ bug fixes. SemVer is primarily useful for libraries and APIs where
 consumers depend on compatibility guarantees. Application
 deployments typically use commit SHA tags instead.
 
----
+***
 
 **Question:** What is a feature flag?
 
@@ -2312,7 +2312,7 @@ A/B testing. The trade-off: every flag adds a conditional branch in
 the code. Old flags must be cleaned up to prevent accumulation of
 dead code paths.
 
----
+***
 
 **Question:** What does DORA stand for, and what are the four
 metrics?
@@ -2325,7 +2325,7 @@ and mean time to recovery (time from failure detection to
 resolution). These metrics predict software delivery performance and
 are used to identify systemic bottlenecks.
 
----
+***
 
 **Question:** What is GitOps?
 
@@ -2337,7 +2337,7 @@ reconciles any differences. Unlike push-based deployment where the
 CI pipeline applies changes directly, GitOps pulls changes from Git,
 which means the CI system does not need cluster credentials.
 
----
+***
 
 **Question:** Why should secrets not be hardcoded in CI pipeline
 configuration files?
@@ -2350,7 +2350,7 @@ variables, OIDC federation, or a secrets manager (Vault, AWS
 Secrets Manager) to inject secrets at runtime without storing them
 in code.
 
----
+***
 
 **Question:** What is trunk-based development?
 
@@ -2361,7 +2361,7 @@ minimizes merge conflicts and enables continuous integration. Incomplete
 features are hidden behind feature flags rather than kept on long-lived
 branches.
 
----
+***
 
 **Question:** What is pipeline caching and why does it matter?
 
@@ -2372,7 +2372,7 @@ the dependency lock file. Caching reduces pipeline duration, runner
 costs, and network bandwidth. The trade-off: an incorrect cache key
 can serve stale dependencies.
 
----
+***
 
 **Question:** What is the expand-contract pattern for database
 migrations?
@@ -2385,7 +2385,7 @@ the old column or table. Each step is independently deployable and
 reversible, unlike a single migration that drops or renames a
 column.
 
----
+***
 
 **Question:** What is drift detection in IaC?
 
@@ -2397,7 +2397,7 @@ CloudFormation can detect drift by comparing the state file or
 template to the live infrastructure. Run drift detection on a
 schedule (daily) to catch unauthorized changes.
 
----
+***
 
 **Question:** What is an SBOM?
 
@@ -2408,7 +2408,7 @@ announced, the SBOM identifies which artifacts are affected. SBOMs
 are increasingly required by regulation and supply-chain security
 frameworks.
 
----
+***
 
 **Question:** What is the difference between SAST and DAST?
 
@@ -2421,7 +2421,7 @@ runtime vulnerabilities like XSS, authentication bypass, and
 misconfigured headers. SAST runs in CI; DAST runs against a deployed
 environment.
 
----
+***
 
 **Question:** What is a deploy freeze?
 
@@ -2432,7 +2432,7 @@ explicit start and end dates, and an exception process for critical
 security patches. The Tech Lead is typically the approver for freeze
 exceptions.
 
----
+***
 
 **Question:** What is the purpose of staging environment?
 
@@ -2443,7 +2443,7 @@ production deployment. The value of staging depends on its parity
 with production — a staging environment with different database
 engines, different IAM roles, or no load provides false confidence.
 
----
+***
 
 **Question:** What is a deployment pipeline vs a release pipeline?
 
@@ -2454,7 +2454,7 @@ deployed continuously, but features are released on a separate
 schedule through flag toggles. This separation enables deploying
 incomplete code safely and releasing features gradually.
 
----
+***
 
 **Question:** What is the difference between a self-hosted and a
 managed CI runner?
@@ -2468,7 +2468,7 @@ requires patching, scaling, and monitoring. Self-hosted runners are
 common when builds need specific hardware (GPUs), large caches, or
 access to private networks.
 
----
+***
 
 **Question:** What is the difference between a build step and a
 deploy step in a pipeline?
@@ -2481,7 +2481,7 @@ environment-specific (staging, production). Separating them ensures
 the same artifact is tested and deployed, and that the build does
 not depend on deployment target configuration.
 
----
+***
 
 **Question:** What is a deployment manifest?
 
@@ -2492,7 +2492,7 @@ Kubernetes, this is a Deployment YAML. In ECS, this is a task
 definition. The manifest is versioned in Git and applied by the CD
 pipeline. Rolling back means applying the previous manifest version.
 
----
+***
 
 **Question:** What is the purpose of a lock file in CI?
 
@@ -2503,7 +2503,7 @@ resolve a different patch version than the developer tested locally,
 causing non-reproducible builds. Lock files must be committed to
 the repository and updated deliberately, not auto-generated in CI.
 
----
+***
 
 **Question:** What is the difference between a pipeline stage and a
 pipeline job?
@@ -2514,7 +2514,7 @@ same stage can run in parallel. All jobs in a stage must pass before
 the next stage begins. For example, the "quality" stage might contain
 three parallel jobs: lint, typecheck, and unit tests.
 
----
+***
 
 **Question:** What is a smoke test in the context of CD?
 
@@ -2527,7 +2527,7 @@ running, and confirms connectivity to critical dependencies
 is correct." They catch deployment failures (wrong image,
 misconfiguration, missing secrets) that unit tests cannot.
 
----
+***
 
 **Question:** What does "shift left" mean in CI/CD?
 
@@ -2540,7 +2540,7 @@ the later it is found. Shift left applies to security scanning
 only in staging), and compliance checks (automate in the pipeline,
 not only at release).
 
----
+***
 
 **Question:** What is a pipeline trigger?
 
@@ -2553,7 +2553,7 @@ trigger runs CI and CD. Misconfigured triggers cause either
 excessive pipeline runs (wasting resources) or missed runs
 (shipping untested code).
 
----
+***
 
 **Question:** What is the difference between a container registry
 and an artifact repository?
@@ -2566,7 +2566,7 @@ registries are specialized for image layer storage and pull
 optimization. Many teams use both: a container registry for Docker
 images and an artifact repository for everything else.
 
----
+***
 
 **Question:** What is environment promotion?
 
@@ -2578,7 +2578,7 @@ feature flags) changes between environments. Promotion ensures
 that the artifact validated in staging is exactly what runs in
 production.
 
----
+***
 
 **Question:** What is a deployment rollback window?
 
@@ -2644,7 +2644,7 @@ but it ensures everything is tested together."
 - Does not distinguish between shared library changes and
   service-specific changes.
 
----
+***
 
 **Question:** How do you handle database migrations in a CI/CD
 pipeline?
@@ -2659,7 +2659,7 @@ application code. In a canary deployment, both old and new versions
 run simultaneously, so the schema must be compatible with both
 versions.
 
----
+***
 
 **Question:** How do you reduce pipeline execution time?
 
@@ -2671,7 +2671,7 @@ slow integration and end-to-end tests run asynchronously after merge
 or on a schedule. For Docker builds, I optimize the Dockerfile layer
 ordering (dependencies before code) and use BuildKit cache mounts.
 
----
+***
 
 **Question:** How do you handle flaky tests in CI?
 
@@ -2685,7 +2685,7 @@ resolution. Root causes are investigated: timing dependencies
 external dependencies (use test doubles or containers). A team that
 accepts flaky tests teaches itself to ignore CI results.
 
----
+***
 
 **Question:** What is the difference between OIDC federation and
 stored secrets for CI cloud credentials?
@@ -2700,7 +2700,7 @@ the duration of the pipeline run (typically 1 hour) and scoped to a
 specific role. OIDC is more secure but requires initial setup
 (configuring the OIDC provider in the cloud account).
 
----
+***
 
 **Question:** How do you implement a rollback strategy?
 
@@ -2714,7 +2714,7 @@ migrations, rollback requires running the reverse migration script.
 The key: every deployment has a documented rollback procedure, tested
 in staging before production use.
 
----
+***
 
 **Question:** When would you use a self-hosted CI runner over a
 managed runner?
@@ -2730,7 +2730,7 @@ operational overhead: patching, scaling, monitoring, and securing the
 runner infrastructure. Use managed runners by default; switch to
 self-hosted only when a specific constraint forces it.
 
----
+***
 
 **Question:** How do you handle environment-specific configuration
 without rebuilding the artifact?
@@ -2745,7 +2745,7 @@ contain any environment-specific values. A staging artifact that is
 rebuilt for production is not a staging artifact — it is a different
 artifact.
 
----
+***
 
 **Question:** What is the role of a platform team in CI/CD?
 
@@ -2759,7 +2759,7 @@ the pipeline *can* run reliably; the product team ensures the
 pipeline *gates* are meaningful. The platform team is not a
 deployment team — they enable self-service deployment.
 
----
+***
 
 **Question:** How do you manage Terraform state safely across a
 team?
@@ -2774,7 +2774,7 @@ production. Use separate state files per service or per environment
 to limit the blast radius of state corruption. Back up state files
 before major operations.
 
----
+***
 
 **Question:** How would you set up CI/CD for a team that currently
 deploys manually?
@@ -2805,7 +2805,7 @@ rotate. For application secrets (database passwords), use Secrets
 Manager rotation with a dual-version lambda that updates the secret
 and tests connectivity before committing.
 
----
+***
 
 **Question:** How do you decide when to split a monorepo into
 separate repositories?
@@ -2822,7 +2822,7 @@ The migration path: extract one service at a time, maintain the
 shared code as a published internal package, and set up cross-repo
 CI triggers for integration testing.
 
----
+***
 
 **Question:** How do you manage multiple environments with Terraform
 without code duplication?
@@ -2838,7 +2838,7 @@ modules. Avoid `count` or `for_each` conditionals that make staging
 fundamentally different from production — the goal is to use the
 same module with different parameters, not different modules.
 
----
+***
 
 **Question:** How do you handle a breaking dependency update
 discovered in CI?
@@ -2855,7 +2855,7 @@ Establish a team policy: dependency updates are reviewed weekly
 (Dependabot/Renovate PRs), and breaking updates are triaged within
 48 hours.
 
----
+***
 
 **Question:** How do you design a CD pipeline that deploys to
 multiple regions?
@@ -2932,7 +2932,7 @@ deployments before big releases to make sure everything is stable."
 - No mention of deployment strategy or small change discipline.
 - No mention of automated rollback.
 
----
+***
 
 ### Question
 
@@ -2985,7 +2985,7 @@ Terraform is old-fashioned."
 - No mention of state management or debugging complexity.
 - No mention of team skill mix or hiring.
 
----
+***
 
 ### Question
 
@@ -3027,7 +3027,7 @@ in the code."
 - No mention of supply chain security.
 - No mention of pipeline configuration integrity.
 
----
+***
 
 ### Question
 
@@ -3072,7 +3072,7 @@ because everyone is moving to GitOps."
 - No mention of prerequisites or trade-offs.
 - No mention of operational cost.
 
----
+***
 
 ### Question
 
@@ -3110,7 +3110,7 @@ the freeze is over."
 - Willing to leave security vulnerabilities unpatched.
 - No audit trail for exceptions.
 
----
+***
 
 ### Question
 
@@ -3152,7 +3152,7 @@ Kubernetes with Argo CD. The team needs to learn modern practices."
 - No acknowledgment of cultural or organizational resistance.
 - No incremental value delivery.
 
----
+***
 
 ### Question
 
@@ -3190,7 +3190,7 @@ should have it."
 - No concrete metrics or measurement approach.
 - Justification by popularity, not value.
 
----
+***
 
 ### Question
 
@@ -3231,7 +3231,7 @@ We skip some tests if the pipeline is too slow."
 - No risk-based categorization of gates.
 - No mention of async pipelines or parallelism.
 
----
+***
 
 ### Question
 
@@ -3270,7 +3270,7 @@ If drift happens, we run `terraform plan` to check."
 - No policy for manual changes.
 - No scheduled drift detection.
 
----
+***
 
 ### Question
 
@@ -3312,7 +3312,7 @@ hours."
 - Central deployment team as a bottleneck.
 - No automated rollback to enable async deployments.
 
----
+***
 
 ### Question
 
@@ -3353,7 +3353,7 @@ Actions did not have all the features we needed."
 - No cost-benefit analysis.
 - No mention of maintenance burden.
 
----
+***
 
 ### Question
 
@@ -3394,7 +3394,7 @@ merged."
 - No self-service model.
 - No automated enforcement.
 
----
+***
 
 ### Question
 
@@ -3436,7 +3436,7 @@ tests we run."
   controls.
 - No stakeholder communication plan.
 
----
+***
 
 ### Question
 
@@ -3477,7 +3477,7 @@ low-risk internal tool can move to Continuous Deployment sooner."
 - No per-service risk evaluation.
 - No mention of observability or automated rollback.
 
----
+***
 
 ### Question
 
@@ -3534,7 +3534,7 @@ unparallelized stages, missing caches, large Docker builds). Enforce
 the budget by adding a CI job that fails if the pipeline exceeds the
 time limit, or by setting a team OKR on pipeline performance.
 
----
+***
 
 **Question:** What is the impact of slow CI on team productivity?
 
@@ -3547,7 +3547,7 @@ ignoring CI failures. Quantify the impact: if 10 developers each
 wait for 4 pipeline runs per day at 30 minutes each, that is 20
 developer-hours per day — 2 full-time engineers worth of waiting.
 
----
+***
 
 **Question:** How do you optimize Docker build times in CI?
 
@@ -3564,7 +3564,7 @@ update` without version pinning (invalidates cache on every run),
 and building from scratch on every run because the runner is
 ephemeral.
 
----
+***
 
 **Question:** How do you handle parallel test execution in CI?
 
@@ -3579,7 +3579,7 @@ platforms support matrix strategies that map shards to parallel
 jobs. The goal: if the test suite takes 15 minutes sequentially,
 4 shards should complete in under 5 minutes.
 
----
+***
 
 **Question:** How do you reduce artifact build and push time?
 
@@ -3593,7 +3593,7 @@ the same cloud region as the CI runner, push times are dominated by
 image size, not network latency. A 2 GB image takes 10x longer to
 push and pull than a 200 MB image — right-size the image.
 
----
+***
 
 **Question:** What are the main causes of flaky pipelines (not
 flaky tests)?
@@ -3628,7 +3628,7 @@ Bearer $TOKEN"`) may appear in process lists even if the log is
 masked. Use environment variables or config files, not command-line
 arguments, for secrets.
 
----
+***
 
 **Question:** What is OIDC federation and why is it preferred over
 stored credentials for CI?
@@ -3645,7 +3645,7 @@ a token that expires in 1 hour, not an access key valid for months.
 Setup requires configuring the CI provider as an OIDC identity
 provider in the cloud account — a one-time setup per provider.
 
----
+***
 
 **Question:** How do you secure the CI pipeline configuration
 itself?
@@ -3662,7 +3662,7 @@ tag — a compromised third-party action can exfiltrate secrets. The
 risk: if an attacker can modify the pipeline configuration, they can
 exfiltrate every secret available to that pipeline.
 
----
+***
 
 **Question:** How do you handle supply chain security in CI?
 
@@ -3679,7 +3679,7 @@ Sigstore or similar tooling and verify signatures before deployment.
 than pulling directly from public registries. See
 [Security](./15-security.md) for broader supply chain patterns.
 
----
+***
 
 **Question:** What is the principle of least privilege applied to CI
 pipelines?
@@ -3695,7 +3695,7 @@ main), (3) scoping secrets to specific jobs within a workflow (GitHub
 Actions job-level permissions), (4) using OIDC with role chaining so
 each stage assumes a different role.
 
----
+***
 
 **Question:** How do you handle vulnerability findings from image
 and dependency scanning?
@@ -3726,7 +3726,7 @@ failures trigger alerts and may block the next deployment, but they
 do not block individual merges. This split balances fast developer
 feedback with thorough validation.
 
----
+***
 
 **Question:** How do you decide what belongs in CI versus what
 belongs in a separate test pipeline?
@@ -3742,7 +3742,7 @@ minutes per PR, which kills velocity. In a separate pipeline, the
 same tests provide the same coverage without blocking individual
 PRs.
 
----
+***
 
 **Question:** How do you test infrastructure changes (IaC) in a
 pipeline?
@@ -3759,7 +3759,7 @@ Tools like Terratest automate this. Static analysis and plan review
 are mandatory; integration testing is reserved for shared modules
 that many teams depend on.
 
----
+***
 
 **Question:** How do you prevent test environment contamination
 across pipeline runs?
@@ -3776,7 +3776,7 @@ staging environment. Shared staging environments are the most common
 source of contamination — two PRs running integration tests
 simultaneously interfere with each other.
 
----
+***
 
 **Question:** How do you measure whether CI gates are actually
 catching real bugs?
@@ -3834,7 +3834,7 @@ in the database."
 - No systemic prevention for future incidents.
 - No mention of the expand-contract pattern.
 
----
+***
 
 ### Question
 
@@ -3863,7 +3863,7 @@ invest in making it fast enough that mandatory is not painful."
 - Understanding that slow CI is a team problem (skipping CI).
 - Concrete target (< 10 minutes).
 
----
+***
 
 ### Question
 
@@ -3891,7 +3891,7 @@ monitor. Never deploy and leave."
 - Process improvement (deployment timing policy).
 - Monitoring and alerting awareness.
 
----
+***
 
 ### Question
 
@@ -3920,7 +3920,7 @@ has its first user."
 - Concrete timeline with deliverables.
 - Pragmatism (value at every step).
 
----
+***
 
 ### Question
 
@@ -3949,7 +3949,7 @@ makes a manual console change."
 - Process improvement (prevent recurrence).
 - Balance between policy and pragmatism.
 
----
+***
 
 ### Question
 
@@ -3978,7 +3978,7 @@ strategies."
 - Database compatibility awareness.
 - Consumer migration approach.
 
----
+***
 
 ### Question
 
@@ -4011,7 +4011,7 @@ code and CI to a new platform simultaneously is too much change."
 - Practical decision-making (match the existing platform).
 - Cost and operational considerations.
 
----
+***
 
 ### Question
 
@@ -4042,7 +4042,7 @@ the problem is the rebuild process, not the application."
 - Awareness of data and traffic as failure causes.
 - Artifact immutability check.
 
----
+***
 
 ### Question
 
@@ -4070,7 +4070,7 @@ cleanup review."
 - Awareness of feature flag technical debt.
 - Specific tooling knowledge.
 
----
+***
 
 ### Question
 
@@ -4114,7 +4114,7 @@ frequency and low failure rate simultaneously — frequency is
 correlated with quality when the supporting practices (CI, automated
 testing, small changes) are in place.
 
----
+***
 
 **Question:** Is 100% code coverage a good CI quality gate?
 
@@ -4128,7 +4128,7 @@ Set a coverage floor (e.g., 80%) to prevent regression, but do not
 chase 100% — the effort to go from 95% to 100% is better spent
 writing integration tests.
 
----
+***
 
 **Question:** Should every team use the same CI/CD pipeline?
 
@@ -4140,7 +4140,7 @@ management, security scanning) but allow teams to customize the
 approval gates are needed). Forcing a Kubernetes-based CD pipeline on
 a team deploying Lambda functions creates friction without value.
 
----
+***
 
 **Question:** Does Infrastructure as Code eliminate the need for
 manual intervention?
@@ -4154,7 +4154,7 @@ The goal is to make manual intervention rare, documented, and
 reconciled with IaC within 24 hours — not to pretend it never
 happens.
 
----
+***
 
 **Question:** Is Continuous Deployment more mature than Continuous
 Delivery?

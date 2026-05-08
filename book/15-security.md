@@ -3256,181 +3256,181 @@ old-fashioned and don't scale.
 
 **Answer:** Authentication proves identity ("who are you?") — credentials, tokens, certificates. Authorization decides permissions ("what can you do?") — roles, policies, resource ownership. A system can authenticate correctly but authorize incorrectly (valid user accesses another user's data). They are separate concerns and should be implemented in separate middleware/layers.
 
----
+***
 
 **Question:** What is a JWT and what are its three parts?
 
 **Answer:** A JSON Web Token is a compact, URL-safe token with three base64url-encoded parts separated by dots: header (algorithm + token type), payload (claims: sub, iss, aud, exp, custom data), and signature (HMAC or RSA/ECDSA over header + payload). The signature proves the token was not tampered with. JWTs are self-contained — the server can validate them without a database lookup.
 
----
+***
 
 **Question:** What is CSRF and how does `SameSite` prevent it?
 
 **Answer:** CSRF tricks an authenticated user's browser into sending a forged request to a different site (exploiting automatic cookie attachment). `SameSite=Lax` prevents the browser from sending cookies on cross-site POST/PUT/DELETE requests — only same-site requests and top-level GET navigations include the cookie. This blocks the attack vector without requiring CSRF tokens.
 
----
+***
 
 **Question:** What is XSS and what are the three types?
 
 **Answer:** Cross-Site Scripting injects malicious scripts that execute in another user's browser context. Stored XSS: persisted in the database (comments, profiles), executes for every viewer. Reflected XSS: injected via URL parameters, reflected in the response. DOM-based XSS: client-side JavaScript writes untrusted data to the DOM. Prevention: output encoding, CSP headers, and using frameworks with auto-escaping (React, Angular).
 
----
+***
 
 **Question:** What is SQL injection and how do parameterized queries prevent it?
 
 **Answer:** SQL injection occurs when user input is concatenated into SQL queries, allowing attackers to modify the query structure (`' OR 1=1 --`). Parameterized queries separate SQL code from data — the database treats all parameter values as literals, never as SQL syntax. Even if the input contains SQL keywords, they are treated as string values.
 
----
+***
 
 **Question:** What is CORS and when do you need it?
 
 **Answer:** Cross-Origin Resource Sharing is a browser mechanism that blocks JavaScript from making requests to a different origin (protocol + domain + port) unless the server explicitly allows it via response headers. Needed when: a SPA on `app.example.com` calls an API on `api.example.com`. Not needed for: server-to-server communication (CORS is browser-enforced only).
 
----
+***
 
 **Question:** What is the difference between encryption and hashing?
 
 **Answer:** Encryption is reversible (with a key) — used for data that must be read later (database fields, file storage). Hashing is one-way — used for data that should never be recovered (passwords). For passwords, use slow hashes (Argon2, bcrypt) with salt to resist brute force. For data protection, use AES-256-GCM with proper key management (KMS).
 
----
+***
 
 **Question:** What is CSP and what does it protect against?
 
 **Answer:** Content Security Policy is a response header that restricts which sources can load scripts, styles, images, and other resources. It mitigates XSS by preventing inline scripts from executing and blocking script loading from unauthorized origins. Even if an attacker injects HTML, the browser refuses to execute the script because it violates the policy.
 
----
+***
 
 **Question:** What is SSRF?
 
 **Answer:** Server-Side Request Forgery tricks the server into making HTTP requests to internal resources on behalf of the attacker. Common target: cloud metadata endpoints (169.254.169.254 on AWS) which expose temporary credentials. Prevention: validate and restrict user-supplied URLs, block private IP ranges, use allowlists, and run outbound requests from isolated networks.
 
----
+***
 
 **Question:** What is the principle of least privilege?
 
 **Answer:** Every user, service, and process should have only the minimum permissions needed to perform its function — no more. Applied to: IAM roles (no `*` permissions), database users (read-only where writes are not needed), API tokens (scoped to specific resources), and container capabilities (drop all, add only needed ones). Violated when: a service uses an admin role "for convenience."
 
----
+***
 
 **Question:** What is HSTS?
 
 **Answer:** HTTP Strict Transport Security is a response header that tells browsers to only connect via HTTPS for a specified duration. After seeing the header, the browser upgrades all HTTP requests to HTTPS automatically and refuses to connect if the certificate is invalid. Prevents SSL stripping attacks and accidental HTTP connections. Set `max-age` to at least 1 year with `includeSubDomains`.
 
----
+***
 
 **Question:** What is OAuth 2.0 PKCE?
 
 **Answer:** Proof Key for Code Exchange is an extension that prevents authorization code interception. The client generates a random `code_verifier`, sends a SHA-256 hash (`code_challenge`) in the authorization request, then proves possession of the original verifier when exchanging the code for tokens. Required for public clients (SPAs, mobile) that cannot securely store a client secret.
 
----
+***
 
 **Question:** What is the difference between RBAC and ABAC?
 
 **Answer:** RBAC assigns permissions to roles (admin, editor, viewer) and users to roles. Simple, auditable, but coarse. ABAC evaluates permissions based on attributes (user department, resource classification, time of day, IP). More granular but complex to audit. Start with RBAC; move to ABAC when role explosion makes RBAC unmanageable or when access depends on resource properties.
 
----
+***
 
 **Question:** What is mTLS?
 
 **Answer:** Mutual TLS requires both client and server to present and validate X.509 certificates. Standard TLS only authenticates the server. mTLS provides strong identity for service-to-service communication without tokens or API keys. Used in: service meshes (Istio, Linkerd), zero-trust architectures, and high-security APIs. Trade-off: certificate lifecycle management adds operational complexity.
 
----
+***
 
 **Question:** What is a secure cookie configuration?
 
 **Answer:** A secure cookie uses: `httpOnly` (not accessible to JavaScript — prevents XSS theft), `secure` (only sent over HTTPS), `SameSite=Lax` or `Strict` (CSRF prevention), reasonable `maxAge` or `expires` (not permanent), and `Path=/` or a restricted path. Missing any of these creates a vulnerability vector.
 
----
+***
 
 **Question:** What is an SBOM and why does it matter for security?
 
 **Answer:** A Software Bill of Materials is a complete inventory of all dependencies (direct and transitive) in a software artifact. It matters because: (1) vulnerability scanners use it to identify affected components when a CVE is published, (2) compliance frameworks (US Executive Order 14028) may require it, (3) it enables rapid triage during incidents ("are we affected by this CVE?"). Generate SBOMs during CI builds (tools: Syft, Trivy, CycloneDX).
 
----
+***
 
 **Question:** What is the OWASP Top 10 and why should a Tech Lead care?
 
 **Answer:** The OWASP Top 10 is the industry-standard ranking of the most critical web application security risks, updated every few years (currently the 2021 edition). A Tech Lead cares because: (1) it provides a shared vocabulary for discussing risk with security teams and auditors, (2) mapping your controls to each category reveals gaps, (3) interviewers use it as a baseline for security knowledge. The 2021 edition added "Insecure Design" (A04) — acknowledging that some flaws cannot be fixed by code alone.
 
----
+***
 
 **Question:** What is the Same-Origin Policy and why does it exist?
 
 **Answer:** The Same-Origin Policy (SOP) is a browser security mechanism that restricts scripts from one origin (protocol + domain + port) from accessing resources of another origin. Without SOP, a malicious page could read your bank account data via JavaScript fetch calls that automatically include cookies. SOP is the foundation — CORS is the controlled relaxation of SOP for legitimate cross-origin needs.
 
----
+***
 
 **Question:** What is defense in depth?
 
 **Answer:** Defense in depth means layering multiple independent security controls so that if one fails, others still protect the system. For a web app: TLS (transport) → WAF (network) → authentication (identity) → authorization (access) → input validation (application) → encryption at rest (data). Each layer assumes the one above has been breached. No single control is trusted to be sufficient alone.
 
----
+***
 
 **Question:** What is the difference between a vulnerability and an exploit?
 
 **Answer:** A vulnerability is a weakness in a system (e.g., missing input validation on a field). An exploit is the specific technique or code that takes advantage of that vulnerability to achieve an unauthorized outcome (e.g., a crafted SQL input that extracts data). Not all vulnerabilities have known exploits — exploitability determines urgency. A CVE may exist for months before a public exploit appears.
 
----
+***
 
 **Question:** What does `httpOnly` on a cookie do?
 
 **Answer:** The `httpOnly` flag prevents JavaScript from accessing the cookie via `document.cookie`. This means: if an XSS vulnerability executes malicious script in the user's browser, it cannot read the cookie value. The cookie is still sent automatically with HTTP requests. This protects session IDs and tokens from being exfiltrated by XSS — the primary reason for setting it on all authentication cookies.
 
----
+***
 
 **Question:** What is a CSRF token and how does it work?
 
 **Answer:** A CSRF token is a unique, random value generated by the server and embedded in forms or headers. On form submission, the server verifies the token matches the expected value. Since the attacker's site cannot read the token (blocked by SOP), they cannot include it in forged requests. This proves the request originated from the legitimate application, not a cross-site attack. Modern alternative: `SameSite=Lax` cookies eliminate the need for CSRF tokens in most cases.
 
----
+***
 
 **Question:** What is rate limiting and what algorithms are commonly used?
 
 **Answer:** Rate limiting restricts the number of requests a client can make in a time window. Common algorithms: (1) Fixed window — simple counter per time window, allows bursts at boundaries. (2) Sliding window — smoother, counts requests across overlapping windows. (3) Token bucket — tokens replenish at a fixed rate, allows short bursts up to bucket capacity. (4) Leaky bucket — requests processed at a constant rate, excess queued or dropped. For security (login), use sliding window keyed on IP+account.
 
----
+***
 
 **Question:** What is envelope encryption?
 
 **Answer:** Envelope encryption uses two key layers: a data encryption key (DEK) encrypts the actual data, then a master key (KEK, stored in KMS) encrypts the DEK. The encrypted DEK is stored alongside the data. To decrypt: KMS decrypts the DEK, then the DEK decrypts the data. Benefits: (1) master key never leaves KMS hardware, (2) rotating master key only requires re-encrypting DEKs (not all data), (3) each record can have a unique DEK.
 
----
+***
 
 **Question:** What is OIDC and how does it differ from OAuth 2.0?
 
 **Answer:** OAuth 2.0 is an authorization framework — it grants access to resources without sharing credentials. OIDC (OpenID Connect) is an identity layer built on top of OAuth 2.0 — it adds authentication by introducing the ID token (a JWT containing user identity claims: who the user is). OAuth 2.0 answers "can this app access my data?" OIDC answers "who is this user?" Access tokens go to resource servers; ID tokens stay with the client.
 
----
+***
 
 **Question:** What is a man-in-the-middle attack and how does TLS prevent it?
 
 **Answer:** A MITM attack intercepts communication between two parties — the attacker can read, modify, or inject data. TLS prevents this by: (1) authenticating the server via its certificate (client verifies the certificate chain to a trusted CA), (2) establishing an encrypted channel (symmetric encryption with keys exchanged via asymmetric crypto), (3) ensuring integrity (tampering is detected via MAC). HSTS ensures the browser never falls back to unencrypted HTTP.
 
----
+***
 
 **Question:** What is the difference between symmetric and asymmetric encryption?
 
 **Answer:** Symmetric encryption uses one key for both encryption and decryption (AES-256-GCM). Fast, used for bulk data encryption. Challenge: key distribution (both parties must share the same key securely). Asymmetric encryption uses a key pair: public key encrypts, private key decrypts (RSA, ECDSA). Slower, used for key exchange, digital signatures, and TLS handshakes. In practice, TLS uses asymmetric crypto to exchange a symmetric session key, then symmetric crypto for the actual data.
 
----
+***
 
 **Question:** What is container image scanning and why does it matter?
 
 **Answer:** Container image scanning analyzes Docker/OCI images for known vulnerabilities in OS packages and application dependencies. It matters because: (1) base images (Alpine, Ubuntu) accumulate CVEs over time, (2) your `npm ci` installed packages may have vulnerabilities, (3) a vulnerability in a deployed image is an active risk. Scan at: build time (CI gate), registry level (periodic re-scan), and runtime (detect newly published CVEs in deployed images). Tools: Trivy, Snyk Container, Grype.
 
----
+***
 
 **Question:** What is credential stuffing and how does it differ from brute force?
 
 **Answer:** Brute force tries random password combinations against one account. Credential stuffing uses username/password pairs leaked from other breaches — exploiting password reuse. Credential stuffing is more dangerous because: (1) passwords are real (not random guesses), (2) success rates are typically 0.1-2% (enough to compromise thousands of accounts), (3) distributed across many IPs (harder to detect than single-account brute force). Prevention: MFA, breached password detection (HIBP API), rate limiting, and bot detection.
 
----
+***
 
 **Question:** What is the principle of zero trust?
 
 **Answer:** Zero trust means "never trust, always verify" — no implicit trust based on network location. Every request is authenticated and authorized regardless of whether it comes from inside or outside the network perimeter. Key principles: (1) verify explicitly (authenticate every request), (2) use least privilege (minimum permissions, short-lived credentials), (3) assume breach (encrypt internally, segment networks, limit blast radius). Replaces the legacy "castle and moat" model where internal network was trusted.
 
----
+***
 
 ### Senior
 
@@ -3438,91 +3438,91 @@ old-fashioned and don't scale.
 
 **Answer:** Short-lived access tokens (5-15 min) paired with longer-lived refresh tokens (7-30 days) stored in httpOnly secure cookies. On each refresh: (1) validate the refresh token, (2) issue a new access token AND a new refresh token, (3) invalidate the old refresh token (rotation). If an old refresh token is reused (theft detected), invalidate all tokens for that user (force re-login). Store refresh token families to detect reuse across rotations.
 
----
+***
 
 **Question:** How do you prevent credential stuffing attacks?
 
 **Answer:** Layer multiple defenses: (1) rate limiting per IP and per account (5 attempts/15 min). (2) CAPTCHA after 3 failed attempts (prevents automation). (3) Breached password detection — check passwords against known breach databases (Have I Been Pwned API) during registration and login. (4) MFA — even if credentials are valid, the attacker lacks the second factor. (5) Anomaly detection — alert on logins from new devices/locations. (6) Account lockout with exponential backoff (not permanent — prevents DoS).
 
----
+***
 
 **Question:** How do you handle secret rotation without downtime?
 
 **Answer:** Support multiple active secrets simultaneously during rotation: (1) Generate new secret (both old and new are valid). (2) Deploy application with new secret. (3) Verify application uses new secret successfully. (4) Revoke old secret. For database passwords: use Vault dynamic secrets (short-lived credentials generated on demand). For API keys: support two active keys per client (overlap period for rotation). For encryption keys: use key versioning — encrypt with latest key, decrypt with any key version.
 
----
+***
 
 **Question:** What is the algorithm confusion attack on JWTs?
 
 **Answer:** The attack exploits a server that accepts both HMAC (symmetric) and RSA (asymmetric) algorithms. The attacker takes the server's public RSA key (publicly available), signs a forged token using HMAC with the public key as the secret. If the server does not restrict algorithms, it uses the public key as the HMAC secret and validates the forged token. Prevention: always specify `algorithms: ["RS256"]` in verification — never accept tokens with a different algorithm. Never use `jwt.decode()` without verification.
 
----
+***
 
 **Question:** How do you secure a multi-tenant SaaS application?
 
 **Answer:** (1) Tenant isolation at the data layer: either separate databases per tenant (strongest isolation, highest cost) or shared database with Row-Level Security (RLS) policies. (2) All queries include tenant context (set at middleware level, not per query). (3) Separate encryption keys per tenant (KMS key-per-tenant). (4) Cross-tenant access is impossible by default — no endpoint accepts a tenant ID from the client. (5) Audit logging includes tenant context. (6) Rate limiting per tenant prevents noisy-neighbor.
 
----
+***
 
 **Question:** How do you implement defense in depth for a web application?
 
 **Answer:** Layer 1: Network — WAF blocks known attack patterns, DDoS protection, TLS termination. Layer 2: Transport — HTTPS only (HSTS), certificate pinning for mobile. Layer 3: Identity — OAuth 2.0 + PKCE, short-lived tokens, MFA for sensitive operations. Layer 4: Authorization — RBAC at every endpoint, resource ownership validation. Layer 5: Application — input validation, output encoding, CSP, CSRF protection. Layer 6: Data — encryption at rest (KMS), field-level encryption for PII, audit logs. Each layer assumes layers above have been breached.
 
----
+***
 
 **Question:** When would you choose session-based auth over JWT for an API?
 
 **Answer:** Choose sessions when: (1) instant revocation is critical (ban a user and they are immediately locked out), (2) the application is server-rendered (sessions and cookies are natural), (3) the team prefers simplicity over distributed validation, (4) there is already a centralized session store (Redis). Choose JWTs when: stateless validation matters (microservices, each service validates independently), the system has no shared state, or the API is consumed by third-party clients (where cookies are inappropriate).
 
----
+***
 
 **Question:** How do you secure a CI/CD pipeline?
 
 **Answer:** (1) Pin action/plugin versions by SHA (not tag — tags can be reassigned). (2) Use OIDC federation for cloud credentials (no long-lived secrets stored in CI). (3) Separate build and deploy permissions (build cannot push to production). (4) Sign artifacts — verify signatures before deployment. (5) Scan dependencies and container images in pipeline — fail on critical CVEs. (6) Limit who can modify pipeline configuration (CODEOWNERS on CI files). (7) Audit trail for all pipeline executions.
 
----
+***
 
 **Question:** How do you handle logging without leaking sensitive data?
 
 **Answer:** (1) Use a shared logging library that enforces field-level redaction (passwords, tokens, credit card numbers are never logged). (2) Allow-list approach: log explicitly selected fields, not the entire request/response body. (3) PII detection: automated scanning of log output for patterns (credit card regex, email, SSN). (4) Separate audit logs from application logs (different retention, different access). (5) Never log at DEBUG level in production (debug logs often contain sensitive context).
 
----
+***
 
 **Question:** What is the difference between SAST and DAST?
 
 **Answer:** SAST (Static Application Security Testing) analyzes source code without running it — finds issues like SQL injection patterns, hardcoded secrets, unsafe functions. Fast, runs in CI, but high false positive rate. DAST (Dynamic Application Security Testing) tests a running application by sending crafted requests — finds runtime vulnerabilities like XSS, authentication bypass, misconfiguration. More realistic but slower, requires a running environment. Use both: SAST in CI on every PR, DAST weekly or before release against staging. See [Testing and Quality](./16-testing-and-quality.md) for where security testing fits in the overall testing strategy.
 
----
+***
 
 **Question:** How do you implement zero-trust architecture?
 
 **Answer:** (1) Never trust network location — internal traffic is not inherently trusted. (2) Every request is authenticated (mTLS or signed tokens between services). (3) Every request is authorized (policy evaluated per request, not per network zone). (4) Least privilege access (minimum permissions, short-lived credentials). (5) Assume breach — encrypt at rest, segment networks, limit blast radius. (6) Continuous verification — re-authenticate on context changes (new device, new location, elevated operation).
 
----
+***
 
 **Question:** How do you prevent SSRF in a webhook delivery system?
 
 **Answer:** (1) URL validation: only allow HTTPS, reject private IP ranges (10.x, 172.16.x, 192.168.x, 127.x, 169.254.x). (2) DNS resolution: resolve the hostname and re-check the IP (blocks DNS rebinding). (3) Network isolation: make outbound requests from a dedicated network with no access to internal services. (4) Allowlist: only deliver to pre-verified domains. (5) IMDSv2: set hop limit to 1 on AWS instances (prevents metadata access from containers). (6) Request timeout: prevent slow-response attacks that hold connections open.
 
----
+***
 
 **Question:** How do you evaluate a third-party authentication provider?
 
 **Answer:** (1) Data portability: can you export all user data if you leave? (2) Standards compliance: full OAuth 2.0/OIDC support, not proprietary extensions. (3) Pricing model: per-MAU pricing scales — calculate cost at 100K, 500K, 1M users. (4) Multi-region: where is user data stored (GDPR, data residency)? (5) MFA options: WebAuthn/FIDO2, TOTP, SMS (SMS is weakest). (6) Customization: can you control login UI, email templates, token claims? (7) SLA and incident response: what happens when the provider is down? Evaluate migration cost before committing.
 
----
+***
 
 **Question:** What is certificate pinning and when should you use it?
 
 **Answer:** Certificate pinning hardcodes the expected server certificate (or its public key hash) in the client. The client rejects connections even if the certificate is valid but does not match the pin. Use case: mobile apps communicating with a known backend (prevents MITM with a rogue CA certificate). Trade-off: if the pinned certificate rotates, the app breaks until updated. In practice: pin the intermediate CA certificate (not the leaf) and maintain a backup pin. Avoid for web apps (browsers handle CA trust).
 
----
+***
 
 **Question:** How do you design a secure password reset flow?
 
 **Answer:** (1) Generate a cryptographically random token (32 bytes), hash it (SHA-256) before storing in the database alongside user_id, expires_at (15-30 min), and used flag. (2) Always respond "If this email is registered, a reset link was sent" — never reveal whether an account exists. (3) One-time use: mark token as used immediately after password change. (4) Invalidate all existing sessions after password change (force re-authentication). (5) Rate limit: 3 reset requests per hour per account. (6) The reset link contains the raw token; the database stores only the hash (like a password). (7) Log reset requests and completions for audit (without the token). (8) Require the new password to pass strength checks and breached password detection.
 
----
+***
 
 ### Tech Lead
 
@@ -3557,7 +3557,7 @@ I review all security-sensitive PRs myself and run a weekly security training.
 - Punitive approach ("developers should know better").
 - No mention of tooling or CI integration.
 
----
+***
 
 ### Question
 
@@ -3590,7 +3590,7 @@ Switch to bcrypt and force everyone to reset their password.
 - No mention of salt or why SHA-256 is bad for passwords specifically.
 - No user communication.
 
----
+***
 
 ### Question
 
@@ -3623,7 +3623,7 @@ Always use a managed service — authentication is too complex to build yourself
 - No consideration of scale (pricing changes at volume).
 - Dogmatic answer (always build or always buy).
 
----
+***
 
 ### Question
 
@@ -3656,7 +3656,7 @@ Update the dependency in all services and deploy.
 - No mention of SLA or timeline.
 - No verification after patching.
 
----
+***
 
 ### Question
 
@@ -3688,7 +3688,7 @@ Environment variables are the standard way to configure containers. It is fine.
 - No alternative proposed.
 - Treating all configuration the same regardless of sensitivity.
 
----
+***
 
 ### Question
 
@@ -3721,7 +3721,7 @@ We fix critical vulnerabilities as fast as we can.
 - No escalation process.
 - No exception handling for complex fixes.
 
----
+***
 
 ### Question
 
@@ -3752,7 +3752,7 @@ We have a compliance team that handles SOC 2 requirements.
 - Manual evidence collection.
 - All services treated equally regardless of data sensitivity.
 
----
+***
 
 ### Question
 
@@ -3783,7 +3783,7 @@ Bug bounties are great — we should launch one to find all our vulnerabilities.
 - No triage plan.
 - Expecting bounty to replace security team.
 
----
+***
 
 ### Question
 
@@ -3814,7 +3814,7 @@ Security is more important than developer experience. Developers should follow t
 - Uniform controls regardless of risk level.
 - Security as gatekeeping rather than enablement.
 
----
+***
 
 ### Question
 
@@ -3845,7 +3845,7 @@ We use API keys between services and a VPN for network security.
 - Shared secrets between services.
 - No mention of authorization or network segmentation.
 
----
+***
 
 ### Question
 
@@ -3878,7 +3878,7 @@ We add a tenant_id column to every table and filter by it in every query.
 - No mention of per-tenant audit or rate limiting.
 - No consideration of enterprise SSO requirements.
 
----
+***
 
 ### Question
 
@@ -3911,7 +3911,7 @@ We'll sanitize user input on the form submission and deploy a fix next sprint.
 - No mention of CSP.
 - No assessment of whether exploitation already occurred.
 
----
+***
 
 ### Question
 
@@ -3944,7 +3944,7 @@ We need to hire a security engineer before we can do anything meaningful about s
 - No understanding of what can be done without dedicated security headcount.
 - No metrics or measurement.
 
----
+***
 
 ### Question
 
@@ -3979,7 +3979,7 @@ We should switch to RS256 and redeploy all services at once.
 - No backward compatibility period.
 - No mention of key rotation or JWKS.
 
----
+***
 
 ### Question
 
@@ -4012,7 +4012,7 @@ We have an SLA with our auth provider, so outages should be rare.
 - Relying entirely on vendor SLA.
 - No break-glass procedure for emergencies.
 
----
+***
 
 ### Scenario-based
 
@@ -4020,79 +4020,79 @@ We have an SLA with our auth provider, so outages should be rare.
 
 **Answer:** Minutes 0-5: Confirm the key is real and active (check AWS console for the access key ID). Minute 5: Revoke the key immediately (IAM → deactivate, then delete). Do not wait for "analysis" — revoke first. Minutes 5-15: Check CloudTrail for any API calls made with the compromised key since it was pushed. Look for: resource creation (crypto mining instances), data access (S3 downloads), IAM changes (persistence). Minutes 15-30: If unauthorized activity is found, contain: terminate unauthorized resources, revoke any new IAM entities created, check for backdoor access keys. Minutes 30-45: Assess what data/resources the key had access to (IAM policy attached to the key's user/role). Determine blast radius. Minutes 45-60: Communication — inform security team, affected data owners, and management if data exposure occurred. Begin post-mortem: how did the key end up in code? (Missing .gitignore, no secret scanning, developer workflow gap). Action items: enable GitHub secret scanning, add pre-commit hooks, rotate all keys the developer had access to. Generate new credentials with reduced scope.
 
----
+***
 
 **Question:** You are designing a password reset flow. What are the security considerations?
 
 **Answer:** (1) Token: generate a cryptographically random token (32 bytes), hash it before storing (SHA-256 is fine here — it is not a password). Store: token_hash, user_id, expires_at (15-30 min), used (boolean). (2) Do not reveal if the email exists: always respond "If this email is registered, a reset link was sent" (prevents enumeration). (3) One-time use: mark the token as used after password change. (4) Invalidate existing sessions: after password change, destroy all active sessions for the user. (5) Rate limit: max 3 reset requests per hour per account. (6) Link format: `https://app.example.com/reset?token=<random>` (never include the password in the link). (7) Logging: log reset requests and completions (without the token) for audit.
 
----
+***
 
 **Question:** Your security scan finds a critical SQL injection vulnerability in a production endpoint. The fix requires a database migration. How do you handle it?
 
 **Answer:** (1) Immediate mitigation: deploy a WAF rule to block the specific injection pattern while the fix is developed (minutes, not hours). (2) Assess exposure: how long has the endpoint been vulnerable? Check access logs for exploitation indicators (unusual query patterns, error spikes, abnormal response sizes). (3) Fix: implement parameterized query + input validation. The fix itself is a code change, not a database migration. If a migration is needed (restructuring a vulnerable stored procedure), plan it separately. (4) Deploy the code fix behind the WAF rule — belt and suspenders. (5) Post-fix: penetration test the endpoint specifically. (6) Audit: check for similar patterns in other endpoints (SAST scan targeted at raw SQL). (7) If exploitation evidence is found: escalate to full incident response (data breach assessment, notification obligations).
 
----
+***
 
 **Question:** Design an audit logging system for a healthcare application (HIPAA requirements).
 
 **Answer:** Requirements: who accessed what data, when, from where, and why. (1) Every read and write to patient data generates an audit event (not just writes). (2) Schema: `{ timestamp, actor_id, actor_role, action, resource_type, resource_id, patient_id, outcome, ip, user_agent, justification }`. (3) Immutability: audit logs are append-only. No delete/update access for any application role. Ship to a separate AWS account with SCPs preventing deletion. (4) Retention: 6 years (HIPAA requirement). (5) Access: audit logs are accessible only to compliance and security teams. (6) Alerting: notify on bulk data access (>100 records in 1 hour), access outside business hours, access by users not in the care team for that patient. (7) Break-glass: emergency access is allowed but generates high-priority alerts for review.
 
----
+***
 
 **Question:** You need to add tenant isolation to a shared PostgreSQL database for a multi-tenant SaaS. What is your approach?
 
 **Answer:** (1) Add a `tenant_id` column to every table (non-nullable). (2) Implement Row-Level Security (RLS): `CREATE POLICY tenant_isolation ON orders USING (tenant_id = current_setting('app.tenant_id'))`. (3) Middleware sets `SET LOCAL app.tenant_id = :tenantId` at the start of every request (from the authenticated user's tenant). (4) Connection pooling: use transaction-level pooling (PgBouncer in transaction mode) so the `SET LOCAL` is scoped correctly. (5) Testing: integration tests that verify one tenant cannot access another's data. (6) Migration: backfill `tenant_id` for existing data, then enforce NOT NULL + RLS. (7) Monitoring: alert on queries that do not include tenant_id in the WHERE clause (missing RLS bypass).
 
----
+***
 
 **Question:** A developer proposes using a single long-lived API key for service-to-service authentication. What are your concerns and alternatives?
 
 **Answer:** Concerns: (1) If the key leaks, the attacker has indefinite access (no expiry). (2) No identity distinction — you cannot tell which service is calling. (3) No rotation support without downtime. (4) No scope restriction — the key grants full access. Alternatives: (1) Short-lived JWTs from a central auth service (each service authenticates, gets a scoped token). (2) mTLS — each service has its own certificate (strong identity, automatic rotation with cert-manager). (3) OIDC federation — services use OIDC tokens from their runtime (Kubernetes service accounts, AWS IAM roles). Recommendation: for a small team with 3-5 services, mTLS via service mesh (Istio) or OIDC workload identity. For a mature platform, a dedicated token service.
 
----
+***
 
 **Question:** How do you implement Content Security Policy without breaking an existing application?
 
 **Answer:** (1) Start with `Content-Security-Policy-Report-Only` — the policy is evaluated but not enforced. Violations are reported to a configured endpoint. (2) Deploy with a permissive initial policy (`default-src 'self' 'unsafe-inline' 'unsafe-eval'`). (3) Collect violation reports for 1-2 weeks. Identify all legitimate sources (CDNs, analytics, fonts, inline scripts). (4) Progressively tighten: remove `'unsafe-inline'` by adding nonces to legitimate scripts. Remove `'unsafe-eval'` by eliminating `eval()` usage. (5) Add legitimate sources to the allowlist (`script-src 'self' 'nonce-xxx' https://cdn.example.com`). (6) Switch from `Report-Only` to enforcing mode. Keep reporting enabled to catch regressions. (7) Timeline: typically 2-4 weeks for a medium-complexity app.
 
----
+***
 
 **Question:** Your API is experiencing a credential stuffing attack. 10,000 login attempts per minute from distributed IPs. How do you respond?
 
 **Answer:** Immediate (minutes): (1) Enable geographic blocking for countries with no legitimate users. (2) Increase CAPTCHA aggressiveness (require CAPTCHA after 1 failed attempt instead of 3). (3) Enable IP reputation blocking (block IPs with known bot reputation scores). Short-term (hours): (4) Implement device fingerprinting — block sessions with identical fingerprints making many attempts. (5) Add login anomaly detection — flag attempts where the user-agent or behavior pattern matches automation. Medium-term (days): (6) Deploy a dedicated bot detection service (Cloudflare Bot Management, AWS WAF Bot Control). (7) Require MFA for all accounts (eliminates credential stuffing as a viable attack). (8) Notify users whose credentials were attempted (may be using leaked passwords elsewhere).
 
----
+***
 
 **Question:** Design a secrets management strategy for a Kubernetes-based microservices platform with 20 services.
 
 **Answer:** (1) External secret store: AWS Secrets Manager or HashiCorp Vault (not Kubernetes Secrets alone — they are base64, not encrypted by default). (2) Integration: External Secrets Operator syncs secrets from the external store into Kubernetes Secrets (encrypted at rest with EncryptionConfiguration). (3) Delivery: mount secrets as files (not env vars) — files support rotation without pod restart (when using projected volumes). (4) Rotation: automated rotation for database credentials (Vault dynamic secrets) and API keys (dual-key rotation pattern). (5) Access control: each service's service account can only access its own secrets (IAM policy or Vault policy). (6) Audit: all secret accesses are logged (who accessed what, when). (7) Development: local development uses a separate secret store (no production secrets on developer machines).
 
----
+***
 
 **Question:** How do you handle a situation where a vulnerability scanner reports 200+ findings across your services?
 
 **Answer:** (1) Triage by severity and exploitability: critical + reachable (fix in 24h), high + reachable (fix in 7 days), medium (fix in 30 days), low/informational (backlog). (2) Deduplicate: many findings are the same vulnerability in the same shared dependency — fix once, resolve many. (3) False positive review: security tools have high false-positive rates. Review top findings manually before creating 200 tickets. (4) Root cause: if 50 findings are "outdated dependency X," the fix is one Renovate PR across all services. (5) Tracking: create a spreadsheet/dashboard with finding, severity, owner, SLA, status. Report weekly. (6) Prevention: add the scanner to CI so new vulnerabilities are caught at PR time — prevent the backlog from growing.
 
----
+***
 
 **Question:** Walk through a threat model for a new "file upload" feature that allows users to upload profile pictures.
 
 **Answer:** (1) Define scope: user uploads images via the web UI, stored in S3, displayed on profiles. Trust boundaries: browser → API → S3 → CDN → other users' browsers. (2) STRIDE analysis: **Spoofing** — unauthenticated upload (require auth). **Tampering** — malicious file disguised as image (validate content-type server-side, not just extension; re-encode image to strip metadata). **Information disclosure** — EXIF data contains GPS coordinates (strip metadata on upload). **Denial of service** — massive files consuming storage/bandwidth (enforce size limit: 5MB, rate limit: 10 uploads/hour). **Elevation of privilege** — executable uploaded and accessed directly (serve from separate domain/CDN, set `Content-Disposition: attachment`, never execute uploaded files). Additional: stored XSS via SVG files (block SVG or sanitize), path traversal via filename (`../../../etc/passwd` — generate a random filename, ignore user-provided filename). (3) Mitigations become acceptance criteria before implementation.
 
----
+***
 
 **Question:** Your team discovers that a former employee's access was never revoked and they accessed production data last week. What do you do?
 
 **Answer:** (1) Immediate (minutes): disable all the former employee's accounts (IdP, VPN, cloud, code repos, CI). Revoke all active sessions and API keys associated with them. (2) Audit (hours): pull access logs for the past 90 days. What did they access? When? From where? Focus on the recent access — what data was viewed or downloaded? (3) Assess impact: was sensitive data (PII, financial, intellectual property) accessed? If yes, legal and compliance must be notified (potential data breach). (4) Systemic fix: implement automated offboarding (HR system triggers IdP deactivation within 1 hour of termination). Quarterly access review catches any stragglers. (5) Post-mortem: why was access not revoked at offboarding? Fix the process gap. (6) Consider: if the access was legitimate (contractor whose end date was not recorded), document it. If malicious, involve legal.
 
----
+***
 
 **Question:** You are responsible for the security of a new payment processing feature. How do you approach the security architecture?
 
 **Answer:** (1) Compliance: PCI DSS applies — minimize cardholder data environment (CDE) scope. Use a tokenization service (Stripe, Adyen) so card numbers never touch our servers. (2) Architecture: payment form hosted by the provider (iframe or redirect) — no card data in our domain. We receive a payment token, not card details. (3) Server-side: use the token to charge via provider API. Store only: last 4 digits, expiry month/year, payment token (for recurring). Never store CVV. (4) Network isolation: payment service in a separate VPC/namespace with restricted ingress/egress. Only the payment service communicates with the provider. (5) Encryption: all communication over TLS 1.2+. Payment-related database fields encrypted at rest with a dedicated KMS key. (6) Audit: log all payment operations (amount, status, actor) — never log card numbers or tokens in plaintext. (7) Access: restrict who can view payment data (RBAC + step-up MFA for payment admin operations). (8) Testing: annual PCI DSS audit (SAQ or ROC depending on volume).
 
----
+***
 
 ### Trick Questions
 
@@ -4100,31 +4100,31 @@ We have an SLA with our auth provider, so outages should be rare.
 
 **Answer:** No. HTTPS (TLS) only provides encryption in transit and server authentication. It does not protect against: application-level attacks (XSS, SQL injection, CSRF), broken access control, insecure session management, server-side vulnerabilities, or compromised endpoints. HTTPS is necessary (prevents MITM, eavesdropping) but not sufficient. A fully HTTPS site can still be completely vulnerable to OWASP Top 10 issues.
 
----
+***
 
 **Question:** Are JWTs encrypted?
 
 **Answer:** By default, no. Standard JWTs (JWS) are signed, not encrypted. The payload is base64url-encoded (trivially decodable — it is not encryption). Anyone who intercepts a JWT can read all claims. JWE (JSON Web Encryption) adds encryption, but it is rarely used in practice. Implication: never store sensitive data in JWT payloads (passwords, full credit card numbers, PII). Send JWTs only over HTTPS. The signature provides integrity (tamper detection), not confidentiality.
 
----
+***
 
 **Question:** Does using an ORM prevent SQL injection?
 
 **Answer:** Mostly, but not completely. ORMs use parameterized queries by default, which prevents injection. However: (1) ORMs allow raw queries (`prisma.$queryRaw`, `sequelize.query`) which can be vulnerable if concatenating input. (2) ORMs with dynamic filter builders can be tricked if user input controls operator selection. (3) Some ORMs have had their own injection vulnerabilities. The ORM reduces risk but does not eliminate it — input validation is still required, and raw query usage should be restricted in code review.
 
----
+***
 
 **Question:** Is bcrypt with 10 rounds still secure?
 
 **Answer:** Depends on the threat model. Bcrypt with cost factor 10 takes ~100ms on modern hardware — roughly 10 hashes/second per core. For online attacks (login endpoint), this is sufficient when combined with rate limiting (attacker is limited to 5 attempts/15 min). For offline attacks (attacker has the hash database), 10 rounds is borderline — a GPU cluster can test ~10K bcrypt-10 hashes/second. OWASP recommends a minimum of 10 for bcrypt but suggests Argon2id as the preferred algorithm for new implementations. If migration is possible, move to Argon2id.
 
----
+***
 
 **Question:** Can you prevent all XSS with CSP alone?
 
 **Answer:** No. CSP mitigates XSS but does not prevent all forms: (1) If the policy includes `'unsafe-inline'`, inline script injection still works. (2) If an allowed origin serves user-controlled content (JSONP endpoint, file upload), scripts from that origin bypass CSP. (3) DOM-based XSS that does not inject new script elements (e.g., manipulating existing script behavior via prototype pollution) may bypass CSP. (4) CSP cannot protect against same-origin XSS. CSP is a critical layer but must be combined with output encoding, input validation, and secure coding practices.
 
----
+***
 
 ### Red Flags
 

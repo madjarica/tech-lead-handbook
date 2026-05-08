@@ -1603,175 +1603,175 @@ private variables.
 
 **Answer:** `var` is function-scoped, hoisted and initialized to `undefined`, and allows redeclaration. `let` is block-scoped, hoisted but not initialized (temporal dead zone), and cannot be redeclared. `const` is block-scoped like `let` but the binding cannot be reassigned. None of them freeze the object; `const obj = {}` still allows mutation of `obj`.
 
----
+***
 
 **Question:** What is the event loop?
 
 **Answer:** The mechanism that dequeues work and pushes it onto the single call stack. Synchronous code runs to completion, then the microtask queue drains, then one macrotask executes. This cycle repeats. It coordinates asynchronous work without parallelism.
 
----
+***
 
 **Question:** Name three falsy values that surprise beginners.
 
 **Answer:** `0`, `""` (empty string), and `NaN`. They are falsy but may represent valid data. This is why `??` (nullish coalescing) exists: it only falls back on `null` and `undefined`.
 
----
+***
 
 **Question:** What is the difference between `==` and `===`?
 
 **Answer:** `==` performs type coercion before comparison (Abstract Equality), leading to non-intuitive results like `"" == 0` being `true`. `===` checks type first and compares without coercion (Strict Equality). Use `===` by default.
 
----
+***
 
 **Question:** What does `typeof null` return and why?
 
 **Answer:** `"object"`. This is a legacy bug from the original engine implementation that checked the type tag of the value; `null` used the same tag as objects. It will never be fixed because too much existing code depends on it.
 
----
+***
 
 **Question:** What is a closure?
 
 **Answer:** A function combined with the lexical environment where it was created. The function retains access to the variables in that environment, even after the outer function has returned, because the bindings stay alive on the heap.
 
----
+***
 
 **Question:** What is the prototype chain?
 
 **Answer:** Every object has an internal `[[Prototype]]` link to another object (or `null`). Property access walks this chain until the property is found or the chain ends. `class` syntax puts methods on the prototype; instance fields go on the object.
 
----
+***
 
 **Question:** What is the difference between a function declaration and a function expression?
 
 **Answer:** A function declaration (`function foo() {}`) is fully hoisted: its name and body are available anywhere in the enclosing scope. A function expression (`const foo = function() {}`) is only a value assignment; the variable is hoisted but not initialized (if `const`/`let`) or initialized to `undefined` (if `var`), so calling it before the assignment throws.
 
----
+***
 
 **Question:** What does `"use strict"` change?
 
 **Answer:** It disables sloppy-mode behaviors: silent errors become throws (assigning to an undeclared variable, writing to a read-only property), `this` in a plain function call is `undefined` instead of the global object, and duplicate parameter names are a syntax error. ESM is always strict.
 
----
+***
 
 **Question:** What is the difference between `null` and `undefined`?
 
 **Answer:** `undefined` means "no value has been assigned" — it is the default for uninitialized variables, missing parameters, and absent properties. `null` means "intentionally empty" — it is an explicit signal. Both are nullish; `??` checks for both. `typeof undefined` is `"undefined"`; `typeof null` is `"object"` (a legacy quirk).
 
----
+***
 
 **Question:** What is event delegation?
 
 **Answer:** Attaching a single event listener at a stable ancestor element and dispatching based on `event.target` or `event.target.closest()`. It reduces memory, handles dynamically added elements, and simplifies cleanup.
 
----
+***
 
 **Question:** What is the difference between `Promise.all` and `Promise.allSettled`?
 
 **Answer:** `Promise.all` short-circuits on the first rejection and rejects the aggregate. `Promise.allSettled` waits for all Promises to settle (fulfilled or rejected) and returns an array of result objects with `{ status, value/reason }`. Use `all` for "all or nothing"; use `allSettled` for independent operations where partial success is acceptable.
 
----
+***
 
 **Question:** How does optional chaining (`?.`) differ from regular property access?
 
 **Answer:** `a?.b` returns `undefined` if `a` is `null` or `undefined`, without throwing. Regular `a.b` would throw a `TypeError`. It short-circuits the rest of the expression: `a?.b.c` returns `undefined` (not `a?.b?.c`). It does not protect against other falsy values like `0` or `""`.
 
----
+***
 
 **Question:** What is `Object.freeze`?
 
 **Answer:** It makes an object's own properties non-writable and non-configurable. It is shallow: nested objects are still mutable. Adding a property throws in strict mode and silently fails in sloppy mode.
 
----
+***
 
 **Question:** What is the difference between a microtask and a macrotask?
 
 **Answer:** Microtasks (Promise `.then`, `queueMicrotask`, `MutationObserver`) are drained completely after every synchronous unit of work, before the next macrotask. Macrotasks (timers, I/O callbacks, UI events) are picked one at a time. A flood of microtasks can starve macrotasks.
 
----
+***
 
 **Question:** What is `AbortController`?
 
 **Answer:** A standard mechanism for cooperative cancellation. It produces an `AbortSignal` that can be passed to `fetch`, `addEventListener`, and custom async APIs. Calling `abort()` sets `signal.aborted` to `true` and dispatches an `"abort"` event. It is the modern replacement for hand-rolled cancellation booleans.
 
----
+***
 
 **Question:** What is the temporal dead zone?
 
 **Answer:** The region between the start of a block and the point where a `let` or `const` declaration is evaluated. Accessing the binding in this region throws a `ReferenceError`, even though the binding technically exists (it is hoisted). `var` does not have a TDZ; it is initialized to `undefined` immediately.
 
----
+***
 
 **Question:** What does `Array.from` do?
 
 **Answer:** It creates a new `Array` from any iterable or array-like object (anything with a `length` property and indexed elements). It optionally takes a mapping function as the second argument, combining creation and transformation in one pass.
 
----
+***
 
 **Question:** When would you use `WeakMap` instead of `Map`?
 
 **Answer:** When the keys are objects and should not prevent garbage collection. If the key becomes unreachable elsewhere, the `WeakMap` entry is automatically collected. Use cases: attaching private metadata to DOM nodes, caching derived data keyed by object identity without leaking.
 
----
+***
 
 **Question:** What is `structuredClone`?
 
 **Answer:** A built-in function for deep-cloning objects, including `Date`, `Map`, `Set`, `ArrayBuffer`, and most built-in types. It handles cycles. Unlike `JSON.parse(JSON.stringify(x))`, it preserves types and does not lose `undefined`, but it still cannot clone functions or DOM nodes.
 
----
+***
 
 **Question:** What is the difference between `map`, `forEach`, and a `for` loop?
 
 **Answer:** `map` returns a new array of transformed elements — pure when the callback is pure. `forEach` iterates for side effects and returns `undefined`. A `for` loop gives full control (early exit via `break`, async-friendly with `await`). Use `map` when you need the result; `forEach` when you do not; `for` when you need `break`, `continue`, or `await` on each iteration.
 
----
+***
 
 **Question:** What is `reduce` and when does it become unreadable?
 
 **Answer:** `reduce` folds an array into a single value using an accumulator. It becomes unreadable when the callback has side effects, when the accumulator type differs from the element type without a type annotation, or when it nests more than one conditional branch. In those cases, use an explicit `for` loop — the extra lines are cheaper than the cognitive cost.
 
----
+***
 
 **Question:** What is the difference between shallow copy and deep copy?
 
 **Answer:** A shallow copy (`{ ...obj }`, `Object.assign`, `Array.from`) copies top-level properties by reference: nested objects still point to the same heap location. A deep copy (`structuredClone`) recursively copies the entire structure. The trap: spread feels like a copy but mutating a nested field mutates both copies.
 
----
+***
 
 **Question:** How does `this` work in an arrow function vs a regular function?
 
 **Answer:** A regular function determines `this` at call time (method, plain, constructor, or explicit binding). An arrow function has no `this` of its own — it captures `this` lexically from the scope where it is defined. This is why arrow functions are correct for callbacks inside methods and incorrect as constructors or object-literal methods.
 
----
+***
 
 **Question:** What is destructuring with default values and what are its pitfalls?
 
 **Answer:** `const { a = 1 } = obj;` assigns `a` to `1` only if `obj.a` is `undefined` — not if it is `null`, `0`, or `""`. Destructuring `null` or `undefined` itself throws a `TypeError`. The pitfall: treating the default as a "fallback for all falsy values" when it only covers `undefined`.
 
----
+***
 
 **Question:** Explain `Symbol` and name a real use case.
 
 **Answer:** A `Symbol` is a unique, immutable primitive used as a property key that cannot collide with any other key. Real use cases: well-known symbols like `Symbol.iterator` (making an object iterable), `Symbol.toPrimitive` (controlling type coercion), and library-internal metadata keys that are invisible to `for...in` and `JSON.stringify`.
 
----
+***
 
 **Question:** What is the difference between `Object.keys`, `Object.entries`, and `Reflect.ownKeys`?
 
 **Answer:** `Object.keys` returns own enumerable string-keyed properties. `Object.entries` returns `[key, value]` pairs for the same set. `Reflect.ownKeys` returns all own keys — including non-enumerable and Symbol keys — in creation order. Use `Reflect.ownKeys` when you need the complete picture (e.g. serialization, deep clone).
 
----
+***
 
 **Question:** What does `event.stopPropagation()` vs `event.preventDefault()` do?
 
 **Answer:** `stopPropagation` prevents the event from traveling further up (or down in capture phase) the DOM tree. `preventDefault` cancels the browser's default action for that event (e.g. following a link, submitting a form). They solve different problems and are not interchangeable.
 
----
+***
 
 **Question:** What is `requestAnimationFrame` and when do you use it over `setTimeout`?
 
 **Answer:** `requestAnimationFrame` schedules a callback before the next browser repaint (~16 ms at 60 fps). Use it for visual updates (animation, scroll-linked effects). Unlike `setTimeout`, it automatically pauses when the tab is hidden, aligns with the display refresh rate, and avoids layout thrashing by batching reads and writes within the same frame.
 
----
+***
 
 **Question:** What is the difference between debounce and throttle?
 
@@ -1783,61 +1783,61 @@ private variables.
 
 **Answer:** Concurrency is the ability to handle multiple tasks in overlapping time periods by interleaving them on a single thread (event loop). Parallelism is simultaneous execution on multiple threads (Web Workers, worker threads). JavaScript is concurrent by default and parallel only when you explicitly create additional threads. The event loop provides concurrency; Workers provide parallelism.
 
----
+***
 
 **Question:** Explain how a closure can cause a memory leak and how to fix it.
 
 **Answer:** A closure retains a reference to its entire outer lexical environment. If the closure is captured by a timer (`setInterval`), an event listener, or a long-lived cache, the outer variables remain reachable and the GC cannot collect them — even if the page or component they belonged to is gone. Fixes: clear timers on teardown, use `AbortController` for listeners, cap caches with an eviction policy, and use `WeakMap`/`WeakRef` for metadata keyed by object identity.
 
----
+***
 
 **Question:** Explain the dual-package hazard when publishing a library that supports both ESM and CJS.
 
 **Answer:** If Node loads the ESM entry and the CJS entry of the same package in the same process (possible with transitive dependencies), two copies of the module exist. Singletons become doubles, `instanceof` checks fail because prototypes come from different copies, and equality checks on exported values break. The fix is to use the `"exports"` field in `package.json` to ensure only one copy is loaded per import path, and to test with both resolution modes.
 
----
+***
 
 **Question:** What happens if a microtask queues another microtask?
 
 **Answer:** The new microtask is added to the same queue and will be processed in the same draining pass — the runtime keeps draining until the microtask queue is empty. This means a recursive chain of microtasks can starve the macrotask queue indefinitely, freezing the UI or blocking I/O callbacks.
 
----
+***
 
 **Question:** How does `Promise.race` differ from `Promise.any`?
 
 **Answer:** `Promise.race` settles (fulfills or rejects) with the first Promise that settles, regardless of whether it fulfilled or rejected. `Promise.any` fulfills with the first fulfilled value and only rejects if all input Promises reject (with an `AggregateError`). Use `race` for timeouts; use `any` for fallbacks.
 
----
+***
 
 **Question:** Why does returning inside a `try` block still run the `finally`?
 
 **Answer:** `finally` always executes, regardless of whether the try block completes normally, throws, or returns. If both `try` and `finally` have a return, the `finally` return wins. This is by spec and serves the pattern "release resources regardless of outcome" (e.g. close a handle, stop a timer).
 
----
+***
 
 **Question:** What is the difference between `for...in` and `for...of`?
 
 **Answer:** `for...in` iterates over the **enumerable property keys** of an object (including inherited ones). `for...of` iterates over the **values** produced by an **iterable** (arrays, maps, sets, generators, strings). For arrays, `for...in` gives string indices and includes inherited keys — which is almost never what you want.
 
----
+***
 
 **Question:** Why are arrow functions not suitable as constructors?
 
 **Answer:** Arrow functions do not have a `[[Construct]]` internal method. Calling `new` on an arrow function throws a `TypeError`. They also do not have their own `this`, `arguments`, or `super`. They are designed for callbacks and short expressions, not for constructing instances.
 
----
+***
 
 **Question:** What is a generator function and when is it useful?
 
 **Answer:** A generator function (`function*`) returns an iterator that can be paused and resumed at each `yield`. Useful for lazy sequences, paginated I/O (pull-based), async iteration (`async function*`), and cooperative multitasking (coroutines). The runtime suspends the execution context and resumes it on `.next()`.
 
----
+***
 
 **Question:** Explain how `Proxy` works and when you would use it in production.
 
 **Answer:** `Proxy` wraps a target object and intercepts fundamental operations (get, set, deleteProperty, apply, construct, etc.) via traps. Useful for validation, reactive systems, access control layers, and observability instrumentation. The trade-off: Proxy access is slower than plain property access and makes debugging harder because stack traces pass through the Proxy. Use it at API boundaries, not on hot-path data structures.
 
----
+***
 
 ### Question
 
@@ -1879,25 +1879,25 @@ The execution context is where the code runs. When you call a function it goes o
 - No mention of how closures relate to the execution context.
 - Confuses execution context with scope.
 
----
+***
 
 **Question:** Explain `WeakRef` and `FinalizationRegistry`. When would you use them?
 
 **Answer:** `WeakRef` holds a reference to an object without preventing garbage collection. `FinalizationRegistry` lets you register a callback that fires when a registered object is collected. Together, they enable advanced caching where entries are evicted by GC pressure rather than explicit TTL. Use them for non-essential caches (e.g. image thumbnails, compiled templates). Do not use them for correctness-critical code — the GC is non-deterministic, so timing is unpredictable.
 
----
+***
 
 **Question:** What is the difference between `queueMicrotask` and `Promise.resolve().then()`?
 
 **Answer:** Both schedule microtasks. `queueMicrotask(fn)` is the direct API — it schedules `fn` without creating a Promise object. `Promise.resolve().then(fn)` allocates a resolved Promise and a `.then` reaction. In practice the scheduling order is the same, but `queueMicrotask` is cheaper (no Promise allocation) and signals intent more clearly: "I want to defer this to the end of the current microtask checkpoint, nothing more."
 
----
+***
 
 **Question:** Explain the `Reflect` API and when it is preferable to direct object manipulation.
 
 **Answer:** `Reflect` provides methods corresponding to the internal object operations (`get`, `set`, `has`, `deleteProperty`, `construct`, `apply`, etc.) with uniform return semantics (returns `boolean` for success/failure instead of throwing). It is preferable inside `Proxy` traps because it preserves the invariant that the trap mirrors the default behavior. Outside proxies, it is useful when you need a boolean result for `defineProperty` rather than a throw-or-succeed contract.
 
----
+***
 
 **Question:** How do you implement a concurrent-limited `Promise.all`?
 
@@ -1953,7 +1953,7 @@ Switch `"type": "module"` everywhere, fix the imports, ship.
 - No mention of the dual-package hazard.
 - No mention of CI gating or incremental rollout.
 
----
+***
 
 ### Question
 
@@ -1988,7 +1988,7 @@ Publish a style guide wiki page and ask everyone to follow it.
 - Treating lint as optional or a warning.
 - No migration strategy for existing code.
 
----
+***
 
 ### Question
 
@@ -2023,7 +2023,7 @@ Add console.logs and redeploy.
 - No mention of event-loop lag or heap profiling.
 - No roll-back as an early option.
 
----
+***
 
 ### Question
 
@@ -2057,7 +2057,7 @@ Use workers whenever you have async work to do.
 - No mention of communication overhead.
 - Suggesting workers for I/O-bound work (already async in the event loop).
 
----
+***
 
 ### Question
 
@@ -2091,37 +2091,37 @@ Add a global try/catch.
 - Treating swallowed rejections as harmless.
 - No structured logging of the rejection reason.
 
----
+***
 
 **Question:** How do you make JavaScript memory leaks visible before they hit production?
 
 **Answer:** (1) Track heap-used metric in production dashboards and alert on a positive slope over time, not on absolute size. (2) In CI or canary, run load tests with heap snapshots at T=0, T=5min, T=15min; diff retainers. (3) Enable the Node `--heapsnapshot-signal` flag or the Chrome DevTools protocol for on-demand snapshots from production replicas. (4) Code-review checklists that flag `setInterval`, `addEventListener` without teardown, and caches without bounds.
 
----
+***
 
 **Question:** What is your policy on using `any` escape hatches or `eval`?
 
 **Answer:** Ban `eval` at the lint level (`no-eval`, CSP `script-src`). For `any` in TypeScript (covered in [TypeScript](./06-typescript.md)), allow it only behind an explicit suppress comment with a linked issue for follow-up. Neither should appear in production without a reviewed exception.
 
----
+***
 
 **Question:** How do you decide when to polyfill vs drop support for an older browser or runtime?
 
 **Answer:** Define a support matrix based on real traffic data (analytics). If a browser contributes <1% of sessions and is losing share, drop support. If it must be supported (contractual, regulatory), polyfill at the bundle level via a conditional-serve strategy (modern bundle + legacy bundle). Never polyfill globally in a library — ship raw and let the consumer decide. Re-evaluate quarterly.
 
----
+***
 
 **Question:** When would you choose a streaming approach over buffering for HTTP responses?
 
 **Answer:** When the response body is large or unbounded (file downloads, logs, CSV exports, proxied responses). Streaming caps memory usage at the backpressure window regardless of payload size. Trade-off: error handling is more complex (you cannot send a different status code after bytes are already on the wire). Use buffering for small, fully-computed JSON responses where simplicity wins.
 
----
+***
 
 **Question:** How do you handle a situation where a critical third-party JavaScript SDK blocks the main thread?
 
 **Answer:** (1) Defer loading behind user interaction or idle callback (`requestIdleCallback`). (2) If available, load in a Web Worker (rare for SDKs that need DOM access). (3) If the SDK is truly blocking, negotiate with the vendor for an async version. (4) As a last resort, load it in an `<iframe>` sandboxed on a separate origin so it gets its own event loop and cannot block the parent. Track the impact via Long Tasks API and Core Web Vitals (INP) to quantify the cost.
 
----
+***
 
 ### Question
 
@@ -2162,31 +2162,31 @@ Use try/catch everywhere and log.
 - No mention of structured logging or error monitoring.
 - "Catch all errors at the top" without explaining what happens next.
 
----
+***
 
 **Question:** How do you decide whether to write a utility yourself or use a third-party package?
 
 **Answer:** Default to the platform and standard library first (`Intl`, `URL`, `crypto`, `structuredClone`). For a utility that is <50 lines and has no edge cases (e.g. `debounce`), inline it. For anything with subtle edge cases that have already been solved by a well-maintained, audited library (e.g. date parsing, encoding, validation), use the library. Criteria: bundle size impact, maintenance activity, transitive dependency count, license, and whether you can afford to fork if it goes unmaintained.
 
----
+***
 
 **Question:** How do you structure feature flags in a frontend JavaScript codebase?
 
 **Answer:** Keep flag evaluation at the boundary (route level, component mount) not sprinkled inside utility functions. Use a typed config object (`FeatureFlags`) fetched at app init or injected via context. Default all flags to `false` for safety. Test both code paths. Clean up flags within one sprint of full rollout — stale flags are tech debt with a blast radius. Track active flags on a dashboard.
 
----
+***
 
 **Question:** How do you handle browser support decisions as a Tech Lead?
 
 **Answer:** Publish a support matrix based on analytics (last two versions of evergreen browsers plus any contractual requirement). Serve a modern bundle by default; serve a polyfilled legacy bundle only to matching user-agents (differential serving). Gate support drops behind a data-driven threshold (e.g. <0.5% of sessions). Re-evaluate quarterly. Communicate the matrix to QA and product; do not hide it.
 
----
+***
 
 **Question:** How do you manage shared JavaScript code between frontend and backend in a monorepo?
 
 **Answer:** Put shared code in a `packages/shared` (or similar) workspace package with its own `tsconfig`, tests, and lint. The package must have zero environment-specific imports — no `window`, no `process`, no `fs`. Enforce this with a lint rule or a custom `tsconfig` that omits both `dom` and `node` typings. Publish it as an internal package with explicit exports. The alternative — a shared folder with path aliases — breaks IDE navigation and makes dependency boundaries invisible.
 
----
+***
 
 **Question:** When would you reject a PR that uses `eval` or `new Function`?
 
@@ -2198,55 +2198,55 @@ Use try/catch everywhere and log.
 
 **Answer:** Use the Performance API: `performance.mark` and `performance.measure` for custom intervals, `PerformanceObserver` for Long Tasks (tasks >50 ms), and the User Timing API for business-critical paths. Combine with Lighthouse CI for lab data and Real User Monitoring (RUM) for field data. Avoid `Date.now()` for micro-benchmarks — it lacks resolution and is subject to clock skew. Use `performance.now()`.
 
----
+***
 
 **Question:** What is the cost of creating closures in a hot loop?
 
 **Answer:** Each closure allocates a new function object and captures the lexical environment. In a loop running thousands of iterations, this creates GC pressure (thousands of short-lived objects). The fix: hoist the function outside the loop and pass data via parameters, or use a `for` loop with inline logic. This matters only on measured hot paths — for normal code, the allocation cost is negligible.
 
----
+***
 
 **Question:** What causes "layout thrashing" and how do you prevent it?
 
 **Answer:** Layout thrashing happens when JavaScript alternates between reading a layout property (`offsetWidth`, `getBoundingClientRect`) and writing to the DOM. Each read forces the browser to synchronously recalculate layout. Prevention: batch all reads first, then batch all writes. Libraries like `fastdom` enforce this. In modern frameworks, the virtual DOM batches updates; manual DOM code must be disciplined.
 
----
+***
 
 **Question:** How do you diagnose a memory leak in a long-running Node process?
 
 **Answer:** (1) Confirm the leak: heap-used metric grows monotonically over hours. (2) Take two heap snapshots 10 minutes apart under load (`--heapsnapshot-signal=SIGUSR2` or Chrome DevTools Protocol). (3) Compare retainers: look for objects with growing retained size — typically closures, event listeners, or cache entries. (4) Identify the retaining path back to a GC root. (5) Fix: add teardown, cap the cache, or use `WeakMap`. (6) Verify: run the same load and confirm the slope flattens.
 
----
+***
 
 **Question:** When does `async`/`await` hurt performance compared to raw Promise chains?
 
 **Answer:** Rarely in practice. Each `await` creates a microtask boundary (the engine saves and restores the execution context). In tight loops with thousands of iterations, chaining `.then` can avoid the overhead of context-switching per iteration. But the cost is usually <1 μs per `await`. Optimize only when profiling shows `await` overhead is measurable relative to the work being done. For readability, `async`/`await` wins by default.
 
----
+***
 
 **Question:** What is the performance implication of `delete obj.key` vs setting to `undefined`?
 
 **Answer:** `delete` removes the property from the object, changing its **hidden class** (V8's internal shape). This de-optimizes the object: subsequent property accesses fall back to dictionary mode, which is slower. Setting to `undefined` preserves the shape. In hot paths with many objects of the same shape, prefer `obj.key = undefined` or restructure the code to avoid runtime shape changes.
 
----
+***
 
 **Question:** How do you prevent a scroll event handler from janking the UI?
 
 **Answer:** (1) Use `passive: true` on the listener so the browser does not wait for `preventDefault` and can scroll immediately. (2) Throttle the handler to fire at most once per frame (`requestAnimationFrame` gate). (3) Do not read layout properties inside the handler (causes forced reflow). (4) For complex logic, debounce or move computation to a worker and apply results asynchronously.
 
----
+***
 
 **Question:** What is tree-shaking and what prevents it from working?
 
 **Answer:** Tree-shaking is dead-code elimination based on static ESM `import`/`export` analysis. The bundler drops exports that no consumer imports. It fails when: (1) the library uses CommonJS (`require` is dynamic); (2) modules have side effects (top-level code that runs on import); (3) `sideEffects: false` is not declared in `package.json`; (4) dynamic `import()` or barrel files re-export everything, making the graph opaque.
 
----
+***
 
 **Question:** How would you reduce Time to Interactive (TTI) for a JavaScript-heavy page?
 
 **Answer:** (1) Code-split: load only the critical path JS for the initial route. (2) Defer non-essential scripts (`defer`, dynamic `import()`). (3) Inline critical CSS and preload critical assets. (4) Reduce third-party script impact (defer, iframe, or remove). (5) Compress and serve with Brotli. (6) Use a CDN with edge caching. (7) Measure with Lighthouse and track TTI in RUM. Target: main-thread idle within 5 seconds on a mid-tier mobile device.
 
----
+***
 
 **Question:** What is the difference between `requestIdleCallback` and `requestAnimationFrame`?
 
@@ -2258,31 +2258,31 @@ Use try/catch everywhere and log.
 
 **Answer:** (1) **XSS** — injecting scripts via unsanitized user input in the DOM. (2) **Prototype pollution** — merging untrusted objects into `Object.prototype`, corrupting all downstream code. (3) **Supply chain attacks** — malicious code in npm dependencies. (4) **eval/innerHTML** — executing arbitrary strings. (5) **Open redirects** — using `window.location` with unsanitized URLs.
 
----
+***
 
 **Question:** How does Content Security Policy (CSP) protect against XSS?
 
 **Answer:** CSP is an HTTP header that restricts which sources can execute scripts, load styles, make network requests, etc. `script-src 'self'` blocks inline scripts and scripts from third-party origins. `script-src 'nonce-abc123'` allows only scripts with a matching nonce attribute. CSP breaks XSS by denying execution of injected code even if the attacker finds an injection point. Trade-off: strict CSP requires refactoring inline event handlers and `eval` usage.
 
----
+***
 
 **Question:** What is prototype pollution and how do you prevent it?
 
 **Answer:** Prototype pollution occurs when untrusted input (e.g. JSON from a request) is recursively merged into an object and sets `__proto__`, `constructor`, or `prototype` keys, modifying `Object.prototype` globally. Prevention: (1) validate or blocklist dangerous keys before merge; (2) use `Object.create(null)` for lookup maps (no prototype); (3) freeze `Object.prototype` in sensitive environments; (4) prefer `Map` over plain objects for untrusted keys.
 
----
+***
 
 **Question:** How do you prevent `innerHTML`-based XSS?
 
 **Answer:** Do not use `innerHTML` with user-controlled strings. Use `textContent` for text, `createElement` + `setAttribute` for structure, or a framework's auto-escaping templates. If HTML rendering is required (e.g. rich text), sanitize with a trusted library (DOMPurify) and pair with a strict CSP that blocks inline scripts. Never pass URL-sourced parameters directly into the DOM.
 
----
+***
 
 **Question:** What are the security implications of `postMessage` between frames?
 
 **Answer:** `postMessage` allows cross-origin communication. Without origin validation, a malicious iframe can send messages that the parent trusts. Always check `event.origin` against an allowlist before processing. Never pass unsanitized `event.data` into the DOM or `eval`. Define a typed message protocol and reject unknown message types.
 
----
+***
 
 **Question:** How do you secure client-side secrets (API keys, tokens)?
 
@@ -2294,25 +2294,25 @@ Use try/catch everywhere and log.
 
 **Answer:** (1) Return a Promise from the test; the runner awaits it. (2) Use fake timers (`jest.useFakeTimers()` or `sinon.useFakeTimers()`) to advance time deterministically. (3) For event-based code, await the event with a helper that resolves on the next emission. (4) For `AbortController` tests, abort and assert the rejection is `AbortError`. (5) Avoid real `setTimeout` in tests — it introduces non-determinism and slows the suite.
 
----
+***
 
 **Question:** How do you test code that uses `fetch`?
 
 **Answer:** (1) **Mock at the boundary**: inject a `fetcher` function and pass a fake in tests. (2) **MSW (Mock Service Worker)**: intercepts at the network level, works in both browser and Node tests, keeps test code closer to production behavior. (3) **Avoid `jest.mock("node-fetch")`** in large codebases — it hides integration issues. Prefer the pattern where the test controls what the server returns, not what the import resolves to.
 
----
+***
 
 **Question:** What makes a JavaScript unit test flaky?
 
 **Answer:** (1) Real timers (`setTimeout`, `Date.now`) that drift. (2) Shared mutable state between tests. (3) Non-deterministic ordering (relying on object key order or set iteration). (4) Race conditions from un-awaited Promises. (5) Implicit dependency on network or file system. Fix: fake timers, isolated state per test, deterministic data, `await` everything, mock I/O at the boundary.
 
----
+***
 
 **Question:** How do you enforce quality in a JavaScript codebase beyond lint?
 
 **Answer:** (1) Type checking in CI (TypeScript `--noEmit` or `tsc --build`). (2) Unit and integration tests with coverage as a signal (not a target). (3) Contract tests for API boundaries. (4) Bundle-size budgets enforced in CI. (5) Accessibility checks (axe-core). (6) Mutation testing on critical paths to measure test effectiveness. (7) PR size limits to keep reviews meaningful.
 
----
+***
 
 **Question:** How do you test a debounced function?
 
@@ -2329,7 +2329,7 @@ expect(fn).toHaveBeenCalledTimes(1);
 expect(fn).toHaveBeenCalledWith("b");
 ```
 
----
+***
 
 **Question:** How do you test error paths in async code?
 
@@ -2370,7 +2370,7 @@ Rewrite the codebase in TypeScript strict mode.
 - No incremental plan.
 - No mention of product continuity.
 
----
+***
 
 ### Question
 
@@ -2408,7 +2408,7 @@ Add a loading spinner.
 - No mention of backend pagination.
 - Suggesting `setTimeout` chunking for `JSON.parse`.
 
----
+***
 
 ### Question
 
@@ -2450,37 +2450,37 @@ Add a `isMounted` flag and check it before `setData`.
 - No mention of `AbortController`.
 - No mention of teardown lifecycle.
 
----
+***
 
 **Question:** A colleague proposes replacing all `map/filter/reduce` chains with `for` loops "for performance". How do you evaluate and respond?
 
 **Answer:** Ask for profiling evidence. If the chain is not on a hot path, the readability and composability of the pipeline wins. If it is on a measured hot path and allocations are significant, the switch is valid but should be contained to that path and commented ("optimized for allocation"). Set a rule: the team defaults to pipeline style; `for`-loop optimization is an exception backed by a benchmark.
 
----
+***
 
 **Question:** You need to implement a rate-limiting UI (disable a button for 2 seconds after click). What is the cleanest approach?
 
 **Answer:** Use a throttle with a leading edge and a trailing edge disabled. The click fires immediately (leading), then ignores subsequent clicks for 2 seconds. Alternatively, disable the button in state, use `setTimeout` to re-enable, and pair it with an `AbortController` that clears the timeout on unmount. Prefer the state-based approach in component frameworks because it is self-documenting.
 
----
+***
 
 **Question:** How would you debug a "Maximum call stack size exceeded" error in production that does not reproduce locally?
 
 **Answer:** The error means unbounded recursion. It does not reproduce locally because local data is smaller or different. Steps: (1) Add structured logging at the recursive function entry with a depth counter; throw at a safe limit (e.g. 500) before the engine limit. (2) Check the production data shape — likely a cycle in a tree or a pathological nesting depth. (3) Replace recursion with an explicit stack (array) to handle arbitrary depth without engine limits.
 
----
+***
 
 **Question:** A React app bundles 2 MB of JavaScript. The Tech Lead (you) must reduce it. What do you look at first?
 
 **Answer:** (1) Bundle analyzer (webpack-bundle-analyzer or source-map-explorer) to identify the largest dependencies. (2) Code-split routes with dynamic `import()`. (3) Replace heavy libraries with lighter alternatives (e.g. `date-fns` over `moment`, native `Intl` over `i18n-heavy`). (4) Tree-shake — confirm ESM entry points and that `sideEffects: false` is declared. (5) Defer non-critical scripts. Aim for <200 KB initial JS (compressed) for interactive paths.
 
----
+***
 
 **Question:** You are asked to add a global error boundary that catches unhandled errors, logs them, and shows a fallback. What JavaScript-level hooks are needed?
 
 **Answer:** For sync errors on the window: `window.addEventListener("error", handler)`. For unhandled Promise rejections: `window.addEventListener("unhandledrejection", handler)`. For React: an Error Boundary component (`componentDidCatch` / `getDerivedStateFromError`). In Node: `process.on("uncaughtException")` and `process.on("unhandledRejection")`. Log to an error-reporting service with context (user, route, version). For sync errors, the handler cannot suppress the error's effect on the current call stack; it can only report.
 
----
+***
 
 **Question:** How would you implement a retry with exponential backoff in JavaScript?
 
@@ -2503,13 +2503,13 @@ async function retry(fn, { maxAttempts = 3, baseMs = 200, signal } = {}) {
 
 The backoff doubles, jitter avoids thundering herd. Always cap retries and accept an `AbortSignal` so the caller can cancel.
 
----
+***
 
 **Question:** A script must process 100,000 records from an API without running out of memory. What pattern do you use?
 
 **Answer:** Cursor-based pagination with streaming processing. Fetch one page at a time, process it (write to DB, file, or stream), then fetch the next. Never accumulate all records in memory. In Node, combine `async generators` with back-pressure-aware writes (e.g. `stream.write` returning `false` pauses reads). In the browser, use the Streams API (`ReadableStream` + `TransformStream`).
 
----
+***
 
 ### Question
 
@@ -2544,7 +2544,7 @@ Increase the memory limit and restart more often.
 - Treating automatic restart as acceptable.
 - Suggesting "rewrite the service in Rust" as the first action.
 
----
+***
 
 **Question:** A junior engineer asks why their `async forEach` does not await each iteration. How do you explain it?
 
@@ -2556,31 +2556,31 @@ Increase the memory limit and restart more often.
 
 **Answer:** The language execution (the call stack, closures, the event loop) is single-threaded per realm. However, the runtime provides parallelism via Workers (browser Web Workers, Node worker threads), SharedArrayBuffer with Atomics, and the engine itself is multi-threaded internally (GC, JIT compilation, I/O via libuv). Saying "JavaScript is single-threaded" is a useful simplification but technically refers to the main execution thread.
 
----
+***
 
 **Question:** Does `const` make a value immutable?
 
 **Answer:** No. `const` prevents **reassigning the binding** (`=`), not mutation of the bound value. `const arr = []; arr.push(1);` works. For immutability, use `Object.freeze` (shallow) or a structural-sharing library.
 
----
+***
 
 **Question:** Is `typeof NaN === "number"` correct?
 
 **Answer:** Yes. `NaN` is of type `number` in the IEEE 754 spec. It represents the result of an undefined arithmetic operation. The confusing part is that `NaN !== NaN`; use `Number.isNaN(x)` to check, not `x !== x` (which works but confuses reviewers).
 
----
+***
 
 **Question:** Can a `finally` block change the return value of a function?
 
 **Answer:** Yes. If the `finally` block contains a `return` statement, it overrides the return (or throw) from the `try` or `catch` block. This is by specification but widely considered a bug-prone pattern. Lint rules (`no-unsafe-finally`) flag it.
 
----
+***
 
 **Question:** Does `setTimeout(fn, 0)` execute `fn` immediately?
 
 **Answer:** No. It schedules `fn` as a macrotask. It will execute only after the current synchronous code finishes **and** after the microtask queue drains completely. In browsers, there is also a minimum delay (~4 ms in deeply nested cases). It is not "immediate"; it is "as soon as the event loop gets to it."
 
----
+***
 
 **Question:** What does `[] + []` return?
 

@@ -2152,7 +2152,7 @@ serially. Conversely, a batch system can have high throughput
 performance target depends on the use case: user-facing APIs
 optimize for latency; data pipelines optimize for throughput.
 
----
+***
 
 **Question:** Why are percentiles better than averages for measuring
 latency?
@@ -2165,7 +2165,7 @@ problem. In fan-out architectures, tail latency compounds — if a
 request calls 20 services, even a 1% chance of a slow response per
 service gives a 20% chance the user request is slow.
 
----
+***
 
 **Question:** What is an N+1 query problem?
 
@@ -2177,7 +2177,7 @@ with batch loading (`WHERE id IN (...)`) or ORM eager loading
 performance problem and are often hidden by ORMs that default to
 lazy loading.
 
----
+***
 
 **Question:** What is a CDN and when would you use one?
 
@@ -2189,7 +2189,7 @@ Cache-Control headers. A CDN reduces latency from 100-300ms (origin
 round trip) to 10-30ms (edge) and offloads traffic from origin
 servers.
 
----
+***
 
 **Question:** What is the difference between vertical and horizontal
 scaling?
@@ -2203,7 +2203,7 @@ distributed coordination. Choose vertical first for simplicity;
 switch to horizontal when vertical reaches its limits or when high
 availability requires redundancy.
 
----
+***
 
 **Question:** What is connection pooling and why does it matter?
 
@@ -2214,7 +2214,7 @@ request pays the cost of TCP handshake + TLS + authentication (often
 overhead). Pooling also limits the total number of connections to the
 database, preventing connection exhaustion under load.
 
----
+***
 
 **Question:** What is a cache stampede?
 
@@ -2227,7 +2227,7 @@ wait), TTL jitter (randomize expiration so keys do not expire
 together), or early recomputation (refresh the cache before
 expiration).
 
----
+***
 
 **Question:** What is back-pressure?
 
@@ -2239,7 +2239,7 @@ full), rate limiting (slow the producer), and flow control (TCP
 window-based). The producer must handle the back-pressure signal —
 either retry, shed load, or report an error to the user.
 
----
+***
 
 **Question:** What is lazy loading in the frontend?
 
@@ -2250,7 +2250,7 @@ loading (`loading="lazy"`) loads images only when they scroll into
 view. This reduces initial page load time and bandwidth usage,
 especially for pages with content below the fold.
 
----
+***
 
 **Question:** What is memoization?
 
@@ -2262,7 +2262,7 @@ component renders. Memoization is only useful for pure functions
 (same input always produces same output) and expensive computations.
 Memoizing cheap computations adds overhead without benefit.
 
----
+***
 
 **Question:** What are Core Web Vitals?
 
@@ -2275,7 +2275,7 @@ measures visual stability — how much the layout moves during
 loading (target: ≤ 0.1). Core Web Vitals affect SEO ranking and
 are measured on real user data.
 
----
+***
 
 **Question:** What is code splitting?
 
@@ -2287,7 +2287,7 @@ only its own code. This reduces initial load time and improves LCP.
 In React, use `React.lazy()` with `Suspense`. In Next.js, route-
 based splitting is automatic.
 
----
+***
 
 **Question:** What is rate limiting?
 
@@ -2299,7 +2299,7 @@ bucket capacity, then enforces an average rate), sliding window
 client in a retry loop), and ensures fair resource allocation across
 clients.
 
----
+***
 
 **Question:** What is a partial index?
 
@@ -2309,7 +2309,7 @@ users(email) WHERE status = 'active'`. This index is smaller and
 faster than a full index because it excludes inactive users. Use
 partial indexes when queries always filter by a known predicate.
 
----
+***
 
 **Question:** What is UI virtualization?
 
@@ -2320,7 +2320,7 @@ viewport are rendered and items leaving are removed. This keeps the
 DOM size constant regardless of list length, preventing jank and
 memory issues.
 
----
+***
 
 **Question:** What is the difference between cache-aside and
 read-through caching?
@@ -2334,7 +2334,7 @@ application code but couples the caching layer to the data source.
 Cache-aside is more common because it gives the application explicit
 control over cache population and invalidation.
 
----
+***
 
 **Question:** What is a hot key in caching?
 
@@ -2346,7 +2346,7 @@ by key splitting (add a random suffix and read from a random
 replica) or by caching the hot key in-process to avoid hitting Redis
 for every request.
 
----
+***
 
 **Question:** What is load shedding?
 
@@ -2357,7 +2357,7 @@ most requests well and rejecting the rest with HTTP 503. Load
 shedding is the last line of defense — it activates when rate
 limiting, autoscaling, and back-pressure have all been exhausted.
 
----
+***
 
 **Question:** What is a soak test?
 
@@ -2368,7 +2368,7 @@ A service that passes a 5-minute load test may fail after 8 hours
 because of a slow memory leak. Run soak tests before major releases
 and when investigating stability issues.
 
----
+***
 
 **Question:** What is a performance budget?
 
@@ -2379,7 +2379,7 @@ the build if exceeded) and monitored in production (alert on SLO
 breach). They prevent the gradual accumulation of performance
 regressions that no single change causes.
 
----
+***
 
 **Question:** What is the difference between a smoke test and a
 load test?
@@ -2392,7 +2392,7 @@ measure latency percentiles, throughput, and resource utilization.
 Smoke tests run on every deployment. Load tests run before major
 launches.
 
----
+***
 
 **Question:** What is write-behind caching?
 
@@ -2404,7 +2404,7 @@ to the database, the data is lost. Use write-behind only for data
 that can tolerate occasional loss (analytics events, non-critical
 counters).
 
----
+***
 
 **Question:** What is an autoscaling cooldown period?
 
@@ -2414,7 +2414,7 @@ scale up → traffic redistributes → utilization drops → scale down →
 utilization spikes → scale up. A typical cooldown is 5-10 minutes.
 It gives the system time to stabilize after each scaling action.
 
----
+***
 
 **Question:** Why is it important to warm up a system before a load
 test?
@@ -2426,7 +2426,7 @@ Connection pools are not yet established. GC has not settled into a
 steady state. Measure performance after a warm-up period
 (typically 1-5 minutes of traffic) to get representative results.
 
----
+***
 
 **Question:** What is the difference between a read replica and
 sharding?
@@ -2439,7 +2439,7 @@ Both reads and writes are distributed. Read replicas solve read
 scaling; sharding solves both read and write scaling but is far more
 complex (cross-shard queries, rebalancing, data distribution).
 
----
+***
 
 **Question:** What is TTL jitter?
 
@@ -2449,7 +2449,7 @@ at the same time with a 60-second TTL, all expire simultaneously —
 causing a cache stampede. With jitter (e.g., TTL = 60 ± 10 seconds),
 entries expire over a 20-second window, spreading the load.
 
----
+***
 
 **Question:** What is denormalization?
 
@@ -2461,7 +2461,7 @@ the `orders` table. This trades storage space and write complexity
 denormalization when read performance is critical and the data
 changes infrequently.
 
----
+***
 
 **Question:** What is the token bucket algorithm?
 
@@ -2474,7 +2474,7 @@ send a burst up to the bucket capacity. Token bucket is the most
 commonly used rate limiting algorithm in production because it
 balances burst tolerance with average rate enforcement.
 
----
+***
 
 **Question:** What is the fan-out problem in distributed systems?
 
@@ -2487,7 +2487,7 @@ downstream calls, hedging requests (send duplicate requests, use the
 first response), caching downstream responses, and reducing fan-out
 where possible.
 
----
+***
 
 **Question:** What is the difference between write-through and
 write-behind caching?
@@ -2556,7 +2556,7 @@ cached in the first place).
 - No mention of concurrent request coordination.
 - Does not know what single-flight or request coalescing means.
 
----
+***
 
 ### Question
 
@@ -2594,7 +2594,7 @@ lowest-effort optimizations."
 - No mention of EXPLAIN ANALYZE.
 - Indexes are the only tool (no batching, denormalization, caching).
 
----
+***
 
 ### Question
 
@@ -2634,7 +2634,7 @@ traffic) in staging to catch leaks before they reach production."
 - No mention of profiling or heap analysis.
 - Cannot name specific causes of Node.js memory leaks.
 
----
+***
 
 ### Question
 
@@ -2676,7 +2676,7 @@ the pool size."
 - Only solution is "increase pool size."
 - No mention of diagnosis or metrics.
 
----
+***
 
 ### Question
 
@@ -2717,7 +2717,7 @@ everywhere."
 - Only knows runtime optimization, not loading performance.
 - No mention of measurement or budgets.
 
----
+***
 
 ### Question
 
@@ -2756,7 +2756,7 @@ cache with a short TTL backed by Redis for durability."
 - Does not understand when Redis overhead is unnecessary.
 - Cannot articulate the consistency trade-off.
 
----
+***
 
 ### Question
 
@@ -2795,7 +2795,7 @@ must decide the acceptable fan-out depth and enforce it."
 - Cannot articulate the probability argument.
 - No mention of timeouts, hedging, or caching.
 
----
+***
 
 ### Question
 
@@ -2833,7 +2833,7 @@ review all caches for effectiveness and cost."
 - No monitoring or alerting for cache health.
 - No cost awareness.
 
----
+***
 
 ### Question
 
@@ -2872,7 +2872,7 @@ frequent or consistency must be immediate."
 - No awareness of write amplification or consistency risk.
 - Cannot articulate when to avoid denormalization.
 
----
+***
 
 ### Question
 
@@ -2911,7 +2911,7 @@ scaling, minimum instances, and CDN absorbs most bursts."
 - No awareness of scale-up lag.
 - No proactive strategies for known traffic events.
 
----
+***
 
 ### Question
 
@@ -2951,7 +2951,7 @@ diagnostic: pool wait time > 50ms means the pool is a bottleneck."
 - No awareness of fleet-wide connection math.
 - Does not investigate query duration as a root cause.
 
----
+***
 
 ### Question
 
@@ -2991,7 +2991,7 @@ without confirming no other query depends on it."
 - Index creation without CONCURRENTLY.
 - "Restart the database" — unnecessary and causes downtime.
 
----
+***
 
 ### Question
 
@@ -3032,7 +3032,7 @@ too high."
 - No profiling or diagnosis.
 - Cannot name specific causes of leaks.
 
----
+***
 
 ### Question
 
@@ -3072,7 +3072,7 @@ requires scaling or optimization."
 - Cannot distinguish regression from capacity.
 - Only one solution (more instances).
 
----
+***
 
 ### Question
 
@@ -3156,7 +3156,7 @@ customers complain."
 - Reactive (customer complaints) instead of proactive (budgets).
 - No automated enforcement.
 
----
+***
 
 ### Question
 
@@ -3197,7 +3197,7 @@ optimize queries → only then consider sharding."
 - Cannot articulate when replicas are sufficient.
 - No awareness of sharding costs.
 
----
+***
 
 ### Question
 
@@ -3237,7 +3237,7 @@ means."
 - Does not connect performance to business outcomes.
 - Does not present trade-offs.
 
----
+***
 
 ### Question
 
@@ -3279,7 +3279,7 @@ effectiveness (hit rate) monthly."
 - No service boundary awareness.
 - No cost or effectiveness governance.
 
----
+***
 
 ### Question
 
@@ -3323,7 +3323,7 @@ at 1%, 10%, 50%, 100%."
 - No cost awareness.
 - "Add more servers" without addressing the database bottleneck.
 
----
+***
 
 ### Question
 
@@ -3362,7 +3362,7 @@ runs."
 - No data-driven prioritization.
 - No end-to-end thinking.
 
----
+***
 
 ### Question
 
@@ -3402,7 +3402,7 @@ single Redis instance is a single point of failure."
 - No graceful degradation plan.
 - Treats the cache as fire-and-forget.
 
----
+***
 
 ### Question
 
@@ -3442,7 +3442,7 @@ bottleneck."
 - No cost-benefit awareness.
 - No consistency considerations.
 
----
+***
 
 ### Question
 
@@ -3483,7 +3483,7 @@ and timeline."
 - No growth trend analysis.
 - No cost awareness.
 
----
+***
 
 ### Question
 
@@ -3525,7 +3525,7 @@ later."
 - Defers architectural change indefinitely.
 - Does not consider recurrence risk.
 
----
+***
 
 ### Question
 
@@ -3567,7 +3567,7 @@ owns that span owns the fix."
 - No per-service SLOs.
 - No cross-team coordination mechanism.
 
----
+***
 
 ### Question
 
@@ -3608,7 +3608,7 @@ later.'"
 - "When we can" = never.
 - No quantification of cost.
 
----
+***
 
 ### Question
 
@@ -3654,7 +3654,7 @@ instances."
 - No investigation into which calls cause the overhead.
 - Does not question the service boundary design.
 
----
+***
 
 ### Question
 
@@ -3698,7 +3698,7 @@ team."
 - No awareness of specialized skills (load testing infra, profiling).
 - No tooling investment.
 
----
+***
 
 ### Question
 
@@ -3757,7 +3757,7 @@ results, or scale horizontally. I/O-bound → add caching, batch
 I/O calls, use connection pooling, or make calls parallel instead
 of sequential.
 
----
+***
 
 **Question:** How do you measure the real-world performance impact
 of a frontend change?
@@ -3773,7 +3773,7 @@ CLS) between the control and experiment groups over 7 days.
 Statistical significance requires enough samples — for low-traffic
 pages, this takes longer.
 
----
+***
 
 **Question:** What is GC pressure and how does it affect backend
 latency?
@@ -3790,7 +3790,7 @@ buffering in memory, and tuning GC parameters (heap size, generation
 ratios). Monitor GC pause duration and frequency — a healthy service
 has GC pauses under 10ms.
 
----
+***
 
 **Question:** How do you optimize a high-fan-out request path where
 one user request triggers 20 downstream service calls?
@@ -3807,7 +3807,7 @@ mathematical reality: with 20 services each at 1% slow rate (p99),
 the user-facing request has an 18% chance of being slow. Reducing
 fan-out from 20 to 10 services drops this to 10%.
 
----
+***
 
 **Question:** How do you choose between precomputation and on-demand
 caching for a read-heavy endpoint?
@@ -3843,7 +3843,7 @@ responses, never cache responses containing tokens, scope cache
 keys to include the user identifier for personalized data, and
 validate cache content integrity.
 
----
+***
 
 **Question:** What are the security implications of connection
 pooling?
@@ -3859,7 +3859,7 @@ credential is compromised, all pooled connections are compromised.
 Rotate credentials regularly and use IAM-based authentication
 (AWS RDS IAM auth) instead of static passwords where possible.
 
----
+***
 
 **Question:** How does rate limiting serve as a security mechanism?
 
@@ -3876,7 +3876,7 @@ alerts (10 failed logins from the same IP within a minute is a
 brute force signal). See [Security](./15-security.md) for broader
 defense-in-depth strategies.
 
----
+***
 
 **Question:** What are the security risks of using a CDN?
 
@@ -3892,7 +3892,7 @@ origin access to CDN IP ranges only. (4) Stale security headers —
 cached responses may include outdated CSP or CORS headers after a
 policy change. Purge the cache after security header updates.
 
----
+***
 
 **Question:** How do you ensure performance optimizations do not
 weaken your security posture?
@@ -3930,7 +3930,7 @@ produces a structured report with percentile latency, throughput,
 error rate, and resource utilization. Results are stored and
 compared across releases to detect regressions.
 
----
+***
 
 **Question:** How do you test caching behavior?
 
@@ -3948,7 +3948,7 @@ cache key immediately after expiration, verify only one database
 query executes. (5) Test cache eviction — fill the cache to
 capacity and verify the eviction policy works correctly (LRU, LFU).
 
----
+***
 
 **Question:** How do you validate that a performance optimization
 actually improved user experience?
@@ -3967,7 +3967,7 @@ and actual user behavior patterns. A performance improvement that
 shows up in load tests but not in RUM was optimizing the wrong
 thing.
 
----
+***
 
 **Question:** How do you test the behavior of a system under
 autoscaling?
@@ -3983,7 +3983,7 @@ latency degrades during the scale-up window. The test reveals the
 new instances are ready. If the gap is too long, pre-scale before
 known events or use a higher minimum instance count.
 
----
+***
 
 **Question:** How do you prevent performance regressions from
 reaching production?
@@ -4040,7 +4040,7 @@ catch regressions."
 - No mention of traces or profiling.
 - No regression prevention.
 
----
+***
 
 ### Question
 
@@ -4081,7 +4081,7 @@ degradation point moves."
 - Does not investigate the cause.
 - Throws resources at the symptom.
 
----
+***
 
 ### Question
 
@@ -4123,7 +4123,7 @@ the complexity is not justified."
 - No consistency consideration.
 - No cost analysis.
 
----
+***
 
 ### Question
 
@@ -4164,7 +4164,7 @@ what broke. (10) Scale back down to reduce cost."
 - No pre-warming or pre-scaling.
 - No fallback plan.
 
----
+***
 
 ### Question
 
@@ -4204,7 +4204,7 @@ writes > 10x reads — those are candidates for removal."
 - Shorter TTL does not fix the root problem.
 - No monitoring.
 
----
+***
 
 ### Question
 
@@ -4243,7 +4243,7 @@ same."
 - No measurement plan.
 - No SLO-based reasoning.
 
----
+***
 
 ### Question
 
@@ -4285,7 +4285,7 @@ reduce CPU by 50-70% without adding infrastructure."
 - No query analysis.
 - Cannot name query optimization techniques.
 
----
+***
 
 ### Question
 
@@ -4328,7 +4328,7 @@ features) is the pragmatic choice."
 - No mention of the TTFB cost of SSR.
 - No consideration of the use case.
 
----
+***
 
 ### Question
 
@@ -4369,7 +4369,7 @@ over-engineering unless the hit distribution is uniform."
 - No consideration of freshness or hit distribution.
 - Over-engineering without cost-benefit analysis.
 
----
+***
 
 ### Question
 
@@ -4426,7 +4426,7 @@ compute results adds overhead without meaningful latency reduction.
 The test for adding a cache: "Is the current response time
 unacceptable, and does the data tolerate staleness?"
 
----
+***
 
 **Question:** Does adding more indexes always improve query
 performance?
@@ -4440,7 +4440,7 @@ consume storage and slow down writes for zero benefit. Review
 index usage with `pg_stat_user_indexes` and drop indexes that are
 never scanned.
 
----
+***
 
 **Question:** Is horizontal scaling always better than vertical
 scaling?
@@ -4454,7 +4454,7 @@ complex. The threshold: when the largest available instance is
 insufficient, or when high availability requires multiple instances
 (vertical scaling creates a single point of failure).
 
----
+***
 
 **Question:** Does async processing always improve user-perceived
 performance?
@@ -4468,7 +4468,7 @@ immediately, the operation can fail and be retried without user
 awareness, or the processing is not critical to the user response
 (analytics, notifications).
 
----
+***
 
 **Question:** Is p99 the most important latency percentile?
 

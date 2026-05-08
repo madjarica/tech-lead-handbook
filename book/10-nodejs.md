@@ -3867,175 +3867,175 @@ modern. Express is old.
 
 **Answer:** The event loop is the mechanism that allows Node.js to perform non-blocking I/O on a single thread. It continuously checks for pending callbacks (timers, I/O, microtasks) and executes them one at a time. I/O operations are delegated to libuv (which uses OS async primitives or a thread pool), and their callbacks are queued for the event loop to process.
 
----
+***
 
 **Question:** What is libuv?
 
 **Answer:** libuv is the C library that provides Node.js with cross-platform asynchronous I/O. It implements the event loop, a thread pool (for file I/O, DNS, crypto), and abstractions over OS-level async mechanisms (epoll on Linux, kqueue on macOS, IOCP on Windows).
 
----
+***
 
 **Question:** What are streams in Node.js?
 
 **Answer:** Streams are abstractions for processing data sequentially in chunks rather than loading everything into memory. There are four types: Readable (produces data), Writable (consumes data), Transform (modifies data in transit), and Duplex (both). Streams implement back-pressure: a slow consumer signals the producer to pause.
 
----
+***
 
 **Question:** What is back-pressure?
 
 **Answer:** Back-pressure is the mechanism by which a slow writable stream signals the upstream readable stream to pause producing data. When `.write()` returns `false`, the readable should pause until the `drain` event fires. Without back-pressure handling, the writable's internal buffer grows until the process runs out of memory.
 
----
+***
 
 **Question:** What is the difference between `process.nextTick` and `setImmediate`?
 
 **Answer:** `process.nextTick` callbacks run before any I/O event and before microtasks in the current phase transition. `setImmediate` callbacks run in the check phase of the event loop — after the poll phase completes. `nextTick` is higher priority but can starve I/O if called recursively. `setImmediate` is safer for deferring work without blocking I/O.
 
----
+***
 
 **Question:** What is the thread pool in Node.js?
 
 **Answer:** libuv maintains a thread pool (default 4 threads, configurable via `UV_THREADPOOL_SIZE` up to 1024) for operations that cannot use OS-level async: file system I/O, DNS lookups (`dns.lookup`), crypto operations, and zlib compression. Network I/O does not use the thread pool — it uses epoll/kqueue/IOCP directly.
 
----
+***
 
 **Question:** What is `Buffer` in Node.js?
 
 **Answer:** A `Buffer` is a fixed-size allocation of memory outside the V8 heap, used to handle binary data (files, network packets, crypto output). Unlike strings, buffers are not resizable. They support encoding conversions (UTF-8, base64, hex) and are the underlying data type for stream chunks in binary mode.
 
----
+***
 
 **Question:** What is middleware in Express?
 
 **Answer:** Middleware is a function `(req, res, next)` that intercepts the request/response cycle. It can modify the request, send a response, or call `next()` to pass control to the next middleware. Express processes middleware in registration order. Error middleware has four parameters: `(err, req, res, next)`.
 
----
+***
 
 **Question:** What is dependency injection in NestJS?
 
 **Answer:** DI is a pattern where a class declares its dependencies in the constructor, and the framework provides (injects) them at runtime. NestJS uses a DI container that resolves the dependency tree based on `@Injectable()` decorators and module `providers` arrays. This enables testability (inject mocks) and loose coupling.
 
----
+***
 
 **Question:** What is the purpose of `package-lock.json`?
 
 **Answer:** It locks the exact version of every dependency (direct and transitive) to ensure reproducible installs across machines and CI. Without it, `npm install` resolves to the latest compatible version, which can introduce untested changes. CI should use `npm ci` (or `--frozen-lockfile`) to fail if the lockfile is out of sync.
 
----
+***
 
 **Question:** What is the difference between CommonJS and ES Modules?
 
 **Answer:** CommonJS uses `require()`/`module.exports`, loads synchronously, and is Node's historical default. ES Modules use `import`/`export`, load asynchronously, support top-level `await`, and enable tree-shaking. ESM requires `"type": "module"` in `package.json` or `.mjs` extension. CJS and ESM interop is limited — CJS can only `import()` ESM asynchronously.
 
----
+***
 
 **Question:** What does `cluster` do in Node.js?
 
 **Answer:** The `cluster` module forks multiple Node.js processes that share the same server port. The primary process distributes incoming connections to workers (round-robin on Linux, OS-based on other platforms). Each worker has its own event loop and memory space. It enables multi-core utilization for I/O-bound workloads.
 
----
+***
 
 **Question:** What is a worker thread?
 
 **Answer:** A worker thread is a separate V8 isolate running in its own thread with its own event loop. It communicates with the main thread via `MessagePort` (structured clone or `SharedArrayBuffer`). Use for CPU-bound work that would block the main event loop (image processing, heavy computation, parsing large data).
 
----
+***
 
 **Question:** What is the purpose of `ValidationPipe` in NestJS?
 
 **Answer:** `ValidationPipe` automatically validates incoming request bodies against DTO classes decorated with `class-validator` decorators. With `whitelist: true`, it strips unknown properties. With `forbidNonWhitelisted: true`, it rejects requests with extra fields. It is typically applied globally or per-controller.
 
----
+***
 
 **Question:** What is JSON Schema validation in Fastify?
 
 **Answer:** Fastify validates request bodies, query strings, and parameters against JSON Schema definitions declared in route options. Schemas are compiled at startup (via `ajv`) into optimized validator functions. Response schemas are used to compile fast serializers via `fast-json-stringify`. This approach is faster than runtime validation libraries.
 
----
+***
 
 **Question:** What is a DTO?
 
 **Answer:** A Data Transfer Object defines the shape of data crossing a boundary (API input/output). In NestJS, DTOs are classes with validation decorators. They separate the external contract from the internal domain model, preventing mass assignment and ensuring validation before business logic executes.
 
----
+***
 
 **Question:** What does `express.json()` do?
 
 **Answer:** It is a built-in middleware that parses incoming JSON request bodies (Content-Type: application/json) and attaches the result to `req.body`. Without it, `req.body` is `undefined`. It replaces the deprecated `body-parser` package. Set `limit` option to prevent large payload DoS.
 
----
+***
 
 **Question:** What is the purpose of `helmet` in Express?
 
 **Answer:** `helmet` sets security-related HTTP response headers: `X-Content-Type-Options: nosniff`, `Strict-Transport-Security`, `X-Frame-Options`, CSP headers, and others. It prevents common web vulnerabilities (clickjacking, MIME sniffing, XSS) with minimal configuration.
 
----
+***
 
 **Question:** What is an idempotency key?
 
 **Answer:** A unique identifier sent by the client (usually in a header) that allows the server to detect duplicate requests. If the server has already processed a request with that key, it returns the cached result instead of re-executing the operation. This prevents double charges, duplicate orders, and other side effects from retries.
 
----
+***
 
 **Question:** What is cursor-based pagination?
 
 **Answer:** A pagination strategy where the client receives a cursor (typically the last item's ID or a timestamp) and passes it to get the next page. The server queries `WHERE id > cursor ORDER BY id LIMIT n`. Unlike offset-based pagination, it is consistent under concurrent inserts and efficient (uses an index scan instead of counting rows).
 
----
+***
 
 **Question:** What is a cache stampede?
 
 **Answer:** A cache stampede occurs when a popular cache entry expires and many concurrent requests simultaneously hit the database to regenerate it. Instead of one database query, hundreds fire at once — potentially overloading the database. Mitigations: mutex locking (only one request regenerates, others wait), `stale-while-revalidate` (serve stale data while one request refreshes), or probabilistic early expiration (refresh randomly before TTL expires).
 
----
+***
 
 **Question:** What is the purpose of `AsyncLocalStorage` in Node.js?
 
 **Answer:** `AsyncLocalStorage` (from `node:async_hooks`) provides a way to store context that automatically propagates through the async call chain without passing it explicitly through function parameters. Common uses: attaching a request ID to all logs within a request, propagating user identity, or carrying transaction context. It is the Node.js equivalent of Java's `ThreadLocal` adapted for async workflows.
 
----
+***
 
 **Question:** What is a presigned URL?
 
 **Answer:** A presigned URL is a time-limited URL that grants temporary access to a private object in cloud storage (e.g., S3). The server generates the URL (signed with its credentials) and returns it to the client. The client uses the URL to upload or download directly to/from storage without the file passing through the API server. This offloads bandwidth and reduces API server memory usage.
 
----
+***
 
 **Question:** What is the purpose of API versioning?
 
 **Answer:** API versioning allows introducing breaking changes (removing fields, changing types, altering semantics) without disrupting existing consumers. The most common approach is URL-path versioning (`/v1/users`, `/v2/users`). Non-breaking changes (adding fields) do not require a new version. Versioning provides a contract: consumers know their integration will not break until the version is formally deprecated.
 
----
+***
 
 **Question:** What is the outbox pattern?
 
 **Answer:** The outbox pattern ensures reliable event publishing alongside database writes. Instead of publishing an event directly (which may fail after the DB commit), the service writes the event to an "outbox" table within the same transaction. A separate process reads the outbox and publishes events to the message broker. This guarantees at-least-once delivery without distributed transactions.
 
----
+***
 
 **Question:** What are the phases of the Node.js event loop?
 
 **Answer:** The event loop has six phases in order: (1) Timers — executes `setTimeout`/`setInterval` callbacks whose threshold has elapsed. (2) Pending callbacks — executes I/O callbacks deferred from the previous iteration (e.g., TCP errors). (3) Idle/prepare — internal housekeeping. (4) Poll — retrieves new I/O events and executes their callbacks; blocks here when no other work is pending. (5) Check — executes `setImmediate` callbacks. (6) Close — executes close callbacks (`socket.on("close")`). Between every phase, microtasks (`Promise.then`, `process.nextTick`) are drained.
 
----
+***
 
 **Question:** What is the difference between `pipeline()` and `.pipe()` for streams?
 
 **Answer:** `.pipe()` connects streams but does not handle errors — if the source or destination errors, the other stream is not cleaned up (memory leak, file handle leak). `pipeline()` (from `node:stream/promises`) connects multiple streams, forwards errors, and destroys all streams on failure. It also returns a Promise (async version) so you can `await` it. Always use `pipeline()` in production code.
 
----
+***
 
 **Question:** What is the Fastify lifecycle hook order?
 
 **Answer:** `onRequest` → `preParsing` → `preValidation` → `preHandler` → handler → `preSerialization` → `onSend` → `onResponse`. Error hooks (`onError`) fire when an error is thrown at any stage. `onTimeout` fires when a request times out. Understanding the order matters for placing auth (onRequest), body transforms (preParsing), additional validation (preValidation), and response transforms (preSerialization) in the correct hook.
 
----
+***
 
 **Question:** What is a guard in NestJS?
 
 **Answer:** A guard is a class implementing `CanActivate` that determines whether a request should proceed to the route handler. Guards run after middleware but before interceptors and pipes. They return `true` (allow) or `false`/throw (deny). Common uses: authentication (validate JWT), authorization (check user role), and feature flags (check if feature is enabled for the tenant). Guards can access `ExecutionContext` to inspect the request and route metadata.
 
----
+***
 
 **Question:** What is the difference between `res.json()` and `res.send()` in Express?
 
@@ -4047,109 +4047,109 @@ modern. Express is old.
 
 **Answer:** Use the `pipeline` API from `node:stream/promises` to connect the source (database cursor, file, or upstream API) to the response. Pipeline handles back-pressure automatically: if the client reads slowly, the writable signals the readable to pause. For custom streams, check the return value of `.write()` — if `false`, pause the source and resume on `drain`. Without this, the server buffers unbounded data and runs out of memory.
 
----
+***
 
 **Question:** How do you implement graceful shutdown in a containerized Node.js service?
 
 **Answer:** (1) Register handlers for SIGTERM and SIGINT. (2) Stop accepting new connections (`server.close()`). (3) Reject new requests with 503 (optional, via middleware flag). (4) Wait for in-flight requests to complete (with a timeout of 10–30s). (5) Close database connection pools and Redis connections. (6) Flush log buffers. (7) Exit with code 0. In Kubernetes, add a `preStop` hook (`sleep 5`) to give the load balancer time to deregister the pod before SIGTERM arrives.
 
----
+***
 
 **Question:** How would you diagnose and fix event loop lag in production?
 
 **Answer:** (1) Measure: use `monitorEventLoopDelay()` (Node.js built-in) or a metrics library. Alert when p99 exceeds 100ms. (2) Profile: use `clinic.js doctor` or `--prof` to identify the blocking function. Common culprits: synchronous crypto, large JSON parse/stringify, tight loops, regex backtracking. (3) Fix: offload to a worker thread, use streaming instead of buffering, or replace the synchronous API with an async alternative.
 
----
+***
 
 **Question:** What are the trade-offs of NestJS's dependency injection?
 
 **Answer:** Benefits: testability (inject mocks), loose coupling, consistent architecture. Costs: runtime overhead (reflection, metadata), hidden complexity (scope issues — singleton vs request-scoped), debugging difficulty (stack traces through DI container are opaque), and framework lock-in (DI patterns don't transfer to Express or Fastify). The biggest risk: injecting a request-scoped provider into a singleton — it silently shares state across requests.
 
----
+***
 
 **Question:** How do you prevent and detect memory leaks in Node.js?
 
 **Answer:** Prevention: avoid global caches without TTL, clean up event listeners, use weak references where appropriate, avoid closures that capture large objects. Detection: monitor RSS and heap used over time (should be stable, not growing). Profile: take heap snapshots in staging (`--inspect`), compare allocations between snapshots. Use `clinic.js heapprofile` for production-like analysis. In production: set `--max-old-space-size` below the container limit (leave room for V8 overhead and native memory) so the process OOMs visibly before the container is killed.
 
----
+***
 
 **Question:** When would you choose raw SQL over Prisma/TypeORM?
 
 **Answer:** When: (1) Complex queries with multiple joins, subqueries, CTEs, or window functions that the ORM cannot express cleanly. (2) Performance-critical paths where the ORM's query generation adds measurable overhead. (3) Database-specific features (PostgreSQL's `LISTEN/NOTIFY`, `jsonb` operators, full-text search). Approach: use a query builder (Knex, Kysely) or tagged template literals (`sql`) alongside the ORM. Keep the ORM for CRUD and simple queries; escape to raw SQL for the 10% of queries that need it.
 
----
+***
 
 **Question:** How do you implement distributed rate limiting?
 
 **Answer:** Use Redis with a sliding window or token bucket algorithm. The `ioredis` + Lua script approach is atomic and fast. For high-throughput APIs, use a Redis cluster. Key design decisions: rate limit by user ID (authenticated), IP (anonymous), or API key. Return `429 Too Many Requests` with a `Retry-After` header. For internal services, implement rate limiting at the API gateway level (no per-service overhead).
 
----
+***
 
 **Question:** How do you handle database transactions in a NestJS service?
 
 **Answer:** Prisma: use `prisma.$transaction()` with the interactive API (callback receives a transactional client). TypeORM: use `dataSource.transaction()` or `QueryRunner`. Key decisions: keep transactions short (avoid network calls inside), handle serialization failures with retry logic (for optimistic locking), and ensure idempotency so retries don't create duplicates. In NestJS, inject the transactional client through the service layer — never start transactions in controllers.
 
----
+***
 
 **Question:** How do you implement API versioning for a mature service?
 
 **Answer:** URL path versioning (`/v1/users`, `/v2/users`) is the most explicit and tooling-friendly approach. Maintain the old version until all consumers migrate (track with API analytics). When a version is deprecated, return `Sunset` and `Deprecation` headers. The v2 controller can share the service layer with v1 — only the HTTP contract changes. Avoid header-based versioning for external APIs (harder to discover and test).
 
----
+***
 
 **Question:** What is the difference between `cluster` mode and worker threads, and when do you use each?
 
 **Answer:** Cluster forks separate processes — each has its own event loop, memory, and V8 instance. Use for: multi-core I/O scaling when not using a container orchestrator. Worker threads run in the same process with separate V8 isolates — they can share memory via `SharedArrayBuffer`. Use for: CPU-bound work without the overhead of a full process fork. In containerized environments, prefer one process per container and scale with replicas; use worker threads for occasional CPU offloading.
 
----
+***
 
 **Question:** How do you handle WebSocket connections at scale?
 
 **Answer:** (1) Use a library that handles reconnection and heartbeats (`ws`, `socket.io`, or `@fastify/websocket`). (2) For multiple instances, use Redis pub/sub (or `socket.io-redis-adapter`) to broadcast messages across instances. (3) Load balancers need sticky sessions or Layer 4 (TCP) routing for WebSocket upgrades. (4) Monitor connection count per instance — set a max and reject new connections with 503. (5) Implement graceful close: send a close frame during shutdown, let clients reconnect to another instance.
 
----
+***
 
 **Question:** How do you implement a background job system with BullMQ?
 
 **Answer:** Create a queue per job type (email, image processing, report generation). Producers add jobs from API handlers. Workers run in separate processes (or separate pods) consuming from the queue. Configure: `maxRetries` with exponential backoff, `removeOnComplete` with a TTL, dead-letter queue for permanently failed jobs, and concurrency per worker. Monitor: queue depth, processing duration, failure rate. Alert on DLQ growth.
 
----
+***
 
 **Question:** How do you manage environment-specific configuration?
 
 **Answer:** Load from environment variables, validate at startup with a schema (Zod, `envalid`), and freeze the config object. Never access `process.env` directly in business logic — inject the validated config. For secrets: use a secrets manager (AWS Secrets Manager, Vault) with a reload mechanism. For feature flags: use a dedicated service (LaunchDarkly, Unleash) rather than env vars. Separate config by concern: app config, infrastructure config, and secrets.
 
----
+***
 
 **Question:** How does Fastify's plugin system differ from Express middleware?
 
 **Answer:** Express middleware operates on a flat stack — every middleware sees every request unless mounted on a specific path. Fastify plugins create encapsulated scopes: decorators, hooks, and routes registered inside a plugin are invisible to sibling plugins. This enables true encapsulation (a database plugin doesn't leak its connection to unrelated routes) and prevents global state pollution. The trade-off: the encapsulation model has a learning curve and debugging scope issues requires understanding the registration tree.
 
----
+***
 
 **Question:** How do you handle file uploads in a production API?
 
 **Answer:** Stream the upload directly to object storage (S3) without buffering in memory — use `busboy` or `@fastify/multipart` with stream mode. Validate: file size (reject early via `limits`), MIME type (check magic bytes, not just Content-Type header), and filename (sanitize for path traversal). Return a signed URL or CDN path for retrieval. For virus scanning: pipe the stream through a scanner before writing to storage. Set a per-user upload quota to prevent abuse.
 
----
+***
 
 **Question:** How do you design a caching strategy for a multi-instance Node.js API?
 
 **Answer:** Layer the caching: (1) In-process LRU cache (lru-cache) for hot, near-static data that changes rarely (config, feature flags, product catalogs) — zero latency but per-instance. (2) Distributed cache (Redis) for shared state that must be consistent across instances (user sessions, recently fetched entities) — 1ms latency but consistent. (3) HTTP cache headers (`Cache-Control`, `ETag`) for client-side and CDN caching. Invalidation strategy: TTL as a safety net on everything, plus explicit invalidation on write (delete the Redis key). For stampede protection: use a mutex (only one instance regenerates) or `stale-while-revalidate`. Monitor: cache hit rate (target >90%), latency percentiles, and eviction rate.
 
----
+***
 
 **Question:** How do you implement structured logging with request context in Node.js?
 
 **Answer:** Use pino (fastest JSON logger for Node.js) with `AsyncLocalStorage` for request context propagation. Middleware creates a context (requestId, userId, traceId) at the start of each request. `AsyncLocalStorage.run()` makes this context available to all async code within the request without passing it through function parameters. Child loggers automatically include the context in every log line. Configure redaction for sensitive fields (authorization headers, passwords, PII). Output JSON — it is parseable by log aggregators (Datadog, Elasticsearch) without regex.
 
----
+***
 
 **Question:** How do you protect a Node.js API against common security vulnerabilities?
 
 **Answer:** Defense in depth: (1) Input validation at every boundary (Zod/JSON Schema rejects malformed data before business logic). (2) Parameterized queries only — never string interpolation for SQL (prevents injection). (3) `helmet` for security headers (HSTS, CSP, X-Frame-Options). (4) CORS with explicit allowlist (not wildcard with credentials). (5) Body size limits (100kb default, prevents payload DoS). (6) Rate limiting per endpoint class (strict for auth, relaxed for reads). (7) Dependency auditing in CI (`npm audit`, Socket.dev). (8) Secrets in environment variables validated at startup (never in code). (9) Pino with redaction (never log tokens, passwords, or PII). (10) Short-lived JWTs with `alg` validation.
 
----
+***
 
 **Question:** How do you implement idempotent API endpoints for payment or order systems?
 
@@ -4185,7 +4185,7 @@ Always use microservices for scalability.
 - No mention of operational cost.
 - Treating monolith as inherently bad.
 
----
+***
 
 ### Question
 
@@ -4215,7 +4215,7 @@ Restart the service and see if it happens again.
 - No mention of memory or connection pool leaks.
 - No correlation with deploy timing.
 
----
+***
 
 ### Question
 
@@ -4245,7 +4245,7 @@ Each team handles errors however they want.
 - No distinction between error types.
 - No mention of crash-on-bug.
 
----
+***
 
 ### Question
 
@@ -4275,7 +4275,7 @@ Run migrations on app startup.
 - No split-deploy strategy for destructive changes.
 - Migrations coupled to application startup.
 
----
+***
 
 ### Question
 
@@ -4305,7 +4305,7 @@ Add `console.log` for debugging and Datadog later.
 - No metrics or tracing from the start.
 - No shared infrastructure.
 
----
+***
 
 ### Question
 
@@ -4335,7 +4335,7 @@ Just use raw SQL everywhere.
 - No awareness of `include`/`relations`.
 - No mention of DataLoader for GraphQL.
 
----
+***
 
 ### Question
 
@@ -4365,7 +4365,7 @@ GraphQL is always better because it's flexible.
 - No criteria for when REST is sufficient.
 - Fashion-driven choice.
 
----
+***
 
 ### Question
 
@@ -4395,7 +4395,7 @@ Put secrets in environment variables and restart on change.
 - No rotation strategy.
 - Requires restart for rotation.
 
----
+***
 
 ### Question
 
@@ -4425,7 +4425,7 @@ Increase the timeout so it doesn't fail.
 - No circuit breaker.
 - Increasing timeouts instead of failing fast.
 
----
+***
 
 ### Question
 
@@ -4455,7 +4455,7 @@ Just put everything in one package.json.
 - No build caching.
 - No affected-only testing.
 
----
+***
 
 ### Question
 
@@ -4485,7 +4485,7 @@ Put a Redis cache in front of the database.
 - No stampede awareness.
 - No mention of HTTP/CDN caching.
 
----
+***
 
 ### Question
 
@@ -4515,7 +4515,7 @@ Restart the service on a schedule (cron every 4 hours).
 - No distinction between JS heap and native memory.
 - Suggests increasing container memory as the fix.
 
----
+***
 
 ### Question
 
@@ -4545,7 +4545,7 @@ Rewrite the whole API to be event-driven.
 - No mention of monitoring or DLQ.
 - No client feedback mechanism for async operations.
 
----
+***
 
 ### Question
 
@@ -4575,7 +4575,7 @@ Write a wiki page with guidelines.
 - No shared library or tooling.
 - No cross-team review process.
 
----
+***
 
 ### Question
 
@@ -4611,61 +4611,61 @@ Rewrite everything in NestJS over a quarter.
 
 **Answer:** Phase 1 (Week 1–2): Add observability — structured logging, request duration metrics, and distributed tracing. This shows where the 200ms is spent. Phase 2 (Week 3–4): Add TypeScript incrementally (rename `.js` to `.ts`, `allowJs`, fix high-traffic files first). Add Zod validation at API boundaries. Phase 3 (Month 2): Add integration tests for critical paths (authentication, checkout, payment). Phase 4 (Month 3): Address performance — profile the hot paths identified by tracing. Common wins: add database indexes, reduce N+1 queries, add caching for read-heavy endpoints. Principle: observability first (you cannot improve what you cannot measure), then safety (types, validation, tests), then performance.
 
----
+***
 
 **Question:** Your service receives a burst of 50k requests in 10 seconds. Currently it handles 2k RPS steady state. What do you do?
 
 **Answer:** Immediate: (1) Ensure auto-scaling is configured (HPA in Kubernetes with CPU/RPS metric). (2) Add rate limiting to protect the database (token bucket, 5k RPS per instance). (3) Return 429 with `Retry-After` for excess traffic. Medium-term: (4) Add a queue (BullMQ/SQS) for non-critical work so the API responds immediately and processes asynchronously. (5) Add caching for read endpoints (Redis with TTL). (6) If the burst is predictable (marketing campaign), pre-scale instances before the event. Architectural: (7) If bursts are the norm, consider an event-driven architecture — accept events into a queue and process at a sustainable rate.
 
----
+***
 
 **Question:** A developer proposes adding GraphQL to your REST-only backend. How do you evaluate?
 
 **Answer:** Questions to ask: (1) How many clients consume the API? (If one — the web app — REST is sufficient.) (2) Do clients frequently over-fetch or under-fetch? (If yes, GraphQL adds value.) (3) Does the team have GraphQL operational experience? (Query complexity limits, DataLoader, persisted queries, caching.) (4) What is the migration cost? (Existing REST contracts must remain for backward compatibility.) Decision: If the answer is "one client, minor over-fetching, no GraphQL experience," reject. If "5+ clients with different data needs and the team has experience," proceed with a BFF GraphQL layer that wraps existing REST services.
 
----
+***
 
 **Question:** Your team's Node.js services have inconsistent error responses. External consumers are frustrated. How do you fix it?
 
 **Answer:** (1) Define a standard error response schema: `{ error: { code: string, message: string, details?: object, requestId: string } }`. (2) Publish a shared error middleware/filter package that transforms all errors to this format. (3) Document error codes in an API reference. (4) Add contract tests that verify error shapes. (5) Roll out gradually: new services adopt immediately; existing services migrate during their next sprint of work. (6) Monitor: track error format compliance via a middleware that logs non-conforming responses. Timeline: 2 weeks for the package, 1 sprint for adoption across active services.
 
----
+***
 
 **Question:** You need to process 100k webhook events per hour reliably. Design the system.
 
 **Answer:** (1) Webhook receiver: a lightweight Fastify service that validates the signature, stores the raw event in a queue (SQS/BullMQ), and returns 200 immediately (<50ms response). (2) Worker fleet: separate Node.js processes consuming from the queue, processing events, and writing results to the database. (3) Idempotency: store processed event IDs with a TTL; skip duplicates. (4) Dead-letter queue: events that fail after 3 retries go to DLQ for manual inspection. (5) Monitoring: queue depth, processing lag, failure rate. Alert if lag exceeds 5 minutes. (6) Scaling: auto-scale workers based on queue depth. The receiver stays lightweight — its only job is to acknowledge and queue.
 
----
+***
 
 **Question:** A junior developer's PR adds a global `try/catch` around every Express route. Should you approve it?
 
 **Answer:** No — but redirect the intent. The intent (centralized error handling) is correct; the implementation (per-route try/catch) is wrong. Express has error middleware for this: a 4-parameter middleware `(err, req, res, next)` registered last catches all errors. For async routes, use a wrapper (`asyncHandler`) that catches rejected promises and passes them to `next(err)`. The global try/catch approach clutters every route, is easy to forget, and does not handle async errors correctly. Approve the error middleware approach instead and share the pattern as a team convention.
 
----
+***
 
 **Question:** Your Prisma-based service has 3-second response times on a list endpoint. How do you investigate?
 
 **Answer:** (1) Check the generated SQL: `prisma.$queryRawUnsafe` with logging enabled, or OpenTelemetry database spans. (2) Look for N+1: if 50 queries fire per request, use `include` for eager loading. (3) Check for missing indexes: `EXPLAIN ANALYZE` on the generated query. (4) Check pagination: if using offset with large offsets, switch to cursor-based. (5) Check data volume: if returning 10k records, add pagination or limit the response. (6) Check Prisma query engine startup: first request after cold start is slower due to binary initialization. Common fix: add a database index on the filter/sort column + use cursor pagination + limit the include depth.
 
----
+***
 
 **Question:** Design an authentication flow for a NestJS API serving both a web app and a mobile app.
 
 **Answer:** (1) Use JWT with short-lived access tokens (15 min) and long-lived refresh tokens (7 days, stored in database with rotation). (2) Web app: access token in memory (not localStorage), refresh token in an httpOnly cookie. (3) Mobile app: access token in secure storage, refresh token with device binding. (4) NestJS implementation: `AuthGuard` validates the JWT signature and expiry. `RolesGuard` checks permissions from the token payload. (5) Token refresh endpoint: validate the refresh token, issue a new pair, revoke the old refresh token. (6) Logout: delete the refresh token from the database (revocation). (7) Rate-limit login and refresh endpoints.
 
----
+***
 
 **Question:** You have a NestJS service where a developer reports that unit tests pass but integration tests fail with "stale data." What is likely happening?
 
 **Answer:** Most likely: the DI scope mismatch. The service is singleton-scoped (default) but depends on something that should be request-scoped. In tests, the same instance serves multiple requests, so state from one test leaks into another. Fix: (1) Check if any provider stores request-level state (user context, transaction). (2) Verify database cleanup between tests (transactions rolled back, or test database reset). (3) Check for shared module-level variables that accumulate state. (4) If using Prisma, ensure the test uses a clean transaction per test (`prisma.$transaction` wrapper).
 
----
+***
 
 **Question:** Your service needs to send emails after order creation but email delivery is slow (2–5 seconds). How do you handle it?
 
 **Answer:** Never send emails in the request path. (1) After creating the order, add a job to a queue: `emailQueue.add("order_confirmation", { orderId, email })`. (2) Return the order response immediately (200ms). (3) A worker process picks up the job, renders the email, sends via the provider (SendGrid, SES), and marks the job complete. (4) If sending fails, the job retries with exponential backoff (3 attempts). (5) After max retries, move to DLQ and alert. (6) The user sees "order confirmed" immediately; the email arrives within seconds. This decouples response time from email delivery time.
 
----
+***
 
 **Question:** Design rate limiting for a multi-tenant API where each tenant has a different quota.
 
@@ -4677,37 +4677,37 @@ Rewrite everything in NestJS over a quarter.
 
 **Answer:** Measure: use `perf_hooks.monitorEventLoopDelay()` (built-in, histogram-based). Export the p50, p99, and max as Prometheus metrics. Alert when p99 exceeds 100ms. Diagnose: use `clinic.js doctor` or `--prof` to identify the blocking function. Common causes: large `JSON.parse`/`stringify` (>1MB), synchronous crypto (`pbkdf2Sync`), tight loops over large arrays, regex backtracking on untrusted input. Fix: offload CPU work to worker threads, use streaming JSON for large payloads, switch to async crypto APIs, and limit input size at validation. Prevention: add an event loop lag metric to every service's default dashboard.
 
----
+***
 
 **Question:** What are the performance differences between Express, Fastify, and NestJS?
 
 **Answer:** In benchmarks: Fastify handles ~3x the throughput of Express for JSON response workloads because it pre-compiles JSON Schema validators and serializers at startup (`ajv` + `fast-json-stringify`). Express parses and serializes at runtime per-request. NestJS adds ~10–15% overhead on top of its underlying adapter (Express or Fastify) due to DI container resolution, guard/interceptor/pipe execution, and reflection metadata. In practice: for most CRUD services (<5k RPS), the difference is negligible — database I/O dominates. The framework choice should be driven by team needs, not micro-benchmarks.
 
----
+***
 
 **Question:** How do you optimize a Node.js API that has high p99 latency but acceptable p50?
 
 **Answer:** High p99 with good p50 indicates tail latency — most requests are fast, but some are slow. Investigation: (1) Check if it correlates with GC pauses (use `--trace-gc` or GC metrics — major GC can freeze the event loop for 50–200ms). (2) Check downstream timeouts — a slow database query or external API call on some requests. (3) Check connection pool exhaustion — requests queuing for a DB connection show as latency spikes. (4) Check for cold paths — rarely executed code that triggers JIT deoptimization. Fixes: tune GC with `--max-semi-space-size` for high-allocation workloads, set aggressive timeouts on downstream calls, size connection pools correctly, and pre-warm cold paths.
 
----
+***
 
 **Question:** How do you load-test a Node.js API?
 
 **Answer:** Tools: `autocannon` (Node.js-native, low overhead), `k6` (scripted scenarios), or `wrk` (C-based, maximum throughput). Process: (1) Establish a baseline: measure p50, p99, max latency, throughput, error rate under current production load pattern. (2) Stress test: increase load linearly until errors or p99 > SLO threshold. This reveals the saturation point. (3) Soak test: run at 80% of saturation for 4+ hours — reveals memory leaks, connection pool exhaustion, GC degradation. (4) Spike test: sudden 10x burst — reveals auto-scaling behavior and graceful degradation. (5) Profile during load: event loop lag, memory usage, DB connection pool utilization. (6) Run in an environment that mirrors production (same instance types, same database, same network topology).
 
----
+***
 
 **Question:** What causes high memory usage in a Node.js service and how do you reduce it?
 
 **Answer:** Causes: (1) Large in-process caches without size bounds (Maps growing to millions of entries). (2) Buffering entire request/response bodies (50MB file upload in memory). (3) Closure retention — a closure captures a large object that is never released. (4) String accumulation — building large strings via concatenation instead of streaming. (5) Event listener accumulation — adding listeners in a loop without removing them. Fixes: bound all caches (use `lru-cache` with `max` and `ttl`), stream instead of buffer, avoid closures over large objects, use `WeakRef`/`FinalizationRegistry` for optional caches, set `--max-old-space-size` below container memory.
 
----
+***
 
 **Question:** How does Fastify achieve higher throughput than Express?
 
 **Answer:** Three key optimizations: (1) Schema compilation — JSON Schema validators are compiled at startup into optimized functions via `ajv`. Express validates at runtime per-request. (2) Fast serialization — response schemas are compiled via `fast-json-stringify` into serializers that are 2–5x faster than `JSON.stringify` (they know the shape ahead of time). (3) Radix tree routing — Fastify uses `find-my-way` (trie-based router) which is O(path length), not O(route count) like Express's linear route matching. Additionally, Fastify reuses objects internally (less GC pressure) and avoids the `req`/`res` wrapper overhead of Express.
 
----
+***
 
 **Question:** How do you handle database connection pool exhaustion in Node.js?
 
@@ -4719,37 +4719,37 @@ Rewrite everything in NestJS over a quarter.
 
 **Answer:** Use parameterized queries exclusively. In Prisma: `prisma.$queryRaw\`SELECT * FROM users WHERE id = ${id}\`` (template literal — Prisma parameterizes automatically). In raw SQL: use `$1`, `$2` placeholders with a query builder. Never use `$queryRawUnsafe()` with user input. In TypeORM: `createQueryBuilder().where("user.id = :id", { id })`. The ORM's default methods (`.find()`, `.create()`) are safe. The danger: string interpolation in raw SQL — even one instance in the codebase is a vulnerability. Lint for it: ban `$queryRawUnsafe` in ESLint rules, block in code review.
 
----
+***
 
 **Question:** How do you secure JWT-based authentication in Node.js?
 
 **Answer:** (1) Always validate `alg` — specify `algorithms: ["RS256"]` in verification options (prevents `alg: none` attack). (2) Short-lived access tokens (15 min) — limits exposure if stolen. (3) Refresh tokens stored server-side (database) with rotation — each use issues a new refresh token and invalidates the old one. (4) Never store secrets in the payload — JWTs are base64-encoded, not encrypted. (5) Set `iss`, `aud`, and `exp` claims and validate them. (6) For revocation: maintain a deny-list in Redis (TTL = token's remaining lifetime) or use short-lived tokens without deny-list (acceptable staleness). (7) Token storage: access token in memory (JS variable), refresh token in httpOnly, secure, sameSite cookie.
 
----
+***
 
 **Question:** How do you protect a Node.js API against denial-of-service attacks?
 
 **Answer:** Layers: (1) Infrastructure — WAF/CDN (Cloudflare, AWS Shield) absorbs volumetric attacks before traffic reaches the origin. (2) Rate limiting — per-IP, per-user, per-endpoint class (Redis-backed sliding window). (3) Body size limits — `express.json({ limit: "100kb" })` rejects oversized payloads before parsing. (4) Request timeout — `server.setTimeout(30_000)` kills slow requests. (5) Query complexity limits (GraphQL) — prevent expensive nested queries. (6) Connection limits — `server.maxConnections` or load balancer config. (7) CPU protection — detect and kill regex DoS (ReDoS) via timeout on regex execution or avoid untrusted regex. (8) Graceful degradation — return 503 with `Retry-After` when load exceeds capacity (load shedding).
 
----
+***
 
 **Question:** How do you handle secrets management in a Node.js service?
 
 **Answer:** (1) Never hardcode secrets in source code or Docker images. (2) Load from environment variables at startup. (3) Validate all required secrets at startup with a schema (Zod) — fail fast if missing. (4) For production: use a secrets manager (AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager) with automatic rotation. (5) Rotation without downtime: support multiple active keys (e.g., JWT signing — old key still verifies, new key signs). (6) Access control: least-privilege IAM policies per service. (7) Audit: log which service accessed which secret (secrets manager provides this). (8) In CI/CD: use the platform's secrets store (GitHub Secrets, GitLab CI variables), never echo secrets in logs.
 
----
+***
 
 **Question:** What is CORS and how do you configure it securely in Express?
 
 **Answer:** CORS (Cross-Origin Resource Sharing) controls which origins can make browser requests to your API. Secure configuration: (1) Use an explicit allowlist of origins — never `*` with credentials. (2) Set `credentials: true` only if cookies/auth headers are needed cross-origin. (3) Limit `methods` and `allowedHeaders` to what the API actually accepts. (4) Set `maxAge` (86400 = 1 day) to reduce preflight requests. (5) In Express: `app.use(cors({ origin: env.ALLOWED_ORIGINS.split(","), credentials: true, maxAge: 86400 }))`. (6) For microservices behind a gateway: disable CORS on internal services (the gateway handles it).
 
----
+***
 
 **Question:** How do you prevent mass assignment vulnerabilities in Node.js APIs?
 
 **Answer:** Mass assignment occurs when a client sends extra fields (e.g., `{ "role": "admin" }`) and the server blindly passes the body to the database. Prevention: (1) Validate with a strict schema (Zod `z.object()` only allows declared fields; extra fields are stripped or rejected). (2) In NestJS: `ValidationPipe({ whitelist: true })` strips undeclared properties. (3) In Express: validate with Zod and use only the parsed output (`req.body = result.data`). (4) In Prisma: the generated types reject unknown fields at compile time (TypeScript safety net). (5) Never pass `req.body` directly to the database without schema validation.
 
----
+***
 
 **Question:** How do you handle security vulnerabilities in npm dependencies?
 
@@ -4761,37 +4761,37 @@ Rewrite everything in NestJS over a quarter.
 
 **Answer:** Three layers: (1) Unit tests — test services in isolation with mocked dependencies (`jest.mock()` or manual mocks injected via DI). Fast, cover business logic. (2) Integration tests — use `@nestjs/testing` to create a testing module with real providers but a test database (PostgreSQL in Docker via `testcontainers`). Test controller + service + database together. (3) E2E tests — use `supertest` against the running NestJS app (with `app.init()`). Test the full HTTP lifecycle including guards, pipes, and interceptors. Coverage target: 80%+ on business logic (services), integration tests for database queries, E2E for critical paths (auth, checkout).
 
----
+***
 
 **Question:** How do you test Express middleware?
 
 **Answer:** (1) Unit test: call the middleware function directly with mock `req`, `res`, `next` objects. Verify it calls `next()`, sends a response, or modifies `req`. (2) Integration test: mount the middleware on a test Express app and use `supertest` to send requests. Verify headers, status codes, and response bodies. (3) For async middleware: ensure rejected Promises are caught (via `asyncHandler` wrapper). (4) For error middleware: send a request that triggers an error and verify the error response format. Test both operational errors (expected, structured) and programmer errors (unexpected, 500).
 
----
+***
 
 **Question:** How do you implement contract testing for Node.js microservices?
 
 **Answer:** (1) Define the API contract with OpenAPI (Swagger) — commit the spec to the repository. (2) Provider verification: in CI, validate that the implementation matches the spec (`openapi-diff` or `prism proxy` that errors on divergence). (3) Consumer-driven contracts (Pact): consumers publish their expectations, providers verify they satisfy all consumer contracts. (4) Schema validation tests: generate TypeScript types from the OpenAPI spec (`openapi-typescript`) and use them in integration tests — type errors catch contract violations at compile time. (5) Backward compatibility: block merges that remove fields or change types without a version bump.
 
----
+***
 
 **Question:** How do you test database-dependent code in Node.js without mocking?
 
 **Answer:** (1) Use `testcontainers` to spin up a real PostgreSQL/MySQL instance per test suite (Docker-based, isolated, reproducible). (2) Run migrations before tests. (3) Wrap each test in a transaction and roll back after — fast, isolated, no cleanup needed. (4) For Prisma: use `prisma.$transaction()` in a setup hook; rollback in teardown. (5) Seed test data with factories (not fixtures — factories are composable and explicit). (6) Run database tests in parallel with separate schemas or databases per worker (`jest --maxWorkers`). (7) Trade-off: slower than mocks (~100ms per test vs ~1ms) but catches real bugs (constraint violations, migration issues, query performance).
 
----
+***
 
 **Question:** How do you ensure API backward compatibility in CI?
 
 **Answer:** (1) Commit the OpenAPI spec to the repository. (2) In CI, run `openapi-diff` comparing the current spec with the previous release — flag breaking changes (removed fields, changed types, removed endpoints). (3) Breaking changes require a version bump (new `/v2/` path). (4) Add integration tests that exercise the current public contract — test response shapes, status codes, and header contracts. (5) For TypeScript SDKs: auto-generate client types from the spec. If the generated types change, SDK consumers see compile errors immediately. (6) Publish a changelog with every release — automated from spec diff.
 
----
+***
 
 **Question:** What is your strategy for testing background jobs (BullMQ workers)?
 
 **Answer:** (1) Unit test the job handler function in isolation — it is just a function that takes job data and returns a result. Mock external services (email provider, HTTP clients). (2) Integration test with a real Redis instance (testcontainers): enqueue a job, wait for it to complete, verify the side effect (database record created, API called). (3) Test failure paths: verify retry behavior (job fails, is retried, succeeds on 2nd attempt). Verify DLQ behavior (job fails max retries, ends up in DLQ). (4) Test concurrency: enqueue 100 jobs, verify all are processed without data races. (5) In CI: use `Worker.close()` to ensure workers shut down cleanly after tests.
 
----
+***
 
 **Question:** How do you test WebSocket endpoints in Node.js?
 
@@ -4803,25 +4803,25 @@ Rewrite everything in NestJS over a quarter.
 
 **Answer:** Partially. JavaScript execution runs on a single thread (the event loop). But libuv uses a thread pool (default 4) for file I/O, DNS, and crypto. Network I/O uses OS-level async (no threads). Worker threads provide explicit multi-threading. So the correct answer: "single-threaded for JS, multi-threaded for I/O under the hood."
 
----
+***
 
 **Question:** Is `setImmediate` faster than `setTimeout(fn, 0)`?
 
 **Answer:** It depends on context. Inside an I/O callback, `setImmediate` fires first (it runs in the check phase, immediately after poll). Outside I/O, the order is non-deterministic (depends on process performance at the moment of scheduling). Neither is "faster" — they target different event loop phases. The question tests whether the candidate understands event loop phase ordering rather than giving a blanket answer.
 
----
+***
 
 **Question:** Does `require()` block the event loop?
 
 **Answer:** Yes, on the first call. `require()` is synchronous: it reads the file, compiles it, and executes it. Subsequent calls return the cached export (fast). This is why heavy `require()` calls at the top of a file are fine (run once at startup) but dynamic `require()` inside a request handler blocks the event loop.
 
----
+***
 
 **Question:** Is Express async by default?
 
 **Answer:** No. Express does not natively handle rejected Promises from async route handlers. An unhandled rejection in an async handler does not trigger error middleware — it leaks, and the request hangs. You must either wrap async handlers (e.g. `asyncHandler`) or use Express 5 (which adds native async support). This is one of Express's most common production bugs.
 
----
+***
 
 **Question:** Does `JSON.stringify` block the event loop?
 

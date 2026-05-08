@@ -1,22 +1,10 @@
 ---
 title: "Tech Lead Handbook"
-subtitle: "A Practical Interview Preparation and Engineering Reference"
-author: "Tech Lead Handbook Author"
-language: "en-US"
-date: "2026"
-rights: "© 2026. All rights reserved."
-description: |
-  A senior-level handbook for preparing for Tech Lead interviews and for
-  organizing practical engineering experience into correct theoretical
-  terminology, mental models, and trade-offs.
-keywords:
-  - tech lead
-  - interview preparation
-  - software architecture
-  - system design
-  - engineering management
-  - senior engineer
-  - staff engineer
+subtitle: "A Practical Interview and Engineering Reference"
+author: "Personal Study Notes"
+language: "en"
+date: ""
+rights: "Personal use"
 
 # Pandoc options
 toc-title: "Table of Contents"
@@ -32,9 +20,7 @@ toccolor: black
 
 # Code block styling
 highlight-style: tango
-monofont: "Menlo"
 
 # EPUB-specific
-publisher: "Self-published"
-epub-cover-image: ""
+epub-chapter-level: 1
 ---

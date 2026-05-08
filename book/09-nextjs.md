@@ -1868,7 +1868,7 @@ statically generated but revalidated after a time interval or on
 demand, so the page is static most of the time but can show updated
 data without a full rebuild.
 
----
+***
 
 **Question:** What is a Server Component?
 
@@ -1878,7 +1878,7 @@ file systems, and secrets directly. It cannot use React hooks,
 event handlers, or browser APIs. Server Components are the default
 in Next.js App Router.
 
----
+***
 
 **Question:** What does `"use client"` do?
 
@@ -1888,7 +1888,7 @@ the initial HTML (SSR) and then hydrate on the client. Everything
 imported into a `"use client"` file becomes part of the client
 bundle.
 
----
+***
 
 **Question:** What is the App Router?
 
@@ -1898,7 +1898,7 @@ streaming, and file conventions (`page.tsx`, `layout.tsx`,
 `loading.tsx`, `error.tsx`). It replaces the Pages Router for new
 projects.
 
----
+***
 
 **Question:** What is a layout in Next.js?
 
@@ -1908,7 +1908,7 @@ layout does not re-render. This preserves layout state and avoids
 re-fetching layout data. The root layout is required and must
 include `<html>` and `<body>` tags.
 
----
+***
 
 **Question:** What is streaming in Next.js?
 
@@ -1919,7 +1919,7 @@ immediately, slow components show a fallback until their data
 resolves. Streaming improves perceived performance without waiting
 for the slowest data source.
 
----
+***
 
 **Question:** What is a Server Action?
 
@@ -1929,7 +1929,7 @@ direct invocation). Used for mutations (create, update, delete).
 Under the hood, Next.js exposes it as an HTTP endpoint. Input must
 be validated and auth must be checked — it receives untrusted data.
 
----
+***
 
 **Question:** What is middleware in Next.js?
 
@@ -1939,7 +1939,7 @@ read cookies. It runs on the edge runtime by default — no Node.js
 APIs, short timeout. Common uses: auth redirects, A/B testing,
 geo-routing, bot detection.
 
----
+***
 
 **Question:** What is a Route Handler?
 
@@ -1948,7 +1948,7 @@ defines HTTP endpoints (GET, POST, PUT, DELETE). It replaces API
 routes from the Pages Router. Used for third-party integrations,
 webhooks, and public APIs consumed by external clients.
 
----
+***
 
 **Question:** What is the difference between `"use client"` and
 `"use server"`?
@@ -1959,7 +1959,7 @@ use hooks and event handlers. `"use server"` marks a function as a
 Server Action — it runs only on the server and can be called from
 Client Components for mutations.
 
----
+***
 
 **Question:** What is ISR?
 
@@ -1970,7 +1970,7 @@ a revalidation triggers, Next.js regenerates the page in the
 background and serves the stale version until the new one is ready
 (stale-while-revalidate pattern).
 
----
+***
 
 **Question:** What is the RSC payload?
 
@@ -1981,7 +1981,7 @@ update the client-side component tree without losing client state
 the equivalent JavaScript bundle because Server Component code is
 not included.
 
----
+***
 
 **Question:** What is `next/image`?
 
@@ -1991,7 +1991,7 @@ layout shift with explicit dimensions. The `priority` prop preloads
 the image for LCP. On Vercel, image optimization is built-in. On
 self-hosted deployments, a custom loader is needed.
 
----
+***
 
 **Question:** What is `generateMetadata`?
 
@@ -2000,7 +2000,7 @@ that returns metadata (title, description, Open Graph tags) for
 SEO. It can be async — fetching data to generate dynamic meta tags.
 It replaces `<Head>` from the Pages Router.
 
----
+***
 
 **Question:** What is the edge runtime?
 
@@ -2009,7 +2009,7 @@ Node.js). Faster cold starts (~5ms) but limited: no `fs`, no native
 modules, no full npm ecosystem. Used for middleware and routes that
 need low latency and use only Web APIs.
 
----
+***
 
 **Question:** What is a route group?
 
@@ -2019,7 +2019,7 @@ Routes inside `(marketing)/pricing/page.tsx` are accessible at
 `/pricing`, not `/marketing/pricing`. Route groups allow different
 layouts for different sections of the app.
 
----
+***
 
 **Question:** What is `revalidateTag()`?
 
@@ -2029,7 +2029,7 @@ calling `revalidateTag("products")` in a Server Action or Route
 Handler purges the cached response and triggers a fresh fetch on
 the next request.
 
----
+***
 
 **Question:** What is the difference between Pages Router and
 App Router?
@@ -2042,7 +2042,7 @@ conventions. App Router supports React Server Components; Pages
 Router does not. App Router is the recommended path for new
 projects.
 
----
+***
 
 **Question:** What is `loading.tsx`?
 
@@ -2051,7 +2051,7 @@ while the page is streaming. Next.js wraps the page in a Suspense
 boundary with `loading.tsx` as the fallback. This gives users
 instant feedback while server data loads.
 
----
+***
 
 **Question:** What is request memoization in Next.js?
 
@@ -2060,7 +2060,7 @@ within a single server render. If three Server Components fetch the
 same URL in the same request, only one HTTP call is made. The
 memoization is per-request — it does not persist across requests.
 
----
+***
 
 **Question:** How does Next.js handle dynamic routes?
 
@@ -2070,7 +2070,7 @@ The parameter is available in the component via `params`. Dynamic
 routes can be statically generated with `generateStaticParams()` or
 rendered at request time.
 
----
+***
 
 **Question:** What is `generateStaticParams()`?
 
@@ -2080,7 +2080,7 @@ build time. For `/blog/[slug]`, it returns all slugs. Pages not
 listed are either generated on first request (fallback) or return
 404, depending on configuration.
 
----
+***
 
 **Question:** What is `error.tsx`?
 
@@ -2089,7 +2089,7 @@ when the page throws. It must be a Client Component (`"use
 client"`). It wraps the page in an error boundary. It receives
 `error` and `reset` props — `reset` retries the render.
 
----
+***
 
 **Question:** What is `cookies()` in Next.js?
 
@@ -2098,7 +2098,7 @@ Route Handlers. Calling `cookies()` makes the route dynamic (SSR)
 because cookie values are request-specific and cannot be cached
 statically.
 
----
+***
 
 **Question:** What is the difference between Server Actions and
 Route Handlers?
@@ -2109,7 +2109,7 @@ define REST-style HTTP endpoints. Use Server Actions for application
 mutations. Use Route Handlers for public APIs, webhooks, and
 external integrations.
 
----
+***
 
 **Question:** What is `redirect()` in Next.js?
 
@@ -2118,7 +2118,7 @@ in Server Components, Server Actions, or Route Handlers. Throws
 internally (caught by Next.js), so code after `redirect()` does
 not execute.
 
----
+***
 
 **Question:** What is parallel routing?
 
@@ -2127,7 +2127,7 @@ the same layout using named slots (`@modal`, `@sidebar`). Each slot
 is a separate route segment that can be loaded independently. Used
 for modal patterns and split-view layouts.
 
----
+***
 
 **Question:** What are intercepting routes?
 
@@ -2137,7 +2137,7 @@ conventions. Used for patterns like showing a photo in a modal when
 clicking from a gallery, but showing the full page when navigating
 directly.
 
----
+***
 
 **Question:** What is `next.config.js` used for?
 
@@ -2146,7 +2146,7 @@ image domains, redirects, headers, environment variables, webpack
 customization, and experimental features. It runs at build time and
 during server startup.
 
----
+***
 
 **Question:** What is `next/font`?
 
@@ -2194,7 +2194,7 @@ and document it because the defaults changed between Next.js 14 and
 - No debugging methodology.
 - Unaware that defaults changed between versions.
 
----
+***
 
 ### Question
 
@@ -2233,7 +2233,7 @@ interactivity."
 - No code review practices.
 - No mention of bundle implications.
 
----
+***
 
 ### Question
 
@@ -2268,7 +2268,7 @@ route so the team does not need to reverse-engineer it."
 - No awareness of SSG, ISR, or streaming.
 - No per-route thinking.
 
----
+***
 
 ### Question
 
@@ -2306,7 +2306,7 @@ scratch."
 - No middleware.
 - No server-side data filtering.
 
----
+***
 
 ### Question
 
@@ -2341,7 +2341,7 @@ edge when there is a measured latency benefit."
 - Uses edge without understanding constraints.
 - No measurement.
 
----
+***
 
 ### Question
 
@@ -2378,7 +2378,7 @@ Pages Router from day one of the migration."
 - No incremental plan.
 - No caching verification.
 
----
+***
 
 ### Question
 
@@ -2414,7 +2414,7 @@ custom) for field data."
 - No Next.js-specific optimizations.
 - Cannot name the three Core Web Vitals.
 
----
+***
 
 ### Question
 
@@ -2452,7 +2452,7 @@ Server Action is sufficient."
 - No input validation.
 - No cache revalidation after mutation.
 
----
+***
 
 ### Question
 
@@ -2487,7 +2487,7 @@ never in `.env.local` committed to Git. I add `.env.local` to
 - No validation at startup.
 - Risk of committing secrets.
 
----
+***
 
 ### Question
 
@@ -2524,7 +2524,7 @@ the Next.js version."
 > Verify Next.js 14 vs 15 fetch caching default change against
 > release notes.
 
----
+***
 
 ### Question
 
@@ -2571,7 +2571,7 @@ cause visual jitter as pieces pop in.
 - No boundary design thinking.
 - Uses streaming indiscriminately.
 
----
+***
 
 ### Question
 
@@ -2639,7 +2639,7 @@ export function InteractiveWrapper({ children }: { children: React.ReactNode }) 
 - Does not know the children pattern.
 - Confuses Server and Client Component capabilities.
 
----
+***
 
 ### Question
 
@@ -2679,7 +2679,7 @@ tags by entity — `revalidateTag('orders')` after creating an order
 - No input validation.
 - Does not understand the staleness risk.
 
----
+***
 
 ### Question
 
@@ -2723,7 +2723,7 @@ completes."
 > Verify router cache expiry times (30s dynamic, 5min static)
 > against current Next.js documentation. These values have changed.
 
----
+***
 
 ### Question
 
@@ -2806,7 +2806,7 @@ a code rewrite."
 - No compliance consideration.
 - No exit strategy.
 
----
+***
 
 ### Question
 
@@ -2849,7 +2849,7 @@ Next.js patterns."
 - No training.
 - No conventions.
 
----
+***
 
 ### Question
 
@@ -2887,7 +2887,7 @@ compatibility issues."
 - No shared packages.
 - No build caching.
 
----
+***
 
 ### Question
 
@@ -2928,7 +2928,7 @@ changes."
 - No explicit configuration.
 - No cache behavior testing.
 
----
+***
 
 ### Question
 
@@ -2969,7 +2969,7 @@ the rendering strategy per route and monitor cache hit rates."
 - No ISR awareness.
 - No per-route thinking.
 
----
+***
 
 ### Question
 
@@ -3007,7 +3007,7 @@ unless the flag is active."
 - No runtime flag service.
 - No dead-flag cleanup.
 
----
+***
 
 ### Question
 
@@ -3046,7 +3046,7 @@ Set alerts for cost spikes."
 - No monitoring.
 - No SSG/ISR optimization strategy.
 
----
+***
 
 ### Question
 
@@ -3082,7 +3082,7 @@ alerts for: error rate > 1%, TTFB > 2s, cache hit rate < 80%."
 - No error tracking.
 - No cache monitoring.
 
----
+***
 
 ### Question
 
@@ -3119,7 +3119,7 @@ handles Next.js major version upgrades. I keep these in a
 - Comments instead of docs.
 - No route table.
 
----
+***
 
 ### Question
 
@@ -3159,7 +3159,7 @@ rather than application-level logic."
 - No middleware.
 - No per-user limits.
 
----
+***
 
 ### Question
 
@@ -3202,7 +3202,7 @@ type, no route segments without `error.tsx`."
 - Throws from Server Actions without typed results.
 - No error reporting.
 
----
+***
 
 ### Question
 
@@ -3245,7 +3245,7 @@ customers or regulatory requirements."
 - No middleware tenant resolution.
 - No data isolation strategy.
 
----
+***
 
 ### Question
 
@@ -3285,7 +3285,7 @@ production incidents — not for style preferences."
 - No automated guardrails.
 - No documented conventions.
 
----
+***
 
 ### Question
 
@@ -3324,7 +3324,7 @@ fetch additional data client-side if needed."
 - No understanding of the data flow direction.
 - Serializes entire datasets as props.
 
----
+***
 
 ### Question
 
@@ -3408,7 +3408,7 @@ connections."
 - No backend optimization.
 - No connection pooling awareness.
 
----
+***
 
 ### Question
 
@@ -3451,7 +3451,7 @@ server-side code or heavy utilities."
 - No bundle analysis.
 - No awareness of barrel file problems.
 
----
+***
 
 ### Question
 
@@ -3491,7 +3491,7 @@ miss until users complain about slow navigations."
 - No payload size awareness.
 - No monitoring.
 
----
+***
 
 ### Question
 
@@ -3532,7 +3532,7 @@ monitor the cost and set appropriate cache headers."
 - No cost awareness.
 - No self-hosting consideration.
 
----
+***
 
 ### Question
 
@@ -3618,7 +3618,7 @@ check, input validation, output filtering, rate limiting."
 - No auth check.
 - No rate limiting.
 
----
+***
 
 ### Question
 
@@ -3660,7 +3660,7 @@ user-injected scripts."
 - No CSP.
 - No awareness of `javascript:` URL attacks.
 
----
+***
 
 ### Question
 
@@ -3703,7 +3703,7 @@ catch violations without breaking the page, then enforce."
 > Verify CSP nonce implementation for Next.js (middleware nonce
 > generation, `<Script nonce>` prop) against current documentation.
 
----
+***
 
 ### Question
 
@@ -3741,7 +3741,7 @@ CSRF check should return 403, not silently proceed."
 - No Route Handler protection.
 - No testing.
 
----
+***
 
 ### Question
 
@@ -3825,7 +3825,7 @@ in integration tests. I avoid testing implementation details
 - No data layer mocking strategy.
 - No E2E tests.
 
----
+***
 
 ### Question
 
@@ -3864,7 +3864,7 @@ dependent on the UI hiding the form."
 - No security testing (direct endpoint call).
 - No validation edge case testing.
 
----
+***
 
 ### Question
 
@@ -3905,7 +3905,7 @@ pages so tests can verify the data timestamp."
 - No revalidation testing.
 - No staging verification.
 
----
+***
 
 ### Question
 
@@ -3948,7 +3948,7 @@ actual deployment, not a local server."
 - No auth fixture.
 - No CI integration.
 
----
+***
 
 ### Question
 
@@ -4029,7 +4029,7 @@ revalidation latency to ensure the strategy is working."
 - No ISR.
 - No on-demand revalidation.
 
----
+***
 
 ### Question
 
@@ -4070,7 +4070,7 @@ a convention: new components are Server Components by default.
 - No incremental strategy.
 - No convention for new code.
 
----
+***
 
 ### Question
 
@@ -4110,7 +4110,7 @@ indexing."
 - No route groups.
 - Same rendering strategy for everything.
 
----
+***
 
 ### Question
 
@@ -4152,7 +4152,7 @@ or use `next/script` with `strategy='lazyOnload'`."
 - No rendering strategy check.
 - No bundle analysis.
 
----
+***
 
 ### Question
 
@@ -4192,7 +4192,7 @@ API with `revalidate: 3600`."
 - No SEO optimization.
 - No preview mode.
 
----
+***
 
 ### Question
 
@@ -4230,7 +4230,7 @@ artifacts across CI runs. Only rebuild packages that changed."
 - No investigation of what is slow.
 - No reduction of build scope.
 
----
+***
 
 ### Question
 
@@ -4270,7 +4270,7 @@ usually negligible unless the app needs edge-level latency."
 - No ISR handling.
 - No image optimization.
 
----
+***
 
 ### Question
 
@@ -4310,7 +4310,7 @@ Next.js caching at all."
 - Does not know which cache is stale.
 - No revalidation strategy.
 
----
+***
 
 ### Question
 
@@ -4351,7 +4351,7 @@ and `Intl.NumberFormat` in Server Components."
 - No middleware routing.
 - No SEO configuration.
 
----
+***
 
 ### Question
 
@@ -4404,7 +4404,7 @@ rendered on every request if the route is dynamic (uses `cookies()`,
 `headers()`, `searchParams`, or `dynamic = "force-dynamic"`). The
 "server" in Server Components refers to where they run, not when.
 
----
+***
 
 **Question:** Does `"use client"` mean the component only runs in
 the browser?
@@ -4415,7 +4415,7 @@ means the component can use hooks and event handlers — not that it
 is client-only. The initial server render produces HTML for SEO and
 fast first paint.
 
----
+***
 
 **Question:** Is Next.js middleware like Express middleware?
 
@@ -4425,7 +4425,7 @@ render components, access the database, or run Node.js APIs. Express
 middleware runs in the request pipeline with full Node.js access and
 can modify the request/response at any point.
 
----
+***
 
 **Question:** Does ISR require a running server?
 
@@ -4434,7 +4434,7 @@ regenerate the page when the revalidation interval expires or when
 on-demand revalidation is triggered. A fully static export
 (`output: 'export'`) does not support ISR.
 
----
+***
 
 **Question:** Are Server Actions secure by default?
 
