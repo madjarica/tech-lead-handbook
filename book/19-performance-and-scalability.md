@@ -1776,6 +1776,21 @@ Performance without observability is guessing. The Tech Lead ensures:
 | **Micro-optimizing hot paths** | Rewriting a handler in C++ to save 2ms when the database query takes 200ms | Optimize the database query first. The handler optimization is invisible in the overall latency. |
 | **Performance testing everything** | Load testing every endpoint, including admin panels and internal tools | Load test the critical path: user-facing endpoints, payment flows, search. Skip admin panels. |
 
+### Common underengineering traps
+
+| Trap | Symptom | Production consequence |
+| --- | --- | --- |
+| **No performance baseline** | The team has never measured p50, p95, or p99 latency. "It feels fast" is the only benchmark. | Regressions are invisible until users complain. No data to justify optimization or to push back on feature requests that degrade performance. |
+| **Cache without invalidation story** | Redis is added to speed up reads but the invalidation strategy is "restart the cache" or "TTL of 24 hours." | Users see stale data for hours. Support tickets spike after every data migration. The cache becomes a liability, not an optimization. |
+| **No load test before launch** | The service has never been tested above real traffic levels. Capacity is guessed from instance specs. | First traffic spike reveals the bottleneck — during the spike. Autoscaling is configured but cold-start time exceeds the traffic ramp. |
+| **Scaling out without profiling** | Response time increases, so the team adds more instances. CPU stays at 15% per instance. | The bottleneck is a slow database query, not insufficient compute. Horizontal scaling wastes money without fixing the problem. |
+| **No client-side performance budget** | Frontend loads 4 MB of JavaScript. No performance budget is defined or enforced in CI. | Core Web Vitals degrade quietly. SEO ranking drops. Mobile users on slow connections abandon the page. |
+
+**The underengineering test:** If the team's response to "what
+is the p99 latency of the checkout flow?" is "I don't know,"
+performance engineering has not started — regardless of how
+much infrastructure is provisioned.
+
 ### Cost-aware performance decisions
 
 The Tech Lead manages the tension between performance and cost:

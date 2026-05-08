@@ -1034,6 +1034,8 @@ Key trade-offs in communication and leadership approaches.
 
 ## Production Considerations
 
+**Production risk from communication failures.** Poor communication is not an interpersonal inconvenience — it has measurable production consequences. A misleading status page costs customer trust and may trigger contractual SLA penalties. An incorrect ETA during an incident erodes executive confidence and may escalate to regulatory notification for long outages. A deployment without cross-team communication breaks downstream consumers. A Tech Lead must treat communication as a production dependency: the right information to the right audience at the right time is as critical as the rollback script.
+
 **Reliability and on-call.** On-call communication norms directly affect incident resolution time. Define: how to escalate (paging, not Slack), how to communicate status updates (every 30 minutes during P1 incidents, with the template: what is happening, what we have tried, what we are trying next, estimated time to resolution), and how to hand off (written handoff note with timeline and current state, not a verbal summary that loses context). See [Observability](./18-observability.md) for monitoring and alerting patterns.
 
 **Team and hiring.** Soft skills are testable in interviews. Use behavioral interview questions with scoring rubrics, not "gut feel." A rubric for "conflict resolution" might score: 1 = blames others, 2 = avoids conflict, 3 = resolves with compromise, 4 = resolves by making trade-offs explicit and finding shared constraints, 5 = proactively structures processes that prevent conflicts. Hire for 4, develop to 5.
@@ -1046,9 +1048,9 @@ Key trade-offs in communication and leadership approaches.
 
 **Maintainability.** Decision documentation (ADRs, design docs, post-mortems) is the maintainability infrastructure for the team's decision-making process. Without it, the team relitigates decisions, reverses past choices without understanding trade-offs, and loses institutional knowledge when people leave. The maintenance cost is real: stale documentation is worse than no documentation because it creates false confidence. Assign documentation owners and review dates. See [Software Architecture](./14-software-architecture.md) for ADR practices.
 
-### Tech Lead decision-making
+## Tech Lead Decision-Making
 
-#### What a Senior Engineer usually knows vs what a Tech Lead is expected to decide
+### What a Senior Engineer usually knows vs what a Tech Lead is expected to decide
 
 A Senior Engineer knows how to communicate clearly, give feedback, resolve conflicts they are involved in, and write good documents. A Tech Lead is expected to decide:
 
@@ -1058,13 +1060,13 @@ A Senior Engineer knows how to communicate clearly, give feedback, resolve confl
 - **When a process is working vs when a process is theater.** Retros, standups, and design reviews are valuable when they produce outcomes. When they become rituals — people attend but nothing changes — the Tech Lead must either fix the process or cancel it. A standup where nobody listens to each other is a daily meeting tax, not a coordination tool.
 - **How to allocate their own time.** Every hour a Tech Lead spends in a meeting is an hour not spent on design review, architecture, mentoring, or deep work. The Tech Lead decides which meetings require their presence, which can be delegated, and which should not exist.
 
-#### Common overengineering trap: over-documenting
+### Common overengineering trap: over-documenting
 
 Not every decision needs an ADR. Not every project needs an RFC. Not every meeting needs notes. The overengineering trap in communication is treating every interaction as a formal artifact. A team that writes an RFC for a configuration change or an ADR for a library bump is spending documentation effort on decisions that are low-stakes and reversible.
 
 **The filter:** Does this decision affect more than one sprint, more than one team, or more than one system? If yes, document it. If no, a Slack message or a PR description is sufficient. The Tech Lead sets this threshold for the team — too low and the team documents nothing (no institutional memory), too high and the team documents everything (writing replaces shipping).
 
-#### When to avoid formal processes
+### When to avoid formal processes
 
 Formal communication processes (RFCs, design reviews, steering committees) have a startup cost. For small teams (2-4 engineers), co-located, working on a single product, many formal processes add overhead without proportional value:
 
@@ -1075,7 +1077,7 @@ Formal communication processes (RFCs, design reviews, steering committees) have 
 
 The risk of skipping processes is that the team underestimates the decision's impact. The Tech Lead mitigates this by setting clear criteria for when formal processes are required and reviewing those criteria quarterly.
 
-#### Incident communication decision checklist
+### Incident communication decision checklist
 
 During an incident, the Tech Lead makes communication decisions in real time:
 
@@ -1086,7 +1088,7 @@ During an incident, the Tech Lead makes communication decisions in real time:
 - [ ] **When do we escalate?** If the incident is not mitigated within the expected timeframe, escalate to the next level. Define escalation criteria in advance.
 - [ ] **When do we communicate externally?** If customers are affected, the status page and customer-facing communication must be updated. The Tech Lead decides the threshold.
 
-#### Stakeholder communication strategy
+### Stakeholder communication strategy
 
 A Tech Lead manages multiple stakeholder relationships with different information needs. The overengineering trap is communicating the same way to everyone; the underengineering trap is communicating only when asked.
 
@@ -1100,7 +1102,7 @@ A Tech Lead manages multiple stakeholder relationships with different informatio
 
 The failure mode most Tech Leads fall into is managing up (keeping leadership informed) while neglecting managing sideways (keeping peer teams aligned). Cross-team surprises — a dependency that slipped, an API contract that changed, a shared resource that was reallocated — cause more project delays than within-team execution issues. A weekly 5-minute check-in with dependent teams' Tech Leads prevents surprises that cost weeks.
 
-#### Team adoption risks for communication changes
+### Team adoption risks for communication changes
 
 Changing a team's communication norms is a change management problem. Common risks:
 

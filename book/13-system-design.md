@@ -2520,6 +2520,25 @@ Overengineering is the most common Tech Lead failure in system design. It manife
 
 **Interview framing:** "I am deliberately keeping this simple because the stated scale does not justify the added complexity. If the system grows to 100× current volume, I would add [specific component] at that point. Here is how the architecture would evolve."
 
+### Recognizing underengineering
+
+Underengineering is the symmetric failure: shipping a system without the structure its risk tier demands. It is less visible than overengineering because the consequences are delayed — they surface as incidents, not as build failures.
+
+**The underengineering test.** Before calling a design "done," answer three questions:
+
+1. **Does the blast radius match the SLA?** A revenue-critical API behind a single database with no failover, no circuit breaker, and no runbook is underengineered regardless of how clean the code is.
+2. **Can the team detect and recover from failure?** If the answer to "how would we know this is broken?" is "a customer would tell us," there is no observability for the risk class. Add structured logging, health checks, or SLO alerting before launch.
+3. **Is the cheapest irreversible decision documented?** Skipping an ADR for a schema design that affects 3 teams saves a day but costs weeks when the schema must change.
+
+**Common underengineering signals in production:**
+
+- No runbook or on-call rotation for a service that handles payments.
+- No idempotency keys on write endpoints exposed to retry-prone mobile clients.
+- No backpressure mechanism on a queue consumer that writes to a shared database.
+- Deploying to production without a rollback path tested in staging.
+
+**Interview framing:** "I would not ship this without SLO alerting and a tested rollback — the business risk does not justify saving one sprint. Underengineering is as costly as overengineering, it shows up later."
+
 ### Driving ambiguity to zero before designing
 
 A Tech Lead's first responsibility in system design is reducing ambiguity. Designing against ambiguous requirements produces architectures that solve the wrong problem.

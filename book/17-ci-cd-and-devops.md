@@ -939,15 +939,18 @@ variables:
 
 lint:
   stage: quality
-  script: npm run lint
+  image: node:20-alpine
+  script: npm ci && npm run lint
 
 typecheck:
   stage: quality
-  script: npm run typecheck
+  image: node:20-alpine
+  script: npm ci && npm run typecheck
 
 test:
   stage: quality
-  script: npm run test -- --coverage
+  image: node:20-alpine
+  script: npm ci && npm run test -- --coverage
   coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
 
 build:
@@ -1888,6 +1891,21 @@ Lead evaluates each service independently:
 **The overengineering test:** If the pipeline infrastructure
 requires more maintenance than the application code it deploys,
 the pipeline is overengineered.
+
+### Common underengineering traps in CI/CD
+
+| Trap | What it looks like | The production risk |
+| --- | --- | --- |
+| **No artifact promotion** | Building a new artifact for each environment instead of promoting the tested artifact from staging to production. | The code running in production was never tested — the build is different from what passed CI. |
+| **Manual production deploys** | SSHing into servers or clicking "deploy" in a console with no audit trail. | No rollback path, no reproducibility, no audit evidence for compliance. |
+| **Shared long-lived secrets** | One AWS access key used across all pipelines, never rotated, shared in a wiki. | A single key compromise exposes every service. |
+| **No rollback drill** | The team has never tested rolling back a production deploy. The rollback button exists but no one knows if it works with the current database schema. | First rollback attempt happens during a real incident — the worst time to discover it is broken. |
+| **CI without quality gates** | Pipeline runs tests but merges regardless of result. Failed tests are "known failures." | CI becomes a notification system, not a safety net. Defect escape rate climbs silently. |
+
+**The underengineering test:** If the team cannot deploy and
+roll back a production change within 15 minutes without SSH
+access, the delivery pipeline is underengineered for
+production use.
 
 ### Ownership boundaries in CI/CD
 

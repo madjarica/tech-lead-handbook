@@ -968,9 +968,9 @@ Key trade-offs in AI tool adoption and the conditions under which each choice re
 
 **Migration and rollback:** AI tools can be removed from the workflow without code changes — the code is the same whether AI generated it or not. The migration risk is in the *workflow*, not the code. If the team has built processes that depend on AI (automated PR summaries, AI-generated tests), removing the tool means rebuilding those processes manually.
 
-### Tech Lead decision-making
+## Tech Lead Decision-Making
 
-#### Setting AI policy for the team
+### Setting AI policy for the team
 
 **What a Senior Engineer usually knows:** How to use AI tools for coding, which prompts work well, and which tools are popular.
 
@@ -982,7 +982,9 @@ Key trade-offs in AI tool adoption and the conditions under which each choice re
 
 **Common overengineering trap:** Building an internal AI platform before the team has used commercial tools. Start with commercial tools, measure the impact, and build internal infrastructure only when commercial tools fail to meet specific requirements (data governance, cost, customization).
 
-#### Evaluating when AI tools hurt more than they help
+**Common underengineering trap:** No AI usage policy, no data classification for AI tools, and no verification gates in CI for AI-generated code. "Everyone picks their own tool" is not flexibility — it is shadow IT. The minimum viable AI governance: a written policy defining which data classes can be sent to which tools, a requirement that AI-generated code passes the same review and test gates as human-written code, and a quarterly review of tool spend and impact metrics. Without these, the Tech Lead cannot answer "what data has left our perimeter?" or "has AI tooling actually improved our cycle time?"
+
+### Evaluating when AI tools hurt more than they help
 
 Not every workflow benefits from AI. A Tech Lead must identify where AI tools create negative value:
 
@@ -991,7 +993,7 @@ Not every workflow benefits from AI. A Tech Lead must identify where AI tools cr
 - **Novel architecture.** AI is trained on existing patterns. For genuinely novel designs (new protocols, custom data structures, domain-specific optimizations), AI provides little value and may steer toward familiar but inappropriate patterns.
 - **Small teams with high code ownership.** If every engineer owns their code deeply, AI-generated code that "nobody wrote" creates an ownership gap. The team may be faster without AI in this context.
 
-#### Incident response and AI
+### Incident response and AI
 
 During incidents, AI can help by triaging logs, suggesting hypotheses, and summarizing timelines. AI should never generate and apply fixes without human review. The pressure to resolve incidents quickly makes it tempting to apply AI-suggested fixes without understanding them — this is exactly when mistakes are most costly.
 
@@ -1005,7 +1007,7 @@ During incidents, AI can help by triaging logs, suggesting hypotheses, and summa
 
 **What a Tech Lead is expected to decide:** Whether AI involvement during the incident helped or prolonged resolution. Some failure modes make AI-assisted debugging actively harmful: (1) the AI suggests a plausible fix that masks the symptom, causing the team to close the incident before finding the root cause, (2) the team spends 20 minutes debating the AI's suggestion instead of reading the logs, and (3) the AI's suggestion is based on patterns from its training data that do not match the current system's architecture. The Tech Lead's post-incident decision: should we use AI for this class of incident in the future, or did it add noise? Track this explicitly in the post-incident review.
 
-#### Cost-benefit analysis for AI adoption
+### Cost-benefit analysis for AI adoption
 
 A Tech Lead must quantify AI adoption decisions, not argue them qualitatively. The framework:
 
@@ -1030,7 +1032,7 @@ A Tech Lead must quantify AI adoption decisions, not argue them qualitatively. T
 
 **Stakeholder explanation:** "We ran a 4-week pilot with 5 engineers. Cycle time decreased by 18% for standard feature work. AI tool costs were $2,400/month. The net savings, accounting for review overhead, are approximately $X/month. Based on this data, I recommend expanding to the full team with the same cost monitoring."
 
-#### Team adoption risk management
+### Team adoption risk management
 
 **What a Senior Engineer usually knows:** How to use AI tools individually and get value from them.
 
@@ -1052,7 +1054,7 @@ A Tech Lead must quantify AI adoption decisions, not argue them qualitatively. T
 
 **Mitigation:** Per-team monthly budgets. Per-task cost limits. Alerts at 75% of budget. Monthly cost review with engineering leadership. Model tiering: cheap models for routine tasks, expensive models for complex work.
 
-#### When not to use AI in software engineering
+### When not to use AI in software engineering
 
 The Tech Lead who can articulate *when not* to use AI demonstrates more leadership maturity than one who uses AI for everything.
 
@@ -1068,7 +1070,7 @@ The Tech Lead who can articulate *when not* to use AI demonstrates more leadersh
 
 **Interview framing:** "I use AI where it provides measurable value with acceptable risk. I do not use AI for security-critical code, novel architecture decisions, or during active incidents where a wrong fix compounds the problem. The ability to identify where AI hurts more than it helps is as important as the ability to use it effectively."
 
-#### Stakeholder communication for AI decisions
+### Stakeholder communication for AI decisions
 
 A Tech Lead must explain AI adoption decisions to three audiences: engineers, engineering leadership, and non-technical stakeholders. Each audience needs a different framing.
 
@@ -2946,6 +2948,7 @@ You join a team that has been using AI coding tools for 6 months with no policy.
 - [Observability](./18-observability.md): monitoring AI tool usage, cost tracking, and agent activity logging.
 - [Software Architecture](./14-software-architecture.md): RAG architecture, agent design patterns, and integration patterns.
 - [Python](./11-python.md): Python-specific AI tooling, LangChain, FastAPI for AI serving.
+- [Git and Engineering Workflow](./20-git-and-engineering-workflow.md): PR workflows for AI-generated code, commit hygiene, and code review processes.
 - OWASP Top 10 for LLM Applications: security risks specific to LLM-integrated applications.
 - "Attention Is All You Need" (Vaswani et al., 2017): the transformer architecture underlying modern LLMs.
 - Anthropic's research on constitutional AI and AI safety: grounding for guardrail design.

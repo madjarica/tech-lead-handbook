@@ -1778,6 +1778,21 @@ own roadmap:
 | **Over-alerting to prove rigor** | 15 pages per week, 80% false positives | Alert on SLO burn rate. Convert cause-based alerts to dashboards. Target < 2 pages per on-call shift. |
 | **Building a custom observability platform** | 6 months building a log aggregator because "ELK is too complex" | Use a managed ELK/OpenSearch or switch to Loki. Operating a custom observability platform is harder than operating ELK. |
 
+### Common underengineering traps
+
+| Trap | Symptom | Production consequence |
+| --- | --- | --- |
+| **Uptime pings only** | The monitoring stack is a single HTTP health check per service. No metrics, no traces, no structured logs. | Team cannot diagnose anything beyond "up or down." MTTR is measured in hours because investigation starts from zero. |
+| **No correlation IDs** | Logs exist but requests cannot be traced across services. Each service logs in isolation. | A single failing request requires searching logs in 5 services manually. Cross-service incidents take 10× longer to resolve. |
+| **Alerting on symptoms only** | Alerts fire on CPU > 80% or disk > 90% — never on business-level SLIs (error rate, latency percentile). | The team reacts to infrastructure noise while user-facing degradation goes undetected until customers complain. |
+| **"We will add SLOs later"** | The service is in production for 6 months with no defined SLOs. On-call pages on every error, burns out the rotation. | No way to distinguish acceptable error rates from actual incidents. Every page feels urgent; real urgency gets lost. |
+| **No runbooks for paged alerts** | Alerts page the on-call engineer but link to nothing. Investigation starts with "what does this alert mean?" | New on-call engineers cannot respond effectively. Knowledge is locked in senior engineers' heads, creating a bus factor of 1. |
+
+**The underengineering test:** If the on-call engineer's first
+action during an incident is to add the logging that should
+have existed before the incident, observability is
+underengineered for the service's risk tier.
+
 ### Cost-aware observability decisions
 
 Observability cost has three components:

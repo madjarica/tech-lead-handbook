@@ -2251,3 +2251,36 @@ add specific rows here.
 - **Suggested source:** @pact-foundation/pact npm package documentation
   and GitHub README for the current stable version.
 - **Status:** unverified
+
+---
+
+### #116 — Trivy action version pinning (`book/15-security.md`)
+
+- **Location:** `book/15-security.md`, security scan pipeline example
+- **Claim:** `aquasecurity/trivy-action@0.28.0` is a valid version.
+- **Risk:** Trivy releases frequently; `0.28.0` may be outdated.
+  Verify the latest stable version at
+  https://github.com/aquasecurity/trivy-action/releases.
+- **Status:** unverified
+
+---
+
+### #117 — TruffleHog action version pinning (`book/15-security.md`)
+
+- **Location:** `book/15-security.md`, security scan pipeline example
+- **Claim:** `trufflesecurity/trufflehog@v3.63.0` is a valid version.
+- **Risk:** TruffleHog releases frequently. Verify the latest
+  stable version at
+  https://github.com/trufflesecurity/trufflehog/releases.
+- **Status:** unverified
+
+---
+
+### #118 — Node.js 20 Alpine image for GitLab CI (`book/17-ci-cd-and-devops.md`)
+
+- **Location:** `book/17-ci-cd-and-devops.md`, GitLab CI example
+- **Claim:** `node:20-alpine` is used as the CI image.
+- **Risk:** Node.js 20 LTS is active at time of writing; verify
+  EOL status (expected October 2026). Update to Node.js 22 when
+  appropriate.
+- **Status:** unverified

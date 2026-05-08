@@ -1658,7 +1658,7 @@ NLB is the choice for non-HTTP protocols, extreme throughput
 
 **Target groups and health checks:**
 
-```
+```text
 ALB Listener (:443)
 ├── Rule: Host = api.example.com
 │   └── Target Group: api-service (ECS tasks, port 8080)
@@ -2119,7 +2119,7 @@ Lambda concurrency has two dimensions:
 - **Provisioned concurrency:** Pre-warms environments to eliminate
   cold starts. Can be auto-scaled based on schedule or utilization.
 
-```
+```text
 Account concurrency limit: 1,000
 ├── Function A: reserved = 200 (guaranteed, capped at 200)
 ├── Function B: reserved = 100 (guaranteed, capped at 100)
@@ -2301,7 +2301,7 @@ API Gateway provides two levels of throttling:
   monthly request quotas and throttle rates. Useful for tiered
   pricing of public APIs.
 
-```
+```text
 External client → API Gateway (throttling + auth)
     ├── GET /users/{id} → Lambda (read from DynamoDB)
     ├── POST /orders → SQS (async processing, no Lambda)
@@ -2620,7 +2620,7 @@ digit milliseconds for cached content and reducing origin load by
 
 **Cache architecture:**
 
-```
+```text
 User → Edge Location (cache check)
   ├── Cache HIT → Return cached response (< 10 ms)
   └── Cache MISS → Regional Edge Cache (cache check)
@@ -2841,7 +2841,7 @@ editor) or nested alias records to combine policies. For example:
 latency-based routing at the top level, with failover for each
 region.
 
-```
+```text
 example.com (Latency routing)
 ├── us-east-1 (Failover)
 │   ├── Primary: us-east-1 ALB (health check attached)
@@ -3683,6 +3683,48 @@ async function enqueueOrder(order: { id: string; total: number }) {
 This sends a message to a FIFO queue with deduplication (same
 order.id within the 5-minute window is deduplicated) and message
 grouping (messages with the same order.id are processed in order).
+
+```ts
+// SQS consumer — Lambda handler processing a batch of SQS messages
+import { SQSBatchResponse, SQSEvent, SQSRecord } from "aws-lambda";
+
+export async function handler(event: SQSEvent): Promise<SQSBatchResponse> {
+  const failures: { itemIdentifier: string }[] = [];
+
+  for (const record of event.Records) {
+    try {
+      await processOrder(record);
+    } catch (err) {
+      console.error("Failed to process", record.messageId, err);
+      failures.push({ itemIdentifier: record.messageId });
+    }
+  }
+
+  return { batchItemFailures: failures };
+}
+
+async function processOrder(record: SQSRecord): Promise<void> {
+  const order = JSON.parse(record.body);
+  await db.query(
+    "INSERT INTO processed_orders (id, total) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING",
+    [order.id, order.total],
+  );
+}
+```
+
+**What this does:** A Lambda function consumes SQS messages in
+batches. It returns partial batch failures so that only failed
+messages are retried — the rest are deleted from the queue.
+
+**Why it matters:** Without `batchItemFailures`, a single failure
+causes the entire batch to be retried, re-processing messages
+that already succeeded. This can cause duplicate side effects.
+
+**Production note:** The `ON CONFLICT DO NOTHING` clause makes the
+consumer idempotent — reprocessing the same order ID is safe.
+Configure a dead-letter queue on the source queue with
+`maxReceiveCount: 3` so that poison messages are moved to the DLQ
+after three failed attempts instead of blocking the queue.
 
 **Common mistakes:**
 
@@ -4749,7 +4791,7 @@ services.
 
 **Envelope encryption explained:**
 
-```
+```text
 1. App → KMS: GenerateDataKey(KMS Key ID)
 2. KMS → App: {plaintext data key, encrypted data key}
 3. App: encrypt(data, plaintext data key) → encrypted data

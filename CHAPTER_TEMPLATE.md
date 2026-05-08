@@ -91,6 +91,14 @@ Explain production-grade concerns:
 - Vendor and version lock-in.
 - Migration and rollback.
 
+## Tech Lead Decision-Making
+
+Frame the decisions a Tech Lead owns in this domain. Compare what
+a Senior Engineer usually knows vs what a Tech Lead is expected to
+decide. Include concrete decision scenarios, overengineering and
+underengineering traps, stakeholder communication guidance, and
+cost-benefit trade-offs.
+
 ## How to Explain This in an Interview
 
 Give strong interview-ready explanations. 3–6 sentences each. Use the
@@ -171,8 +179,9 @@ also add a row to `notes/verification-needed.md`.
 A small number of chapters are **reference chapters** rather than
 teaching chapters and are exempt from parts of this template. The
 exceptions are listed in `BOOK_SPEC.md` under "Structural Exceptions".
-At the time of writing, the only exempt chapter is
-`book/26-glossary.md`.
+At the time of writing, the exempt chapters are:
+`book/00-introduction.md`, `book/24-interview-questions-and-answers.md`,
+`book/25-practical-interview-scenarios.md`, and `book/26-glossary.md`.
 
 If you propose a new structural exception, update `BOOK_SPEC.md`
 first, then this template's reference, in the same change.

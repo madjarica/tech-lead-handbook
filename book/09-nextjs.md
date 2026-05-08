@@ -329,6 +329,7 @@ Route Handlers define HTTP endpoints:
 ```ts
 // app/api/orders/route.ts
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
@@ -342,14 +343,23 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(orders);
 }
 
+const CreateOrderSchema = z.object({
+  productId: z.string().uuid(),
+  quantity: z.number().int().positive().max(100),
+});
+
 export async function POST(request: NextRequest) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
-  const order = await db.insert("orders", { ...body, userId: session.userId });
+  const parsed = CreateOrderSchema.safeParse(await request.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid input", issues: parsed.error.issues }, { status: 400 });
+  }
+
+  const order = await db.insert("orders", { ...parsed.data, userId: session.userId });
   return NextResponse.json(order, { status: 201 });
 }
 ```

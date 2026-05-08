@@ -1816,7 +1816,11 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
 
+      # Container image scanning — requires a prior build step that
+      # sets IMAGE_TAG. Omit this step if the pipeline does not build
+      # a container image (e.g., serverless or static site deploys).
       - name: Scan container image
+        if: env.IMAGE_TAG != ''
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: ${{ env.IMAGE_TAG }}
@@ -2373,6 +2377,39 @@ checklist is ordered by implementation priority (highest impact first):
 - [ ] File uploads restricted by type, size, and stored outside webroot.
 - [ ] Rich text sanitized via DOMPurify (allowlist approach).
 
+```ts
+// Request-body validation as a security boundary
+import { z } from "zod";
+
+const TransferSchema = z.object({
+  fromAccount: z.string().uuid(),
+  toAccount: z.string().uuid(),
+  amount: z.number().positive().max(1_000_000),
+  currency: z.enum(["USD", "EUR", "GBP"]),
+});
+
+app.post("/api/transfers", async (req, res) => {
+  const parsed = TransferSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: "Validation failed",
+      issues: parsed.error.issues,
+    });
+  }
+  // parsed.data is now typed and constrained — no extra fields,
+  // no negative amounts, no unexpected currencies
+  await processTransfer(parsed.data);
+  res.status(201).json({ status: "accepted" });
+});
+```
+
+**Why it matters:** Schema validation at the API boundary rejects
+unexpected fields, wrong types, and out-of-range values before
+they reach business logic. This prevents mass assignment (extra
+fields overwriting internal state), type confusion attacks, and
+integer overflow. Client-side validation improves UX but provides
+zero security — the server schema is the trust boundary.
+
 **Transport and headers:**
 
 - [ ] TLS 1.2+ on all connections (TLS 1.3 preferred).
@@ -2862,6 +2899,17 @@ required for sensitive features, and security findings have SLAs
 users. The operational cost of running the security infrastructure
 exceeds the value of what it protects. Match security investment to
 actual risk.
+
+**Common underengineering trap:** Skipping baseline security controls
+because "we are internal" or "we will add auth later." The minimum
+security bar for any production service — internal or external — is:
+HTTPS everywhere, dependency scanning in CI, secrets in a manager
+(not in code or wiki), authentication on admin endpoints, and CORS
+headers set explicitly. Skipping these saves days but costs weeks
+when the first vulnerability scan, compliance audit, or breach
+occurs. A Tech Lead who defers all security to "the security team"
+has delegated accountability but not risk — the service still
+belongs to the team.
 
 ### Tech Lead security responsibilities matrix
 

@@ -3526,7 +3526,7 @@ This shows you connect Node’s concurrency model to resource limits: unbounded 
 
 ### Practical Example
 
-```typescript
+```ts
 import { pipeline } from "node:stream/promises";
 // pg-query-stream or similar → zlib.createGzip() → res
 await pipeline(cursorStream, gzip, res);
@@ -8036,6 +8036,8 @@ Change leadership, risk-aware adoption.
 ---
 
 ## Cross-Domain Tech Lead Questions
+
+Cross-domain questions are the defining test of Tech Lead readiness. Single-domain questions test knowledge; cross-domain questions test judgment. They require sequencing decisions across infrastructure, security, cost, team capability, and stakeholder communication — and naming who owns the outcome if the approach fails. When answering, state the trade-off dimensions explicitly, name the owner for each decision, and close with how you would communicate the plan to a non-technical stakeholder.
 
 ### Question
 

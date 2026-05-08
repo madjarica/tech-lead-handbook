@@ -559,8 +559,8 @@ export class LoginComponent {
 
 **Template-driven forms** (simpler, less testable):
 
-```ts
-// In template:
+```html
+<!-- In template: -->
 <input [(ngModel)]="email" required email />
 ```
 

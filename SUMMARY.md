@@ -527,11 +527,13 @@ interview questions.
 
 ## [26. Glossary](./book/26-glossary.md)
 
-- Alphabetical glossary of all key terms used in the book.
-- Each entry: short definition, link back to the chapter where the
-  term is explored.
-- Distinguish closely related terms with explicit "vs" entries
-  (e.g. throughput vs latency, AuthN vs AuthZ).
+- Topic-organized glossary of all key terms used in the book,
+  grouped into 14 areas (Algorithms, Databases, Docker/Kubernetes,
+  AWS, JavaScript/TypeScript, Frontend Frameworks, Backend/API,
+  Security, Architecture, Testing, CI/CD, Observability, AI, Leadership).
+- Each entry: area, definition, practical example, interview usage,
+  common confusion, related terms, and optional Tech Lead note.
+- Distinguish closely related terms with explicit comparison guidance.
 
 **Examples:** none.
 **Diagrams:** none.

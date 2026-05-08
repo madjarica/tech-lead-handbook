@@ -1030,7 +1030,7 @@ class OrderQueryService {
 
   async getOrderSummaries(customerId: string): Promise<OrderSummaryView[]> {
     return this.db.query(
-      'SELECT * FROM order_summaries WHERE customer_name = $1 ORDER BY placed_at DESC',
+      'SELECT * FROM order_summaries WHERE customer_id = $1 ORDER BY placed_at DESC',
       [customerId],
     );
   }
@@ -1086,10 +1086,8 @@ The synchronous path handles the critical operations the user is waiting for: in
 // Mobile BFF — returns a compact payload tailored for mobile
 // GET /mobile/orders/:id
 async function getMobileOrder(orderId: string): Promise<MobileOrderView> {
-  const [order, customer] = await Promise.all([
-    orderService.getOrder(orderId),
-    customerService.getCustomer(order.customerId),
-  ]);
+  const order = await orderService.getOrder(orderId);
+  const customer = await customerService.getCustomer(order.customerId);
   return {
     id: order.id,
     status: order.status,
@@ -1102,8 +1100,8 @@ async function getMobileOrder(orderId: string): Promise<MobileOrderView> {
 // Web BFF — returns a rich payload with full details
 // GET /web/orders/:id
 async function getWebOrder(orderId: string): Promise<WebOrderView> {
-  const [order, customer, shipping, payments] = await Promise.all([
-    orderService.getOrder(orderId),
+  const order = await orderService.getOrder(orderId);
+  const [customer, shipping, payments] = await Promise.all([
     customerService.getCustomer(order.customerId),
     shippingService.getShipment(orderId),
     paymentService.getPayments(orderId),
@@ -1411,6 +1409,8 @@ Most architecture decisions are made with incomplete information. The product ro
 4. **Document what would make the decision wrong.** Every ADR should include: "Revisit this decision when [specific trigger]." If the trigger fires, the decision is reconsidered — not defended.
 
 **Common overengineering trap:** Spending 2 weeks designing a "future-proof" architecture for a product that has zero users. The architecture will change when real usage data arrives. Optimize for learning speed first: deploy, measure, adapt. The first architecture is always wrong — the goal is to be wrong cheaply.
+
+**Common underengineering trap:** Shipping multi-team or multi-service systems without module boundaries, without ADRs, and without contract tests. "We will clean it up later" is architectural debt that compounds: every new feature increases the coupling, every team change increases the coordination cost, and every incident is harder to isolate. The minimum viable governance for a system beyond one team: one ADR per boundary decision, one interface contract per cross-module dependency, and one fitness function (automated test) that prevents the boundary from eroding.
 
 **Interview framing:** "I treat architecture decisions as hypotheses, not declarations. I document the hypothesis in an ADR: 'We believe a modular monolith is sufficient for this team size and traffic profile.' I include the falsification criteria: 'If deploy coordination takes more than 2 hours per release or a single module needs 10× the compute of others, we extract.' Then I monitor for the trigger."
 
@@ -3338,6 +3338,7 @@ The answer depends on the search requirements and scale.
 - [Performance and Scalability](./19-performance-and-scalability.md): caching, back-pressure, scaling strategies, and performance budgets.
 - [API Design](./12-api-design.md): REST, gRPC, GraphQL, idempotency, and versioning.
 - [Testing and Quality](./16-testing-and-quality.md): testing pyramid, contract testing, and quality gates.
+- [Tech Lead Skills](./23-tech-lead-skills.md): architecture decision ownership, ADR governance, technical debt negotiation, and stakeholder communication.
 - Evans, *Domain-Driven Design* (the "Blue Book"): the foundational text for bounded contexts, aggregates, and ubiquitous language.
 - Vernon, *Implementing Domain-Driven Design* (the "Red Book"): practical application of DDD with concrete examples.
 - Newman, *Building Microservices* (2nd edition): service decomposition, communication patterns, and operational concerns.

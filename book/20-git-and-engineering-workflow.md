@@ -1180,6 +1180,8 @@ Not every problem requires a new process. A Tech Lead who introduces an RFC proc
 
 **Common overengineering trap:** Small teams (< 8 engineers) that adopt every process they read about in engineering blogs. A team of 5 does not need a formal RFC process — a Slack thread and a 15-minute discussion are sufficient. A team of 5 does not need CODEOWNERS — everyone reviews everything. Processes scale to team size. Introduce them when the cost of not having them exceeds the cost of maintaining them.
 
+**Common underengineering trap:** Growing teams (> 10 engineers) that still operate like a 3-person startup. No branch protection, no required reviews, no CI gates, no release documentation. "We all know the codebase" stops being true after the third hire. The symptoms: broken main branch weekly, "who deployed this?" incidents, regressions from force-pushes, and onboarding that takes months because nothing is written down. The minimum viable workflow for a growing team: branch protection on main, at least one required reviewer, CI that blocks merge on failure, and a changelog or release tag.
+
 **Rule of thumb:** Introduce one workflow change per month. Give each change 4 weeks to settle before adding the next. Track whether the change achieved its goal. If the review SLA did not reduce time-to-merge, the problem was not the SLA — investigate further.
 
 ### Incident response and Git workflow

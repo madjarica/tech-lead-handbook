@@ -726,7 +726,7 @@ Production quality signals that supplement testing:
 
 See [Observability](./18-observability.md) for depth on SLIs, SLOs, and alerting.
 
-### Tech Lead decision-making
+## Tech Lead Decision-Making
 
 **What a Senior Engineer usually knows:** How to write tests, which tools to use, how to set up a test runner, how to debug a failing test, and how to achieve good coverage for a module they own.
 
@@ -898,7 +898,7 @@ Yes, 100% coverage means every line is tested, so there are no bugs. More covera
 
 ## Interview Questions and Answers
 
-### Basic questions
+### Basic
 
 **Question:** What is the difference between a stub and a mock?
 
@@ -1080,7 +1080,7 @@ Yes, 100% coverage means every line is tested, so there are no bugs. More covera
 
 ---
 
-### Senior questions
+### Senior
 
 ### Question
 
@@ -1289,7 +1289,7 @@ Joining a team with a 200k-line monolith and zero tests. Week 1: add ESLint and 
 
 ---
 
-### Tech Lead questions
+### Tech Lead
 
 ### Question
 
@@ -1635,7 +1635,7 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 ---
 
-### Scenario-based questions
+### Scenario-based
 
 **Question:** A critical production bug was found that was not caught by any test. How do you respond?
 
@@ -1697,7 +1697,7 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 ---
 
-### Trick questions
+### Trick Questions
 
 **Question:** If all tests pass, can you be confident there are no bugs?
 
@@ -1729,7 +1729,7 @@ A team with zero tests started with ESLint + TypeScript strict mode in CI (week 
 
 ---
 
-### Red flags
+### Red Flags
 
 1. **"We don't need tests because we do code review."** Code review catches design and logic issues but cannot catch regressions systematically, cannot run automatically on every change, and cannot verify behavior at scale. Review and testing are complementary — neither replaces the other.
 

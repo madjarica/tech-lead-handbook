@@ -1277,9 +1277,9 @@ Key trade-offs in Tech Lead decision-making.
 
 **Time allocation.** The Tech Lead's time allocation is a strategic decision, not a default. Track time across categories (code review, design review, meetings, coding, mentoring, planning) for one week. If more than 60% is in meetings, deep work is being displaced. If more than 60% is in coding, leadership work is being neglected. The ideal split varies by team maturity and project phase, but the Tech Lead should be intentional about the allocation.
 
-### Tech Lead decision-making
+## Tech Lead Decision-Making
 
-This subsection captures the elevation from Senior Developer reasoning to Tech Lead reasoning across the key areas of the role.
+This section captures the elevation from Senior Developer reasoning to Tech Lead reasoning across the key areas of the role.
 
 **What a Senior Engineer usually knows:**
 
@@ -1302,6 +1302,8 @@ This subsection captures the elevation from Senior Developer reasoning to Tech L
 **Common overengineering trap: over-process.**
 
 New Tech Leads who transition from chaotic teams often overcorrect with excessive process: mandatory design docs for every PR, weekly architecture reviews for all changes, sign-off requirements for every dependency update. This feels like quality improvement but is actually a velocity tax. The test: does this process prevent a problem that has actually occurred, or does it prevent a hypothetical problem? If the team has never shipped a feature with a broken database migration, a mandatory migration review gate solves a problem that does not exist. Introduce process in response to observed failures, not in anticipation of imagined ones.
+
+**Common underengineering trap: under-process.** The symmetric failure is a Tech Lead who avoids all formal process because "we move fast." A growing team (10+ engineers) with no ADRs, no written standards, and no decision records loses institutional knowledge with every departure. When a critical decision was made in a Slack thread 8 months ago and the author has left, the team cannot explain why the system works the way it does. The minimum bar: ADRs for irreversible decisions, a written onboarding checklist, and one team standard document per major technology (e.g., how the team writes and deploys services).
 
 **When to avoid formal Tech Lead processes:**
 

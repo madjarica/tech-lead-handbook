@@ -359,7 +359,7 @@ const response = await fetch("/api/payments", {
 
 ```ts
 // Server-side: check if key was already processed
-async function createPayment(req: Request) {
+async function createPayment(req: Request, res: Response) {
   const key = req.headers["idempotency-key"];
   if (!key) return res.status(400).json({ error: "Idempotency-Key required" });
 

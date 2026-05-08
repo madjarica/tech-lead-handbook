@@ -100,10 +100,30 @@ A chapter that only covers points 1–4 is not done.
 The following chapters are **reference chapters**, not teaching chapters,
 and explicitly opt out of parts of the template:
 
-- `book/26-glossary.md` — alphabetical glossary. Required sections are
-  limited to a chapter title, a goal, "How to Use This Chapter", and the
-  alphabetical entries. The teaching-oriented sections (Mental Model,
-  Theoretical Foundation, Trade-offs, Production Considerations,
+- `book/00-introduction.md` — orientation chapter. Uses a custom
+  section structure (reading paths, study guidance, chapter dependency
+  diagram) instead of the teaching template. Does not include Mental
+  Model, Theoretical Foundation, Examples, Trade-offs, Production
+  Considerations, Interview Q&A, Tech Lead Checklist, or Further Study.
+
+- `book/24-interview-questions-and-answers.md` — consolidated Q&A
+  reference chapter. Aggregates and curates questions from all teaching
+  chapters into domain sections. Uses domain-specific H2 sections with
+  compact and detailed Q&A formats instead of the teaching template.
+  Does not include Mental Model, Theoretical Foundation, Examples,
+  Production Considerations, or Tech Lead Checklist.
+
+- `book/25-practical-interview-scenarios.md` — scenario practice
+  chapter. Contains 30 scenario H2 sections, each with a fixed 11-part
+  subsection format (Situation through Follow-up questions). Uses a
+  Scenario Answer Framework instead of the teaching template sections.
+  Does not include Core Terminology, Theoretical Foundation, Examples,
+  Production Considerations, Interview Q&A, or Tech Lead Checklist.
+
+- `book/26-glossary.md` — topic-organized glossary. Required sections
+  are limited to a chapter title, "How to Use This Glossary", and the
+  topic-grouped term entries. The teaching-oriented sections (Mental
+  Model, Theoretical Foundation, Trade-offs, Production Considerations,
   Interview Q&A, Tech Lead Checklist, Summary, Further Study) do not
   apply.
 

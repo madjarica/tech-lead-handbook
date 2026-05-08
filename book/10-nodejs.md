@@ -3347,7 +3347,7 @@ a retention bucket.
   confidence is high. Node.js version upgrades follow LTS cadence
   (yearly). Database migrations split destructive changes into
   multiple deploys (add column → migrate reads → drop old column).
-  See [CI/CD and DevOps](./16-ci-cd.md).
+  See [CI/CD and DevOps](./17-ci-cd-and-devops.md).
 
 ## Tech Lead Decision-Making
 
@@ -4896,9 +4896,9 @@ Answers or behaviors that indicate shallow Node.js understanding:
   OpenTelemetry, SLOs.
 - [Performance and Scalability](./19-performance-and-scalability.md) —
   connection pooling, caching, load testing.
-- [Testing](./14-testing.md) — unit and integration testing for
+- [Testing and Quality](./16-testing-and-quality.md) — unit and integration testing for
   Node.js services, mocking strategies, test pyramid.
-- [CI/CD and DevOps](./16-ci-cd.md) — deployment pipelines, database
+- [CI/CD and DevOps](./17-ci-cd-and-devops.md) — deployment pipelines, database
   migrations in CI, lockfile enforcement.
 - Fastify documentation — plugin architecture, schema compilation,
   lifecycle hooks.

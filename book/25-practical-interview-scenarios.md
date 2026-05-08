@@ -25,6 +25,8 @@ flowchart LR
 
 The loop is intentional. Interviewers test adaptability by changing constraints mid-scenario. A candidate who rigidly defends their first answer is weaker than one who says "Given that new constraint, I would change my approach to X because Y."
 
+This loop is how interviewers distinguish Tech Lead candidates from Senior Engineers. A Senior Engineer proposes a correct technical solution. A Tech Lead owns the outcome — they clarify accountability, surface organizational constraints (team skill, on-call readiness, stakeholder expectations), and adjust when the picture shifts. Every iteration through the loop is an opportunity to demonstrate that you think beyond the code.
+
 ## Scenario Answer Framework
 
 Use this structure for any scenario-based interview question:
@@ -39,7 +41,7 @@ Use this structure for any scenario-based interview question:
 
 5. **Address risks.** Identify technical risks (data loss, downtime), business risks (customer impact, revenue), security risks (exposed data), and team risks (burnout, knowledge gaps).
 
-6. **State your recommendation.** After presenting options, choose one and explain why. Do not hedge — interviewers want to see decision-making under uncertainty.
+6. **State your recommendation and own it.** After presenting options, choose one and explain why. Do not hedge — interviewers want to see decision-making under uncertainty. Name who owns the execution: who runs the fix, who is on-call for the rollout, and what you personally commit to revisiting and by when. Ownership separates Tech Lead answers from Senior Engineer answers.
 
 7. **Describe communication.** Explain how you would communicate the decision to stakeholders: engineering team, product manager, leadership, customers if relevant.
 
