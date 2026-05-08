@@ -5720,3 +5720,120 @@ Testing pyramid, unit tests, integration tests, E2E tests, contract tests, mocks
 ### Verification notes
 
 - No new entries added to `notes/verification-needed.md` — existing entry #115 (Pact API) covers the only tool-specific claim that needs verification
+
+---
+
+## Phase 7: Practical Interview Scenarios
+
+**Date:** 2026-05-08
+**Target file:** `book/25-practical-interview-scenarios.md`
+**Action:** Full generation (replaced skeleton)
+
+### Approach
+
+- Wrote chapter introduction sections (Chapter Goal, Why This Matters, Mental Model with Mermaid diagram, Scenario Answer Framework) directly.
+- Generated 30 scenarios in 5 parallel batches of 6 scenarios each.
+- Wrote closing sections (How to Practice Scenario-Based Interviews, Summary, Further Study) directly.
+- Assembled all parts, verified structure, and fixed cross-link paths.
+
+### Output metrics
+
+| Metric | Value |
+|---|---|
+| Total lines | 3,360 |
+| H2 headings | 37 (4 intro + 30 scenarios + 3 closing) |
+| Scenario count | 30 |
+| H3 subsections | 336 (30 × 11 scenario subsections + 6 closing subsections) |
+| Scenario separators | 30 |
+| Mermaid diagrams | 1 (constraint-reveal loop) |
+| Banned words | 0 |
+| Cross-links validated | 18 unique chapter paths, all verified against actual book files |
+
+### Structure
+
+Each scenario follows the required format:
+1. Situation
+2. What you should clarify first
+3. How to think about it
+4. Investigation steps
+5. Possible solutions (short-term mitigation + long-term fix + what to measure + how to communicate)
+6. Trade-offs
+7. Risks (including what not to do)
+8. Strong interview answer (6–10 sentences)
+9. Weak answer (2–4 sentences, plausible but shallow)
+10. What the interviewer is testing
+11. Follow-up questions
+
+### 30 scenarios covered
+
+1. An API is slow in production
+2. A database query is the bottleneck
+3. The team wants microservices but the app is a small monolith
+4. Deployments are unstable
+5. A frontend app has poor Core Web Vitals
+6. There is a production incident
+7. A junior engineer keeps repeating the same mistakes
+8. Product wants a feature that creates a security risk
+9. The AWS bill suddenly increased
+10. A Kubernetes deployment is in CrashLoopBackOff
+11. An AI tool generated insecure code
+12. A legacy Angular app needs modernization
+13. A React app has chaotic state management
+14. A Node.js API needs to support 10x more traffic
+15. The company has no engineering standards
+16. A team has too much technical debt
+17. A critical dependency is no longer maintained
+18. A release must be rolled back
+19. A customer reports data inconsistency
+20. A system needs audit logging for compliance
+21. A team is blocked by slow code reviews
+22. A service has intermittent failures that cannot be reproduced locally
+23. A database migration failed during deployment
+24. A new feature requires background jobs and retries
+25. A customer-facing incident requires communication with non-technical stakeholders
+26. A team wants to adopt Kubernetes without operational experience
+27. A monolith needs better boundaries before being split
+28. A frontend rewrite is proposed without clear business value
+29. An API needs versioning without breaking clients
+30. A production system lacks observability
+
+### Closing sections
+
+- **How to Practice Scenario-Based Interviews:** 6 subsections covering answer structure, clarifying questions, avoiding jumping to solutions, discussing trade-offs, showing leadership without sounding authoritarian, and closing answers clearly.
+- **Summary:** 8 bullets.
+- **Further Study:** 6 resources with cross-links to 6 chapters.
+
+### Cross-link fixes applied
+
+9 incorrect chapter number prefixes from subagent output were corrected:
+- `./01-tech-lead-skills.md` → `./23-tech-lead-skills.md`
+- `./06-api-design-and-rest.md` → `./12-api-design.md`
+- `./09-nodejs.md` → `./10-nodejs.md`
+- `./10-react.md` → `./08-react.md`
+- `./11-git-and-engineering-workflow.md` → `./20-git-and-engineering-workflow.md`
+- `./12-software-architecture.md` → `./14-software-architecture.md`
+- `./13-ci-cd-and-devops.md` → `./17-ci-cd-and-devops.md`
+- `./14-performance-and-scalability.md` → `./19-performance-and-scalability.md`
+- `./16-observability.md` → `./18-observability.md`
+
+### Quality verification
+
+| Check | Result |
+|---|---|
+| 30 scenarios present | Pass |
+| Each scenario has 11 subsections | Pass (336 total = 30 × 11 + 6 closing) |
+| Banned words (seamless, powerful, etc.) | Pass — 0 found |
+| "simply" | Pass — 0 found |
+| "just" | Pass — 0 found |
+| Cross-links valid | Pass — 18 unique paths, all match actual files |
+| Mermaid diagram present | Pass — 1 diagram with labeled arrows |
+| Short-term/long-term in each scenario | Pass |
+| What to measure in each scenario | Pass |
+| What not to do in each scenario | Pass |
+| Communication guidance in each scenario | Pass |
+| Strong answer 6-10 sentences | Pass |
+| Weak answer 2-4 sentences | Pass |
+| Follow-up questions in each scenario | Pass |
+| How to Practice section present | Pass |
+| Summary section present | Pass |
+| Further Study section present | Pass |
