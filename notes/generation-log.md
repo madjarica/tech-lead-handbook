@@ -5500,3 +5500,223 @@ All 16 checks passed. Five targeted improvements were made:
 - H2 heading case: all Title Case
 - H3 heading case: all sentence case
 - No version-sensitive claims
+
+---
+
+## testing-and-quality-initial-generation — 2026-05-07
+
+- **File:** `book/16-testing-and-quality.md`
+- **Pass type:** Initial generation
+- **Previous state:** Skeleton (153 lines)
+- **New state:** 1,242 lines — complete chapter
+
+### Content overview
+
+- **16 H2 sections** matching CHAPTER_TEMPLATE.md in order
+- **2 Mermaid diagrams:** testing pyramid and testing trophy
+- **7 code examples:** Vitest unit test, React Testing Library component test, Supertest API integration test, Playwright E2E test, pytest unit test with fake, flaky test before/after fix, CI quality gate YAML
+- **Comprehensive topic coverage:** testing pyramid/trophy/honeycomb, all test types (unit, integration, E2E, contract, snapshot, property-based, regression, smoke, sanity, exploratory, performance, security, accessibility, visual regression, cross-browser), test doubles (stub, mock, spy, fake), test data management, flaky tests, coverage, mutation testing, TDD, BDD, static analysis, CI quality gates, code review, frontend/backend/API/database testing, observability as quality feedback
+
+### Q&A counts
+
+- Basic: 20 compact
+- Senior: 10 (7 compact + 3 detailed)
+- Tech Lead: 15 (12 compact + 3 detailed)
+- Scenario-Based: 10 compact
+- Trick: 5 compact
+- Red Flags: 5 items
+- **Total: 60 questions + 5 red flag items**
+
+### Quality checks
+
+- Code fence balance: 20 (10 pairs), balanced
+- Banned words: 0 (4 uses of "just" inside quoted weak answers — intentional)
+- Cross-links: 13 to other chapters (CI/CD, Observability, Security, Performance, Git/Workflow, Software Architecture, Glossary)
+- All H2 headings Title Case, all H3 headings sentence case
+- No version-sensitive claims introduced — chapter focuses on concepts, strategies, and patterns
+- **No new entries for `notes/verification-needed.md`**
+
+---
+
+## testing-and-quality-expand-qa
+
+- **File:** `book/16-testing-and-quality.md`
+- **Date:** 2026-05-08
+- **Pass type:** Expand Interview Q&A
+- **Previous state:** 1,242 lines — 60 questions across 6 categories
+- **New state:** 1,525 lines — 102 questions across 10 categories + 5 red flag items
+
+### Changes
+
+- Reorganized Q&A section from 6 categories into 10 categories per user specification
+- Added 4 new domain-specific categories: Frontend Testing, Backend and API Testing, CI and Quality Gate Questions, Performance and Security Testing
+- Added 42 new questions across all categories
+- Upgraded 1 compact question (legacy codebase testing) to detailed format with Strong Answer, Explanation, Example, What the Interviewer Is Testing, Weak Answer, and Red Flags
+
+### Q&A counts (final)
+
+| Category | Count | Format |
+|---|---|---|
+| Basic Questions | 30 | 30 compact |
+| Senior Questions | 15 | 4 detailed + 11 compact |
+| Tech Lead Questions | 15 | 3 detailed + 12 compact |
+| Frontend Testing | 7 | 7 compact |
+| Backend and API Testing | 6 | 6 compact |
+| CI and Quality Gate | 6 | 6 compact |
+| Performance and Security | 7 | 7 compact |
+| Scenario-Based | 10 | 10 compact |
+| Trick Questions | 5 | 5 compact |
+| Weak Answers and Red Flags | 5 | 5 items |
+| **Total** | **102 questions + 5 red flags** | |
+
+### Topics covered
+
+Testing pyramid, unit tests, integration tests, E2E tests, contract tests, mocks/stubs/fakes/spies, flaky tests, test coverage, CI testing, regression testing, frontend testing (React, accessibility, visual regression, state management, forms, cross-browser), backend testing (API endpoints, background jobs, event-driven, error handling, authorization, database migrations), accessibility testing (axe, manual, limitations), performance testing (load/stress/soak, budgets, frontend performance), security testing (SAST/DAST, XSS, CSRF, SQL injection, IDOR), legacy testing strategy, quality gates, team standards, release confidence
+
+### Quality checks
+
+- Code fence balance: 20 (10 pairs), balanced
+- Banned words: 0
+- All new headings follow existing casing conventions
+- No version-sensitive claims added
+- **No new entries for `notes/verification-needed.md`**
+
+---
+
+## testing-and-quality-improve-examples
+
+- **File:** `book/16-testing-and-quality.md`
+- **Date:** 2026-05-08
+- **Pass type:** Improve Code and Practical Examples
+- **Previous state:** 1,525 lines — 7 code examples in Examples section
+- **New state:** 1,642 lines — 10 code examples in Examples section
+
+### Changes
+
+- Added 3 new code examples to the Examples section:
+  1. **Contract test with Pact (consumer side)** — TypeScript, PactV3 consumer test defining request/response expectations for a microservice boundary
+  2. **Accessibility test with jest-axe** — TSX, rendering a React component and running automated WCAG compliance checks
+  3. **Test data factory (builder pattern)** — TypeScript, `buildUser()` factory with sensible defaults and per-test overrides
+- Each new example includes the 4-part explanation: What it verifies, Why this test level, Common mistake, Production change
+- Fixed minor issue: removed unused `import pytest` from the Python test example
+- Reviewed all 7 existing examples — confirmed correct and consistent with the testing strategy described in the chapter (no contradictions found)
+
+### Example inventory (final)
+
+| # | Example | Language | Test type |
+|---|---|---|---|
+| 1 | Unit test with Vitest | TypeScript | Unit |
+| 2 | React component test with RTL | TSX | Integration |
+| 3 | API integration test with Supertest | TypeScript | Integration |
+| 4 | E2E test with Playwright | TypeScript | E2E |
+| 5 | Python test with pytest + fake | Python | Unit |
+| 6 | Flaky test: before and after | TypeScript | Debugging |
+| 7 | CI quality gate snippet | YAML | CI/CD |
+| 8 | Contract test with Pact | TypeScript | Contract |
+| 9 | Accessibility test with jest-axe | TSX | Accessibility |
+| 10 | Test data factory (builder) | TypeScript | Test infrastructure |
+
+### Quality checks
+
+- Code fence balance: 26 (13 pairs), balanced
+- All code blocks have correct language tags (ts, tsx, python, yaml, mermaid)
+- Banned words: 0
+- New examples are consistent with chapter strategy (contract tests for service boundaries, accessibility as part of quality, factories over shared fixtures)
+- **1 new entry for `notes/verification-needed.md`** — Pact PactV3 API shape
+
+---
+
+## testing-and-quality-strengthen-tech-lead
+
+- **File:** `book/16-testing-and-quality.md`
+- **Date:** 2026-05-08
+- **Pass type:** Strengthen Tech Lead Perspective
+- **Previous state:** 1,642 lines — brief Tech Lead content (12-line decision list + 2 interview framings)
+- **New state:** 1,766 lines — comprehensive Tech Lead perspective (+124 lines)
+
+### Changes
+
+**Expanded "Tech Lead decision-making" subsection** (from 12 lines to 9 subsections):
+1. **Tech Lead decision-making** — expanded from 6 bullets to 9 bullets plus a "core shift from Senior to TL" framing
+2. **Quality strategy as leadership responsibility** — 4-point framework: defining the team's testing contract, budgeting quality infrastructure time, using data to drive decisions, owning the risk conversation
+3. **The cost of slow and flaky CI** — quantified impact: context-switching cost, batch size increase, flake tax formula
+4. **Common overengineering trap** — 4 concrete examples (testing frameworks, trivial code, wrong test level, 100% mandate) with a Tech Lead check question
+5. **Common under-testing trap** — 4 concrete examples (error paths, authorization, no regression tests, no contract tests) with a Tech Lead check question
+6. **Introducing testing in a legacy codebase** — 6-step change management playbook
+7. **When NOT to test** — 4 legitimate skip scenarios plus the "dangerous version" warning
+8. **Explaining quality investment to stakeholders** — 3 before/after reframing examples with ROI pattern
+9. **Production readiness from a testing perspective** — 7-item checklist covering integration tests, error paths, smoke tests, rollback, monitoring, security, local execution
+
+**Added 5 inline Tech Lead callouts** in chapter body sections:
+1. Flaky tests — flake budget ownership, cost visibility
+2. Coverage — mutation testing as the real quality signal, stakeholder communication
+3. Quality gates — blocking vs non-blocking design, quarterly review of gate effectiveness
+4. Legacy testing — coverage trends over absolute numbers, avoiding mandate-driven low-quality tests
+5. Security and API testing — authorization tests as security requirements, pre-audit coverage
+
+**Strengthened "How to Explain This in an Interview"** with 4 new TL-level framings:
+1. Justifying testing investment to non-technical stakeholders (ROI framing)
+2. Handling slow CI (delivery metric framing)
+3. Calibrating testing confidence by blast radius (risk-based framing)
+4. Introducing testing to a team without it (change management framing)
+
+### Quality checks
+
+- Code fence balance: 26 (13 pairs), balanced — no new code blocks added
+- Banned words: 0
+- All new headings follow sentence case convention
+- No version-sensitive claims introduced
+- No contradictions with existing chapter content
+- **No new entries for `notes/verification-needed.md`**
+
+---
+
+## testing-and-quality-chapter-audit
+
+- **File:** `book/16-testing-and-quality.md`
+- **Date:** 2026-05-08
+- **Pass type:** Chapter Audit
+- **Audited against:** `BOOK_SPEC.md`, `STYLE_GUIDE.md`, `CHAPTER_TEMPLATE.md`
+- **Previous state:** 1,766 lines
+- **New state:** 1,766 lines (no content additions, only structural fixes)
+
+### Audit checklist (20 items)
+
+| # | Check | Result |
+|---|---|---|
+| 1 | Shallow definitions | Pass — all definitions include "what," "when to use," and trade-offs |
+| 2 | Missing mental models | Pass — 2 Mermaid diagrams (pyramid, trophy), executable-specifications mental model, shape comparison table |
+| 3 | Missing trade-offs | Pass — 8-entry trade-offs table with "optimizes for X, sacrifices Y, flips when Z" format |
+| 4 | Missing production considerations | Pass — 7 subsections including test environments, CI performance, flake budget, quality metrics, observability, TL decision-making, production readiness checklist |
+| 5 | Missing Tech Lead perspective | Pass — 5 inline callouts, 9 TL subsections, 6 interview framings, TL checklist |
+| 6 | Missing security testing | Pass — SAST/DAST, dependency scanning, authorization testing, inline TL callout on API security, cross-link to Security chapter |
+| 7 | Missing performance testing | Pass — load/stress/soak testing, performance budgets, frontend performance, cross-link to Performance chapter |
+| 8 | Missing maintainability | Pass — test suite structure Q&A, factory vs fixture, snapshot maintenance, deleting tests, overengineering trap |
+| 9 | Weak interview answers | Pass — 7 detailed Q&A with plausible weak answers (not strawmen) |
+| 10 | Repetitive sections | Pass — legacy testing, stakeholder communication, and CI topics appear in multiple formats (theory, TL section, Q&A, interview framing) but serve different purposes |
+| 11 | Code examples without explanation | Pass — all 10 code examples have 4-part explanation |
+| 12 | Unverified claims | Pass — 1 existing entry in verification-needed.md (Pact API), 5 uses of "just" verified as legitimate |
+| 13 | Broken Markdown formatting | Pass — code fences balanced (13 pairs), tables well-formed, links valid |
+| 14 | Missing language tags | Pass — all code blocks tagged (ts, tsx, python, yaml, mermaid) |
+| 15 | Headings vs template | **Fixed** — 10 Q&A category headings changed from Title Case to sentence case; "Weak Answers and Red Flags" renamed to "Red flags" to match template |
+| 16 | Tool overemphasis | Pass — chapter is strategy-first; tools mentioned in context of decisions, not as focus |
+| 17 | Missing flaky test discussion | Pass — dedicated subsection, TL callout, 3 Q&A questions, red flag #5, CI cost quantification |
+| 18 | Missing legacy testing | Pass — Practical Usage subsection, TL subsection, detailed Q&A, interview framing, TL callout |
+| 19 | Missing CI quality gates | Pass — Theoretical Foundation subsection with TL callout, CI YAML example, 6 CI-specific Q&A questions |
+| 20 | Missing quality as risk management | Pass — TL "owning the risk conversation," blast-radius interview framing, stakeholder ROI framing |
+
+### Fixes applied
+
+1. **H3 heading casing (10 headings):** Changed Q&A category headings from Title Case to sentence case per STYLE_GUIDE: "Basic Questions" → "Basic questions," "Senior Questions" → "Senior questions," "Tech Lead Questions" → "Tech Lead questions," "Frontend Testing" → "Frontend testing," "Backend and API Testing" → "Backend and API testing," "CI and Quality Gate Questions" → "CI and quality gate questions," "Performance and Security Testing" → "Performance and security testing," "Scenario-Based Questions" → "Scenario-based questions," "Trick Questions" → "Trick questions"
+2. **Q&A section heading rename:** "Weak Answers and Red Flags" → "Red flags" to match CHAPTER_TEMPLATE naming
+3. **Mermaid diagram arrow labels (2 diagrams):** Added labels to comply with STYLE_GUIDE "Always label arrows" rule. Pyramid: `-->|more tests, faster|`. Trophy: `-->|more volume|`, `-->|focused scope|`, `-->|automated checks|`
+
+### What still needs review
+
+- Pact PactV3 API shape (already tracked as verification-needed #115)
+- The `coverage-check` npm package referenced in the CI YAML example is illustrative; verify whether a specific real package name would be more helpful
+- 5 uses of "just" reviewed and confirmed as legitimate (quoting anti-patterns or meaning "only")
+
+### Verification notes
+
+- No new entries added to `notes/verification-needed.md` — existing entry #115 (Pact API) covers the only tool-specific claim that needs verification

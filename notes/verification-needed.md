@@ -2233,3 +2233,21 @@ add specific rows here.
   Long Contexts" (Liu et al., 2023), plus any updated benchmarks for
   current models (GPT-4o, Claude 3.5+).
 - **Status:** unverified
+
+---
+
+### #115 — Pact PactV3 API shape in contract test example
+
+- **File:** `book/16-testing-and-quality.md`, Examples section, "Contract
+  test with Pact (consumer side)"
+- **Claim:** The example uses `PactV3` from `@pact-foundation/pact` with
+  `.given()`, `.uponReceiving()`, `.withRequest()`, `.willRespondWith()`,
+  and `.executeTest()` chaining. This matches PactV3 API as of
+  @pact-foundation/pact v12.x.
+- **Why it matters:** The Pact JS library has gone through significant
+  API changes (PactV2 → PactV3 → PactV4). If the library releases a
+  breaking version, the example code may need updating. The `executeTest`
+  callback API replaced the older `setup()`/`verify()`/`finalize()` flow.
+- **Suggested source:** @pact-foundation/pact npm package documentation
+  and GitHub README for the current stable version.
+- **Status:** unverified
