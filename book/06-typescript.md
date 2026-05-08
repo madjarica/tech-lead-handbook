@@ -37,7 +37,7 @@ runs.
 ```mermaid
 flowchart LR
     TS[".ts source"] -->|tsc type-check| Errors["Type errors (if any)"]
-    TS -->|emit (tsc / swc / esbuild)| JS[".js output"]
+    TS -->|"emit (tsc / swc / esbuild)"| JS[".js output"]
     JS -->|runtime| Node["Node / Browser"]
     Errors -.->|blocks CI| CI[CI pipeline]
     JS -.->|no types remain| Node
