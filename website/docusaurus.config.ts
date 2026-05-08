@@ -13,10 +13,10 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://your-username.github.io',
+  url: 'https://madjarica.github.io',
   baseUrl: '/tech-lead-handbook/',
 
-  organizationName: 'your-username',
+  organizationName: 'madjarica',
   projectName: 'tech-lead-handbook',
 
   onBrokenLinks: 'warn',
@@ -70,7 +70,7 @@ const config: Config = {
       title: 'Tech Lead Handbook',
       items: [
         {
-          href: 'https://github.com/your-username/tech-lead-handbook',
+          href: 'https://github.com/madjarica/tech-lead-handbook',
           label: 'GitHub',
           position: 'right',
         },
